@@ -178,13 +178,13 @@
       <div>
         <label for="first_name">First Name</label>
         <div class="parsley-container">
-          <input type="text" name="first_name" id="first_name" data-required="true" data-error-message="Please enter your first name" />
+          <input type="text" name="first_name" id="first_name" data-trigger="change" data-required="true" data-error-message="Please enter your first name" />
         </div>
       </div>
       <div>
         <label for="last_name">Last Name</label>
         <div class="parsley-container">
-          <input type="text" name="last_name" id="last_name" data-required="true" data-error-message="Please enter your last name" />
+          <input type="text" name="last_name" id="last_name" data-trigger="change" data-required="true" data-error-message="Please enter your last name" />
         </div>
       </div>
       <div>
@@ -196,19 +196,19 @@
       <div>
         <label for="username">Username</label>
         <div class="parsley-container">
-          <input type="text" name="username" id="username" data-required="true" data-error-message="Please enter a username" />
+          <input type="text" name="username" id="username" data-required="true" data-trigger="change" data-error-message="Please enter a username" />
         </div>
       </div>
       <div>
         <label for="password">Password</label>
         <div class="parsley-container">
-          <input type="password" name="password" id="password" data-required="true" data-error-message="Please enter a password" />
+          <input type="password" name="password" id="password" data-required="true" data-trigger="change" data-error-message="Please enter a password" />
         </div>
       </div>
       <div>
         <label for="password2">Reenter Password</label>
         <div class="parsley-container">
-          <input type="password" name="password2" id="password2" data-required="true" data-error-message="Please reenter your password" data-equalto="#password" data-trigger="change" />
+          <input type="password" name="password2" id="password2" data-trigger="change" data-required="true" data-error-message="Please reenter your password" data-equalto="#password" data-trigger="change" />
         </div>
       </div>
       <div class="error">

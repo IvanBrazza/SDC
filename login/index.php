@@ -106,13 +106,13 @@
         <div>
           <label for="username">Username</label>
           <div class="parsley-container">
-            <input type="text" name="username" id="username" value="<?php echo $submitted_username; ?>" data-required="true" data-error-message="Please enter your username" />
+            <input type="text" name="username" id="username" value="<?php echo $submitted_username; ?>" data-trigger="change" data-required="true" data-error-message="Please enter your username" />
           </div>
         </div>
         <div>
           <label for="password">Password</label>
           <div class="parsley-container">
-            <input type="password" name="password" id="password" data-required="true" data-error-message="Please enter your password" />
+            <input type="password" name="password" id="password" data-required="true" data-trigger="change" data-error-message="Please enter your password" />
           </div>
         </div>
         <br /><br /> 

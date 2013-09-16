@@ -96,14 +96,11 @@
       </div>
       <div>
         <label for="celebration_date">Date of celebration</label>
-        <div class="parsley-container">
-          <input type="text" name="celebration_date" class="date" data-required="true" data-type="dateIso" data-error-message="Please enter a date">
-        </div>
       </div>
       <div id="order">
         <label for="order">Your order</label>
         <div class="parsley-container">
-          <textarea name="order" id="order" rows="6" cols="30" data-required="true" data-error-message="Please enter your order"></textarea>
+          <textarea name="order" id="order" rows="6" cols="30" data-trigger="change" data-required="true" data-error-message="Please enter your order"></textarea>
         </div>
       </div>
       <div>
@@ -118,7 +115,7 @@
       <div>
         <label for="datetime">Date and time to collect/deliver order</label>
         <div class="parsley-container">
-          <input type="text" id="datetime" name="datetime" data-required="true" data-error-message="Please enter a date and time">
+          <input type="text" id="datetime" name="datetime" data-required="true" data-trigger="change" data-error-message="Please enter a date and time">
         </div>
       </div>
       <br /><br />

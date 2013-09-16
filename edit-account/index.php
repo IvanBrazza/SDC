@@ -149,19 +149,19 @@
         <div>
           <label for="address">Address</label>
           <div class="parsley-container">
-            <input type="text" name="address" id="address" value="<?php echo htmlentities($_SESSION['user']['address'], ENT_QUOTES, 'UTF-8'); ?>" data-required="true" data-error-message="Please enter your address" />
+            <input type="text" name="address" id="address" value="<?php echo htmlentities($_SESSION['user']['address'], ENT_QUOTES, 'UTF-8'); ?>" data-required="true" data-error-message="Please enter your address" data-trigger="change">
           </div>
         </div>
         <div>
           <label for="postcode">Postcode</label>
           <div class="parsley-container">
-            <input type="text" name="postcode" id="postcode" value="<?php echo htmlentities($_SESSION['user']['postcode'], ENT_QUOTES, 'UTF-8'); ?>" data-required="true" data-error-message="Please enter your postcode" />
+            <input type="text" name="postcode" id="postcode" value="<?php echo htmlentities($_SESSION['user']['postcode'], ENT_QUOTES, 'UTF-8'); ?>" data-required="true" data-error-message="Please enter your postcode" data-trigger="change"/>
           </div>
         </div>
         <div>
           <label for="phone">Phone number</label>
           <div class="parsley-container">
-            <input type="text" name="phone" id="phone" value="<?php echo $_SESSION['user']['phone'] ?>" data-required="true" data-error-message="Please enter your phone number" />
+            <input type="text" name="phone" id="phone" value="<?php echo $_SESSION['user']['phone'] ?>" data-required="true" data-error-message="Please enter your phone number" data-trigger="change" />
           </div>
         </div>
         <input type="submit" value="Update Account" /> 
