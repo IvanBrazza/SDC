@@ -96,6 +96,9 @@
       </div>
       <div>
         <label for="celebration_date">Date of celebration</label>
+        <div class="parsley-container">
+          <input type="text" name="celebration_date" class="date" data-required="true" data-type="dateIso" data-error-message="Please enter a date">
+        </div>
       </div>
       <div id="order">
         <label for="order">Your order</label>
