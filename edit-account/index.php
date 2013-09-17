@@ -1,5 +1,5 @@
 <?php
-  require("../common.php");
+  require("../lib/common.php");
   $title = "Edit Account";
 
   if (empty($_SESSION['user']))
@@ -119,7 +119,7 @@
     die();
   }
 ?>
-<?php include("../header.php"); ?>
+<?php include("../lib/header.php"); ?>
   <div class="container">
     <div class="form">
       <h1>Edit Account</h1>
@@ -168,4 +168,4 @@
       </form>
     </div>
   </div>
-<?php include("../footer.php"); ?>
+<?php include("../lib/footer.php"); ?>

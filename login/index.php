@@ -1,5 +1,5 @@
 <?php
-  require("../common.php");
+  require("../lib/common.php");
   $title = "Log In";
   
   $submitted_username = "";
@@ -93,7 +93,7 @@
     }
   }
 ?>
-<?php include("../header.php"); ?>
+<?php include("../lib/header.php"); ?>
   <div class="container">
     <div class="error">
       <span class="error_message">
@@ -120,4 +120,4 @@
       </form> 
     </div>
   </div>
-<?php include("../footer.php");
+<?php include("../lib/footer.php");

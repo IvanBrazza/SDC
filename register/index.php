@@ -1,5 +1,5 @@
 <?php
-  require("../common.php");
+  require("../lib/common.php");
   $title = "Register";
 
   if(!empty($_GET['e']))
@@ -23,7 +23,7 @@
   if(!empty($_POST))
   {
     // Check reCAPTCHA
-    require_once('../recaptchalib.php');
+    require_once('../lib/recaptcha.php');
     $privatekey = "6LePfucSAAAAAHkrfHOrSYPPvJqf6rCiNnhWT77L";
     $resp = recaptcha_check_answer($privatekey, $_SERVER["REMOTE_ADDR"],$_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
 
@@ -163,14 +163,14 @@
         die("Failed to run query to register: " . $ex->getMessage());
       }
       
-      require("../emailverification.php");
+      require("../lib/email-verification.php");
   
       header("Location: ../verify-email");
      die();
     }
   }
 ?>
-<?php include("../header.php"); ?>
+<?php include("../lib/header.php"); ?>
   <div class="container">
   <div class="form">
     <h1>Register</h1>
@@ -217,7 +217,7 @@
         </span>
       </div>
       <?php
-        require_once("../recaptchalib.php");
+        require_once("../lib/recaptcha.php");
         $publickey = "6LePfucSAAAAAKlUO3GQKgfXCd7SvIhtFjBH5F9Z";
         echo recaptcha_get_html($publickey, $error = null, $use_ssl = true);
       ?>
@@ -225,4 +225,4 @@
     </form>
   </div>
   </div>
-<?php include("../footer.php"); ?>
+<?php include("../lib/footer.php"); ?>

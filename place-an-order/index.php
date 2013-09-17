@@ -1,5 +1,5 @@
 <?php
-  require("../common.php");
+  require("../lib/common.php");
   $title = "Place An Order";
 
   if(empty($_SESSION['user']))
@@ -63,10 +63,10 @@
       die("Failed to run query: " . $ex->getMessage());
     }
 
-    include("emailorder.php");
+    include("../lib/email-order.php");
   }
 ?>
-<?php include("../header.php"); ?>
+<?php include("../lib/header.php"); ?>
   <div class="container">
   <div class="form">
     <h1>Place An Order</h1>
@@ -126,4 +126,4 @@
     </form>
   </div>
   </div>
-<?php include("../footer.php");
+<?php include("../lib/footer.php");

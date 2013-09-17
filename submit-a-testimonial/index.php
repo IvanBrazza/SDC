@@ -1,5 +1,5 @@
 <?php
-  require("../common.php");
+  require("../lib/common.php");
   $title = "Submit A Testimonial";
   
   if(!empty($_GET['e']))
@@ -13,7 +13,7 @@
   if (!empty($_POST))
   {
     // Check reCAPTCHA
-    require_once('../recaptchalib.php');
+    require_once('../lib/recaptcha.php');
     $privatekey = "6LePfucSAAAAAHkrfHOrSYPPvJqf6rCiNnhWT77L";
     $resp = recaptcha_check_answer($privatekey, $_SERVER["REMOTE_ADDR"],$_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
 
@@ -61,7 +61,7 @@
     }
   }
 ?>
-<?php include("../header.php"); ?>
+<?php include("../lib/header.php"); ?>
   <div class="form">
     <h1>Submit A Testimonial</h1>
     <form action="index.php" method="POST" data-validate="parsley">
@@ -95,11 +95,11 @@
         </span>
       </div>
       <?php
-        require_once("../recaptchalib.php");
+        require_once("../lib/recaptcha.php");
         $publickey = "6LePfucSAAAAAKlUO3GQKgfXCd7SvIhtFjBH5F9Z";
         echo recaptcha_get_html($publickey, $error = null, $use_ssl = false);
       ?>
       <input type="submit" id="submit-testimonial" value="Submit Testimonial">
     </form>
   </div>
-<?php include("../footer.php"); ?>
+<?php include("../lib/footer.php"); ?>

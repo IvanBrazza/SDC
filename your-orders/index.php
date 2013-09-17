@@ -1,5 +1,5 @@
 <?php
-  require("common.php");
+  require("../lib/common.php");
   
   if(empty($_SESSION['user']))
   {
@@ -37,27 +37,7 @@
 
   $rows = $stmt->fetchAll();
 ?>
-<head>
-  <title>Private | Star Dream Cakes</title>
-  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-  <link href="css/main.css" rel="stylesheet">
-</head>
-<body>
-  <div class="navbar">
-    <ul>
-      <li><a href="logout.php">Logout</a></li>
-      <li><a href="edit_account.php">Edit Account</a></li>
-      <?php if ($_SESSION['user']['username'] === "admin") : ?>
-        <li><a href="allorders.php">All Orders</a></li>
-        <li><a href="memberlist.php">Memberlist</a></li>
-      <?php endif; ?>
-      <li class="active"><a href="#">Your Orders</a></li>
-      <li><a href="placeanorder.php">Place An Order</a></li>
-      <li><a href="testimonials.php">Testimonials</a></li>
-      <li><a href="#">About Us</a></li>
-      <li><a href="index.php">Home</a></li>
-    </ul>
-  </div>
+<?php include("../lib/header.php"); ?>
   <div class="container">
     <div class="orders">
       <h1><?php echo $_SESSION['user']['username'];?>'s Orders</h1>
@@ -81,4 +61,4 @@
       </table>
     </div>
   </div>
-</body>
+<?php include("../lib/footer.php"); ?>

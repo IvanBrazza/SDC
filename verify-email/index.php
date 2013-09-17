@@ -1,5 +1,5 @@
 <?php
-  require("../common.php");
+  require("../lib/common.php");
   $title = "Thanks For Registering";
 
   if (!empty($_GET))
@@ -62,7 +62,7 @@
   }
 
 ?>
-<?php include("../header.php"); ?>
+<?php include("../lib/header.php"); ?>
   <div class="container">
     <?php if (!$_GET) : ?>
       <h3>Thank you for registering, we've sent an email to you to verify your account, please click on the link in the email.</h3>
@@ -72,4 +72,4 @@
       <?php header( "refresh:5;url=../login" ); ?>
     <?php endif; ?>
   </div>
-<?php include("../footer.php"); ?>
+<?php include("../lib/footer.php"); ?>

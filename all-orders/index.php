@@ -1,5 +1,5 @@
 <?php
-  require("../common.php");
+  require("../lib/common.php");
 
   if(empty($_SESSION['user']))
   {
@@ -217,7 +217,7 @@
     $title = $userrow['first_name'] . "'s Orders | Star Dream Cakes";
   }
 ?>
-<?php include("../header.php"); ?>
+<?php include("../hb/eader.php"); ?>
   <div class="container">
     <div class="orders">
       <?php if (empty($row) and !empty($_GET['order'])) : ?>
@@ -293,11 +293,11 @@
           </tr>
           <tr>
             <th>Agreed Price</th>
-            <td>&pound; <form action="../updateorder.php" method="POST"><input type="hidden" value="<?php echo $_GET['id']; ?>" name="id"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number"><input name="agreed_price" type="text" value="<?php echo $row['agreed_price']; ?>" style="width:50px;"><input type="submit" value="Update"></form></td>
+            <td>&pound; <form action="../lib/update-order.php" method="POST"><input type="hidden" value="<?php echo $_GET['id']; ?>" name="id"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number"><input name="agreed_price" type="text" value="<?php echo $row['agreed_price']; ?>" style="width:50px;"><input type="submit" value="Update"></form></td>
           </tr>
           <tr>
             <th>Delivery Charge</th>
-            <td>&pound; <form action="../updateorder.php" method="POST"><input type="hidden" value="<?php echo $_GET['id']; ?>" name="id"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number"><input name="delivery_charge" type="text" value="<?php echo $row['delivery_charge']; ?>" style="width:50px;"><input type="submit" value="Update"></form></td>
+            <td>&pound; <form action="../lib/update-order.php" method="POST"><input type="hidden" value="<?php echo $_GET['id']; ?>" name="id"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number"><input name="delivery_charge" type="text" value="<?php echo $row['delivery_charge']; ?>" style="width:50px;"><input type="submit" value="Update"></form></td>
           </tr>
           <tr>
             <th>Delivery Type</th>
@@ -335,7 +335,7 @@
               <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td>
-                <form action="../updateorder.php" method="POST">
+                <form action="../lib/update-order.php" method="POST">
                   <select name="status">
                     <option value="Processing">Processing</option>
                     <option value="Dispatched">Dispatched</option>
@@ -352,4 +352,4 @@
       <?php endif; ?>
     </div>
   </div>
-<?php include("../footer.php"); ?>
+<?php include("../lib/footer.php"); ?>

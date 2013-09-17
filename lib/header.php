@@ -10,7 +10,7 @@
   <div class="navbar">
     <ul>
       <?php if ($_SESSION) : ?>
-        <li><a href="../logout">Logout</a></li>
+        <li><a href="../lib/logout.php">Logout</a></li>
         <li><a href="../edit-account">Edit Account</a></li>
       <?php endif; ?>
       <?php if (!$_SESSION) : ?>

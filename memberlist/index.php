@@ -1,5 +1,5 @@
 <?php
-  require("../common.php");
+  require("../lib/common.php");
   $title = "Memberlist";
 
   if(empty($_SESSION['user']))
@@ -37,7 +37,7 @@
 
   $rows = $stmt->fetchAll();
 ?>
-<?php include("../header.php"); ?>
+<?php include("../lib/header.php"); ?>
   <div class="container">
     <div class="orders">
       <h1>Memberlist</h1> 
@@ -65,4 +65,4 @@
       </table>
     </div>
   </div>
-<?php include("../footer.php"); ?>
+<?php include("../lib/footer.php"); ?>

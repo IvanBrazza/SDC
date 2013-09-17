@@ -1,5 +1,5 @@
 <?php
-  require("../common.php");
+  require("../lib/common.php");
   $title = "Home";
 
   if (!empty($_SESSION['user']))
@@ -8,6 +8,6 @@
     die();
   } 
 
-  include("../header.php");
-  include("../footer.php");
+  include("../lib/header.php");
+  include("../lib/footer.php");
 ?>
