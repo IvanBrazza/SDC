@@ -118,6 +118,34 @@
     header("Location: ../edit-account/?update=success");
     die();
   }
+  else
+  {
+    $query = "
+      SELECT
+        *
+      FROM
+        users
+      WHERE
+        customer_id = :id
+    ";
+
+    $query_params = array(
+      ':id' => $_SESSION['user']['customer_id']
+    );
+
+    try
+    {
+      $stmt = $db->prepare($query);
+      $result = $stmt->execute($query_params);
+    }
+    catch(PDOException $ex)
+    {
+      die("Failed to execute query: " . $ex->getMessage());
+    }
+
+    $row = $stmt->fetch();
+    $_SESSION['user'] = $row;
+  }
 ?>
 <?php include("../lib/header.php"); ?>
   <div class="container">
