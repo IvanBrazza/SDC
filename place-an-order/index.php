@@ -65,11 +65,48 @@
 
     include("../lib/email-order.php");
   }
+  else
+  {
+    $query = "
+      SELECT
+        *
+      FROM
+        users
+      WHERE
+        username = :username
+    ";
+
+    $query_params = array(
+      ':username' => $_SESSION['user']['username']
+    );
+
+    try
+    {
+      $stmt = $db->prepare($query);
+      $result = $stmt->execute($query_params);
+    }
+    catch(PDOException $ex)
+    {
+      die("Failed to execute query: " . $ex->getMessage());
+    }
+
+    $row = $stmt->fetch();
+
+    if (empty($row['address']) or empty($row['postcode']) or empty($row['phone']))
+    {
+      $display_message = 'Please <a href="../edit-account">update your details</a> before placing an order.';
+    }
+  }
 ?>
 <?php include("../lib/header.php"); ?>
   <div class="container">
   <div class="form">
     <h1>Place An Order</h1>
+    <div class="error">
+      <span class="error_message">
+        <?php echo $display_message; ?>
+      </span>
+    </div>
     <form action="index.php" method="POST" data-validate="parsley">
       <div>
         <label for="filling">Filling</label>
