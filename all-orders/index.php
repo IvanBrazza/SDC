@@ -13,66 +13,6 @@
     die("Forbidden");
   }
 
-  /*if ($_POST)
-  {
-    $query = "
-      SELECT
-        customer_id,
-        order_number,
-        order_date,
-        datetime,
-        status,
-        customer_order
-      FROM
-        orders
-      WHERE
-        order_number = :order_number
-    ";
-
-    $query_params = array(
-      ':order_number' => $_POST['search_orders']
-    );
-
-    try
-    {
-      $stmt = $db->prepare($query);
-      $result = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage());
-    }
-
-    $row = $stmt->fetch();
-
-    $query = "
-      SELECT
-        customer_id,
-        first_name,
-        last_name
-      FROM
-        users
-      WHERE
-        customer_id = :customer_id
-    ";
-
-    $query_params = array(
-      ':customer_id' => $row['customer_id']
-    );
-
-    try
-    {
-      $stmt = $db->prepare($query);
-      $result = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage());
-    }
-
-    $userrow = $stmt->fetch();
-  }*/
-
   if (!empty($_GET['type']))
   {
     $query = "
