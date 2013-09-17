@@ -24,7 +24,7 @@
       die("Failed to execute query: " . $ex->getMessage());
     }
 
-    header("Location: testimonials.php");
+    header("Location: ../testimonials");
     die();
   }
   else
