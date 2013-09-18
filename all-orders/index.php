@@ -3,8 +3,8 @@
 
   if(empty($_SESSION['user']))
   {
-    header("Location: login.php");
-    die("Redirecting to login.php");
+    header("Location: ../login");
+    die();
   }
 
   if($_SESSION['user']['username'] !== "admin")
