@@ -74,7 +74,9 @@
         email = :email,
         postcode = :postcode,
         phone = :phone,
-        address = :address
+        address = :address,
+        first_name = :first_name,
+        last_name = :last_name
     ";
 
     if ($password !== null)
@@ -97,7 +99,9 @@
       ':user_id' => $_SESSION['user']['customer_id'],
       ':postcode' => $_POST['postcode'],
       ':phone' => $_POST['phone'],
-      ':address' => $_POST['address']
+      ':address' => $_POST['address'],
+      ':first_name' => $_POST['first_name'],
+      ':last_name' => $_POST['last_name']
     );
 
     try
@@ -110,10 +114,13 @@
       die("Failed to run query: " . $ex->getMessage());
     }
 
+    // Update the _SESSION variables
     $_SESSION['user']['email'] = $_POST['email'];
     $_SESSION['user']['postcode'] = $_POST['postcode'];
     $_SESSION['user']['phone'] = $_POST['phone'];
     $_SESSION['user']['address'] = $_POST['address'];
+    $_SESSION['user']['first_name'] = $_POST['first_name'];
+    $_SESSION['user']['last_name'] = $_POST['last_name'];
 
     header("Location: ../edit-account/?update=success");
     die();
@@ -160,6 +167,18 @@
         <div>
           <label>Username</label>
           <b><?php echo htmlentities($_SESSION['user']['username'], ENT_QUOTES, 'UTF-8'); ?></b>
+        </div>
+        <div>
+          <label for="first_name">First Name</label>
+          <div class="parsley-container">
+            <input type="text" name="first_name" id="first_name" value="<?php echo htmlentities($_SESSION['user']['first_name'], ENT_QUOTES, 'UTF-8'); ?>" data-required="true" data-error-message="Please enter your first name" data-trigger="change" /> 
+          </div>
+        </div>
+        <div>
+          <label for="last_name">Last Name</label>
+          <div class="parsley-container">
+            <input type="text" name="last_name" id="last_name" value="<?php echo htmlentities($_SESSION['user']['last_name'], ENT_QUOTES, 'UTF-8'); ?>" data-required="true"  data-error-message="Please enter your last name" data-trigger="change" /> 
+          </div>
         </div>
         <div>
           <label for="email">E-Mail Address</label>

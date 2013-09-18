@@ -92,7 +92,7 @@
 
     $row = $stmt->fetch();
 
-    if (empty($row['address']) or empty($row['postcode']) or empty($row['phone']))
+    if (empty($row['address']) or empty($row['postcode']) or empty($row['phone']) or empty($row['first_name']) or empty($row['last_name']))
     {
       $display_message = 'Please <a href="../edit-account">update your details</a> before placing an order.';
     }

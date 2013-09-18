@@ -105,8 +105,6 @@
           password,
           salt,
           email,
-          first_name,
-          last_name,
           email_verification,
           email_verified
         ) VALUES (
@@ -114,8 +112,6 @@
           :password,
           :salt,
           :email,
-          :first_name,
-          :last_name,
           :email_verification,
           :email_verified
         )
@@ -147,8 +143,6 @@
         ':password' => $password,
         ':salt' => $salt,
         ':email' => $_POST['email'],
-        ':first_name' => $_POST['first_name'],
-        ':last_name' => $_POST['last_name'],
         ':email_verification' => $email_verification,
         ':email_verified' => 'no'
       );
@@ -176,24 +170,6 @@
     <h1>Register</h1>
     <form action="index.php" method="post" data-validate="parsley">
       <div>
-        <label for="first_name">First Name</label>
-        <div class="parsley-container">
-          <input type="text" name="first_name" id="first_name" data-trigger="change" data-required="true" data-error-message="Please enter your first name" />
-        </div>
-      </div>
-      <div>
-        <label for="last_name">Last Name</label>
-        <div class="parsley-container">
-          <input type="text" name="last_name" id="last_name" data-trigger="change" data-required="true" data-error-message="Please enter your last name" />
-        </div>
-      </div>
-      <div>
-        <label for="email">EMail</label>
-        <div class="parsley-container">
-          <input type="text" name="email" id="email" data-trigger="change" data-required="true" data-type="email" data-error-message="Please enter a valid email address" />
-        </div>
-      </div>
-      <div>
         <label for="username">Username</label>
         <div class="parsley-container">
           <input type="text" name="username" id="username" data-required="true" data-trigger="change" data-error-message="Please enter a username" />
@@ -209,6 +185,12 @@
         <label for="password2">Reenter Password</label>
         <div class="parsley-container">
           <input type="password" name="password2" id="password2" data-trigger="change" data-required="true" data-error-message="Please reenter your password" data-equalto="#password" data-trigger="change" />
+        </div>
+      </div>
+      <div>
+        <label for="email">EMail</label>
+        <div class="parsley-container">
+          <input type="text" name="email" id="email" data-trigger="change" data-required="true" data-type="email" data-error-message="Please enter a valid email address" />
         </div>
       </div>
       <div class="error">
