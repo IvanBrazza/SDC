@@ -20,6 +20,8 @@
         status,
         customer_order,
         filling,
+        size,
+        design,
         decoration,
         delivery
       ) VALUES (
@@ -31,6 +33,8 @@
         :status,
         :customer_order,
         :filling,
+        :size,
+        :design,
         :decoration,
         :delivery
       )
@@ -49,6 +53,8 @@
       ':status' => $status,
       ':customer_order' => $_POST['order'],
       ':filling' => $_POST['filling'],
+      ':size' => $_POST['size'],
+      ':design' => $_POST['design'],
       ':decoration' => $_POST['decoration'],
       ':delivery' => $_POST['delivery']
     );
@@ -130,6 +136,24 @@
             <option value="Coconut">Coconut</option>
           </select>
         </div>
+      </div>
+      <div>
+        <label for="size">Size of cake</label>
+        <div class="parsley-container">
+          <select name="size" id="size">
+            <option value='10"'>10"</option>
+            <option value='12"'>12"</option>
+            <option value='14"'>14"</option>
+            <option value='16"'>16"</option>
+            <option value='18"'>18"</option>
+            <option value='R'>R</option>
+            <option value='S'>S</option>
+          </select>
+        </div>
+      </div>
+      <div>
+        <label for="design">Design</label>
+        <input type="text" name="design" id="design" data-required="true" data-error-message="Please enter a design" data-trigger="change">
       </div>
       <div>
         <label for="celebration_date">Date of celebration</label>
