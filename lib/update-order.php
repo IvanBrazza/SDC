@@ -1,4 +1,8 @@
 <?php 
+  /**
+    update-order.php - called from all-orders, this library updates the order
+    from a POST request.
+  **/
   require("common.php");
 
   if (!empty($_POST['status']))
@@ -13,14 +17,14 @@
     ";
 
     $query_params = array(
-      ':status' => $_POST['status'],
-      ':order_number' => $_POST['order_number']
+      ':status'         => $_POST['status'],
+      ':order_number'   => $_POST['order_number']
     );
 
     try
     {
-      $stmt = $db->prepare($query);
-      $result = $stmt->execute($query_params);
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
     }
     catch(PDOException $ex)
     {
@@ -47,14 +51,14 @@
     ";
 
     $query_params = array(
-      ':agreed_price' => $_POST['agreed_price'],
-      ':order_number' => $_POST['order_number']
+      ':agreed_price'   => $_POST['agreed_price'],
+      ':order_number'   => $_POST['order_number']
     );
     
     try
     {
-      $stmt = $db->prepare($query);
-      $result = $stmt->execute($query_params);
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
     }
     catch(PDOException $ex)
     {
@@ -75,14 +79,14 @@
     ";
 
     $query_params = array(
-      ':delivery_charge' => $_POST['delivery_charge'],
-      ':order_number' => $_POST['order_number']
+      ':delivery_charge'  => $_POST['delivery_charge'],
+      ':order_number'     => $_POST['order_number']
     );
     
     try
     {
-      $stmt = $db->prepare($query);
-      $result = $stmt->execute($query_params);
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
     }
     catch(PDOException $ex)
     {

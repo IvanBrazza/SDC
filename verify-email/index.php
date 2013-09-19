@@ -1,12 +1,17 @@
 <?php
+  /**
+    verify-email/ - get the code from the registration email
+    and check it against the database to verify the email
+    address.
+  **/
   require("../lib/common.php");
   $title = "Thanks For Registering";
 
   if (!empty($_GET))
   {
-    $email = $_GET['email'];
-    $verification_code = $_GET['code'];
-    $email_verified = false;
+    $email              = $_GET['email'];
+    $verification_code  = $_GET['code'];
+    $email_verified     = false;
 
     $query = "
       SELECT
@@ -25,8 +30,8 @@
 
     try
     {
-      $stmt = $db->prepare($query);
-      $result = $stmt->execute($query_params);
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
     }
     catch(PDOException $ex)
     {
@@ -51,8 +56,8 @@
 
       try
       {
-        $stmt = $db->prepare($query);
-        $result = $stmt->execute();
+        $stmt     = $db->prepare($query);
+        $result   = $stmt->execute();
       }
       catch(PDOException $ex)
       {

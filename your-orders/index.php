@@ -1,4 +1,8 @@
 <?php
+  /**
+   your-orders/ - display a list of all the orders placed
+   by a certain user's ID number.
+  **/
   require("../lib/common.php");
   
   if(empty($_SESSION['user']))
@@ -27,8 +31,8 @@
 
   try
   {
-    $stmt = $db->prepare($query);
-    $result = $stmt->execute($query_params);
+    $stmt     = $db->prepare($query);
+    $result   = $stmt->execute($query_params);
   }
   catch(PDOException $ex)
   {

@@ -1,4 +1,8 @@
 <?php
+  /**
+    all-orders/ - display all orders, a specific order, or all orders
+    by a specific customer number.
+  **/
   require("../lib/common.php");
 
   if(empty($_SESSION['user']))
@@ -30,8 +34,8 @@
 
     try
     {
-      $stmt = $db->prepare($query);
-      $result = $stmt->execute($query_params);
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
     }
     catch(PDOException $ex)
     {
@@ -137,8 +141,8 @@
 
     try
     {
-      $stmt = $db->prepare($query);
-      $result = $stmt->execute($query_params);
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
     }
     catch(PDOException $ex)
     {

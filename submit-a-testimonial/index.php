@@ -1,4 +1,8 @@
 <?php
+  /**
+   submit-a-testimonial/ - display a form to the user to
+   submit a testimonial.
+  **/
   require("../lib/common.php");
   $title = "Submit A Testimonial";
   
@@ -14,8 +18,8 @@
   {
     // Check reCAPTCHA
     require_once('../lib/recaptcha.php');
-    $privatekey = "6LePfucSAAAAAHkrfHOrSYPPvJqf6rCiNnhWT77L";
-    $resp = recaptcha_check_answer($privatekey, $_SERVER["REMOTE_ADDR"],$_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
+    $privatekey   = "6LePfucSAAAAAHkrfHOrSYPPvJqf6rCiNnhWT77L";
+    $resp         = recaptcha_check_answer($privatekey, $_SERVER["REMOTE_ADDR"],$_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
 
     if (!$resp->is_valid) 
     {
@@ -40,16 +44,16 @@
       ";
 
       $query_params = array(
-        ':name' => $_POST['name'],
-        ':email' => $_POST['email'],
-        ':location' => $_POST['location'],
-        ':testimonial' => $_POST['testimonial']
+        ':name'           => $_POST['name'],
+        ':email'          => $_POST['email'],
+        ':location'       => $_POST['location'],
+        ':testimonial'    => $_POST['testimonial']
       );
   
       try
       {
-        $stmt = $db->prepare($query);
-        $result = $stmt->execute($query_params);
+        $stmt     = $db->prepare($query);
+        $result   = $stmt->execute($query_params);
       }
       catch(PDOException $ex)
       { 

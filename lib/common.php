@@ -1,9 +1,14 @@
 <?php
-  $username = "root";
-  $password = "you are not my supervisor";
-  $host = "localhost";
-  $dbname = "sdc_db";
-  $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'); 
+  /**
+    lib/common.php - common code to be included in every page.
+    This library connects to the database and starts the session.
+  **/
+  
+  $username   = "root";
+  $password   = "you are not my supervisor";
+  $host       = "localhost";
+  $dbname     = "sdc_db";
+  $options    = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'); 
 
   try
   {
@@ -18,3 +23,4 @@
 
   ini_set( "session.cookie_lifetime", "0" );
   session_start();
+?>

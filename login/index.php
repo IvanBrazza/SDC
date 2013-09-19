@@ -1,9 +1,13 @@
 <?php
+  /**
+    login/ - display a login form to the user so they can
+    log into the site.
+  **/
   require("../lib/common.php");
   $title = "Log In";
   
-  $submitted_username = "";
-  $display_message = "";
+  $submitted_username   = "";
+  $display_message      = "";
 
   if(!empty($_GET['e']))
   {
@@ -30,8 +34,8 @@
 
     try
     {
-      $stmt = $db->prepare($query);
-      $result = $stmt->execute($query_params);
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
     }
     catch(PDOException $ex)
     {
@@ -59,8 +63,8 @@
       }
       if ($row['email_verified'] !== "yes")
       {
-        $logged_in = false;
-        $email_verified = false;
+        $logged_in        = false;
+        $email_verified   = false;
       }
     }
 

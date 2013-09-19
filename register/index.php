@@ -1,4 +1,8 @@
 <?php
+  /**
+   register/ - display a form to the user so they can
+   register to use the site.
+  **/
   require("../lib/common.php");
   $title = "Register";
 
@@ -24,8 +28,8 @@
   {
     // Check reCAPTCHA
     require_once('../lib/recaptcha.php');
-    $privatekey = "6LePfucSAAAAAHkrfHOrSYPPvJqf6rCiNnhWT77L";
-    $resp = recaptcha_check_answer($privatekey, $_SERVER["REMOTE_ADDR"],$_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
+    $privatekey   = "6LePfucSAAAAAHkrfHOrSYPPvJqf6rCiNnhWT77L";
+    $resp         = recaptcha_check_answer($privatekey, $_SERVER["REMOTE_ADDR"],$_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
 
     if (!$resp->is_valid) 
     {
@@ -51,8 +55,8 @@
     
       try
       {
-        $stmt = $db->prepare($query);
-        $result = $stmt->execute($query_params);
+        $stmt     = $db->prepare($query);
+        $result   = $stmt->execute($query_params);
       }
       catch(PDOException $ex)
       {
@@ -83,8 +87,8 @@
     
       try
       {
-        $stmt = $db->prepare($query);
-        $result = $stmt->execute($query_params);
+        $stmt     = $db->prepare($query);
+        $result   = $stmt->execute($query_params);
       }
       catch(PDOException $ex)
       {
@@ -139,18 +143,18 @@
       }
   
       $query_params = array(
-        ':username' => $_POST['username'],
-        ':password' => $password,
-        ':salt' => $salt,
-        ':email' => $_POST['email'],
-        ':email_verification' => $email_verification,
-        ':email_verified' => 'no'
+        ':username'             => $_POST['username'],
+        ':password'             => $password,
+        ':salt'                 => $salt,
+        ':email'                => $_POST['email'],
+        ':email_verification'   => $email_verification,
+        ':email_verified'       => 'no'
       );
     
       try
       {
-        $stmt = $db->prepare($query);
-        $result = $stmt->execute($query_params);
+        $stmt     = $db->prepare($query);
+        $result   = $stmt->execute($query_params);
       }
       catch(PDOException $ex)
       {

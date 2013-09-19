@@ -1,4 +1,8 @@
 <?php
+  /**
+    place-an-order/ - display a form to the user so they
+    can place their order.
+  **/
   require("../lib/common.php");
   $title = "Place An Order";
 
@@ -40,29 +44,29 @@
       )
     ";
 
-    $order_number = $_SESSION['user']['customer_id'] . rand(10000,99999);
-    $order_date = date('Y-m-d');
-    $status = "Processing";
+    $order_number   = $_SESSION['user']['customer_id'] . rand(10000,99999);
+    $order_date     = date('Y-m-d');
+    $status         = "Processing";
 
     $query_params = array(
-      ':customer_id' => $_SESSION['user']['customer_id'],
-      ':order_number' => $order_number,
-      ':order_date' => $order_date,
-      ':datetime' => $_POST['datetime'],
-      ':celebration_date' => $_POST['celebration_date'],
-      ':status' => $status,
-      ':customer_order' => $_POST['order'],
-      ':filling' => $_POST['filling'],
-      ':size' => $_POST['size'],
-      ':design' => $_POST['design'],
-      ':decoration' => $_POST['decoration'],
-      ':delivery' => $_POST['delivery']
+      ':customer_id'        => $_SESSION['user']['customer_id'],
+      ':order_number'       => $order_number,
+      ':order_date'         => $order_date,
+      ':datetime'           => $_POST['datetime'],
+      ':celebration_date'   => $_POST['celebration_date'],
+      ':status'             => $status,
+      ':customer_order'     => $_POST['order'],
+      ':filling'            => $_POST['filling'],
+      ':size'               => $_POST['size'],
+      ':design'             => $_POST['design'],
+      ':decoration'         => $_POST['decoration'],
+      ':delivery'           => $_POST['delivery']
     );
 
     try
     {
-      $stmt = $db->prepare($query);
-      $result = $stmt->execute($query_params);
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
     }
     catch(PDOException $ex)
     {
@@ -88,8 +92,8 @@
 
     try
     {
-      $stmt = $db->prepare($query);
-      $result = $stmt->execute($query_params);
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
     }
     catch(PDOException $ex)
     {

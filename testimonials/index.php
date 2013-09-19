@@ -1,4 +1,8 @@
 <?php
+  /**
+    testimonials/ - display a list of all the testimonials
+    in the db and allow the admin to delete them.
+  **/
   require("../lib/common.php");
   $title = "Testimonials";
   
@@ -11,8 +15,8 @@
 
   try
   {
-    $stmt = $db->prepare($query);
-    $result = $stmt->execute();
+    $stmt     = $db->prepare($query);
+    $result   = $stmt->execute();
   }
   catch(PDOException $ex)
   {

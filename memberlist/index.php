@@ -1,4 +1,9 @@
 <?php
+  /**
+    memberlist/ - display a list of all users and link each user
+    to the all-orders/ page where a list of all orders for that
+    user can be viewed.
+  **/
   require("../lib/common.php");
   $title = "Memberlist";
 
@@ -27,8 +32,8 @@
 
   try
   {
-    $stmt = $db->prepare($query);
-    $result = $stmt->execute($query_params);
+    $stmt     = $db->prepare($query);
+    $result   = $stmt->execute($query_params);
   }
   catch(PDOException $ex)
   {

@@ -1,4 +1,8 @@
 <?php
+  /**
+    delete-testimonial.php - called by testimonials to delete a testimonial
+    from a POST request.
+  **/
   require("common.php");
 
   if ($_POST)
@@ -16,8 +20,8 @@
 
     try
     {
-      $stmt = $db->prepare($query);
-      $result = $stmt->execute($query_params);
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
     }
     catch(PDOException $ex)
     {
