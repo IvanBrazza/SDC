@@ -58,7 +58,7 @@
         </tr> 
         <?php foreach($rows as $row): ?>
           <tr> 
-            <td><a href="allorders.php?id=<?php echo $row['customer_id']; ?>"><?php echo $row['customer_id']; ?></a></td> 
+            <td><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>"><?php echo $row['customer_id']; ?></a></td> 
             <td><?php echo htmlentities($row['username'], ENT_QUOTES, 'UTF-8'); ?></td> 
             <td><?php echo htmlentities($row['email'], ENT_QUOTES, 'UTF-8'); ?></td> 
             <td><?php echo htmlentities($row['first_name'], ENT_QUOTES, 'UTF-8'); ?></td>
