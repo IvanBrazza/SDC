@@ -17,6 +17,18 @@
     die("Forbidden");
   }
 
+  if (!empty($_GET['archive']))
+  {
+    if ($_GET['archive'] === "success")
+    {
+      $display_message = "Order archived.";
+    }
+    else if ($_GET['archive'] === "fail")
+    {
+      $display_message = "Archive failed.";
+    }
+  }
+
   if (!empty($_GET['type']))
   {
     $query = "
@@ -167,13 +179,18 @@
       <?php if (empty($row) and !empty($_GET['order'])) : ?>
         <h1><span class="error_message">No order exists for order number <?php echo $_GET['order']; ?></span></h1>
       <!--Show all orders-->
-      <?php elseif (!$_GET) : ?>
+      <?php elseif (!$_GET or !empty($_GET['archive'])) : ?>
         <h1>All Orders</h1>
         <form action="allorders.php" method="GET">
           <input type="text" id="order_number" name="order" placeholder="Enter order number" />
           <input type="hidden" name="type" value="search" />
           <input type="submit" value="Search all orders" />
         </form>
+        <div class="success">
+          <span class="success_message">
+            <?php echo $display_message; ?>
+          </span>
+        </div>
         <table>
           <tr>
             <th>Customer ID</th>
@@ -196,7 +213,7 @@
         </table>
       <!-- if user clicked on order number or searched for an order -->
       <?php elseif (!empty($_GET['order'])) : ?>
-        <h1>Order <?php echo $row['order_number']; ?></h1>
+        <h1>Order <?php echo $row['order_number']; ?></h1><small><form action="../lib/archive-order.php" method="POST"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number" id="order_number"><input type="submit" value="Archive Order" class="delete_testimonial_btn"></form></small>
         <p>Placed by <?php echo htmlentities($userrow['first_name'], ENT_QUOTES, 'UTF-8'); echo " "; echo htmlentities($userrow['last_name'], ENT_QUOTES, 'UTF-8'); ?></p>
         <br />
         <b>Address:</b><br />
