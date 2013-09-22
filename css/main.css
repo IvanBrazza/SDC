@@ -163,3 +163,7 @@ ul.parsley-error-list li {
   text-decoration:    underline;
   cursor:             pointer;
   }
+
+#archive-order {
+  display:            inline;
+  }

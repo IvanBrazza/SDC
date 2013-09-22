@@ -213,7 +213,7 @@
         </table>
       <!-- if user clicked on order number or searched for an order -->
       <?php elseif (!empty($_GET['order'])) : ?>
-        <h1>Order <?php echo $row['order_number']; ?></h1><small><form action="../lib/archive-order.php" method="POST"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number" id="order_number"><input type="submit" value="Archive Order" class="delete_testimonial_btn"></form></small>
+        <h1>Order <?php echo $row['order_number']; ?><form action="../lib/archive-order.php" method="POST" id="archive-order"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number" id="order_number"><input type="submit" value="Archive Order" class="delete_testimonial_btn"></form></h1>
         <p>Placed by <?php echo htmlentities($userrow['first_name'], ENT_QUOTES, 'UTF-8'); echo " "; echo htmlentities($userrow['last_name'], ENT_QUOTES, 'UTF-8'); ?></p>
         <br />
         <b>Address:</b><br />
