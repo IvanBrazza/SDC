@@ -63,8 +63,20 @@
     SELECT
       *
     FROM
-      orders
   ";
+  
+  if (!empty($_GET['archived']))
+  {
+    $query .= "
+        archived_orders
+    ";
+  }
+  else
+  {
+    $query .= "
+        orders
+    ";
+  }
 
   if ($_GET)
   {
@@ -123,6 +135,45 @@
   {
     $rows = $stmt->fetchAll();
   }
+  
+  /* get all archived orders */
+  $query = "
+    SELECT
+      *
+    FROM
+      archived_orders
+  ";
+  
+  if (!empty($_GET['id']))
+  {
+    $query .= "
+      WHERE
+        customer_id = :customer_id
+    ";
+
+    $query_params = array(
+      ':customer_id' => $_GET['id']
+    );
+  }
+
+  try
+  {
+    $stmt = $db->prepare($query);
+    if (!empty($_GET['id']))
+    {
+      $result = $stmt->execute($query_params);
+    }
+    else
+    {
+      $result = $stmt->execute();
+    }
+  }
+  catch(PDOException $ex)
+  {
+    die("Failed to execute query: " . $ex->getMessage() . "query = " . $query);
+  }
+
+  $archived_rows = $stmt->fetchAll();
 
   if ($_GET)
   {
@@ -191,7 +242,8 @@
             <?php echo $display_message; ?>
           </span>
         </div>
-        <table>
+        <table class="orders-table">
+          <caption>Outstanding Orders</caption>
           <tr>
             <th>Customer ID</th>
             <th>Order Number</th>
@@ -211,9 +263,30 @@
             </tr>
           <?php endforeach; ?>
         </table>
+        <table>
+          <caption>Archived Orders</caption>
+          <tr>
+            <th>Customer ID</th>
+            <th>Order Number</th>
+            <th>Order Date</th>
+            <th>Required Date</th>
+            <th>Status</th>
+            <th>Order</th>
+          </tr>
+          <?php foreach($archived_rows as $row): ?>
+            <tr>
+              <td><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>"><?php echo $row['customer_id']; ?></a></td>
+              <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>&id=<?php echo $row['customer_id']; ?>&archived=true"><?php echo $row['order_number']; ?></a></td>
+              <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
+            </tr>
+          <?php endforeach; ?>
+        </table>
       <!-- if user clicked on order number or searched for an order -->
       <?php elseif (!empty($_GET['order'])) : ?>
-        <h1>Order <?php echo $row['order_number']; ?><form action="../lib/archive-order.php" method="POST" id="archive-order"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number" id="order_number"><input type="submit" value="Archive Order" class="delete_testimonial_btn"></form></h1>
+        <h1>Order <?php echo $row['order_number']; ?><?php if (empty($_GET['archived'])) : ?><form action="../lib/archive-order.php" method="POST" id="archive-order"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number" id="order_number"><input type="submit" value="Archive Order" class="delete_testimonial_btn"></form><?php else : ?> (archived)<?php endif; ?></h1>
         <p>Placed by <?php echo htmlentities($userrow['first_name'], ENT_QUOTES, 'UTF-8'); echo " "; echo htmlentities($userrow['last_name'], ENT_QUOTES, 'UTF-8'); ?></p>
         <br />
         <b>Address:</b><br />
@@ -279,7 +352,8 @@
         <b>Phone: </b>
         <?php echo htmlentities($userrow['phone'], ENT_QUOTES, 'UTF-8'); ?><br />
         <br /><br />
-        <table>
+        <table class="orders-table">
+          <caption>Outstanding Orders</caption>
           <tr>
             <th>Order Number</th>
             <th>Order Date</th>
@@ -307,6 +381,25 @@
                   <input type="submit" value="Update" />
                 </form>
               </td>
+            </tr>
+          <?php endforeach; ?>
+        </table>
+        <table>
+          <caption>Archived Orders</caption>
+          <tr>
+            <th>Order Number</th>
+            <th>Order Date</th>
+            <th>Required Date</th>
+            <th>Status</th>
+            <th>Customers Order</th>
+          </tr>
+          <?php foreach($archived_rows as $row): ?>
+            <tr>
+              <td><?php echo htmlentities($row['order_number'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
             </tr>
           <?php endforeach; ?>
         </table>
