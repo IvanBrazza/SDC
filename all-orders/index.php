@@ -164,7 +164,7 @@
     $userrow = $stmt->fetch();
   }
 
-  if (!$_GET)
+  if (!$_GET or !empty($_GET['archive']))
   {
     $title = "All Orders";
   }
