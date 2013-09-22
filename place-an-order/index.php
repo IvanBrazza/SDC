@@ -74,6 +74,9 @@
     }
 
     include("../lib/email-order.php");
+    
+    header("Location: ../order-placed");
+    die();
   }
   else
   {
