@@ -1,6 +1,7 @@
 <?php
   require("../lib/common.php");
   $title = "Thanks for your order!";
+  $page = "place-an-order";
 ?>
 <?php include("../lib/header.php"); ?>
   <div class="container">

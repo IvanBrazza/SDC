@@ -5,6 +5,7 @@
   **/
   require("../lib/common.php");
   $title = "Place An Order";
+  $page = "place-an-order";
 
   if(empty($_SESSION['user']))
   {

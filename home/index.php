@@ -1,6 +1,7 @@
 <?php
   require("../lib/common.php");
   $title = "Home";
+  $page = "home";
 
   if (!empty($_SESSION['user']))
   {

@@ -4,6 +4,7 @@
    by a certain user's ID number.
   **/
   require("../lib/common.php");
+  $page = "your-orders";
   
   if(empty($_SESSION['user']))
   {

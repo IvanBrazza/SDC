@@ -5,6 +5,7 @@
   **/
   require("../lib/common.php");
   $title = "Register";
+  $page = "register";
 
   if(!empty($_GET['e']))
   {

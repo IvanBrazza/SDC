@@ -5,6 +5,7 @@
   **/
   require("../lib/common.php");
   $title = "Log In";
+  $page = "login";
   
   $submitted_username   = "";
   $display_message      = "";

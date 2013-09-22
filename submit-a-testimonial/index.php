@@ -5,6 +5,7 @@
   **/
   require("../lib/common.php");
   $title = "Submit A Testimonial";
+  $page = "testimonials";
   
   if(!empty($_GET['e']))
   {

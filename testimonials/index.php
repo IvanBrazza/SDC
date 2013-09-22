@@ -5,6 +5,7 @@
   **/
   require("../lib/common.php");
   $title = "Testimonials";
+  $page = "testimonials";
   
   $query = "
     SELECT

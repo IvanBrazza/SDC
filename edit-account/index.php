@@ -6,6 +6,7 @@
   **/
   require("../lib/common.php");
   $title = "Edit Account";
+  $page = "edit-account";
 
   if (empty($_SESSION['user']))
   {

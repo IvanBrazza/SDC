@@ -11,23 +11,23 @@
     <ul>
       <?php if ($_SESSION) : ?>
         <li><a href="../lib/logout.php">Logout</a></li>
-        <li><a href="../edit-account">Edit Account</a></li>
+        <li <?php if ($page === "edit-account") : ?>class="active"<?php endif; ?>><a href="../edit-account">Edit Account</a></li>
       <?php endif; ?>
       <?php if (!$_SESSION) : ?>
-        <li><a href="../login">Login</a></li>
-        <li><a href="../register">Register</a></li>
+        <li <?php if ($page === "login") : ?>class="active"<?php endif; ?>><a href="../login">Login</a></li>
+        <li <?php if ($page === "register") : ?>class="active"<?php endif; ?>><a href="../register">Register</a></li>
       <?php endif; ?>
       <?php if ($_SESSION and $_SESSION['user']['username'] === "admin") : ?>
-        <li><a href="../all-orders">All Orders</a></li>
-        <li><a href="../memberlist">Memberlist</a></li>
+        <li <?php if ($page === "all-orders") : ?>class="active"<?php endif; ?>><a href="../all-orders">All Orders</a></li>
+        <li <?php if ($page === "memberlist") : ?>class="active"<?php endif; ?>><a href="../memberlist">Memberlist</a></li>
       <?php endif; ?>
       <?php if ($_SESSION and $_SESSION['user']['username'] !== "admin") : ?>
-        <li><a href="../yourorders">Your Orders</a></li>
-        <li><a href="../placeanorder">Place An Order</a></li>
+        <li <?php if ($page === "your-orders") : ?>class="active"<?php endif; ?>><a href="../your-orders">Your Orders</a></li>
+        <li <?php if ($page === "place-an-order") : ?>class="active"<?php endif; ?>><a href="../place-an-order">Place An Order</a></li>
       <?php endif; ?>
-      <li><a href="../testimonials">Testimonials</a></li>
-      <li><a href="#">About Us</a></li>
-      <li><a href="../home">Home</a></li>
+      <li <?php if ($page === "testimonials") : ?>class="active"<?php endif; ?>><a href="../testimonials">Testimonials</a></li>
+      <li <?php if ($page === "about-us") : ?>class="active"<?php endif; ?>><a href="#">About Us</a></li>
+      <li <?php if ($page === "home") : ?>class="active"<?php endif; ?>><a href="../home">Home</a></li>
     </ul>
   </div>
   <script type="text/javascript">

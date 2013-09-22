@@ -4,6 +4,7 @@
     by a specific customer number.
   **/
   require("../lib/common.php");
+  $page = "all-orders";
 
   if(empty($_SESSION['user']))
   {

@@ -6,6 +6,7 @@
   **/
   require("../lib/common.php");
   $title = "Memberlist";
+  $page = "memberlist";
 
   if(empty($_SESSION['user']))
   {
