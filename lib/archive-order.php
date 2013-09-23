@@ -115,9 +115,17 @@
     {
       die("Failed to execute query: " . $ex->getMessage());
     }
-
-    header("Location: ../all-orders/?archive=success");
-    die();
+    
+    if ($_GET['user'] === "customer")
+    {
+      header("Location: ../your-orders/?archive=success");
+      die();
+    }
+    else
+    {
+      header("Location: ../all-orders/?archive=success");
+      die();
+    }
   }
   else
   {
