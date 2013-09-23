@@ -172,44 +172,52 @@
             <?php echo $display_message; ?>
           </span>
         </div>
-        <table class="orders-table">
-          <caption>Outstanding Orders</caption>
-          <tr>
-            <th>Order Number</th>
-            <th>Order Date</th>
-            <th>Required Date</th>
-            <th>Status</th>
-            <th>Order</th>
-          </tr>
-          <?php foreach($rows as $row): ?>
+        <?php if (empty($rows)) : ?>
+          <h3>You have no outstanding orders</h3>
+        <?php else : ?>
+          <table class="orders-table">
+            <caption>Outstanding Orders</caption>
             <tr>
-              <td><a href="../your-orders/?order=<?php echo $row['order_number']; ?>"><?php echo $row['order_number']; ?></a></td>
-              <td><?php echo $row['order_date']; ?></td>
-              <td><?php echo $row['datetime']; ?></td>
-              <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td style="word-wrap: break-word;"><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <th>Order Number</th>
+              <th>Order Date</th>
+              <th>Required Date</th>
+              <th>Status</th>
+              <th>Order</th>
             </tr>
-          <?php endforeach; ?>
-        </table>
-        <table>
-          <caption>Archived Orders</caption>
-          <tr>
-            <th>Order Number</th>
-            <th>Order Date</th>
-            <th>Required Date</th>
-            <th>Status</th>
-            <th>Order</th>
-          </tr>
-          <?php foreach($archived_rows as $row): ?>
+            <?php foreach($rows as $row): ?>
+              <tr>
+                <td><a href="../your-orders/?order=<?php echo $row['order_number']; ?>"><?php echo $row['order_number']; ?></a></td>
+                <td><?php echo $row['order_date']; ?></td>
+                <td><?php echo $row['datetime']; ?></td>
+                <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td style="word-wrap: break-word;"><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
+              </tr>
+            <?php endforeach; ?>
+          </table>
+        <?php endif; ?>
+        <?php if (empty($archived_rows)) : ?>
+          <h3>You have no archived orders</h3>
+        <?php else : ?>
+          <table>
+            <caption>Archived Orders</caption>
             <tr>
-              <td><a href="../your-orders/?order=<?php echo $row['order_number']; ?>&archived=true"><?php echo $row['order_number']; ?></a></td>
-              <td><?php echo $row['order_date']; ?></td>
-              <td><?php echo $row['datetime']; ?></td>
-              <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td style="word-wrap: break-word;"><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <th>Order Number</th>
+              <th>Order Date</th>
+              <th>Required Date</th>
+              <th>Status</th>
+              <th>Order</th>
             </tr>
-          <?php endforeach; ?>
-        </table>
+            <?php foreach($archived_rows as $row): ?>
+              <tr>
+                <td><a href="../your-orders/?order=<?php echo $row['order_number']; ?>&archived=true"><?php echo $row['order_number']; ?></a></td>
+                <td><?php echo $row['order_date']; ?></td>
+                <td><?php echo $row['datetime']; ?></td>
+                <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td style="word-wrap: break-word;"><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
+              </tr>
+            <?php endforeach; ?>
+          </table>
+        <?php endif; ?>
       <?php endif; ?>
     </div>
   </div>
