@@ -490,7 +490,6 @@
             <th>Required Date</th>
             <th>Status</th>
             <th>Customers Order</th>
-            <th>Update Status</th>
           </tr>
           <?php foreach($rows as $row): ?>
             <tr>
@@ -499,18 +498,6 @@
               <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td>
-                <form action="../lib/update-order.php" method="POST">
-                  <select name="status">
-                    <option value="Processing">Processing</option>
-                    <option value="Dispatched">Dispatched</option>
-                    <option value="Complete">Complete</option>
-                  </select>
-                  <input type="hidden" value="<?php echo htmlentities($row['order_number'], ENT_QUOTES, 'UTF-8'); ?>" name="order_number" />
-                  <input type="hidden" value="<?php echo $_GET['id'] ?>" name="id" />
-                  <input type="submit" value="Update" />
-                </form>
-              </td>
             </tr>
           <?php endforeach; ?>
         </table>
