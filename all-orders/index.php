@@ -432,15 +432,17 @@
             <th>Status</th>
             <td>
               <?php echo $row['status']; ?>
-              <form action="../lib/update-order.php" method="POST" style="margin-left:10px;">
-                <select name="status">
-                  <option value="Processing">Processing</option>
-                  <option value="Dispatched">Dispatched</option>
-                  <option value="Complete">Complete</option>
-                </select>
-                <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
-                <input type="submit" value="Update">
-              </form>
+              <?php if (empty($_GET['archived'])) : ?>
+                <form action="../lib/update-order.php" method="POST" style="margin-left:10px;">
+                  <select name="status">
+                    <option value="Processing">Processing</option>
+                    <option value="Dispatched">Dispatched</option>
+                    <option value="Complete">Complete</option>
+                  </select>
+                  <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
+                  <input type="submit" value="Update">
+                </form>
+              <?php endif; ?>
             </td>
           </tr>
           <tr>
@@ -457,11 +459,35 @@
           </tr>
           <tr>
             <th>Agreed Price</th>
-            <td>&pound; <form action="../lib/update-order.php" method="POST"><input type="hidden" value="<?php echo $_GET['id']; ?>" name="id"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number"><input name="agreed_price" type="text" value="<?php echo $row['agreed_price']; ?>" style="width:50px;"><input type="submit" value="Update"></form></td>
+            <td>
+              &pound; 
+              <?php if (empty($_GET['archived'])) : ?>
+                <form action="../lib/update-order.php" method="POST">
+                  <input type="hidden" value="<?php echo $_GET['id']; ?>" name="id">
+                  <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
+                  <input name="agreed_price" type="text" value="<?php echo $row['agreed_price']; ?>" style="width:50px;">
+                  <input type="submit" value="Update">
+                </form>
+              <?php else : ?>
+                <?php echo $row['agreed_price']; ?>
+              <?php endif; ?>
+            </td>
           </tr>
           <tr>
             <th>Delivery Charge</th>
-            <td>&pound; <form action="../lib/update-order.php" method="POST"><input type="hidden" value="<?php echo $_GET['id']; ?>" name="id"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number"><input name="delivery_charge" type="text" value="<?php echo $row['delivery_charge']; ?>" style="width:50px;"><input type="submit" value="Update"></form></td>
+            <td>
+              &pound; 
+              <?php if (empty($_GET['archived'])) : ?>
+                <form action="../lib/update-order.php" method="POST">
+                  <input type="hidden" value="<?php echo $_GET['id']; ?>" name="id">
+                  <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
+                  <input name="delivery_charge" type="text" value="<?php echo $row['delivery_charge']; ?>" style="width:50px;">
+                  <input type="submit" value="Update">
+                </form>
+              <?php else : ?>
+                <?php echo $row['delivery_charge']; ?>
+              <?php endif; ?>
+            </td>
           </tr>
           <tr>
             <th>Delivery Type</th>
