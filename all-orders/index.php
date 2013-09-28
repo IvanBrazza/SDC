@@ -37,8 +37,8 @@
     }
   }
   
-  // If the user does a search and the searched order isn't a manual order
-  if (!empty($_GET['type']) and $_GET['type'] === "search")
+  // Get the customer_id from the order_number
+  if (!empty($_GET['order']))
   {
     $query = "
       SELECT
@@ -359,7 +359,7 @@
             <?php foreach($rows as $row): ?>
               <tr>
                 <td><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>"><?php echo $row['customer_id']; ?></a></td>
-                <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>&id=<?php echo $row['customer_id']; ?>"><?php echo $row['order_number']; ?></a></td>
+                <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"><?php echo $row['order_number']; ?></a></td>
                 <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -369,7 +369,7 @@
             <?php foreach ($manual_rows as $row) : ?>
               <tr>
                 <td>Manual Order</td>
-                <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>&id=manual"><?php echo $row['order_number']; ?></a></td>
+                <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"><?php echo $row['order_number']; ?></a></td>
                 <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -394,7 +394,7 @@
             <?php foreach($archived_rows as $row): ?>
               <tr>
                 <td><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>"><?php echo $row['customer_id']; ?></a></td>
-                <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>&id=<?php echo $row['customer_id']; ?>&archived=true"><?php echo $row['order_number']; ?></a></td>
+                <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>&archived=true"><?php echo $row['order_number']; ?></a></td>
                 <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -430,7 +430,20 @@
           </tr>
           <tr>
             <th>Status</th>
-            <td><?php echo $row['status']; ?></td>
+            <td>
+              <?php echo $row['status']; ?>
+              <?php if (empty($_GET['archived'])) : ?>
+                <form action="../lib/update-order.php" method="POST" style="margin-left:10px;">
+                  <select name="status">
+                    <option value="Processing">Processing</option>
+                    <option value="Dispatched">Dispatched</option>
+                    <option value="Complete">Complete</option>
+                  </select>
+                  <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
+                  <input type="submit" value="Update">
+                </form>
+              <?php endif; ?>
+            </td>
           </tr>
           <tr>
             <th>Order</th>
@@ -446,11 +459,35 @@
           </tr>
           <tr>
             <th>Agreed Price</th>
-            <td>&pound; <form action="../lib/update-order.php" method="POST"><input type="hidden" value="<?php echo $_GET['id']; ?>" name="id"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number"><input name="agreed_price" type="text" value="<?php echo $row['agreed_price']; ?>" style="width:50px;"><input type="submit" value="Update"></form></td>
+            <td>
+              &pound; 
+              <?php if (empty($_GET['archived'])) : ?>
+                <form action="../lib/update-order.php" method="POST">
+                  <input type="hidden" value="<?php echo $_GET['id']; ?>" name="id">
+                  <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
+                  <input name="agreed_price" type="text" value="<?php echo $row['agreed_price']; ?>" style="width:50px;">
+                  <input type="submit" value="Update">
+                </form>
+              <?php else : ?>
+                <?php echo $row['agreed_price']; ?>
+              <?php endif; ?>
+            </td>
           </tr>
           <tr>
             <th>Delivery Charge</th>
-            <td>&pound; <form action="../lib/update-order.php" method="POST"><input type="hidden" value="<?php echo $_GET['id']; ?>" name="id"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number"><input name="delivery_charge" type="text" value="<?php echo $row['delivery_charge']; ?>" style="width:50px;"><input type="submit" value="Update"></form></td>
+            <td>
+              &pound; 
+              <?php if (empty($_GET['archived'])) : ?>
+                <form action="../lib/update-order.php" method="POST">
+                  <input type="hidden" value="<?php echo $_GET['id']; ?>" name="id">
+                  <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
+                  <input name="delivery_charge" type="text" value="<?php echo $row['delivery_charge']; ?>" style="width:50px;">
+                  <input type="submit" value="Update">
+                </form>
+              <?php else : ?>
+                <?php echo $row['delivery_charge']; ?>
+              <?php endif; ?>
+            </td>
           </tr>
           <tr>
             <th>Delivery Type</th>
@@ -479,27 +516,14 @@
             <th>Required Date</th>
             <th>Status</th>
             <th>Customers Order</th>
-            <th>Update Status</th>
           </tr>
           <?php foreach($rows as $row): ?>
             <tr>
-              <td><?php echo htmlentities($row['order_number'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"><?php echo $row['order_number']; ?></a></td>
               <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td>
-                <form action="../lib/update-order.php" method="POST">
-                  <select name="status">
-                    <option value="Processing">Processing</option>
-                    <option value="Dispatched">Dispatched</option>
-                    <option value="Complete">Complete</option>
-                  </select>
-                  <input type="hidden" value="<?php echo htmlentities($row['order_number'], ENT_QUOTES, 'UTF-8'); ?>" name="order_number" />
-                  <input type="hidden" value="<?php echo $_GET['id'] ?>" name="id" />
-                  <input type="submit" value="Update" />
-                </form>
-              </td>
             </tr>
           <?php endforeach; ?>
         </table>
@@ -514,7 +538,7 @@
           </tr>
           <?php foreach($archived_rows as $row): ?>
             <tr>
-              <td><?php echo htmlentities($row['order_number'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>&archived=true"><?php echo $row['order_number']; ?></a></td>
               <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
