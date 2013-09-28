@@ -109,6 +109,7 @@
     if (empty($row['address']) or empty($row['postcode']) or empty($row['phone']) or empty($row['first_name']) or empty($row['last_name']))
     {
       $display_message = 'Please <a href="../edit-account">update your details</a> before placing an order.';
+      $details_correct = false;
     }
   }
 ?>
@@ -191,7 +192,7 @@
         </div>
       </div>
       <br /><br />
-      <input type="submit" value="Submit Order" />
+      <input type="submit" value="Submit Order" <?php if ($details_correct === false) : ?>disabled<?php endif; ?> />
     </form>
   </div>
   </div>

@@ -11,6 +11,12 @@ body {
   text-align:         right;
   }
 
+@-moz-document url-prefix() {
+  .navbar {
+    margin-top:       -16px;
+    }
+  }
+
 .navbar a {
   padding:            5px 14px;
   color:              #d5d5d5;
@@ -174,4 +180,12 @@ ul.parsley-error-list li {
 
 #archive-order {
   display:            inline;
+  }
+
+.or {
+  margin-left:        auto;
+  margin-right:       auto;
+  display:            table;
+  font-weight:        bold;
+  font-style:         italic;
   }
