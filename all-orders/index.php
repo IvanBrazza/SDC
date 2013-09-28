@@ -430,7 +430,18 @@
           </tr>
           <tr>
             <th>Status</th>
-            <td><?php echo $row['status']; ?></td>
+            <td>
+              <?php echo $row['status']; ?>
+              <form action="../lib/update-order.php" method="POST" style="margin-left:10px;">
+                <select name="status">
+                  <option value="Processing">Processing</option>
+                  <option value="Dispatched">Dispatched</option>
+                  <option value="Complete">Complete</option>
+                </select>
+                <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
+                <input type="submit" value="Update">
+              </form>
+            </td>
           </tr>
           <tr>
             <th>Order</th>
