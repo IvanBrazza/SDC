@@ -46,8 +46,7 @@
         decoration,
         delivery,
         agreed_price,
-        delivery_charge,
-        grand_total
+        delivery_charge
       ) VALUES (
         :customer_id,
         :order_number,
@@ -62,8 +61,7 @@
         :decoration,
         :delivery,
         :agreed_price,
-        :delivery_charge,
-        :grand_total
+        :delivery_charge
       )
     ";
 
@@ -81,8 +79,7 @@
         ':decoration'       => $row['design'],
         ':delivery'         => $row['delivery'],
         ':agreed_price'     => $row['agreed_price'],
-        ':delivery_charge'  => $row['delivery_charge'],
-        ':grand_total'      => $row['grand_total']
+        ':delivery_charge'  => $row['delivery_charge']
     );
     
     try

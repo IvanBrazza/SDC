@@ -181,3 +181,11 @@ ul.parsley-error-list li {
 #archive-order {
   display:            inline;
   }
+
+.or {
+  margin-left:        auto;
+  margin-right:       auto;
+  display:            table;
+  font-weight:        bold;
+  font-style:         italic;
+  }

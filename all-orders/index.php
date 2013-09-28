@@ -29,8 +29,16 @@
       $display_message = "Archive failed.";
     }
   }
-
-  if (!empty($_GET['type']))
+  else if (!empty($_GET['new-order']))
+  {
+    if ($_GET['new-order'] === "added")
+    {
+      $display_message = "Order added.";
+    }
+  }
+  
+  // If the user does a search and the searched order isn't a manual order
+  if (!empty($_GET['type']) and $_GET['type'] === "search")
   {
     $query = "
       SELECT
@@ -52,20 +60,56 @@
     }
     catch(PDOException $ex)
     {
-      die("Failed to execute query: " . $ex->getMessage());
+      die("Failed to execute query: " . $ex->getMessage() . "\nQuery: " . $query);
     }
 
     $row = $stmt->fetch();
+    
+    // If a customer ID isn't returned from the orders table,
+    // try and get the ID from the archived_orders table.
+    if (!$row)
+    {
+      $query = "
+        SELECT
+          customer_id
+        FROM
+          archived_orders
+        WHERE
+          order_number = :order_number
+      ";
+  
+      $query_params = array(
+        ':order_number' => $_GET['order']
+      );
+  
+      try
+      {
+        $stmt     = $db->prepare($query);
+        $result   = $stmt->execute($query_params);
+      }
+      catch(PDOException $ex)
+      {
+        die("Failed to execute query: " . $ex->getMessage() . "\nQuery: " . $query);
+      }
+
+      $row = $stmt->fetch();
+    }
 
     $customer_id = $row['customer_id'];
   }
-
+  
+  // Start the main query
   $query = "
     SELECT
       *
     FROM
   ";
   
+  // If user clicked on an archived order number,
+  // get the order from the archived_orders table.
+  // Else if the user searched for an order and it's
+  // a manual order, get the order from the manual_orders
+  // table. Else get the order from the orders table.
   if (!empty($_GET['archived']))
   {
     $query .= "
@@ -78,9 +122,16 @@
         orders
     ";
   }
-
+  
+  // If the user searched for an order, clicked an order
+  // number, or clicked on a customer ID. Else we're displaying
+  // all orders, and thus need to sort the results by customer_id
+  // ascending.
   if ($_GET)
   {
+    // If the user clicked on an order number, get the order.
+    // Else if the user clicked on a customer ID, get all
+    // orders by that customer.
     if (!empty($_GET['order']))
     {
       $query .= "
@@ -91,7 +142,8 @@
       $query_params = array(
         ':order_number' => $_GET['order']
       );
-    } else if (!empty($_GET['id']))
+    } 
+    else if (!empty($_GET['id']))
     {
       $query .= "
         WHERE
@@ -125,19 +177,56 @@
   }
   catch(PDOException $ex)
   {
-    die("Failed to run query: " . $ex->getMessage());
+    die("Failed to run query: " . $ex->getMessage() . "\nQuery: " . $query);
   }
 
-  /* if we're pulling up just one order, else pull for all orders */
+  // If we're pulling up just one order, else pull for all orders
   if ($_GET and !empty($_GET['order']))
   {
     $row = $stmt->fetch();
-  } else
+  }
+  else
   {
     $rows = $stmt->fetchAll();
   }
   
-  /* get all archived orders */
+  // If we're searching orders, the order isn't manual
+  // and the order isn't in the orders table then search
+  // for it in the archived_orders table instead.
+  if (empty($row) and !empty($_GET['type']) and $_GET['type'] === "search")
+  {
+    $query = "
+      SELECT
+        *
+      FROM
+        archived_orders
+      WHERE
+        order_number = :order_number
+    ";
+
+    $query_params = array(
+      ':order_number' => $_GET['order']
+    );
+
+    try
+    {
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
+    }
+    catch(PDOException $ex)
+    {
+      die("Failed to execute query: " . $ex->getMessage() . "\nQuery: " . $query);
+    }
+
+    $row = $stmt->fetch();
+    
+    if ($row)
+    {
+      $_GET['archived'] = "true";
+    }
+  }
+
+  // Get archived orders
   $query = "
     SELECT
       *
@@ -145,6 +234,8 @@
       archived_orders
   ";
   
+  // If the user clicked on a customer ID, get all archived
+  // orders for that customer.
   if (!empty($_GET['id']))
   {
     $query .= "
@@ -156,6 +247,11 @@
       ':customer_id' => $_GET['id']
     );
   }
+
+  $query .= "
+    ORDER BY
+      customer_id ASC
+  ";
 
   try
   {
@@ -171,49 +267,52 @@
   }
   catch(PDOException $ex)
   {
-    die("Failed to execute query: " . $ex->getMessage() . "query = " . $query);
+    die("Failed to execute query: " . $ex->getMessage() . "\nQuery: " . $query);
   }
 
   $archived_rows = $stmt->fetchAll();
 
+  // Get customer details if the user clicked on an order number,
+  // searched for an order, or clicked on a customer ID.
   if ($_GET)
   {
-    $query = "
-      SELECT
-        first_name,
-        last_name,
-        address,
-        postcode,
-        phone
-      FROM
-        users
-      WHERE
-        customer_id = :get_id
-    ";
+      $query = "
+        SELECT
+          first_name,
+          last_name,
+          address,
+          postcode,
+          phone
+        FROM
+          users
+        WHERE
+          customer_id = :get_id
+      ";
+      
+      if (!empty($_GET['id']))
+      {
+        $query_params = array(
+          ':get_id' => $_GET['id']
+        );
+      } else
+      {
+        $query_params = array(
+          ':get_id' => $customer_id
+        );
+      }
+
+      try
+      {
+        $stmt     = $db->prepare($query);
+        $result   = $stmt->execute($query_params);
+      }
+      catch(PDOException $ex)
+      {
+        die("Failed to run query: " . $ex->getMessage() . "\nQuery: " . $query);
+      }
+  
+      $userrow = $stmt->fetch();
     
-    if (!empty($_GET['id']))
-    {
-      $query_params = array(
-        ':get_id' => $_GET['id']
-      );
-    } else
-    {
-      $query_params = array(
-        ':get_id' => $customer_id
-      );
-    }
-
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to run query: " . $ex->getMessage());
-    }
-
-    $userrow = $stmt->fetch();
   }
 
   if (!$_GET or !empty($_GET['archive']))
@@ -231,9 +330,10 @@
       <?php if (empty($row) and !empty($_GET['order'])) : ?>
         <h1><span class="error_message">No order exists for order number <?php echo $_GET['order']; ?></span></h1>
       <!--Show all orders-->
-      <?php elseif (!$_GET or !empty($_GET['archive'])) : ?>
+      <?php elseif (!$_GET or !empty($_GET['archive']) or !empty($_GET['new-order'])) : ?>
         <h1>All Orders</h1>
-        <form action="allorders.php" method="GET">
+        <a href="../add-order">Add Order</a>
+        <form action="../all-orders" method="GET">
           <input type="text" id="order_number" name="order" placeholder="Enter order number" />
           <input type="hidden" name="type" value="search" />
           <input type="submit" value="Search all orders" />
@@ -243,7 +343,7 @@
             <?php echo $display_message; ?>
           </span>
         </div>
-        <?php if (empty($rows)) : ?>
+        <?php if (empty($rows) and empty($manual_rows)) : ?>
           <h3>There are no outstanding orders</h3>
         <?php else : ?>
           <table class="orders-table">
@@ -260,6 +360,16 @@
               <tr>
                 <td><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>"><?php echo $row['customer_id']; ?></a></td>
                 <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>&id=<?php echo $row['customer_id']; ?>"><?php echo $row['order_number']; ?></a></td>
+                <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
+              </tr>
+            <?php endforeach; ?>
+            <?php foreach ($manual_rows as $row) : ?>
+              <tr>
+                <td>Manual Order</td>
+                <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>&id=manual"><?php echo $row['order_number']; ?></a></td>
                 <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -296,15 +406,15 @@
       <!-- if user clicked on order number or searched for an order -->
       <?php elseif (!empty($_GET['order'])) : ?>
         <h1>Order <?php echo $row['order_number']; ?><?php if (empty($_GET['archived'])) : ?><form action="../lib/archive-order.php" method="POST" id="archive-order"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number" id="order_number"><input type="submit" value="Archive Order" class="delete_testimonial_btn"></form><?php else : ?> (archived)<?php endif; ?></h1>
-        <p>Placed by <?php echo htmlentities($userrow['first_name'], ENT_QUOTES, 'UTF-8'); echo " "; echo htmlentities($userrow['last_name'], ENT_QUOTES, 'UTF-8'); ?></p>
-        <br />
-        <b>Address:</b><br />
-        <?php echo htmlentities($userrow['address'], ENT_QUOTES, 'UTF-8'); ?><br />
-        <?php echo htmlentities($userrow['postcode'], ENT_QUOTES, 'UTF-8'); ?><br />
-        <br />
-        <b>Phone: </b>
-        <?php echo $userrow['phone']; ?><br />
-        <br /><br />
+          <p>Placed by <?php echo htmlentities($userrow['first_name'], ENT_QUOTES, 'UTF-8'); echo " "; echo htmlentities($userrow['last_name'], ENT_QUOTES, 'UTF-8'); ?></p>
+          <br />
+          <b>Address:</b><br />
+          <?php echo htmlentities($userrow['address'], ENT_QUOTES, 'UTF-8'); ?><br />
+          <?php echo htmlentities($userrow['postcode'], ENT_QUOTES, 'UTF-8'); ?><br />
+          <br />
+          <b>Phone: </b>
+          <?php echo $userrow['phone']; ?><br />
+          <br /><br />
         <table id="single_order">
           <tr>
             <th>Date Order Placed</th>
