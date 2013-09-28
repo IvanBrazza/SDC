@@ -33,11 +33,11 @@
 
     if ($_POST['id'] === "0")
     {
-      header("Location: all-orders");
+      header("Location: ../all-orders");
       die();
     }
 
-    header("Location: all-orders/?id=" . $_POST['id']);
+    header("Location: ../all-orders/?id=" . $_POST['id']);
     die();
   } else if (!empty($_POST['agreed_price']))
   {
@@ -65,7 +65,7 @@
       die("Failed to run query: " . $ex->getMessage());
     }
 
-    header("Location: all-orders/?order=" . $_POST['order_number'] . "&id=" . $_POST['id']);
+    header("Location: ../all-orders/?order=" . $_POST['order_number']);
     die();
   } else if (!empty($_POST['delivery_charge']))
   {
@@ -93,7 +93,7 @@
       die("Failed to run query: " . $ex->getMessage());
     }
     
-    header("Location: all-orders/?order=" . $_POST['order_number'] . "&id=" . $_POST['id']);
+    header("Location: ../all-orders/?order=" . $_POST['order_number']);
     die();
   }
 ?>
