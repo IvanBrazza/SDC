@@ -177,3 +177,7 @@ input.invalid, textarea.invalid {
   float:              right;
   margin-top:         4px;
   }
+
+.recaptchatable .recaptcha_image_cell {
+  background:         transparent!important;
+  }
