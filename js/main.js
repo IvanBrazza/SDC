@@ -16,7 +16,7 @@ $(document).ready(function() {
 
   $("#datetime").datetimepicker({
     dateFormat: "yy-mm-dd",
-    timeFormat: "HH:mm:ss",
+    timeFormat: "HH:mm",
     minDate: 0
   });
 
