@@ -173,31 +173,27 @@
   <div class="container">
   <div class="form">
     <h1>Register</h1>
-    <form action="index.php" method="post" data-validate="parsley">
+    <form action="index.php" method="post" id="register-form">
       <div>
         <label for="username">Username</label>
-        <div class="parsley-container">
-          <input type="text" name="username" id="username" data-required="true" data-trigger="change" data-error-message="Please enter a username" />
-        </div>
+        <input type="text" name="username" id="username" onkeyup="validateUsername()" onchange="validateUsername()">
       </div>
+      <div id="username-error" class="validate-error"></div>
       <div>
         <label for="password">Password</label>
-        <div class="parsley-container">
-          <input type="password" name="password" id="password" data-required="true" data-trigger="change" data-error-message="Please enter a password" />
-        </div>
+        <input type="password" name="password" id="password" onkeyup="validatePassword()" onchange="validatePassword()">
       </div>
+      <div id="password-error" class="validate-error"></div>
       <div>
         <label for="password2">Reenter Password</label>
-        <div class="parsley-container">
-          <input type="password" name="password2" id="password2" data-trigger="change" data-required="true" data-error-message="Please reenter your password" data-equalto="#password" data-trigger="change" />
-        </div>
+        <input type="password" name="password2" id="password2" onkeyup="validatePassword2()" onchange="validatePassword2()">
       </div>
+      <div id="password2-error" class="validate-error"></div>
       <div>
         <label for="email">EMail</label>
-        <div class="parsley-container">
-          <input type="text" name="email" id="email" data-trigger="change" data-required="true" data-type="email" data-error-message="Please enter a valid email address" />
-        </div>
+        <input type="text" name="email" id="email" onkeyup="validateEmail()" onchange="validateEmail()">
       </div>
+      <div id="email-error" class="validate-error"></div>
       <div class="error">
         <span class="error_message">
           <?php echo $display_message; ?>

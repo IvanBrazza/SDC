@@ -69,31 +69,26 @@
 <?php include("../lib/header.php"); ?>
   <div class="form">
     <h1>Submit A Testimonial</h1>
-    <form action="index.php" method="POST" data-validate="parsley">
+    <form action="index.php" method="POST" id="testimonial-form">
       <div>
         <label for="name">Name</label>
-        <div class="parsley-container">
-          <input type="text" name="name" id="name" data-required="true" data-trigger="change" data-error="Please enter your name">
-        </div>
+        <input type="text" name="name" id="name" onkeyup="validateInput('#name', '#name_error')" onchange="validateInput('#name', '#name_error')">
       </div>
+      <div id="name_error" class="validate-error"></div>
       <div>
         <label for="email">Email</label>
-        <div class="parsley-container">
-          <input type="text" name="email" id="email" data-type="email" data-trigger="change" data-required="true" data-error="Please enter your email">
-        </div>
+        <input type="text" name="email" id="email" onkeyup="validateEmail()" onchange="validateEmail()">
       </div>
+      <div id="email-error" class="validate-error"></div>
       <div>
         <label for="location">Location</label>
-        <div class="parsley-container">
-          <input type="text" name="location" id="location">
-        </div>
+        <input type="text" name="location" id="location">
       </div>
       <div>
         <label for="testimonial">Testimonial</label>
-        <div class="parsley-container">
-          <textarea name="testimonial" id="testimonial" rows="6" cols="40" data-trigger="change" data-required="true" data-error="Please enter your testimonial"></textarea>
-        </div>
+        <textarea name="testimonial" id="testimonial" rows="6" cols="40" onkeyup="validateInput('textarea#testimonial', '#testimonial_error')" onchange="validateInput('textarea#testimonial', '#testimonial_error')"></textarea>
       </div>
+      <div id="testimonial_error" class="validate-error"></div>
       <div class="error">
         <span class="error_message">
           <?php echo $display_message; ?>
