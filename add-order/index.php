@@ -5,7 +5,7 @@
   **/
   require("../lib/common.php");
   $title = "Add Order";
-  $page = "place-an-order";
+  $page = "all-orders";
 
   if ($_SESSION['user']['username'] !== "admin")
   {
