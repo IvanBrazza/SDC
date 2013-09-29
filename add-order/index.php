@@ -187,147 +187,124 @@
     <div class="form">
       <h1>Add Order</h1>
       <h3>Customer Details</h3>
-      <form action="index.php" method="POST" data-validate="parsley">
+      <form action="index.php" method="POST" id="add-order-form">
         <div>
           <label for="existing_id">Select existing customer</label>
-          <div class="parsley-container">
-            <select onchange="checkExisting()" id="existing_id" name="existing_id">
-              <option value="null"></option>
-              <?php foreach ($existing_rows as $row) : ?>
-                <option value="<?php echo $row['customer_id']; ?>"><?php echo $row['customer_id'] . " - " . $row['first_name'] . " " . $row['last_name']; ?></option>
-              <?php endforeach; ?>
-            </select>
-          </div>
+          <select onchange="checkExisting()" id="existing_id" name="existing_id">
+            <option value="null"></option>
+            <?php foreach ($existing_rows as $row) : ?>
+              <option value="<?php echo $row['customer_id']; ?>"><?php echo $row['customer_id'] . " - " . $row['first_name'] . " " . $row['last_name']; ?></option>
+            <?php endforeach; ?>
+          </select>
         </div>
         <div class="or">OR</div>
         <div>
           <label for="first_name">First Name</label>
-          <div class="parsley-container">
-            <input type="text" name="first_name" id="first_name" data-trigger="change keyup" data-error-message="Please enter a first name">
-          </div>
+          <input type="text" name="first_name" id="first_name" onkeyup="validateInput('#first_name', '#first_name_error')" onchange="validateInput('#first_name', '#first_name_error')">
         </div>
+        <div id="first_name_error" class="validate-error"></div>
         <div>
           <label for="last_name">Last Name</label>
-          <div class="parsley-container">
-            <input type="text" name="last_name" id="last_name" data-trigger="change keyup" data-error-message="Please enter a last name">
-          </div>
+          <input type="text" name="last_name" id="last_name" onkeyup="validateInput('#last_name', '#last_name_error')" onchange="validateInput('#last_name', '#last_name_error')">
         </div>
+        <div id="last_name_error" class="validate-error"></div>
         <div>
           <label for="address">Address</label>
-          <div class="parsley-container">
-            <input type="text" name="address" id="address" data-trigger="change keyup" data-error-message="Please enter an address">
-          </div>
+          <input type="text" name="address" id="address" onkeyup="validateInput('#address', '#address_error')" onchange="validateInput('#address', '#address_error')">
         </div>
+        <div id="address_error" class="validate-error"></div>
         <div>
           <label for="postcode">Postcode</label>
-          <div class="parsley-container">
-            <input type="text" name="postcode" id="postcode" data-trigger="change keyup" data-error-message="Please enter a postcode">
-          </div>
+          <input type="text" name="postcode" id="postcode" onkeyup="validatePostcode()" onchange="validatePostcode()">
         </div>
+        <div id="postcode_error" class="validate-error"></div>
         <div>
           <label for="phone">Phone Number</label>
-          <div class="parsley-container">
-            <input type="text" name="phone" id="phone" data-trigger="change keyup" data-error-message="Please enter a phone number" data-type="number">
-          </div>
+          <input type="text" name="phone" id="phone" onkeyup="validatePhone()" onchange="validatePhone()">
         </div>
+        <div id="phone_error" class="validate-error"></div>
         <div>
           <label for="email">Email</label>
-          <div class="parsley-container">
-            <input type="text" name="email" id="email" data-type="email" data-trigger="change keyup" data-error-message="Please enter a valid email">
-          </div>
+          <input type="text" name="email" id="email" onkeyup="validateEmail()" onchange="validateEmail()">
         </div>
+        <div id="email-error" class="validate-error"></div>
       <h3>Order Details</h3>
         <div>
           <label for="order_date">Date order was placed</label>
-          <div class="parsley-container">
-            <input type="text" name="order_date" id="order_date" data-required="true" data-trigger="change keyup" data-error-message="Please enter a date" data-type="dateIso" class="date">
-          </div>
+          <input type="text" name="order_date" id="order_date" class="date" onchange="validateInput('#order_date', '#order_date_error')">
         </div>
+        <div id="order_date_error" class="validate-error"></div>
         <div>
           <label for="datetime">Date and time to collect/deliver order</label>
-          <div class="parsley-container">
-            <input type="text" name="datetime" id="datetime" data-required="true" data-trigger="change keyup" data-error-message="Please enter a date and time" class="datetime">
-          </div>
+          <input type="text" name="datetime" id="datetime" class="datetime" onchange="validateInput('#datetime', '#datetime_error')">
         </div>
+        <div id="datetime_error" class="validate-error"></div>
         <div>
           <label for="celebration_date">Date of celebration</label>
-          <div class="parsley-container">
-            <input type="text" name="celebration_date" id="celebration_date" data-required="true" data-trigger="change keyup" data-error-message="Please enter a date" class="date" data-type="dateIso">
-          </div>
+          <input type="text" name="celebration_date" id="celebration_date" class="date" onchange="validateInput('#celebration_date', '#celebration_date_error')">
         </div>
+        <div id="celebration_date_error" class="validate-error"></div>
         <div id="order">
           <label for="order">Order</label>
-          <div class="parsley-container">
-            <textarea id="order" data-error-message="Please enter your order" data-required="true" data-trigger="change keyup" cols="30" rows="6" name="order"></textarea>
-          </div>
+          <textarea id="order" cols="30" rows="6" name="order" onkeyup="validateInput('textarea#order', '#order_error')" onchange="validateInput('textarea#order', '#order_error')"></textarea>
         </div>
+        <div id="order_error" class="validate-error"></div>
         <div>
           <label for="decoration">Cake to be decorated in</label>
-          <div class="parsley-container">
-            <select name="decoration" id="decoration">
-              <option value="None">None</option>
-              <option value="Royal Icing">Royal Icing</option>
-              <option value="Regal Icing">Regal Icing</option>
-              <option value="Butter Cream">Butter Cream</option>
-              <option value="Chocolate">Chocolate</option>
-              <option value="Coconut">Coconut</option>
-            </select>
-          </div>
+          <select name="decoration" id="decoration">
+            <option value="None">None</option>
+            <option value="Royal Icing">Royal Icing</option>
+            <option value="Regal Icing">Regal Icing</option>
+            <option value="Butter Cream">Butter Cream</option>
+            <option value="Chocolate">Chocolate</option>
+            <option value="Coconut">Coconut</option>
+          </select>
         </div>
         <div>
           <label for="size">Size of cake</label>
-          <div class="parsley-container">
-            <select name="size" id="size">
-              <option value='10"'>10"</option>
-              <option value='12"'>12"</option>
-              <option value='14"'>14"</option>
-              <option value='16"'>16"</option>
-              <option value='18"'>18"</option>
-              <option value='R'>R</option>
-              <option value='S'>S</option>
-            </select>
-          </div>
+          <select name="size" id="size">
+            <option value='10"'>10"</option>
+            <option value='12"'>12"</option>
+            <option value='14"'>14"</option>
+            <option value='16"'>16"</option>
+            <option value='18"'>18"</option>
+            <option value='R'>R</option>
+            <option value='S'>S</option>
+          </select>
         </div>
         <div>
           <label for="design">Design</label>
-          <input type="text" name="design" id="design" data-required="true" data-error-message="Please enter a design" data-trigger="change keyup">
+          <input type="text" name="design" id="design" onkeyup="validateInput('#design', '#design_error')" onchange="validateInput('#design', '#design_error')">
         </div>
+        <div id="design_error" class="validate-error"></div>
         <div>
           <label for="filling">Filling</label>
-          <div class="parsley-container">
-            <select name="filling" id="filling">
-              <option value="None">None</option>
-              <option value="Butter Cream">Butter Cream</option>
-              <option value="Chocolate">Chocolate</option>
-            </select>
-          </div>
+          <select name="filling" id="filling">
+            <option value="None">None</option>
+            <option value="Butter Cream">Butter Cream</option>
+            <option value="Chocolate">Chocolate</option>
+          </select>
         </div>
         <div>
           <label for="delivery">Delivery options</label>
-          <div class="parsley-container">
-            <select name="delivery" id="delivery">
-              <option value="Collection">The cake will be collected</option>
-              <option value="Deliver To Address">The cake will be delivered</option>
-            </select>
-          </div>
+          <select name="delivery" id="delivery">
+            <option value="Collection">The cake will be collected</option>
+            <option value="Deliver To Address">The cake will be delivered</option>
+          </select>
         </div>
         <div>
           <label for="agreed_price">Agreed Price</label>
-          <div class="parsley-container">
-            <input type="text" name="agreed_price" id="agreed_price" data-required="true" data-error-message="Please enter the agreed price" data-trigger="change keyup" data-type="number" data-minlength="1">
-          </div>
+          <input type="text" name="agreed_price" id="agreed_price" onkeyup="validatePrice('#agreed_price', '#agreed_price_error')" onchange="validatePrice('#agreed_price', '#agreed_price_error')"><span class="pound">&pound;</span>
         </div>
+        <div id="agreed_price_error" class="validate-error"></div>
         <div>
           <label for="delivery_charge">Delivery Charge</label>
-          <div class="parsley-container">
-            <input type="text" name="delivery_charge" id="delivery_charge" data-required="true" data-error-message="Please enter the delivery charge" data-trigger="change keyup" data-type="number" data-minlength="1">
-          </div>
+          <input type="text" name="delivery_charge" id="delivery_charge" onkeyup="validatePrice('#delivery_charge', '#delivery_charge_error')" onchange="validatePrice('#delivery_charge', '#delivery_charge_error')"><span class="pound">&pound;</span>
         </div>
+        <div id="delivery_charge_error" class="validate-error"></div>
         <div>
           <label for="grand_total">Grand Total</label>
-          <div class="parsley-container"id="grand_total" name="grand_total">
-            
-          </div>
+          <div id="grand_total" name="grand_total"></div>
         </div>
         <input type="submit" value="Add Order">
       </form>

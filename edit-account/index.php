@@ -169,54 +169,46 @@
           <?php echo $display_message; ?>
         </span>
       </div>
-      <form action="index.php" method="POST" data-validate="parsley">
+      <form action="index.php" method="POST" id="edit-account-form">
         <div>
           <label>Username</label>
           <b><?php echo htmlentities($_SESSION['user']['username'], ENT_QUOTES, 'UTF-8'); ?></b>
         </div>
         <div>
           <label for="first_name">First Name</label>
-          <div class="parsley-container">
-            <input type="text" name="first_name" id="first_name" value="<?php echo htmlentities($_SESSION['user']['first_name'], ENT_QUOTES, 'UTF-8'); ?>" data-required="true" data-error-message="Please enter your first name" data-trigger="change" /> 
-          </div>
+          <input type="text" name="first_name" id="first_name" value="<?php echo htmlentities($_SESSION['user']['first_name'], ENT_QUOTES, 'UTF-8'); ?>" onkeyup="validateInput('#first_name', '#first_name_error')" onchange="validateInput('#first_name', '#first_name_error')"> 
         </div>
+        <div id="first_name_error" class="validate-error"></div>
         <div>
           <label for="last_name">Last Name</label>
-          <div class="parsley-container">
-            <input type="text" name="last_name" id="last_name" value="<?php echo htmlentities($_SESSION['user']['last_name'], ENT_QUOTES, 'UTF-8'); ?>" data-required="true"  data-error-message="Please enter your last name" data-trigger="change" /> 
-          </div>
+          <input type="text" name="last_name" id="last_name" value="<?php echo htmlentities($_SESSION['user']['last_name'], ENT_QUOTES, 'UTF-8'); ?>" onkeyup="validateInput('#last_name', '#last_name_error')" onchange="validateInput('#last_name', '#last_name_error')"> 
         </div>
+        <div id="last_name_error" class="validate-error"></div>
         <div>
           <label for="email">E-Mail Address</label>
-          <div class="parsley-container">
-            <input type="text" name="email" id="email" value="<?php echo htmlentities($_SESSION['user']['email'], ENT_QUOTES, 'UTF-8'); ?>" data-required="true" data-type="email" data-error-message="Please enter an email address" data-trigger="change" /> 
-          </div>
+          <input type="text" name="email" id="email" value="<?php echo htmlentities($_SESSION['user']['email'], ENT_QUOTES, 'UTF-8'); ?>" onkeyup="validateEmail()" onchange="validateEmail()"> 
         </div>
+        <div id="email-error" class="validate-error"></div>
         <div>
           <label for="password">Password</label>
-          <div class="parsley-container">
-            <input type="password" name="password" id="password" value="" /><br /> 
-          </div><br />
+          <input type="password" name="password" id="password" value="" /><br /> 
           <small><i>(leave blank if you do not want to change your password)</i></small>
         </div>
         <div>
           <label for="address">Address</label>
-          <div class="parsley-container">
-            <input type="text" name="address" id="address" value="<?php echo htmlentities($_SESSION['user']['address'], ENT_QUOTES, 'UTF-8'); ?>" data-required="true" data-error-message="Please enter your address" data-trigger="change">
-          </div>
+          <input type="text" name="address" id="address" value="<?php echo htmlentities($_SESSION['user']['address'], ENT_QUOTES, 'UTF-8'); ?>" onkeyup="validateInput('#address', '#address_error')" onchange="validateInput('#address', '#address_error')">
         </div>
+        <div id="address_error" class="validate-error"></div>
         <div>
           <label for="postcode">Postcode</label>
-          <div class="parsley-container">
-            <input type="text" name="postcode" id="postcode" value="<?php echo htmlentities($_SESSION['user']['postcode'], ENT_QUOTES, 'UTF-8'); ?>" data-required="true" data-error-message="Please enter your postcode" data-trigger="change"/>
-          </div>
+          <input type="text" name="postcode" id="postcode" value="<?php echo htmlentities($_SESSION['user']['postcode'], ENT_QUOTES, 'UTF-8'); ?>" onkeyup="validatePostcode()" onchange="validatePostcode()">
         </div>
+        <div id="postcode_error" class="validate-error"></div>
         <div>
           <label for="phone">Phone number</label>
-          <div class="parsley-container">
-            <input type="text" name="phone" id="phone" value="<?php echo $_SESSION['user']['phone'] ?>" data-required="true" data-error-message="Please enter your phone number" data-trigger="change" />
-          </div>
+          <input type="text" name="phone" id="phone" value="<?php echo $_SESSION['user']['phone'] ?>" onkeyup="validatePhone()" onchange="validatePhone()">
         </div>
+        <div id="phone_error" class="validate-error"></div>
         <input type="submit" value="Update Account" /> 
       </form>
     </div>

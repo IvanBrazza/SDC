@@ -107,19 +107,17 @@
     </div>
     <div class="form">
       <h1>Login</h1> 
-      <form action="index.php" method="post" data-validate="parsley"> 
+      <form action="index.php" method="post" id="login-form"> 
         <div>
           <label for="username">Username</label>
-          <div class="parsley-container">
-            <input type="text" name="username" id="username" value="<?php echo $submitted_username; ?>" data-trigger="change" data-required="true" data-error-message="Please enter your username" />
-          </div>
+          <input type="text" name="username" id="username" value="<?php echo $submitted_username; ?>" onkeyup="validateUsername()" onchange="validateUsername()"/>
         </div>
+        <div id="username-error" class="validate-error"></div>
         <div>
           <label for="password">Password</label>
-          <div class="parsley-container">
-            <input type="password" name="password" id="password" data-required="true" data-trigger="change" data-error-message="Please enter your password" />
-          </div>
+          <input type="password" name="password" id="password" onkeyup="validatePassword()" onchange="validatePassword()" />
         </div>
+        <div id="password-error" class="validate-error"></div>
         <br /><br /> 
         <input type="submit" value="Login" /> 
       </form> 

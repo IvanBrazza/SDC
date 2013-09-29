@@ -122,75 +122,65 @@
         <?php echo $display_message; ?>
       </span>
     </div>
-    <form action="index.php" method="POST" data-validate="parsley">
+    <form action="index.php" method="POST" id="order-form">
       <div>
         <label for="filling">Filling</label>
-        <div class="parsley-container">
-          <select name="filling" id="filling">
-            <option value="None">None</option>
-            <option value="Butter Cream">Butter Cream</option>
-            <option value="Chocolate">Chocolate</option>
-          </select>
-        </div>
+        <select name="filling" id="filling">
+          <option value="None">None</option>
+          <option value="Butter Cream">Butter Cream</option>
+          <option value="Chocolate">Chocolate</option>
+        </select>
       </div>
       <div>
         <label for="decoration">Cake to be decorated in</label>
-        <div class="parsley-container">
-          <select name="decoration" id="decoration">
-            <option value="None">None</option>
-            <option value="Royal Icing">Royal Icing</option>
-            <option value="Regal Icing">Regal Icing</option>
-            <option value="Butter Cream">Butter Cream</option>
-            <option value="Chocolate">Chocolate</option>
-            <option value="Coconut">Coconut</option>
-          </select>
-        </div>
+        <select name="decoration" id="decoration">
+          <option value="None">None</option>
+          <option value="Royal Icing">Royal Icing</option>
+          <option value="Regal Icing">Regal Icing</option>
+          <option value="Butter Cream">Butter Cream</option>
+          <option value="Chocolate">Chocolate</option>
+          <option value="Coconut">Coconut</option>
+        </select>
       </div>
       <div>
         <label for="size">Size of cake</label>
-        <div class="parsley-container">
-          <select name="size" id="size">
-            <option value='10"'>10"</option>
-            <option value='12"'>12"</option>
-            <option value='14"'>14"</option>
-            <option value='16"'>16"</option>
-            <option value='18"'>18"</option>
-            <option value='R'>R</option>
-            <option value='S'>S</option>
-          </select>
-        </div>
+        <select name="size" id="size">
+          <option value='10"'>10"</option>
+          <option value='12"'>12"</option>
+          <option value='14"'>14"</option>
+          <option value='16"'>16"</option>
+          <option value='18"'>18"</option>
+          <option value='R'>R</option>
+          <option value='S'>S</option>
+        </select>
       </div>
       <div>
         <label for="design">Design</label>
-        <input type="text" name="design" id="design" data-required="true" data-error-message="Please enter a design" data-trigger="change">
+        <input type="text" name="design" id="design" onkeyup="validateInput('#design', '#design_error')" onchange="validateInput('#design', '#design_error')">
       </div>
+      <div id="design_error" class="validate-error"></div>
       <div>
         <label for="celebration_date">Date of celebration</label>
-        <div class="parsley-container">
-          <input type="text" name="celebration_date" class="date" data-required="true" data-type="dateIso" data-error-message="Please enter a date">
-        </div>
+        <input type="text" name="celebration_date" class="date" id="celebration_date" onchange="validateInput('#celebration_date', '#celebration_date_error')">
       </div>
+      <div id="celebration_date_error" class="validate-error"></div>
       <div id="order">
         <label for="order">Your order</label>
-        <div class="parsley-container">
-          <textarea name="order" id="order" rows="6" cols="30" data-trigger="change" data-required="true" data-error-message="Please enter your order"></textarea>
-        </div>
+        <textarea name="order" id="order" rows="6" cols="30" onkeyup="validateInput('textarea#order', '#order_error')" onchange="validateInput('textarea#order', '#order_error')"></textarea>
       </div>
+      <div id="order_error" class="validate-error"></div>
       <div>
         <label for="delivery">Delivery options</label>
-        <div class="parsley-container">
-          <select name="delivery" id="delivery">
-            <option value="Collection">You will collect the cake</option>
-            <option value="Deliver To Address">The cake will be delivered to your address</option>
-          </select>
-        </div>
+        <select name="delivery" id="delivery">
+          <option value="Collection">You will collect the cake</option>
+          <option value="Deliver To Address">The cake will be delivered to your address</option>
+        </select>
       </div>
       <div>
         <label for="datetime">Date and time to collect/deliver order</label>
-        <div class="parsley-container">
-          <input type="text" id="datetime" name="datetime" data-required="true" data-trigger="change" data-error-message="Please enter a date and time">
-        </div>
+        <input type="text" id="datetime" name="datetime" onchange="validateInput('#datetime', '#datetime_error')">
       </div>
+      <div id="datetime_error" class="validate-error"></div>
       <br /><br />
       <input type="submit" value="Submit Order" <?php if ($details_correct === false) : ?>disabled<?php endif; ?> />
     </form>
