@@ -271,6 +271,33 @@
   }
 
   $archived_rows = $stmt->fetchAll();
+  
+  // Get details about the cake for an order
+  $query = "
+    SELECT
+      cake_type,
+      cake_size
+    FROM
+      cakes
+    WHERE
+      cake_id = :cake_id
+  ";
+
+  $query_params = array(
+    ':cake_id' => $row['cake_id']
+  );
+
+  try
+  {
+    $stmt     = $db->prepare($query);
+    $result   = $stmt->execute($query_params);
+  }
+  catch(PDOException $ex)
+  {
+    die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
+  }
+
+  $cake_row = $stmt->fetch();
 
   // Get customer details if the user clicked on an order number,
   // searched for an order, or clicked on a customer ID.
@@ -456,6 +483,14 @@
           <tr>
             <th>Decoration</th>
             <td><?php echo htmlentities($row['decoration'], ENT_QUOTES, 'UTF-8'); ?></td>
+          </tr>
+          <tr>
+            <th>Cake Type</th>
+            <td><?php echo htmlentities($cake_row['cake_type'], ENT_QUOTES, 'UTF-8'); ?></td>
+          </tr>
+          <tr>
+            <th>Cake Size</th>
+            <td><?php echo htmlentities($cake_row['cake_size'], ENT_QUOTES, 'UTF-8'); ?></td>
           </tr>
           <tr>
             <th>Agreed Price</th>
