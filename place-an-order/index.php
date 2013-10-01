@@ -16,6 +16,35 @@
   if (!empty($_POST))
   {
     $query = "
+      SELECT
+        cake_id
+      FROM
+        cakes
+      WHERE
+        cake_size = :cake_size
+      AND
+        cake_type = :cake_type
+    ";
+
+    $query_params = array(
+      ':cake_size'  => $_POST['cake_size'],
+      ':cake_type'  => $_POST['cake_type']
+    );
+    
+    try
+    {
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
+    }
+    catch(PDOException $ex)
+    {
+      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
+    }
+
+    $row = $stmt->fetch();
+    $cake_id = $row['cake_id'];
+
+    $query = "
       INSERT INTO orders (
         customer_id,
         order_number,
@@ -25,8 +54,7 @@
         status,
         customer_order,
         filling,
-        size,
-        design,
+        cake_id,
         decoration,
         delivery,
         delivery_charge
@@ -39,8 +67,7 @@
         :status,
         :customer_order,
         :filling,
-        :size,
-        :design,
+        :cake_id,
         :decoration,
         :delivery,
         :delivery_charge
@@ -88,8 +115,7 @@
       ':status'             => $status,
       ':customer_order'     => $_POST['order'],
       ':filling'            => $_POST['filling'],
-      ':size'               => $_POST['size'],
-      ':design'             => $_POST['design'],
+      ':cake_id'            => $cake_id,
       ':decoration'         => $_POST['decoration'],
       ':delivery'           => $_POST['delivery'],
       ':delivery_charge'    => $delivery_charge
@@ -174,22 +200,24 @@
         </select>
       </div>
       <div>
-        <label for="size">Size of cake</label>
-        <select name="size" id="size">
+        <label for="cake_size">Size of cake</label>
+        <select name="cake_size" id="cake_size">
           <option value='10"'>10"</option>
           <option value='12"'>12"</option>
           <option value='14"'>14"</option>
           <option value='16"'>16"</option>
           <option value='18"'>18"</option>
-          <option value='R'>R</option>
-          <option value='S'>S</option>
         </select>
       </div>
       <div>
-        <label for="design">Design</label>
-        <input type="text" name="design" id="design" onkeyup="validateInput('#design', '#design_error')" onchange="validateInput('#design', '#design_error')">
+        <label for="cake_type">Type of cake</label>
+        <select name="cake_type" id="cake_type">
+          <option value="Sponge">Sponge</option>
+          <option value="Marble">Marble</option>
+          <option value="Chocolate">Chocolate</option>
+          <option value="Fruit">Fruit</option>
+        </select>
       </div>
-      <div id="design_error" class="validate-error"></div>
       <div>
         <label for="celebration_date">Date of celebration</label>
         <input type="text" name="celebration_date" class="date" id="celebration_date" onchange="validateInput('#celebration_date', '#celebration_date_error')">
