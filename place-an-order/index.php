@@ -28,7 +28,8 @@
         size,
         design,
         decoration,
-        delivery
+        delivery,
+        delivery_charge
       ) VALUES (
         :customer_id,
         :order_number,
@@ -41,13 +42,42 @@
         :size,
         :design,
         :decoration,
-        :delivery
+        :delivery,
+        :delivery_charge
       )
     ";
 
     $order_number   = $_SESSION['user']['customer_id'] . rand(10000,99999);
     $order_date     = date('Y-m-d');
     $status         = "Processing";
+    if ($_POST['delivery'] === "Collection") 
+    {
+      $delivery_charge = 0;
+    }
+    else
+    {
+      require("../lib/calculate-distance.php");
+      $remaining_miles = $miles - 5;
+      $remaining_miles = round($remaining_miles / 5) * 5;
+      echo "remaining_miles: $remaining_miles\n";
+      if ($remaining_miles <= 0)
+      {
+        $delivery_charge = 0;
+      }
+      else
+      {
+        echo "remaining_miles: $remaining_miles\n";
+        for ($i = 5, $j = 1; $i <= 50; $i = $i + 5, $j++)
+        {
+          echo "i = $i j = $j remaining_miles = $remaining_miles\n";
+          if ($remaining_miles == $i)
+          {
+            $delivery_charge = $j;
+            echo "delivery_charge = $delivery_charge\n";
+          }
+        }
+      }
+    }
 
     $query_params = array(
       ':customer_id'        => $_SESSION['user']['customer_id'],
@@ -61,7 +91,8 @@
       ':size'               => $_POST['size'],
       ':design'             => $_POST['design'],
       ':decoration'         => $_POST['decoration'],
-      ':delivery'           => $_POST['delivery']
+      ':delivery'           => $_POST['delivery'],
+      ':delivery_charge'    => $delivery_charge
     );
 
     try
