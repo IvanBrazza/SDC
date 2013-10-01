@@ -16,6 +16,35 @@
   if (!empty($_POST))
   {
     $query = "
+      SELECT
+        cake_id
+      FROM
+        cakes
+      WHERE
+        cake_size = :cake_size
+      AND
+        cake_type = :cake_type
+    ";
+
+    $query_params = array(
+      ':cake_size'  => $_POST['cake_size'],
+      ':cake_type'  => $_POST['cake_type']
+    );
+    
+    try
+    {
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
+    }
+    catch(PDOException $ex)
+    {
+      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
+    }
+
+    $row = $stmt->fetch();
+    $cake_id = $row['cake_id'];
+
+    $query = "
       INSERT INTO orders (
         customer_id,
         order_number,
@@ -25,7 +54,7 @@
         status,
         customer_order,
         filling,
-        size,
+        cake_id,
         decoration,
         delivery,
         delivery_charge
@@ -38,7 +67,7 @@
         :status,
         :customer_order,
         :filling,
-        :size,
+        :cake_id,
         :decoration,
         :delivery,
         :delivery_charge
@@ -86,7 +115,7 @@
       ':status'             => $status,
       ':customer_order'     => $_POST['order'],
       ':filling'            => $_POST['filling'],
-      ':size'               => $_POST['size'],
+      ':cake_id'            => $cake_id,
       ':decoration'         => $_POST['decoration'],
       ':delivery'           => $_POST['delivery'],
       ':delivery_charge'    => $delivery_charge
@@ -171,8 +200,8 @@
         </select>
       </div>
       <div>
-        <label for="size">Size of cake</label>
-        <select name="size" id="size">
+        <label for="cake_size">Size of cake</label>
+        <select name="cake_size" id="cake_size">
           <option value='10"'>10"</option>
           <option value='12"'>12"</option>
           <option value='14"'>14"</option>
@@ -182,7 +211,7 @@
       </div>
       <div>
         <label for="cake_type">Type of cake</label>
-        <select name"cake_type" id="cake_type">
+        <select name="cake_type" id="cake_type">
           <option value="Sponge">Sponge</option>
           <option value="Marble">Marble</option>
           <option value="Chocolate">Chocolate</option>
