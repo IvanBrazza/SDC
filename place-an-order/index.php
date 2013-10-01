@@ -181,6 +181,15 @@
         </select>
       </div>
       <div>
+        <label for="cake_type">Type of cake</label>
+        <select name"cake_type" id="cake_type">
+          <option value="Sponge">Sponge</option>
+          <option value="Marble">Marble</option>
+          <option value="Chocolate">Chocolate</option>
+          <option value="Fruit">Fruit</option>
+        </select>
+      </div>
+      <div>
         <label for="celebration_date">Date of celebration</label>
         <input type="text" name="celebration_date" class="date" id="celebration_date" onchange="validateInput('#celebration_date', '#celebration_date_error')">
       </div>
