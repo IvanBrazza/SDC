@@ -26,7 +26,6 @@
         customer_order,
         filling,
         size,
-        design,
         decoration,
         delivery,
         delivery_charge
@@ -40,7 +39,6 @@
         :customer_order,
         :filling,
         :size,
-        :design,
         :decoration,
         :delivery,
         :delivery_charge
@@ -89,7 +87,6 @@
       ':customer_order'     => $_POST['order'],
       ':filling'            => $_POST['filling'],
       ':size'               => $_POST['size'],
-      ':design'             => $_POST['design'],
       ':decoration'         => $_POST['decoration'],
       ':delivery'           => $_POST['delivery'],
       ':delivery_charge'    => $delivery_charge
@@ -183,11 +180,6 @@
           <option value='18"'>18"</option>
         </select>
       </div>
-      <div>
-        <label for="design">Design</label>
-        <input type="text" name="design" id="design" onkeyup="validateInput('#design', '#design_error')" onchange="validateInput('#design', '#design_error')">
-      </div>
-      <div id="design_error" class="validate-error"></div>
       <div>
         <label for="celebration_date">Date of celebration</label>
         <input type="text" name="celebration_date" class="date" id="celebration_date" onchange="validateInput('#celebration_date', '#celebration_date_error')">
