@@ -1,6 +1,6 @@
 <head>
   <title><?php echo $title ?> | Star Dream Cakes</title>
-  <link rel="icon" href="http://ivanbrazza.biz/sdc/favicon.ico">
+  <link rel="icon" href="../favicon.ico">
   <link href="../css/roboto.css" rel="stylesheet">
   <link href="../css/main.css" rel="stylesheet">
   <link href="../css/timepicker.css" rel="stylesheet">
@@ -30,8 +30,3 @@
       <li <?php if ($page === "home") : ?>class="active"<?php endif; ?>><a href="../home">Home</a></li>
     </ul>
   </div>
-  <script type="text/javascript">
-    var RecaptchaOptions = {
-      theme : 'clean'
-    };
-  </script>

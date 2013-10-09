@@ -48,29 +48,23 @@
       INSERT INTO orders (
         customer_id,
         order_number,
-        order_date,
-        datetime,
         celebration_date,
-        status,
-        customer_order,
+        comments,
+        decoration,
         filling,
         cake_id,
-        decoration,
-        delivery,
-        delivery_charge
+        order_date,
+        delivery_type
       ) VALUES (
         :customer_id,
         :order_number,
-        :order_date,
-        :datetime,
         :celebration_date,
-        :status,
-        :customer_order,
+        :comments,
+        :decoration,
         :filling,
         :cake_id,
-        :decoration,
-        :delivery,
-        :delivery_charge
+        :order_date,
+        :delivery_type
       )
     ";
 
@@ -109,17 +103,14 @@
     $query_params = array(
       ':customer_id'        => $_SESSION['user']['customer_id'],
       ':order_number'       => $order_number,
-      ':order_date'         => $order_date,
-      ':datetime'           => $_POST['datetime'],
-      ':celebration_date'   => $_POST['celebration_date'],
-      ':status'             => $status,
-      ':customer_order'     => $_POST['order'],
+      ':celebration_date'   => $order_date,
+      ':comments'           => $_POST['comments'],
+      ':decoration'         => $_POST['decoration'],
       ':filling'            => $_POST['filling'],
       ':cake_id'            => $cake_id,
-      ':decoration'         => $_POST['decoration'],
-      ':delivery'           => $_POST['delivery'],
-      ':delivery_charge'    => $delivery_charge
-    );
+      ':order_date'         => $order_date,
+      ':delivery_type'      => $_POST['delivery']
+     );
 
     try
     {
@@ -129,6 +120,45 @@
     catch(PDOException $ex)
     {
       die("Failed to run query: " . $ex->getMessage());
+    }
+
+    if ($_POST['delivery'] === "Deliver To Address")
+    {
+      $query = "
+        INSERT INTO delivery (
+          order_number,
+          datetime,
+          status,
+          miles,
+          delivery_charge
+        ) VALUES (
+          :order_number,
+          :datetime,
+          :status,
+          :miles,
+          :delivery_charge
+        )
+      ";
+
+      $status = "Processing";
+
+      $query_params = array(
+        ':order_number'     => $order_number,
+        ':datetime'         => $_POST['datetime'],
+        ':status'           => $status,
+        ':miles'            => $miles,
+        ':delivery_charge'  => $delivery_charge
+      );
+
+      try
+      {
+        $stmt     = $db->prepare($query);
+        $result   = $stmt->execute($query_params);
+      }
+      catch(PDOException $ex)
+      {
+        die("Failed to run query: " . $ex->getMessage() . "query: " . $query);
+      }
     }
 
     include("../lib/email-order.php");
@@ -222,11 +252,11 @@
         <input type="text" name="celebration_date" class="date" id="celebration_date" onchange="validateInput('#celebration_date', '#celebration_date_error')">
       </div>
       <div id="celebration_date_error" class="validate-error"></div>
-      <div id="order">
-        <label for="order">Your order</label>
-        <textarea name="order" id="order" rows="6" cols="30" onkeyup="validateInput('textarea#order', '#order_error')" onchange="validateInput('textarea#order', '#order_error')"></textarea>
+      <div id="comments">
+        <label for="comments">Comments</label>
+        <textarea name="comments" id="comments" rows="6" cols="30" onkeyup="validateInput('textarea#comments', '#comments_error')" onchange="validateInput('textarea#comments', '#comments_error')"></textarea>
       </div>
-      <div id="order_error" class="validate-error"></div>
+      <div id="comments_error" class="validate-error"></div>
       <div>
         <label for="delivery">Delivery options</label>
         <select name="delivery" id="delivery">

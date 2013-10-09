@@ -178,6 +178,7 @@ input.invalid, textarea.invalid {
   margin-top:         4px;
   }
 
-.recaptchatable .recaptcha_image_cell {
-  background:         transparent!important;
+div[id*='AYAH'] {
+  text-align:         center;
+  margin:             30 0 20 0!important;
   }

@@ -298,7 +298,65 @@
   }
 
   $cake_row = $stmt->fetch();
+  
+  // Get delivery details
+  if (!empty($_GET['order']))
+  {
+    $query = "
+      SELECT
+        *
+      FROM
+        delivery
+      WHERE
+        order_number = :order_number
+    ";
 
+    $query_params = array(
+      ':order_number' => $row['order_number']
+    );
+
+    try
+    {
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
+    }
+    catch(PDOException $ex)
+    {
+      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
+    }
+    
+    $delivery_row = $stmt->fetch();
+  } 
+  else
+  {
+    foreach ($rows as $row)
+    {
+      $query = "
+        SELECT
+          *
+        FROM
+          delivery
+        WHERE
+          order_number = :order_number
+      ";
+
+      $query_params = array(
+        ':order_number' => $row['order_number']
+      );
+
+      try
+      {
+        $stmt     = $db->prepare($query);
+        $result   = $stmt->execute($query_params);
+      }
+      catch(PDOException $ex)
+      {
+        die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
+      }
+    
+      $delivery_row = $stmt->fetch();
+    }
+  }
   // Get customer details if the user clicked on an order number,
   // searched for an order, or clicked on a customer ID.
   if ($_GET)
@@ -388,9 +446,9 @@
                 <td><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>"><?php echo $row['customer_id']; ?></a></td>
                 <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"><?php echo $row['order_number']; ?></a></td>
                 <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
-                <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
-                <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
-                <td><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlentities($delivery_row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlentities($delivery_row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?></td>
               </tr>
             <?php endforeach; ?>
             <?php foreach ($manual_rows as $row) : ?>
@@ -449,7 +507,7 @@
           </tr>
           <tr>
             <th>Required Date</th>
-            <td><?php echo $row['datetime']; ?> </td>
+            <td><?php echo $delivery_row['datetime']; ?> </td>
           </tr>
           <tr>
             <th>Date Of Celebration</th>
@@ -474,7 +532,7 @@
           </tr>
           <tr>
             <th>Order</th>
-            <td><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
+            <td><?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?></td>
           </tr>
           <tr>
             <th>Filling</th>
@@ -516,17 +574,17 @@
                 <form action="../lib/update-order.php" method="POST">
                   <input type="hidden" value="<?php echo $_GET['id']; ?>" name="id">
                   <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
-                  <input name="delivery_charge" type="text" value="<?php echo $row['delivery_charge']; ?>" style="width:50px;">
+                  <input name="delivery_charge" type="text" value="<?php echo $delivery_row['delivery_charge']; ?>" style="width:50px;">
                   <input type="submit" value="Update">
                 </form>
               <?php else : ?>
-                <?php echo $row['delivery_charge']; ?>
+                <?php echo $delivery_row['delivery_charge']; ?>
               <?php endif; ?>
             </td>
           </tr>
           <tr>
             <th>Delivery Type</th>
-            <td><?php echo htmlentities($row['delivery'], ENT_QUOTES, 'UTF-8'); ?></td>
+            <td><?php echo htmlentities($row['delivery_type'], ENT_QUOTES, 'UTF-8'); ?></td>
           </tr>
           <tr>
             <th>Grand Total</th>
