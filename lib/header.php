@@ -30,8 +30,3 @@
       <li <?php if ($page === "home") : ?>class="active"<?php endif; ?>><a href="../home">Home</a></li>
     </ul>
   </div>
-  <script type="text/javascript">
-    var RecaptchaOptions = {
-      theme : 'clean'
-    };
-  </script>

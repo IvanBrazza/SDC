@@ -4,65 +4,65 @@
    submit a testimonial.
   **/
   require("../lib/common.php");
+  require_once("../lib/ayah/ayah.php");
+  $ayah = new AYAH();
   $title = "Submit A Testimonial";
   $page = "testimonials";
   
   if(!empty($_GET['e']))
   {
-    if ($_GET['e'] === "captcha")
+    if ($_GET['e'] === "ayah")
     {
-      $display_message = "Incorrect captcha.";
+      $display_message = "Human verification failed.";
     }
   }
 
   if (!empty($_POST))
   {
-    // Check reCAPTCHA
-    require_once('../lib/recaptcha.php');
-    $privatekey   = "6LePfucSAAAAAHkrfHOrSYPPvJqf6rCiNnhWT77L";
-    $resp         = recaptcha_check_answer($privatekey, $_SERVER["REMOTE_ADDR"],$_POST["recaptcha_challenge_field"], $_POST["recaptcha_response_field"]);
-
-    if (!$resp->is_valid) 
+    // Check AYAH
+    if (array_key_exists("submit", $_POST)) 
     {
-      // What happens when the CAPTCHA was entered incorrectly
-      header("Location: ../submit-a-testimonial/?e=captcha");
-      die();
-    }
-    else
-    {
-      $query = "
-        INSERT INTO testimonials (
-          name,
-          email,
-          location,
-          testimonial
-        ) VALUES (
-          :name,
-          :email,
-          :location,
-          :testimonial
-        )
-      ";
-
-      $query_params = array(
-        ':name'           => $_POST['name'],
-        ':email'          => $_POST['email'],
-        ':location'       => $_POST['location'],
-        ':testimonial'    => $_POST['testimonial']
-      );
-  
-      try
+      if ($ayah->scoreResult())
       {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute($query_params);
+        $query = "
+          INSERT INTO testimonials (
+            name,
+            email,
+            location,
+            testimonial
+          ) VALUES (
+            :name,
+            :email,
+            :location,
+            :testimonial
+          )
+        ";
+  
+        $query_params = array(
+          ':name'           => $_POST['name'],
+          ':email'          => $_POST['email'],
+          ':location'       => $_POST['location'],
+          ':testimonial'    => $_POST['testimonial']
+        );
+    
+        try
+        {
+          $stmt     = $db->prepare($query);
+          $result   = $stmt->execute($query_params);
+        }
+        catch(PDOException $ex)
+        { 
+          die("Failed to execute query: " . $ex->getMessage());
+        }
+  
+        header("Location: ../testimonials/");
+        die();
       }
-      catch(PDOException $ex)
-      { 
-        die("Failed to execute query: " . $ex->getMessage());
+      else
+      {
+        header("Location: ../submit-a-testimonial/?e=ayah");
+        die();
       }
-
-      header("Location: ../testimonials/");
-      die();
     }
   }
 ?>
@@ -95,11 +95,9 @@
         </span>
       </div>
       <?php
-        require_once("../lib/recaptcha.php");
-        $publickey = "6LePfucSAAAAAKlUO3GQKgfXCd7SvIhtFjBH5F9Z";
-        echo recaptcha_get_html($publickey, $error = null, $use_ssl = false);
+        echo $ayah->getPublisherHTML();
       ?>
-      <input type="submit" id="submit-testimonial" value="Submit Testimonial">
+      <input type="submit" id="submit-testimonial" value="Submit Testimonial" name="submit">
     </form>
   </div>
 <?php include("../lib/footer.php"); ?>
