@@ -80,21 +80,17 @@
       require("../lib/calculate-distance.php");
       $remaining_miles = $miles - 5;
       $remaining_miles = round($remaining_miles / 5) * 5;
-      echo "remaining_miles: $remaining_miles\n";
       if ($remaining_miles <= 0)
       {
         $delivery_charge = 0;
       }
       else
       {
-        echo "remaining_miles: $remaining_miles\n";
         for ($i = 5, $j = 1; $i <= 50; $i = $i + 5, $j++)
         {
-          echo "i = $i j = $j remaining_miles = $remaining_miles\n";
           if ($remaining_miles == $i)
           {
             $delivery_charge = $j;
-            echo "delivery_charge = $delivery_charge\n";
           }
         }
       }
