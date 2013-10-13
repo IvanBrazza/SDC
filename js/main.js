@@ -212,8 +212,8 @@ function validateEmail()
 
 function validatePassword()
 {
-  var password          = $("input[name=password").val(),
-      $password         = $("input[name=password"),
+  var password          = $("input[name=password]").val(),
+      $password         = $("input[name=password]"),
       $password_error   = $("#password-error");
 
   if (password === null) {
@@ -238,9 +238,9 @@ function validatePassword()
 
 function validatePassword2()
 {
-  var password          = $("input[name=password").val(),
-      password2         = $("input[name=password2").val(),
-      $password2        = $("input[name=password2"),
+  var password          = $("input[name=password]").val(),
+      password2         = $("input[name=password2]").val(),
+      $password2        = $("input[name=password2]"),
       $password2_error  = $("#password2-error");
 
   if (password2 === null) {
@@ -265,8 +265,8 @@ function validatePassword2()
 
 function validateUsername()
 {
-  var username          = $("input[name=username").val(),
-      $username         = $("input[name=username"),
+  var username          = $("input[name=username]").val(),
+      $username         = $("input[name=username]"),
       $username_error   = $("#username-error");
 
   if (username === null) {
@@ -311,8 +311,8 @@ function validateInput(input, error)
 
 function validatePostcode()
 {
-  var postcode          = $("input[name=postcode").val(),
-      $postcode         = $("input[name=postcode"),
+  var postcode          = $("input[name=postcode]").val(),
+      $postcode         = $("input[name=postcode]"),
       $postcode_error   = $("#postcode_error");
 
   if (postcode === null) {
@@ -337,8 +337,8 @@ function validatePostcode()
 
 function validatePhone()
 {
-  var phone         = $("input[name=phone").val(),
-      $phone        = $("input[name=phone"),
+  var phone         = $("input[name=phone]").val(),
+      $phone        = $("input[name=phone]"),
       $phone_error  = $("#phone_error");
 
   if (phone === null) {
