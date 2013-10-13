@@ -69,7 +69,7 @@ body {
   width:              50%;
   }
 
-.form>form>div>input, .form>form>div>textarea, .form>form>div>select, .form>form>div>small, .form>form>div>b {
+.form>form>div>input, .form>form>div>textarea, .form>form>div>select, .form>form>div>b {
   float:              right;
   }
 
