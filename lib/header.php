@@ -1,7 +1,6 @@
 <head>
   <title><?php echo $title ?> | Star Dream Cakes</title>
   <link rel="icon" href="../favicon.ico">
-  <link href="../css/roboto.css" rel="stylesheet">
   <link href="../css/main.css" rel="stylesheet">
   <link href="../css/timepicker.css" rel="stylesheet">
   <link href="../css/jquery-ui.css" rel="stylesheet">
