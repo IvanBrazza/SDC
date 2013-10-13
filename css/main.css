@@ -1,13 +1,13 @@
 body {
   margin:             0px;
   background-color:   #f0f0f0;
-  font-family:        'Roboto', sans-serif;
+  font-family:        'arial', sans-serif;
   text-shadow:        rgba(0, 0, 0, .01) 0 0 1px;
   }
 
 .navbar {
   background-color:   #272727;
-  height:             33px;
+  height:             27px;
   text-align:         right;
   }
 
@@ -18,10 +18,10 @@ body {
   }
 
 .navbar a {
-  padding:            5px 14px;
+  padding:            5px 10px;
   color:              #d5d5d5;
   text-decoration:    none;
-  font-size:          18px;
+  font-size:          14px;
   display:            inline-block
   }
 
