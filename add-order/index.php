@@ -80,38 +80,63 @@
       $row = $stmt->fetch();
     }
 
+    // Get the cake ID
+    $query = "
+      SELECT
+        cake_id
+      FROM
+        cakes
+      WHERE
+        cake_size = :cake_size
+      AND
+        cake_type = :cake_type
+    ";
+
+    $query_params = array(
+      ':cake_size' => $_POST['cake_size'],
+      ':cake_type' => $_POST['cake_type']
+    );
+
+    try
+    {
+      $stmt = $db->prepare($query);
+      $result = $stmt->execute($query_params);
+    }
+    catch(PDOException $ex)
+    {
+      die("Failed to execute query: " . $ex->getMessage() . "query: " . $query);
+    }
+
+    $cake_row = $stmt->fetch();
+
     // Insert the new order into the orders table
     $query = "
       INSERT INTO orders(
         customer_id,
         order_number,
-        order_date,
-        datetime,
         celebration_date,
-        customer_order,
+        comments,
         decoration,
-        size,
-        status,
-        design,
         filling,
-        delivery,
+        cake_id,
         agreed_price,
-        delivery_charge
+        order_date,
+        delivery_type,
+        status,
+        datetime
       ) VALUES (
         :customer_id,
         :order_number,
-        :order_date,
-        :datetime,
         :celebration_date,
-        :customer_order,
+        :comments,
         :decoration,
-        :size,
-        :status,
-        :design,
         :filling,
-        :delivery,
+        :cake_id,
         :agreed_price,
-        :delivery_charge
+        :order_date,
+        :delivery_type,
+        :status,
+        :datetime
       )
     ";
     
@@ -126,22 +151,21 @@
     $order_number   = "m" . rand(10000,99999);
     $order_date     = date('Y-m-d');
     $status         = "Processing";
+    $cake_id        = $cake_row['cake_id'];
 
     $query_params = array(
       ':customer_id'      => $customer_id,
       ':order_number'     => $order_number,
-      ':order_date'       => $order_date,
-      ':datetime'         => $_POST['datetime'],
       ':celebration_date' => $_POST['celebration_date'],
-      ':customer_order'   => $_POST['order'],
+      ':comments'         => $_POST['comments'],
       ':decoration'       => $_POST['decoration'],
-      ':size'             => $_POST['size'],
-      ':status'           => $status,
-      ':design'           => $_POST['design'],
       ':filling'          => $_POST['filling'],
-      ':delivery'         => $_POST['delivery'],
+      ':cake_id'          => $cake_id,
       ':agreed_price'     => $_POST['agreed_price'],
-      ':delivery_charge'  => $_POST['delivery_charge']
+      ':order_date'       => $order_date,
+      ':delivery_type'    => $_POST['delivery'],
+      ':status'           => $status,
+      ':datetime'         => $_POST['datetime']
     );
 
     try
@@ -152,6 +176,57 @@
     catch(PDOException $ex)
     {
       die("Failed to execute query: " . $ex->getMessage() . "Query: " . $query);
+    }
+
+    if ($_POST['delivery'] === "Deliver To Address")
+    {
+      require("../lib/calculate-distance.php");
+      $remaining_miles = $miles - 5;
+      $remaining_miles = round($remaining_miles / 5) * 5;
+      if ($remaining_miles <= 0)
+      {
+        $delivery_charge = 0;
+      }
+      else
+      {
+        for ($i = 5, $j = 1; $i <= 50; $i = $i + 5, $j++)
+        {
+          if ($remaining_miles == $i)
+          {
+            $delivery_charge = $j;
+          }
+        }
+      }
+
+      $query = "
+        INSERT INTO delivery (
+          order_number,
+          miles,
+          delivery_charge
+        ) VALUES (
+          :order_number,
+          :miles,
+          :delivery_charge
+        )
+      ";
+
+      $status = "Processing";
+
+      $query_params = array(
+        ':order_number'     => $order_number,
+        ':miles'            => $miles,
+        ':delivery_charge'  => $delivery_charge
+      );
+
+      try
+      {
+        $stmt     = $db->prepare($query);
+        $result   = $stmt->execute($query_params);
+      }
+      catch(PDOException $ex)
+      {
+        die("Failed to run query: " . $ex->getMessage() . "query: " . $query);
+      }
     }
 
     header("Location: ../all-orders/?new-order=added");
@@ -244,11 +319,11 @@
           <input type="text" name="celebration_date" id="celebration_date" class="date" onchange="validateInput('#celebration_date', '#celebration_date_error')">
         </div>
         <div id="celebration_date_error" class="validate-error"></div>
-        <div id="order">
-          <label for="order">Order</label>
-          <textarea id="order" cols="30" rows="6" name="order" onkeyup="validateInput('textarea#order', '#order_error')" onchange="validateInput('textarea#order', '#order_error')"></textarea>
+        <div id="comments">
+          <label for="comments">Comments</label>
+          <textarea id="comments" cols="30" rows="6" name="comments" onkeyup="validateInput('textarea#comments', '#comments_error')" onchange="validateInput('textarea#comments', '#comments_error')"></textarea>
         </div>
-        <div id="order_error" class="validate-error"></div>
+        <div id="comments_error" class="validate-error"></div>
         <div>
           <label for="decoration">Cake to be decorated in</label>
           <select name="decoration" id="decoration">
@@ -261,22 +336,24 @@
           </select>
         </div>
         <div>
-          <label for="size">Size of cake</label>
-          <select name="size" id="size">
+          <label for="cake_size">Size of Cake</label>
+          <select name="cake_size" id="cake_size">
             <option value='10"'>10"</option>
             <option value='12"'>12"</option>
             <option value='14"'>14"</option>
             <option value='16"'>16"</option>
             <option value='18"'>18"</option>
-            <option value='R'>R</option>
-            <option value='S'>S</option>
           </select>
         </div>
         <div>
-          <label for="design">Design</label>
-          <input type="text" name="design" id="design" onkeyup="validateInput('#design', '#design_error')" onchange="validateInput('#design', '#design_error')">
+          <label for="cake_type">Type of Cake</label>
+          <select name="cake_type" id="cake_type">
+            <option value="Sponge">Sponge</option>
+            <option value="Marble">Marble</option>
+            <option value="Chocolate">Chocolate</option>
+            <option value="Fruit">Fruit</option>
+          </select>
         </div>
-        <div id="design_error" class="validate-error"></div>
         <div>
           <label for="filling">Filling</label>
           <select name="filling" id="filling">
@@ -297,15 +374,6 @@
           <input type="text" name="agreed_price" id="agreed_price" onkeyup="validatePrice('#agreed_price', '#agreed_price_error')" onchange="validatePrice('#agreed_price', '#agreed_price_error')"><span class="pound">&pound;</span>
         </div>
         <div id="agreed_price_error" class="validate-error"></div>
-        <div>
-          <label for="delivery_charge">Delivery Charge</label>
-          <input type="text" name="delivery_charge" id="delivery_charge" onkeyup="validatePrice('#delivery_charge', '#delivery_charge_error')" onchange="validatePrice('#delivery_charge', '#delivery_charge_error')"><span class="pound">&pound;</span>
-        </div>
-        <div id="delivery_charge_error" class="validate-error"></div>
-        <div>
-          <label for="grand_total">Grand Total</label>
-          <div id="grand_total" name="grand_total"></div>
-        </div>
         <input type="submit" value="Add Order">
       </form>
     </div>

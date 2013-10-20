@@ -20,15 +20,8 @@ $(document).ready(function() {
     minDate: 0
   });
 
-  $("#order").css("padding-bottom", "100px");
+  $("#comments").css("padding-bottom", "100px");
             
-  $("#agreed_price, #delivery_charge").bind("keyup", function() {
-    $agreed_price = $("#agreed_price").val();
-    $delivery_charge = $("#delivery_charge").val();
-    $result = Number($agreed_price) + Number($delivery_charge);
-    $("#grand_total").html("<b>&pound;" + $result + "</b>");
-  });
-
   $("#register-form").submit(function(e) {
     if ($password_check && $password2_check && $username_check && $email_check) {
     } else {

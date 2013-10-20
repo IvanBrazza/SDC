@@ -61,7 +61,7 @@
   {
     $query = "
       UPDATE
-        orders
+        delivery
       SET
         delivery_charge = :delivery_charge
       WHERE

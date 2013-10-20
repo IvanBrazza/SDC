@@ -439,15 +439,15 @@
               <th>Order Date</th>
               <th>Required Date</th>
               <th>Status</th>
-              <th>Order</th>
+              <th>Comments</th>
             </tr>
             <?php foreach($rows as $row): ?>
               <tr>
                 <td><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>"><?php echo $row['customer_id']; ?></a></td>
                 <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"><?php echo $row['order_number']; ?></a></td>
                 <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
-                <td><?php echo htmlentities($delivery_row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
-                <td><?php echo htmlentities($delivery_row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?></td>
               </tr>
             <?php endforeach; ?>
@@ -474,7 +474,7 @@
               <th>Order Date</th>
               <th>Required Date</th>
               <th>Status</th>
-              <th>Order</th>
+              <th>Comments</th>
             </tr>
             <?php foreach($archived_rows as $row): ?>
               <tr>
@@ -496,6 +496,9 @@
           <b>Address:</b><br />
           <?php echo htmlentities($userrow['address'], ENT_QUOTES, 'UTF-8'); ?><br />
           <?php echo htmlentities($userrow['postcode'], ENT_QUOTES, 'UTF-8'); ?><br />
+          <?php require_once "../lib/calculate-distance.php"; ?>
+          <i>(<?php echo $miles; ?> miles away)</i>
+          <br />
           <br />
           <b>Phone: </b>
           <?php echo $userrow['phone']; ?><br />
@@ -507,7 +510,7 @@
           </tr>
           <tr>
             <th>Required Date</th>
-            <td><?php echo $delivery_row['datetime']; ?> </td>
+            <td><?php echo $row['datetime']; ?> </td>
           </tr>
           <tr>
             <th>Date Of Celebration</th>
@@ -531,7 +534,7 @@
             </td>
           </tr>
           <tr>
-            <th>Order</th>
+            <th>Comments</th>
             <td><?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?></td>
           </tr>
           <tr>
@@ -566,29 +569,31 @@
               <?php endif; ?>
             </td>
           </tr>
-          <tr>
-            <th>Delivery Charge</th>
-            <td>
-              &pound; 
-              <?php if (empty($_GET['archived'])) : ?>
-                <form action="../lib/update-order.php" method="POST">
-                  <input type="hidden" value="<?php echo $_GET['id']; ?>" name="id">
-                  <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
-                  <input name="delivery_charge" type="text" value="<?php echo $delivery_row['delivery_charge']; ?>" style="width:50px;">
-                  <input type="submit" value="Update">
-                </form>
-              <?php else : ?>
-                <?php echo $delivery_row['delivery_charge']; ?>
-              <?php endif; ?>
-            </td>
-          </tr>
+          <?php if (!empty($delivery_row)) : ?>
+            <tr>
+              <th>Delivery Charge</th>
+              <td>
+                &pound; 
+                <?php if (empty($_GET['archived'])) : ?>
+                  <form action="../lib/update-order.php" method="POST">
+                    <input type="hidden" value="<?php echo $_GET['id']; ?>" name="id">
+                    <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
+                    <input name="delivery_charge" type="text" value="<?php echo $delivery_row['delivery_charge']; ?>" style="width:50px;">
+                    <input type="submit" value="Update">
+                  </form>
+                <?php else : ?>
+                  <?php echo $delivery_row['delivery_charge']; ?>
+                <?php endif; ?>
+              </td>
+            </tr>
+          <?php endif; ?>
           <tr>
             <th>Delivery Type</th>
             <td><?php echo htmlentities($row['delivery_type'], ENT_QUOTES, 'UTF-8'); ?></td>
           </tr>
           <tr>
             <th>Grand Total</th>
-            <td>&pound;<?php echo $row['agreed_price']+$row['delivery_charge']; ?></td>
+            <td>&pound;<?php echo $row['agreed_price']+$delivery_row['delivery_charge']; ?></td>
           </tr>
         </table>
       <!-- show all orders by a customer -->
@@ -597,48 +602,59 @@
         <b>Address:</b><br />
         <?php echo htmlentities($userrow['address'], ENT_QUOTES, 'UTF-8'); ?><br />
         <?php echo htmlentities($userrow['postcode'], ENT_QUOTES, 'UTF-8'); ?><br />
+        <?php require_once "../lib/calculate-distance.php"; ?>
+        <i>(<?php echo $miles; ?> miles away)</i>
+        <br />
         <br />
         <b>Phone: </b>
         <?php echo htmlentities($userrow['phone'], ENT_QUOTES, 'UTF-8'); ?><br />
         <br /><br />
-        <table class="orders-table">
-          <caption>Outstanding Orders</caption>
-          <tr>
-            <th>Order Number</th>
-            <th>Order Date</th>
-            <th>Required Date</th>
-            <th>Status</th>
-            <th>Customers Order</th>
-          </tr>
-          <?php foreach($rows as $row): ?>
+        <?php if (empty($rows)) : ?>
+          <h3>There are no outstanding orders</h3>
+        <?php else : ?>
+          <table class="orders-table">
+            <caption>Outstanding Orders</caption>
             <tr>
-              <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"><?php echo $row['order_number']; ?></a></td>
-              <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <th>Order Number</th>
+              <th>Order Date</th>
+              <th>Required Date</th>
+              <th>Status</th>
+              <th>Comments</th>
             </tr>
-          <?php endforeach; ?>
-        </table>
-        <table>
-          <caption>Archived Orders</caption>
-          <tr>
-            <th>Order Number</th>
-            <th>Order Date</th>
-            <th>Required Date</th>
-            <th>Status</th>
-            <th>Customers Order</th>
-          </tr>
-          <?php foreach($archived_rows as $row): ?>
+            <?php foreach($rows as $row): ?>
+              <tr>
+                <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"><?php echo $row['order_number']; ?></a></td>
+                <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?></td>
+              </tr>
+            <?php endforeach; ?>
+          </table>
+        <?php endif; ?>
+        <?php if (empty($archived_rows)) : ?>
+          <h3>There are no archived orders</h3>
+        <?php else : ?>
+          <table>
+            <caption>Archived Orders</caption>
             <tr>
-              <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>&archived=true"><?php echo $row['order_number']; ?></a></td>
-              <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <th>Order Number</th>
+              <th>Order Date</th>
+              <th>Required Date</th>
+              <th>Status</th>
+              <th>Comments</th>
             </tr>
-          <?php endforeach; ?>
-        </table>
+            <?php foreach($archived_rows as $row): ?>
+              <tr>
+                <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>&archived=true"><?php echo $row['order_number']; ?></a></td>
+                <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
+              </tr>
+            <?php endforeach; ?>
+          </table>
+        <?php endif; ?>
       <?php endif; ?>
     </div>
   </div>

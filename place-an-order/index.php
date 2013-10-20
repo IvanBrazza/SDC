@@ -54,7 +54,9 @@
         filling,
         cake_id,
         order_date,
-        delivery_type
+        delivery_type,
+        status,
+        datetime
       ) VALUES (
         :customer_id,
         :order_number,
@@ -64,18 +66,41 @@
         :filling,
         :cake_id,
         :order_date,
-        :delivery_type
+        :delivery_type,
+        :status,
+        :datetime
       )
     ";
 
     $order_number   = $_SESSION['user']['customer_id'] . rand(10000,99999);
     $order_date     = date('Y-m-d');
     $status         = "Processing";
-    if ($_POST['delivery'] === "Collection") 
+
+    $query_params = array(
+      ':customer_id'        => $_SESSION['user']['customer_id'],
+      ':order_number'       => $order_number,
+      ':celebration_date'   => $order_date,
+      ':comments'           => $_POST['comments'],
+      ':decoration'         => $_POST['decoration'],
+      ':filling'            => $_POST['filling'],
+      ':cake_id'            => $cake_id,
+      ':order_date'         => $order_date,
+      ':delivery_type'      => $_POST['delivery'],
+      ':status'             => $status,
+      ':datetime'           => $_POST['datetime']
+     );
+
+    try
     {
-      $delivery_charge = 0;
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
     }
-    else
+    catch(PDOException $ex)
+    {
+      die("Failed to run query: " . $ex->getMessage());
+    }
+
+    if ($_POST['delivery'] === "Deliver To Address")
     {
       require("../lib/calculate-distance.php");
       $remaining_miles = $miles - 5;
@@ -94,43 +119,14 @@
           }
         }
       }
-    }
 
-    $query_params = array(
-      ':customer_id'        => $_SESSION['user']['customer_id'],
-      ':order_number'       => $order_number,
-      ':celebration_date'   => $order_date,
-      ':comments'           => $_POST['comments'],
-      ':decoration'         => $_POST['decoration'],
-      ':filling'            => $_POST['filling'],
-      ':cake_id'            => $cake_id,
-      ':order_date'         => $order_date,
-      ':delivery_type'      => $_POST['delivery']
-     );
-
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to run query: " . $ex->getMessage());
-    }
-
-    if ($_POST['delivery'] === "Deliver To Address")
-    {
       $query = "
         INSERT INTO delivery (
           order_number,
-          datetime,
-          status,
           miles,
           delivery_charge
         ) VALUES (
           :order_number,
-          :datetime,
-          :status,
           :miles,
           :delivery_charge
         )
@@ -140,8 +136,6 @@
 
       $query_params = array(
         ':order_number'     => $order_number,
-        ':datetime'         => $_POST['datetime'],
-        ':status'           => $status,
         ':miles'            => $miles,
         ':delivery_charge'  => $delivery_charge
       );
