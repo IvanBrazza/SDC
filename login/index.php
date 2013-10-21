@@ -76,7 +76,7 @@
 
       $_SESSION['user'] = $row;
 
-      header("Location: ../private");
+      header("Location: ../home");
       die();
     }
     else if (!$email_verified and $logged_in)
