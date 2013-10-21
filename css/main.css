@@ -16,21 +16,7 @@ h1, h2, h3, h4, h5, h6 {
   }
 /* End General */
 
-/* 2. Unsupported Browser 
-#unsupported-browser {
-  background-color:   #fff398;
-  padding-top:        10px;
-  padding-bottom:     10px;
-  display:            none;
-  }
-
-#unsupported-browser>.container {
-  margin-top:         0;
-  margin-bottom:      0;
-  }*/
-/* End Unsupported Browser */
-
-/* 3. Navigation Bar */
+/* 2. Navigation Bar */
 .navbar {
   background-color:   #272727;
   height:             31px;
