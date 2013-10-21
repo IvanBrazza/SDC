@@ -34,7 +34,7 @@ h1, h2, h3, h4, h5, h6 {
   color:              #ffffff;
   }
 
-.navbar li.active, .navbar a:active {
+.navbar li.active {
   background-color:   #ebf7f7;
   }
 
