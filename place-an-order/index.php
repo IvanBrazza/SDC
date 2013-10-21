@@ -152,7 +152,19 @@
       }
     }
 
-    include("../lib/email-order.php");
+    include "../lib/email.php";
+    emailOrder($_SESSION['user']['email'], 
+               $_SESSION['user']['first_name'],
+               $order_number,
+               $_POST['order_date'],
+               $_POST["datetime"],
+               $_POST["celebration_date"],
+               $_POST["comments"],
+               $_POST["filling"],
+               $_POST["decoration"],
+               $_POST["cake_type"],
+               $_POST["cake_size"],
+               $_POST["delivery"]);
     
     header("Location: ../order-placed");
     die();

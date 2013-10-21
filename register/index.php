@@ -154,7 +154,8 @@
           die("Failed to run query to register: " . $ex->getMessage());
         }
       
-        require("../lib/email-verification.php");
+        include "../lib/email.php";
+        emailVerification($_POST['email'], $_POST['first_name'], $email_verification);
     
         header("Location: ../verify-email");
         die();

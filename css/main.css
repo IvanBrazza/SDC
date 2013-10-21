@@ -221,3 +221,7 @@ div[id*='AYAH'] {
   text-align:         center;
   margin:             30 0 20 0!important;
   }
+
+.forgot-password {
+  font-size:          small;
+  }

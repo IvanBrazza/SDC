@@ -117,6 +117,7 @@
         <input type="password" name="password" id="password" onkeyup="validatePassword()" onchange="validatePassword()" />
       </div>
       <div id="password-error" class="validate-error"></div>
+      <a href="../forgot-password" class="forgot-password">Forgot Password</a>
       <br /><br /> 
       <input type="submit" value="Login" /> 
     </form> 
