@@ -99,28 +99,26 @@
   }
 ?>
 <?php include("../lib/header.php"); ?>
-  <div class="container">
-    <div class="error">
-      <span class="error_message">
-        <?php echo $display_message; ?>
-      </span>
-    </div>
-    <div class="form">
-      <h1>Login</h1> 
-      <form action="index.php" method="post" id="login-form"> 
-        <div>
-          <label for="username">Username</label>
-          <input type="text" name="username" id="username" value="<?php echo $submitted_username; ?>" onkeyup="validateUsername()" onchange="validateUsername()"/>
-        </div>
-        <div id="username-error" class="validate-error"></div>
-        <div>
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password" onkeyup="validatePassword()" onchange="validatePassword()" />
-        </div>
-        <div id="password-error" class="validate-error"></div>
-        <br /><br /> 
-        <input type="submit" value="Login" /> 
-      </form> 
-    </div>
+  <div class="error">
+    <span class="error_message">
+      <?php echo $display_message; ?>
+    </span>
+  </div>
+  <div class="form">
+    <h1>Login</h1> 
+    <form action="index.php" method="post" id="login-form"> 
+      <div>
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" value="<?php echo $submitted_username; ?>" onkeyup="validateUsername()" onchange="validateUsername()"/>
+      </div>
+      <div id="username-error" class="validate-error"></div>
+      <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" onkeyup="validatePassword()" onchange="validatePassword()" />
+      </div>
+      <div id="password-error" class="validate-error"></div>
+      <br /><br /> 
+      <input type="submit" value="Login" /> 
+    </form> 
   </div>
 <?php include("../lib/footer.php");

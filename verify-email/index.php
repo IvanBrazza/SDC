@@ -69,13 +69,11 @@
 
 ?>
 <?php include("../lib/header.php"); ?>
-  <div class="container">
-    <?php if (!$_GET) : ?>
-      <h3>Thank you for registering, we've sent an email to you to verify your account, please click on the link in the email.</h3>
-    <?php endif; ?>
-    <?php if ($_GET) : ?>
-      <h3>Thank you. Your email <?php echo $email; ?> is now verified. Redirecting you to the login page...</h3>
-      <?php header( "refresh:5;url=../login" ); ?>
-    <?php endif; ?>
-  </div>
+  <?php if (!$_GET) : ?>
+    <h3>Thank you for registering, we've sent an email to you to verify your account, please click on the link in the email.</h3>
+  <?php endif; ?>
+  <?php if ($_GET) : ?>
+    <h3>Thank you. Your email <?php echo $email; ?> is now verified. Redirecting you to the login page...</h3>
+    <?php header( "refresh:5;url=../login" ); ?>
+  <?php endif; ?>
 <?php include("../lib/footer.php"); ?>

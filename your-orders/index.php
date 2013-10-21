@@ -115,7 +115,6 @@
   }
 ?>
 <?php include("../lib/header.php"); ?>
-  <div class="container">
     <div class="orders">
       <?php if (!empty($_GET['order'])) : ?>
         <h1>Order <?php echo $row['order_number']; ?><?php if (empty($_GET['archived'])) : ?><form action="../lib/archive-order.php" method="POST" id="archive-order"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number" id="order_number"><input type="hidden" value="customer" name="user"><input type="submit" value="Archive Order" class="delete_testimonial_btn"></form><?php else : ?> (archived)<?php endif; ?></h1>
@@ -220,5 +219,4 @@
         <?php endif; ?>
       <?php endif; ?>
     </div>
-  </div>
 <?php include("../lib/footer.php"); ?>

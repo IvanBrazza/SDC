@@ -168,7 +168,6 @@
   }
 ?>
 <?php include("../lib/header.php"); ?>
-  <div class="container">
   <div class="form">
     <h1>Register</h1>
     <form action="index.php" method="post" id="register-form">
@@ -202,6 +201,5 @@
       ?>
       <input type="submit" value="Register" name="submit" />
     </form>
-  </div>
   </div>
 <?php include("../lib/footer.php"); ?>

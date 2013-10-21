@@ -258,7 +258,6 @@
   }
 ?>
 <?php include("../lib/header.php"); ?>
-  <div class="container">
     <div class="form">
       <h1>Add Order</h1>
       <h3>Customer Details</h3>
@@ -377,5 +376,4 @@
         <input type="submit" value="Add Order">
       </form>
     </div>
-  </div>
 <?php include("../lib/footer.php"); ?>

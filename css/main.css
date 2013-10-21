@@ -1,20 +1,39 @@
+/* 1. General */
 body {
   margin:             0px;
   background-color:   #f0f0f0;
-  font-family:        'arial', sans-serif;
+  font-family:        Tahoma, Arial, sans-serif;
   text-shadow:        rgba(0, 0, 0, .01) 0 0 1px;
   }
 
-.navbar {
-  background-color:   #272727;
-  height:             27px;
-  text-align:         right;
+h1, h2, h3, h4, h5, h6 {
+  color:              #ea1936;
   }
 
-@-moz-document url-prefix() {
-  .navbar {
-    margin-top:       -16px;
-    }
+.container {
+  margin:             50px auto;
+  width:              75%;
+  }
+/* End General */
+
+/* 2. Unsupported Browser 
+#unsupported-browser {
+  background-color:   #fff398;
+  padding-top:        10px;
+  padding-bottom:     10px;
+  display:            none;
+  }
+
+#unsupported-browser>.container {
+  margin-top:         0;
+  margin-bottom:      0;
+  }*/
+/* End Unsupported Browser */
+
+/* 3. Navigation Bar */
+.navbar {
+  background-color:   #272727;
+  height:             31px;
   }
 
 .navbar a {
@@ -25,30 +44,65 @@ body {
   display:            inline-block
   }
 
-.navbar>ul:first-child {
-  margin-right:       18px;
-  }  
-
 .navbar a:hover {
   color:              #ffffff;
   }
 
 .navbar li.active, .navbar a:active {
-  background-color:   #868686;
+  background-color:   #f0f0f0;
   }
 
 .navbar li.active a {
-  color:              #ffffff;
+  color:              #525252;
   }
 
-.navbar>ul>li {
-  float:              right;
+.navbar ul {
+  text-align:         center;
+  margin:             0 auto;
+  padding:            0;
+  }
+
+.navbar ul>li {
+  float:              left;
   list-style:         none;
   }
 
-.container {
-  margin:             30px 200px 8px 200px;
+.nav-container {
+  margin-right:       auto;
+  margin-left:        auto;
+  padding-top:        5px;
+  width:              75%;
+  height:             27px;
   }
+/* End Navigation Bar */
+
+/* Header */
+.header {
+  margin-top:         -25px;
+  }
+
+.logo {
+  display:            inline-block;
+  }
+
+.user {
+  display:            inline-block;
+  float:              right;
+  }
+
+.user>.links {
+  float:              right;
+  }
+
+.user>span {
+  font-size:          small;
+  }
+
+.user>.links>a {
+  text-decoration:    none;
+  color:              #919191;
+  }
+/* End Header */
 
 .orders {
   width:              80%;
@@ -65,7 +119,6 @@ body {
 .form {
   margin-left:        auto;
   margin-right:       auto;
-  margin-top:         90px;
   width:              50%;
   }
 
@@ -83,7 +136,7 @@ table, td, th {
   }
 
 th {
-  background-color:   #b1b1b1;
+  background-color:   #d0edeb;
   }
 
 td, th {

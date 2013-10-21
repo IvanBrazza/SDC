@@ -161,7 +161,6 @@
   }
 ?>
 <?php include("../lib/header.php"); ?>
-  <div class="container">
     <div class="form">
       <h1>Edit Account</h1>
       <div class="success">
@@ -212,5 +211,4 @@
         <input type="submit" value="Update Account" /> 
       </form>
     </div>
-  </div>
 <?php include("../lib/footer.php"); ?>

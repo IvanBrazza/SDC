@@ -191,7 +191,6 @@
   }
 ?>
 <?php include("../lib/header.php"); ?>
-  <div class="container">
   <div class="form">
     <h1>Place An Order</h1>
     <div class="error">
@@ -262,6 +261,5 @@
       <br /><br />
       <input type="submit" value="Submit Order" <?php if ($details_correct === false) : ?>disabled<?php endif; ?> />
     </form>
-  </div>
   </div>
 <?php include("../lib/footer.php");
