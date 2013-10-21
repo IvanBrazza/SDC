@@ -79,6 +79,34 @@
   
       $row = $stmt->fetch();
     }
+    else
+    {
+      $query = "
+        SELECT
+          address,
+          postcode
+        FROM
+          users
+        WHERE
+          customer_id = :customer_id
+      ";
+
+      $query_params = array(
+        ':customer_id' => $_POST['existing_id']
+      );
+  
+      try
+      {
+        $stmt = $db->prepare($query);
+        $result = $stmt->execute();
+      }
+      catch(PDOException $ex)
+      {
+        die("Failed to execute query: " . $ex->getMessage() . "Query: " . $query);
+      }
+  
+      $userrow = $stmt->fetch();
+    }
 
     // Get the cake ID
     $query = "
@@ -180,7 +208,8 @@
 
     if ($_POST['delivery'] === "Deliver To Address")
     {
-      require("../lib/calculate-distance.php");
+      include "../lib/distance.php";
+      $miles = calculateDistance($userrow['address'], $userrow['postcode']);
       $remaining_miles = $miles - 5;
       $remaining_miles = round($remaining_miles / 5) * 5;
       if ($remaining_miles <= 0)

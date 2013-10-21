@@ -494,8 +494,8 @@
       <b>Address:</b><br />
       <?php echo htmlentities($userrow['address'], ENT_QUOTES, 'UTF-8'); ?><br />
       <?php echo htmlentities($userrow['postcode'], ENT_QUOTES, 'UTF-8'); ?><br />
-      <?php require_once "../lib/calculate-distance.php"; ?>
-      <i>(<?php echo $miles; ?> miles away)</i>
+      <?php include "../lib/distance.php"; ?>
+      <i>(<?php calculateDistance($userrow['address'], $userrow['postcode']); echo $miles; ?> miles away)</i>
       <br />
       <br />
       <b>Phone: </b>
@@ -600,8 +600,8 @@
     <b>Address:</b><br />
     <?php echo htmlentities($userrow['address'], ENT_QUOTES, 'UTF-8'); ?><br />
     <?php echo htmlentities($userrow['postcode'], ENT_QUOTES, 'UTF-8'); ?><br />
-    <?php require_once "../lib/calculate-distance.php"; ?>
-    <i>(<?php echo $miles; ?> miles away)</i>
+    <?php include "../lib/distance.php" ?>
+    <i>(<?php echo calculateDistance($userrow['address'], $userrow['postcode']); ?> miles away)</i>
     <br />
     <br />
     <b>Phone: </b>

@@ -102,7 +102,8 @@
 
     if ($_POST['delivery'] === "Deliver To Address")
     {
-      require("../lib/calculate-distance.php");
+      include "../lib/distance.php";
+      $miles = calculateDistance($_SESSION['address'], $_SESSION['postcode']);
       $remaining_miles = $miles - 5;
       $remaining_miles = round($remaining_miles / 5) * 5;
       if ($remaining_miles <= 0)
