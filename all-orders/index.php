@@ -495,7 +495,7 @@
       <?php echo htmlentities($userrow['address'], ENT_QUOTES, 'UTF-8'); ?><br />
       <?php echo htmlentities($userrow['postcode'], ENT_QUOTES, 'UTF-8'); ?><br />
       <?php include "../lib/distance.php"; ?>
-      <i>(<?php calculateDistance($userrow['address'], $userrow['postcode']); echo $miles; ?> miles away)</i>
+      <i>(<?php echo calculateDistance($userrow['address'], $userrow['postcode']); ?> miles away)</i>
       <br />
       <br />
       <b>Phone: </b>
