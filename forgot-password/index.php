@@ -79,7 +79,7 @@
       }
 
       include "../lib/email.php";
-      emailPassword($to, $row['email'], $plainpassword);
+      emailPassword($row['email'], $row['first_name'], $plainpassword);
     }
   }
 ?>
