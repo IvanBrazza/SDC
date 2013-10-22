@@ -9,6 +9,8 @@ var $password_check,
     $add_existing_check = false;
 
 $(document).ready(function() {
+  calculateOrderTotal();
+
   $(".date").datepicker({
     minDate: 0,
     dateFormat: "yy-mm-dd"
@@ -89,6 +91,14 @@ $(document).ready(function() {
     } else {
       $("#datetime-label").html("Date/time for delivery");
     }
+  });
+
+  $("#cake_size").change(function() {
+    calculateOrderTotal();
+  });
+
+  $("#cake_type").change(function() {
+    calculateOrderTotal();
   });
 
   $("#existing_id").change(function() {
@@ -385,5 +395,64 @@ function validatePrice(input, error)
     input.addClass("invalid");
     $error.slideDown("fast");
     $price_check = false;
+  }
+}
+
+function calculateOrderTotal()
+{
+  var $total      = $("#total"),
+      $cake_size  = $("#cake_size").val(),
+      $cake_type  = $("#cake_type").val();
+
+  if ($cake_size === '6"') {
+    if ($cake_type === "Sponge"){
+      $total.html("25");
+    } else if ($cake_type === "Marble"){
+      $total.html("30");
+    } else if ($cake_type === "Chocolate") {
+      $total.html("32");
+    } else if ($cake_type === "Fruit"){
+      $total.html("35");
+    }
+  } else if ($cake_size === '8"') {
+    if ($cake_type === "Sponge"){
+      $total.html("30");
+    } else if ($cake_type === "Marble"){
+      $total.html("35");
+    } else if ($cake_type === "Chocolate") {
+      $total.html("37");
+    } else if ($cake_type === "Fruit"){
+      $total.html("45");
+    }
+  } else if ($cake_size === '10"') {
+    if ($cake_type === "Sponge"){
+      $total.html("40");
+    } else if ($cake_type === "Marble"){
+      $total.html("45");
+    } else if ($cake_type === "Chocolate") {
+      $total.html("47");
+    } else if ($cake_type === "Fruit"){
+      $total.html("60");
+    }
+  } else if ($cake_size === '12"') {
+    if ($cake_type === "Sponge"){
+      $total.html("60");
+    } else if ($cake_type === "Marble"){
+      $total.html("65");
+    } else if ($cake_type === "Chocolate") {
+      $total.html("80");
+    } else if ($cake_type === "Fruit"){
+      $total.html("85");
+    }
+  } else if ($cake_size === '14"') {
+    if ($cake_type === "Sponge"){
+      $total.html("75");
+    } else if ($cake_type === "Marble"){
+      $total.html("80");
+    } else if ($cake_type === "Chocolate") {
+      $total.html("84");
+    } else if ($cake_type === "Fruit"){
+      $total.html("125");
+    }
   }
 }

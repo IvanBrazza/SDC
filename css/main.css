@@ -225,3 +225,7 @@ div[id*='AYAH'] {
 .forgot-password {
   font-size:          small;
   }
+
+#total {
+  display:            inline;
+  }

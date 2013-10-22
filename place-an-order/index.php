@@ -273,6 +273,8 @@
         <input type="text" id="datetime" name="datetime" onchange="validateInput('#datetime', '#datetime_error')">
       </div>
       <div id="datetime_error" class="validate-error"></div>
+      <br />
+      <b>Total: &pound;<div id="total"></div></b>
       <br /><br />
       <input type="submit" value="Submit Order" <?php if ($details_correct === false) : ?>disabled<?php endif; ?> />
     </form>
