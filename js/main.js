@@ -25,6 +25,11 @@ $(document).ready(function() {
   $("#comments").css("padding-bottom", "100px");
             
   $("#register-form").submit(function(e) {
+    validatePassword();
+    validateUsername();
+    validatePassword2();
+    validateEmail();
+    
     if ($password_check && $password2_check && $username_check && $email_check) {
     } else {
       e.preventDefault();
@@ -36,6 +41,9 @@ $(document).ready(function() {
   });
 
   $("#login-form").submit(function(e) {
+    validatePassword();
+    validateUsername();
+    
     if ($password_check && $username_check) {
     } else {
       e.preventDefault();
@@ -45,6 +53,11 @@ $(document).ready(function() {
   });
   
   $("#order-form").submit(function(e) {
+    validateInput('#design', '#design_error');
+    validateInput('#celebration_date', '#celebration_date_error');
+    validateInput('textarea#order', '#order_error');
+    validateInput('#datetime', '#datetime_error');
+    
     if ($input_check) {
     } else {
       e.preventDefault();
@@ -56,6 +69,10 @@ $(document).ready(function() {
   });
 
   $("#testimonial-form").submit(function(e) {
+    validateEmail();
+    validateInput('#name', '#name_error');
+    validateInput('textarea#testimonial', '#testimonial_error');
+    
     if ($input_check && $email_check) {
     } else {
       e.preventDefault();
