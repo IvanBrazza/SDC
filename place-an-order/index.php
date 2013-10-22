@@ -56,7 +56,8 @@
         order_date,
         delivery_type,
         status,
-        datetime
+        datetime,
+        agreed_price
       ) VALUES (
         :customer_id,
         :order_number,
@@ -68,7 +69,8 @@
         :order_date,
         :delivery_type,
         :status,
-        :datetime
+        :datetime,
+        :agreed_price
       )
     ";
 
@@ -87,7 +89,8 @@
       ':order_date'         => $order_date,
       ':delivery_type'      => $_POST['delivery'],
       ':status'             => $status,
-      ':datetime'           => $_POST['datetime']
+      ':datetime'           => $_POST['datetime'],
+      ':agreed_price'       => $_POST['total-hidden']
      );
 
     try
@@ -236,10 +239,11 @@
       <div>
         <label for="cake_size">Size of cake</label>
         <select name="cake_size" id="cake_size">
+          <option value='6"'>6"</option>
+          <option value='8"'>8"</option>
           <option value='10"'>10"</option>
           <option value='12"'>12"</option>
           <option value='14"'>14"</option>
-          <option value='16"'>16"</option>
         </select>
       </div>
       <div>
@@ -274,7 +278,8 @@
       </div>
       <div id="datetime_error" class="validate-error"></div>
       <br />
-      <b>Total: &pound;<div id="total"></div></b>
+      <b>Total: &pound;<div id="total-html"></div></b>
+      <input type="hidden" id="total-hidden" name="total-hidden" value="">
       <br /><br />
       <input type="submit" value="Submit Order" <?php if ($details_correct === false) : ?>disabled<?php endif; ?> />
     </form>
