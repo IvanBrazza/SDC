@@ -21,6 +21,13 @@
       $display_message = "Account updated.";
     }
   }
+  else if (!empty($_GET['e']))
+  {
+    if ($_GET['e'] === "email")
+    {
+      $display_message = "That email address is already in use.";
+    }
+  }
 
   if (!empty($_POST))
   {
@@ -53,7 +60,8 @@
       $row = $stmt->fetch();
       if ($row)
       {
-        die("This email address is already in use");
+        header("Location: ../edit-account/?e=email");
+        die();
       }
     }
     
@@ -169,7 +177,12 @@
       <h1>Edit Account</h1>
       <div class="success">
         <span class="success_message">
-          <?php echo $display_message; ?>
+          <?php if (!empty($_GET) and !empty($_GET['update'])) {echo $display_message;} ?>
+        </span>
+      </div>
+      <div class="error">
+        <span class="error_message">
+          <?php if (!empty($_GET) and !empty($_GET['e'])) {echo $display_message;} ?>
         </span>
       </div>
       <form action="index.php" method="POST" id="edit-account-form">
