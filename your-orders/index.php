@@ -5,6 +5,14 @@
   **/
   require("../lib/common.php");
   $page = "your-orders";
+  if ($_GET)
+  {
+    $title = "Order " . $_GET['order'];
+  }
+  else
+  {
+    $title = $_SESSION['user']['first_name'] . "'s Orders";
+  }
   
   if(empty($_SESSION['user']))
   {
