@@ -98,7 +98,7 @@
       try
       {
         $stmt = $db->prepare($query);
-        $result = $stmt->execute();
+        $result = $stmt->execute($query_params);
       }
       catch(PDOException $ex)
       {
@@ -189,7 +189,7 @@
       ':decoration'       => $_POST['decoration'],
       ':filling'          => $_POST['filling'],
       ':cake_id'          => $cake_id,
-      ':agreed_price'     => $_POST['agreed_price'],
+      ':agreed_price'     => $_POST['total-hidden'],
       ':order_date'       => $order_date,
       ':delivery_type'    => $_POST['delivery'],
       ':status'           => $status,
@@ -333,25 +333,13 @@
         <div id="email-error" class="validate-error"></div>
       <h3>Order Details</h3>
         <div>
-          <label for="order_date">Date order was placed</label>
-          <input type="text" name="order_date" id="order_date" class="date" onchange="validateInput('#order_date', '#order_date_error')">
+          <label for="filling">Filling</label>
+          <select name="filling" id="filling">
+            <option value="None">None</option>
+            <option value="Butter Cream">Butter Cream</option>
+            <option value="Chocolate">Chocolate</option>
+          </select>
         </div>
-        <div id="order_date_error" class="validate-error"></div>
-        <div>
-          <label for="datetime">Date and time to collect/deliver order</label>
-          <input type="text" name="datetime" id="datetime" class="datetime" onchange="validateInput('#datetime', '#datetime_error')">
-        </div>
-        <div id="datetime_error" class="validate-error"></div>
-        <div>
-          <label for="celebration_date">Date of celebration</label>
-          <input type="text" name="celebration_date" id="celebration_date" class="date" onchange="validateInput('#celebration_date', '#celebration_date_error')">
-        </div>
-        <div id="celebration_date_error" class="validate-error"></div>
-        <div id="comments">
-          <label for="comments">Comments</label>
-          <textarea id="comments" cols="30" rows="6" name="comments" onkeyup="validateInput('textarea#comments', '#comments_error')" onchange="validateInput('textarea#comments', '#comments_error')"></textarea>
-        </div>
-        <div id="comments_error" class="validate-error"></div>
         <div>
           <label for="decoration">Cake to be decorated in</label>
           <select name="decoration" id="decoration">
@@ -366,11 +354,11 @@
         <div>
           <label for="cake_size">Size of Cake</label>
           <select name="cake_size" id="cake_size">
+            <option value='6"'>6"</option>
+            <option value='8"'>8"</option>
             <option value='10"'>10"</option>
             <option value='12"'>12"</option>
             <option value='14"'>14"</option>
-            <option value='16"'>16"</option>
-            <option value='18"'>18"</option>
           </select>
         </div>
         <div>
@@ -383,25 +371,36 @@
           </select>
         </div>
         <div>
-          <label for="filling">Filling</label>
-          <select name="filling" id="filling">
-            <option value="None">None</option>
-            <option value="Butter Cream">Butter Cream</option>
-            <option value="Chocolate">Chocolate</option>
-          </select>
+          <label for="order_date">Date order was placed</label>
+          <input type="text" name="order_date" id="order_date" class="date" onchange="validateInput('#order_date', '#order_date_error')">
         </div>
+        <div id="order_date_error" class="validate-error"></div>
+        <div>
+          <label for="celebration_date">Date of celebration</label>
+          <input type="text" name="celebration_date" id="celebration_date" class="date" onchange="validateInput('#celebration_date', '#celebration_date_error')">
+        </div>
+        <div id="celebration_date_error" class="validate-error"></div>
+        <div id="comments">
+          <label for="comments">Comments</label>
+          <textarea id="comments" cols="30" rows="6" name="comments" onkeyup="validateInput('textarea#comments', '#comments_error')" onchange="validateInput('textarea#comments', '#comments_error')"></textarea>
+        </div>
+        <div id="comments_error" class="validate-error"></div>
         <div>
           <label for="delivery">Delivery options</label>
           <select name="delivery" id="delivery">
-            <option value="Collection">The cake will be collected</option>
-            <option value="Deliver To Address">The cake will be delivered</option>
+            <option value="Collection">Collection</option>
+            <option value="Deliver To Address">Delivery</option>
           </select>
         </div>
         <div>
-          <label for="agreed_price">Agreed Price</label>
-          <input type="text" name="agreed_price" id="agreed_price" onkeyup="validatePrice('#agreed_price', '#agreed_price_error')" onchange="validatePrice('#agreed_price', '#agreed_price_error')"><span class="pound">&pound;</span>
+          <label for="datetime" id="datetime-label">Date/time for collection</label>
+          <input type="text" name="datetime" id="datetime" class="datetime" onchange="validateInput('#datetime', '#datetime_error')">
         </div>
-        <div id="agreed_price_error" class="validate-error"></div>
+        <div id="datetime_error" class="validate-error"></div>
+        <b>Total: &pound;<div id="total-html"></div></b>
+        <input type="hidden" id="total-hidden" name="total-hidden" value="">
+        <br />
+        <br />
         <input type="submit" value="Add Order">
       </form>
     </div>
