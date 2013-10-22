@@ -273,32 +273,35 @@
   $archived_rows = $stmt->fetchAll();
   
   // Get details about the cake for an order
-  $query = "
-    SELECT
-      cake_type,
-      cake_size
-    FROM
-      cakes
-    WHERE
-      cake_id = :cake_id
-  ";
-
-  $query_params = array(
-    ':cake_id' => $row['cake_id']
-  );
-
-  try
+  if (!empty($_GET['order']))
   {
-    $stmt     = $db->prepare($query);
-    $result   = $stmt->execute($query_params);
-  }
-  catch(PDOException $ex)
-  {
-    die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
+    $query = "
+      SELECT
+        cake_type,
+        cake_size
+      FROM
+       cakes
+      WHERE
+        cake_id = :cake_id
+    ";
+
+    $query_params = array(
+      ':cake_id' => $row['cake_id']
+    );
+
+    try
+    {
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
+    }
+    catch(PDOException $ex)
+    {
+      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
+    }
+
+    $cake_row = $stmt->fetch();
   }
 
-  $cake_row = $stmt->fetch();
-  
   // Get delivery details
   if (!empty($_GET['order']))
   {
@@ -423,7 +426,7 @@
     </form>
     <div class="success">
       <span class="success_message">
-    <?php echo $display_message; ?>
+        <?php echo $display_message; ?>
       </span>
     </div>
     <?php if (empty($rows) and empty($manual_rows)) : ?>
@@ -449,16 +452,18 @@
             <td><?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?></td>
           </tr>
         <?php endforeach; ?>
-        <?php foreach ($manual_rows as $row) : ?>
-          <tr>
-            <td>Manual Order</td>
-            <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"><?php echo $row['order_number']; ?></a></td>
-            <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
-            <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
-            <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
-            <td><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
-          </tr>
-        <?php endforeach; ?>
+        <?php if (!empty($manual_rows)) : ?>
+          <?php foreach ($manual_rows as $row) : ?>
+            <tr>
+              <td>Manual Order</td>
+              <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"><?php echo $row['order_number']; ?></a></td>
+              <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
+            </tr>
+          <?php endforeach; ?>
+        <?php endif; ?>
       </table>
     <?php endif; ?>
     <?php if (empty($archived_rows)) : ?>
