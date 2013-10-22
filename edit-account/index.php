@@ -93,7 +93,7 @@
         last_name   = :last_name
     ";
 
-    if ($_POST['password'] !== null)
+    if ($password !== null)
     {
       $query .= "
         , password  = :password
@@ -116,7 +116,7 @@
       ':last_name'    => $_POST['last_name']
     );
 
-    if ($_POST['password'] !== null)
+    if ($password !== null)
     {
       $query_params[':password'] = $password;
       $query_params[':salt']     = $salt;
