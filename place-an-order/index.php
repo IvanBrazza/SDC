@@ -218,6 +218,7 @@
           <option value="None">None</option>
           <option value="Butter Cream">Butter Cream</option>
           <option value="Chocolate">Chocolate</option>
+          <option value="Other">Other (specify in comments)</option>
         </select>
       </div>
       <div>
@@ -229,6 +230,7 @@
           <option value="Butter Cream">Butter Cream</option>
           <option value="Chocolate">Chocolate</option>
           <option value="Coconut">Coconut</option>
+          <option value="Other">Other (specify in comments)</option>
         </select>
       </div>
       <div>
@@ -262,12 +264,12 @@
       <div>
         <label for="delivery">Delivery options</label>
         <select name="delivery" id="delivery">
-          <option value="Collection">You will collect the cake</option>
-          <option value="Deliver To Address">The cake will be delivered to your address</option>
+          <option value="Collection">Collection</option>
+          <option value="Deliver To Address">Delivery</option>
         </select>
       </div>
       <div>
-        <label for="datetime">Date and time to collect/deliver order</label>
+        <label for="datetime" id="datetime-label">Date/time for collection</label>
         <input type="text" id="datetime" name="datetime" onchange="validateInput('#datetime', '#datetime_error')">
       </div>
       <div id="datetime_error" class="validate-error"></div>

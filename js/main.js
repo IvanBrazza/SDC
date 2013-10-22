@@ -83,6 +83,14 @@ $(document).ready(function() {
     }
   });
   
+  $("#delivery").change(function() {
+    if ($("#delivery").val() === "Collection") {
+      $("#datetime-label").html("Date/time for collection");
+    } else {
+      $("#datetime-label").html("Date/time for delivery");
+    }
+  });
+
   $("#existing_id").change(function() {
     if ($("#existing_id").val() !== "null") {
       var $first_name         = $("input[name=first_name]"),
