@@ -106,7 +106,7 @@
     if ($_POST['delivery'] === "Deliver To Address")
     {
       include "../lib/distance.php";
-      $miles = calculateDistance($_SESSION['address'], $_SESSION['postcode']);
+      $miles = calculateDistance($_SESSION['user']['address'], $_SESSION['user']['postcode']);
       $remaining_miles = $miles - 5;
       $remaining_miles = round($remaining_miles / 5) * 5;
       if ($remaining_miles <= 0)
@@ -159,7 +159,7 @@
     emailOrder($_SESSION['user']['email'], 
                $_SESSION['user']['first_name'],
                $order_number,
-               $_POST['order_date'],
+               $order_date,
                $_POST["datetime"],
                $_POST["celebration_date"],
                $_POST["comments"],
