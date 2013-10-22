@@ -50,17 +50,41 @@
     }
 
     $row = $stmt->fetch();
+
+    if ($row['delivery_type'] === "Deliver To Address")
+    {
+      $query = "
+        SELECT
+          *
+        FROM
+          delivery
+        WHERE
+          order_number = :order_number
+      ";
+
+      $query_params = array(
+        ':order_number' => $_GET['order']
+      );
+
+      try
+      {
+        $stmt     = $db->prepare($query);
+        $result   = $stmt->execute($query_params);
+      }
+      catch(PDOException $ex)
+      {
+        die("Failed to run query: " . $ex->getMessage() . " query: " . $query);
+      }
+
+      $deliveryrow = $stmt->fetch();
+    }
   }
   else
   {
     // Get all outstanding orders
     $query = "
       SELECT
-        order_number,
-        order_date,
-        datetime,
-        status,
-        customer_order
+        *
       FROM
         orders
       WHERE
@@ -86,11 +110,7 @@
     // Get archived orders
     $query = "
       SELECT
-        order_number,
-        order_date,
-        datetime,
-        status,
-        customer_order
+        *
       FROM
         archived_orders
       WHERE 
@@ -137,7 +157,7 @@
           </tr>
           <tr>
             <th>Order</th>
-            <td><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
+            <td><?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?></td>
           </tr>
           <tr>
             <th>Filling</th>
@@ -153,11 +173,11 @@
           </tr>
           <tr>
             <th>Delivery Charge</th>
-            <td>&pound;<?php echo $row['delivery_charge']; ?></td>
+            <td>&pound;<?php echo $deliveryrow['delivery_charge']; ?></td>
           </tr>
           <tr>
             <th>Delivery Type</th>
-            <td><?php echo htmlentities($row['delivery'], ENT_QUOTES, 'UTF-8'); ?></td>
+            <td><?php echo htmlentities($row['delivery_type'], ENT_QUOTES, 'UTF-8'); ?></td>
           </tr>
           <tr>
             <th>Grand Total</th>
@@ -189,7 +209,7 @@
                 <td><?php echo $row['order_date']; ?></td>
                 <td><?php echo $row['datetime']; ?></td>
                 <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
-                <td style="word-wrap: break-word;"><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td style="word-wrap: break-word;"><?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?></td>
               </tr>
             <?php endforeach; ?>
           </table>
@@ -212,7 +232,7 @@
                 <td><?php echo $row['order_date']; ?></td>
                 <td><?php echo $row['datetime']; ?></td>
                 <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
-                <td style="word-wrap: break-word;"><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
+                <td style="word-wrap: break-word;"><?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?></td>
               </tr>
             <?php endforeach; ?>
           </table>
