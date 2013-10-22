@@ -25,7 +25,7 @@
     <div class="nav-container">
       <ul>
         <li <?php if ($page === "home") : ?>class="active"<?php endif; ?>><a href="../home">Home</a></li>
-        <li <?php if ($page === "about-us") : ?>class="active"<?php endif; ?>><a href="#">About Us</a></li>
+        <li <?php if ($page === "about-us") : ?>class="active"<?php endif; ?>><a href="../about-us">About Us</a></li>
         <li <?php if ($page === "testimonials") : ?>class="active"<?php endif; ?>><a href="../testimonials">Testimonials</a></li>
         <?php if ($_SESSION and $_SESSION['user']['username'] !== "admin") : ?>
           <li <?php if ($page === "place-an-order") : ?>class="active"<?php endif; ?>><a href="../place-an-order">Place An Order</a></li>
