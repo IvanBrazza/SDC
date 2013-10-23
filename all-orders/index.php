@@ -64,36 +64,6 @@
     }
 
     $row = $stmt->fetch();
-    
-    // If a customer ID isn't returned from the orders table,
-    // try and get the ID from the archived_orders table.
-    if (!$row)
-    {
-      $query = "
-        SELECT
-          customer_id
-        FROM
-          archived_orders
-        WHERE
-          order_number = :order_number
-      ";
-  
-      $query_params = array(
-        ':order_number' => $_GET['order']
-      );
-  
-      try
-      {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        die("Failed to execute query: " . $ex->getMessage() . "\nQuery: " . $query);
-      }
-
-      $row = $stmt->fetch();
-    }
 
     $customer_id = $row['customer_id'];
   }
@@ -103,25 +73,10 @@
     SELECT
       *
     FROM
+      orders
+    WHERE
+      archived = 0
   ";
-  
-  // If user clicked on an archived order number,
-  // get the order from the archived_orders table.
-  // Else if the user searched for an order and it's
-  // a manual order, get the order from the manual_orders
-  // table. Else get the order from the orders table.
-  if (!empty($_GET['archived']))
-  {
-    $query .= "
-        archived_orders
-    ";
-  }
-  else
-  {
-    $query .= "
-        orders
-    ";
-  }
   
   // If the user searched for an order, clicked an order
   // number, or clicked on a customer ID. Else we're displaying
@@ -135,7 +90,7 @@
     if (!empty($_GET['order']))
     {
       $query .= "
-        WHERE
+        AND
           order_number = :order_number
       ";
 
@@ -146,7 +101,7 @@
     else if (!empty($_GET['id']))
     {
       $query .= "
-        WHERE
+        AND
           customer_id = :get_id
       ";
 
@@ -189,19 +144,22 @@
   {
     $rows = $stmt->fetchAll();
   }
-  
-  // If we're searching orders, the order isn't manual
-  // and the order isn't in the orders table then search
-  // for it in the archived_orders table instead.
-  if (empty($row) and !empty($_GET['type']) and $_GET['type'] === "search")
+
+  // If we're pulling up one order, and it's archived, it won't be
+  // in $rows, so search with the archived boolean set to true!
+  if (!$row and !empty($_GET['order']))
   {
     $query = "
       SELECT
         *
       FROM
-        archived_orders
+        orders
       WHERE
+        archived = 1
+      AND
         order_number = :order_number
+      ORDER BY
+        orders.customer_id ASC
     ";
 
     $query_params = array(
@@ -210,20 +168,15 @@
 
     try
     {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
+      $stmt = $db->prepare($query);
+      $result = $stmt->execute($query_params);
     }
     catch(PDOException $ex)
     {
-      die("Failed to execute query: " . $ex->getMessage() . "\nQuery: " . $query);
+      die("Failed to run query: " . $ex->getMessage() . "\nQuery: " . $query);
     }
 
     $row = $stmt->fetch();
-    
-    if ($row)
-    {
-      $_GET['archived'] = "true";
-    }
   }
 
   // Get archived orders
@@ -231,7 +184,9 @@
     SELECT
       *
     FROM
-      archived_orders
+      orders
+    WHERE
+      archived = 1
   ";
   
   // If the user clicked on a customer ID, get all archived
@@ -239,7 +194,7 @@
   if (!empty($_GET['id']))
   {
     $query .= "
-      WHERE
+      AND
         customer_id = :customer_id
     ";
 
@@ -460,7 +415,7 @@
               <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?></td>
             </tr>
           <?php endforeach; ?>
         <?php endif; ?>
@@ -482,18 +437,18 @@
         <?php foreach($archived_rows as $row): ?>
           <tr>
             <td><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>"><?php echo $row['customer_id']; ?></a></td>
-            <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>&archived=true"><?php echo $row['order_number']; ?></a></td>
+            <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"><?php echo $row['order_number']; ?></a></td>
             <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
             <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
             <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
-            <td><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
+            <td><?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?></td>
           </tr>
         <?php endforeach; ?>
       </table>
     <?php endif; ?>
   <!-- if user clicked on order number or searched for an order -->
   <?php elseif (!empty($_GET['order'])) : ?>
-    <h1>Order <?php echo $row['order_number']; ?><?php if (empty($_GET['archived'])) : ?><form action="../lib/archive-order.php" method="POST" id="archive-order"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number" id="order_number"><input type="submit" value="Archive Order" class="delete_testimonial_btn"></form><?php else : ?> (archived)<?php endif; ?></h1>
+    <h1>Order <?php echo $row['order_number']; ?><?php if ($row['archived'] === "0") : ?><form action="../lib/archive-order.php" method="POST" id="archive-order"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number" id="order_number"><input type="submit" value="Archive Order" class="delete_testimonial_btn"></form><?php else : ?> (archived)<?php endif; ?></h1>
       <p>Placed by <?php echo htmlentities($userrow['first_name'], ENT_QUOTES, 'UTF-8'); echo " "; echo htmlentities($userrow['last_name'], ENT_QUOTES, 'UTF-8'); ?></p>
       <br />
       <b>Address:</b><br />
@@ -523,7 +478,7 @@
         <th>Status</th>
         <td>
           <?php echo $row['status']; ?>
-          <?php if (empty($_GET['archived'])) : ?>
+          <?php if ($row['archived'] === "0") : ?>
             <form action="../lib/update-order.php" method="POST" style="margin-left:10px;">
               <select name="status">
                 <option value="Processing">Processing</option>
@@ -560,7 +515,7 @@
         <th>Agreed Price</th>
         <td>
           &pound; 
-          <?php if (empty($_GET['archived'])) : ?>
+          <?php if ($row['archived'] === "0") : ?>
             <form action="../lib/update-order.php" method="POST">
               <input type="hidden" value="<?php echo $_GET['id']; ?>" name="id">
               <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
@@ -577,7 +532,7 @@
           <th>Delivery Charge</th>
           <td>
             &pound; 
-            <?php if (empty($_GET['archived'])) : ?>
+            <?php if ($row['archived'] === "0") : ?>
               <form action="../lib/update-order.php" method="POST">
                 <input type="hidden" value="<?php echo $_GET['id']; ?>" name="id">
                 <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
@@ -649,11 +604,11 @@
         </tr>
         <?php foreach($archived_rows as $row): ?>
           <tr>
-            <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>&archived=true"><?php echo $row['order_number']; ?></a></td>
+            <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"><?php echo $row['order_number']; ?></a></td>
             <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
             <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
             <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
-            <td><?php echo htmlentities($row['customer_order'], ENT_QUOTES, 'UTF-8'); ?></td>
+            <td><?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?></td>
           </tr>
         <?php endforeach; ?>
       </table>

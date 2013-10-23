@@ -7,10 +7,10 @@
   if (!empty($_POST))
   {
     $query = "
-      SELECT
-        *
-      FROM
+      UPDATE
         orders
+      SET
+        archived = 1
       WHERE
         order_number = :order_number
     ";
@@ -21,108 +21,16 @@
 
     try
     {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
+      $stmt   = $db->prepare($query);
+      $result = $stmt->execute($query_params);
     }
     catch(PDOException $ex)
     {
-      die("Failed to execute query: " . $ex->getMessage());
+      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
     }
 
-    $row = $stmt->fetch();
-
-    $query = "
-      INSERT INTO archived_orders (
-        customer_id,
-        order_number,
-        order_date,
-        datetime,
-        celebration_date,
-        status,
-        customer_order,
-        filling,
-        size,
-        design,
-        decoration,
-        delivery,
-        agreed_price,
-        delivery_charge
-      ) VALUES (
-        :customer_id,
-        :order_number,
-        :order_date,
-        :datetime,
-        :celebration_date,
-        :status,
-        :customer_order,
-        :filling,
-        :size,
-        :design,
-        :decoration,
-        :delivery,
-        :agreed_price,
-        :delivery_charge
-      )
-    ";
-
-    $query_params = array(
-        ':customer_id'      => $row['customer_id'],
-        ':order_number'     => $row['order_number'],
-        ':order_date'       => $row['order_date'],
-        ':datetime'         => $row['datetime'],
-        ':celebration_date' => $row['celebration_date'],
-        ':status'           => $row['status'],
-        ':customer_order'   => $row['customer_order'],
-        ':filling'          => $row['filling'],
-        ':size'             => $row['size'],
-        ':design'           => $row['design'],
-        ':decoration'       => $row['design'],
-        ':delivery'         => $row['delivery'],
-        ':agreed_price'     => $row['agreed_price'],
-        ':delivery_charge'  => $row['delivery_charge']
-    );
-    
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage());
-    }
-
-    $query = "
-      DELETE FROM
-        orders
-      WHERE
-        order_number = :order_number
-    ";
-
-    $query_params = array(
-      ':order_number' => $_POST['order_number']
-    );
-
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage());
-    }
-    
-    if ($_GET['user'] === "customer")
-    {
-      header("Location: ../your-orders/?archive=success");
-      die();
-    }
-    else
-    {
-      header("Location: ../all-orders/?archive=success");
-      die();
-    }
+    header("Location: ../all-orders/?archive=success");
+    die();
   }
   else
   {
