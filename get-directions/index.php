@@ -44,6 +44,7 @@
     <?php include "../lib/distance.php"; ?>
     <i>(<?php echo calculateDistance($row['address'], $row['postcode']); ?> miles away)</i></p>
 
+    <div id="directions-panel"></div>
     <div id="map-canvas"></div>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKeZpb8doUO3DbEqT3t-uRJYsbEPbD3AE&sensor=false"></script>
     <script>
@@ -62,11 +63,13 @@
         }
       map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
       directionsDisplay.setMap(map);
+      directionsDisplay.setPanel(document.getElementById("directions-panel"));
   
       var request = {
           origin: origin,
           destination: destination,
-          travelMode: google.maps.TravelMode.DRIVING
+          travelMode: google.maps.TravelMode.DRIVING,
+          unitSystem: google.maps.UnitSystem.IMPERIAL
       };
       directionsService.route(request, function(response, status) {
         if (status == google.maps.DirectionsStatus.OK) {
