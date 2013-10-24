@@ -287,7 +287,14 @@
       </div>
       <div id="datetime_error" class="validate-error"></div>
       <br />
-      <b>Total: &pound;<div id="total-html"></div></b>
+      <script>
+        var $origins = <?php echo json_encode(str_replace(" ", "+", $_SESSION['user']['address']) . "," . str_replace(" ", "+", $_SESSION['user']['postcode'])); ?>,
+            $destination = "95+Hoe+Lane,EN35SW";
+      </script>
+      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKeZpb8doUO3DbEqT3t-uRJYsbEPbD3AE&sensor=false"></script>
+      <span id="delivery-charge"><b>Delivery: &pound;<div id="delivery-charge-html"></div></b></span>
+      <br />
+      <b>Grand Total: &pound;<div id="total-html"></div></b>
       <input type="hidden" id="total-hidden" name="total-hidden" value="">
       <br /><br />
       <input type="submit" value="Submit Order" <?php if ($details_correct === false) : ?>disabled<?php endif; ?> />

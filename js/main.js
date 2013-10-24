@@ -105,8 +105,12 @@ $(document).ready(function() {
   $("#delivery").change(function() {
     if ($("#delivery").val() === "Collection") {
       $("#datetime-label").html("Date/time for collection");
+      $("#delivery-charge").hide("fast");
+      $("#delivery-charge-html").html(0);
+      calculateOrderTotal();
     } else {
       $("#datetime-label").html("Date/time for delivery");
+      calculateDeliveryCharge();
     }
   });
 
@@ -422,75 +426,128 @@ function calculateOrderTotal()
       $cake_type     = $("#cake_type").val(),
       $total_hidden  = $("input[id=total-hidden]");
 
+  if ($("#delivery-charge-html").html()) {
+    var $delivery_charge = $("#delivery-charge-html").html();
+  } else {
+    var $delivery_charge = 0;
+  }
+
   if ($cake_size === '6"') {
     if ($cake_type === "Sponge"){
-      $total.html("25");
+      $total.html(25 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     } else if ($cake_type === "Marble"){
-      $total.html("30");
+      $total.html(30 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     } else if ($cake_type === "Chocolate") {
-      $total.html("32");
+      $total.html(32 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     } else if ($cake_type === "Fruit"){
-      $total.html("35");
+      $total.html(35 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     }
   } else if ($cake_size === '8"') {
     if ($cake_type === "Sponge"){
-      $total.html("30");
+      $total.html(30 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     } else if ($cake_type === "Marble"){
-      $total.html("35");
+      $total.html(35 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     } else if ($cake_type === "Chocolate") {
-      $total.html("37");
+      $total.html(37 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     } else if ($cake_type === "Fruit"){
-      $total.html("45");
+      $total.html(45 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     }
   } else if ($cake_size === '10"') {
     if ($cake_type === "Sponge"){
-      $total.html("40");
+      $total.html(40 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     } else if ($cake_type === "Marble"){
-      $total.html("45");
+      $total.html(45 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     } else if ($cake_type === "Chocolate") {
-      $total.html("47");
+      $total.html(47 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     } else if ($cake_type === "Fruit"){
-      $total.html("60");
+      $total.html(60 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     }
   } else if ($cake_size === '12"') {
     if ($cake_type === "Sponge"){
-      $total.html("60");
+      $total.html(60 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     } else if ($cake_type === "Marble"){
-      $total.html("65");
+      $total.html(65 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     } else if ($cake_type === "Chocolate") {
-      $total.html("80");
+      $total.html(80 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     } else if ($cake_type === "Fruit"){
-      $total.html("85");
+      $total.html(85 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     }
   } else if ($cake_size === '14"') {
     if ($cake_type === "Sponge"){
-      $total.html("75");
+      $total.html(75 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     } else if ($cake_type === "Marble"){
-      $total.html("80");
+      $total.html(80 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     } else if ($cake_type === "Chocolate") {
-      $total.html("84");
+      $total.html(84 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     } else if ($cake_type === "Fruit"){
-      $total.html("125");
+      $total.html(125 + parseInt($delivery_charge));
       $total_hidden.val($total.html());
     }
+  }
+}
+
+function calculateDeliveryCharge()
+{
+  var $delivery_charge = $("#delivery-charge-html"),
+      $delivery        = $("#delivery-charge");
+  
+  var service = new google.maps.DistanceMatrixService();
+  service.getDistanceMatrix(
+    {
+      origins: [$origins],
+      destinations: [$destination],
+      travelMode: google.maps.TravelMode.DRIVING,
+      unitSystem: google.maps.UnitSystem.IMPERIAL
+    }, callback);
+
+  function callback(response, status) {
+    var origins = response.originAddresses;
+    var destinations = response.destinationAddresses;
+
+    for (var i = 0; i < origins.length; i++) {
+      var results = response.rows[i].elements;
+      for (var j = 0; j < results.length; j++) {
+        var element = results[j];
+        var distance = element.distance.value;
+      }
+    }
+    
+    var miles = distance*0.000621371;
+    miles = Math.round(miles);
+    var remaining_miles = miles - 5;
+    remaining_miles = Math.round(remaining_miles / 5) * 5;
+
+    if (remaining_miles <= 0) {
+      var delivery_charge = 0;
+    } else {
+      for (var i = 5, j = 1; i <= 50; i++, j++) {
+        if (remaining_miles === i) {
+          var delivery_charge = j;
+        }
+      }
+    }
+
+    $delivery_charge.html(delivery_charge);
+    calculateOrderTotal();
+    $delivery.show("fast");
   }
 }

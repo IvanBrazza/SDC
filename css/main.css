@@ -226,6 +226,10 @@ div[id*='AYAH'] {
   font-size:          small;
   }
 
-#total-html {
+#total-html, #delivery-charge-html {
   display:            inline;
+  }
+
+#delivery-charge {
+  display:            none;
   }
