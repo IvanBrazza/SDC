@@ -12,8 +12,11 @@
     die("Forbidden");
   }
 
+  // If the form was submitted
   if ($_POST)
   {
+    // If we're inserting an order for a customer that
+    // isn't registered on the site
     if ($_POST['existing_id'] === "null")
     {
       // Insert the customer into the users table
@@ -108,7 +111,8 @@
       $userrow = $stmt->fetch();
     }
 
-    // Get the cake ID
+    // Get the cake ID of the cake based on
+    // the type and size given by the user
     $query = "
       SELECT
         cake_id
@@ -168,6 +172,8 @@
       )
     ";
     
+    // If new customer use the ID from the DB,
+    // Else use the one from the form
     if ($_POST['existing_id'] === "null")
     {
       $customer_id = $row['customer_id'];
@@ -206,8 +212,10 @@
       die("Failed to execute query: " . $ex->getMessage() . "Query: " . $query);
     }
 
+    // If the order is for delivery
     if ($_POST['delivery'] === "Deliver To Address")
     {
+      // Calculate the delivery charge
       include "../lib/distance.php";
       $miles = calculateDistance($userrow['address'], $userrow['postcode']);
       $remaining_miles = $miles - 5;
@@ -227,6 +235,7 @@
         }
       }
 
+      // Insert the delivery details into the "delivery" DB table
       $query = "
         INSERT INTO delivery (
           order_number,

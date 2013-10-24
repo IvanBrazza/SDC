@@ -12,9 +12,12 @@
     header("Location: ../login/?e=pao");
     die();
   }
-
+  
+  // If the order form has been submitted
   if (!empty($_POST))
   {
+    // Get the cake_id of the cake based on the cake_size and
+    // cake_type provided by the user.
     $query = "
       SELECT
         cake_id
@@ -43,7 +46,8 @@
 
     $row = $stmt->fetch();
     $cake_id = $row['cake_id'];
-
+  
+    // Insert the order into the DB
     $query = "
       INSERT INTO orders (
         customer_id,
@@ -74,7 +78,7 @@
       )
     ";
 
-    $order_number   = $_SESSION['user']['customer_id'] . rand(10000,99999);
+    $order_number   = $_SESSION['user']['customer_id'] . rand(10000,99999); // Generate a random order number
     $order_date     = date('Y-m-d');
     $status         = "Processing";
 
@@ -102,7 +106,10 @@
     {
       die("Failed to run query: " . $ex->getMessage());
     }
-
+    
+    // If the order is to be delivered then calculate the
+    // delivery charge and insert the delivery details into
+    // the "delivery" DB table.
     if ($_POST['delivery'] === "Deliver To Address")
     {
       include "../lib/distance.php";
@@ -155,6 +162,7 @@
       }
     }
 
+    // Email the order details to the user
     include "../lib/email.php";
     emailOrder($_SESSION['user']['email'], 
                $_SESSION['user']['first_name'],
@@ -172,7 +180,7 @@
     header("Location: ../order-placed");
     die();
   }
-  else
+  else // Get the users details to check if they've been entered or not
   {
     $query = "
       SELECT
@@ -198,7 +206,8 @@
     }
 
     $row = $stmt->fetch();
-
+  
+    // Don't let the users place an order until their details are entered
     if (empty($row['address']) or empty($row['postcode']) or empty($row['phone']) or empty($row['first_name']) or empty($row['last_name']))
     {
       $display_message = 'Please <a href="../edit-account">update your details</a> before placing an order.';

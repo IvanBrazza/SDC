@@ -1,7 +1,12 @@
 <?php
+  /**
+    forgot-password/ - display a page to the user to email them if
+    they have forgotten their password.
+  **/
   require("../lib/common.php");
   $title = "Forgot Password";
 
+  // Set the error text if the page has been redirected to an error
   if (!empty($_GET['e']))
   {
     if ($_GET['e'] === "email")
@@ -10,8 +15,10 @@
     }
   }
 
+  // If the form has been submitted
   if ($_POST)
   {
+    // Query the DB to see if the email exists
     $query = "
       SELECT
         *
@@ -36,7 +43,10 @@
     }
 
     $row = $stmt->fetch();
-
+    
+    // If the email isn't in the DB, $row will be empty, therefore
+    // redirect to an error.
+    // ELSE, generate a new password and email it to the user.
     if (!$row)
     {
       header("../forgot-password/?e=email");
@@ -44,14 +54,16 @@
     }
     else
     {
-      $salt = dechex(mt_rand(0, 2147483647)) . dechex(mt_rand(0, 2147483647));
-      $plainpassword = uniqid();
-      $password = hash('sha256', $plainpassword . $salt);
+      $salt = dechex(mt_rand(0, 2147483647)) . dechex(mt_rand(0, 2147483647)); // Generate a new salt
+      $plainpassword = uniqid(); // Generate a new password using PHP's uniqid() function
+      $password = hash('sha256', $plainpassword . $salt); // Hash the new password with the new salt
+      // Hash the password another 65536 times
       for ($i = 0; $i < 65536; $i++)
       {
         $password = hash('sha256', $password . $salt);
       }
 
+      // Store the new password and salt in the DB
       $query = "
         UPDATE
           users
@@ -77,7 +89,8 @@
       {
         die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
       }
-
+      
+      // Email the new password to the user
       include "../lib/email.php";
       emailPassword($row['email'], $row['first_name'], $plainpassword);
     }

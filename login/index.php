@@ -4,12 +4,13 @@
     log into the site.
   **/
   require("../lib/common.php");
-  $title = "Log In";
-  $page = "login";
-  
+  $title                = "Log In";
+  $page                 = "login";
   $submitted_username   = "";
   $display_message      = "";
 
+  // Set the error text if the page has been redirected due
+  // to an error
   if(!empty($_GET['e']))
   {
     if ($_GET['e'] === 'pao')
@@ -17,9 +18,11 @@
       $display_message = "Please login/register to place an order";
     }
   }
-
+  
+  // If the login form has been submitted
   if (!empty($_POST))
   {
+    // Let's pull up the user's details from the username provided
     $query = "
       SELECT
         *
@@ -47,6 +50,9 @@
 
     $row = $stmt->fetch();
     
+    // If $row is empty, it's because the user doesn't exist in
+    // the DB. If it's not, then let's check the password to see
+    // if it matches the one stored in the DB.
     if ($row)
     {
       $check_password = hash('sha256', $_POST['password'] . $row['salt']);
@@ -68,7 +74,11 @@
         $email_verified   = false;
       }
     }
-
+    
+    // If the $logged_in var is true, unset the salt and password vars
+    // for security reasons, then set the sessions details and redirect
+    // the user to the homepage. Else, display an error message depending
+    // on the combination of vars.
     if ($logged_in)
     {
       unset($row['salt']);

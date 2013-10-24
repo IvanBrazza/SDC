@@ -32,8 +32,10 @@
     }
   }
 
+  // If the user clicked on an order
   if (!empty($_GET['order']))
   {
+    // Get order details based on the order number
     $query = "
       SELECT
         *
@@ -59,8 +61,10 @@
 
     $row = $stmt->fetch();
 
+    // If the order was a delivery
     if ($row['delivery_type'] === "Deliver To Address")
     {
+      // Get the delivery details for the order
       $query = "
         SELECT
           *

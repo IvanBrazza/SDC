@@ -8,7 +8,9 @@
   $ayah = new AYAH();
   $title = "Submit A Testimonial";
   $page = "testimonials";
-  
+
+  // Set the error text if the page has been redirected
+  // due to an error.
   if(!empty($_GET['e']))
   {
     if ($_GET['e'] === "ayah")
@@ -17,11 +19,13 @@
     }
   }
 
+  // If the form has been submitted
   if (!empty($_POST))
   {
     // Check AYAH
     if (array_key_exists("submit", $_POST)) 
     {
+      // If AYAH was passed, then insert the testimonial into the DB
       if ($ayah->scoreResult())
       {
         $query = "
@@ -58,7 +62,7 @@
         header("Location: ../testimonials/");
         die();
       }
-      else
+      else // If AYAH failed then redirect to an error page
       {
         header("Location: ../submit-a-testimonial/?e=ayah");
         die();
