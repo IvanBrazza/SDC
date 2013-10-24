@@ -97,6 +97,8 @@
         orders
       WHERE
         customer_id = :customer_id
+      AND
+        archived = 0
     ";
   
     $query_params = array(
@@ -120,9 +122,11 @@
       SELECT
         *
       FROM
-        archived_orders
+        orders
       WHERE 
         customer_id = :customer_id
+      AND
+        archived = 1
     ";
   
     $query_params = array(
@@ -145,7 +149,7 @@
 <?php include("../lib/header.php"); ?>
     <div class="orders">
       <?php if (!empty($_GET['order'])) : ?>
-        <h1>Order <?php echo $row['order_number']; ?><?php if (empty($_GET['archived'])) : ?><form action="../lib/archive-order.php" method="POST" id="archive-order"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number" id="order_number"><input type="hidden" value="customer" name="user"><input type="submit" value="Archive Order" class="delete_testimonial_btn"></form><?php else : ?> (archived)<?php endif; ?></h1>
+        <h1>Order <?php echo $row['order_number']; ?><?php if ($row['archived'] === "0") : ?><form action="../lib/archive-order.php" method="POST" id="archive-order"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number" id="order_number"><input type="hidden" value="customer" name="user"><input type="submit" value="Archive Order" class="delete_testimonial_btn"></form><?php else : ?> (archived)<?php endif; ?></h1>
         <table id="single_order">
           <tr>
             <th>Date Order Placed</th>
@@ -179,10 +183,12 @@
             <th>Agreed Price</th>
             <td>&pound;<?php echo $row['agreed_price']; ?></td>
           </tr>
-          <tr>
-            <th>Delivery Charge</th>
-            <td>&pound;<?php echo $deliveryrow['delivery_charge']; ?></td>
-          </tr>
+          <?php if (!empty($deliveryrow)) : ?>
+            <tr>
+              <th>Delivery Charge</th>
+              <td>&pound;<?php echo $deliveryrow['delivery_charge']; ?></td>
+            </tr>
+          <?php endif; ?>
           <tr>
             <th>Delivery Type</th>
             <td><?php echo htmlentities($row['delivery_type'], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -236,7 +242,7 @@
             </tr>
             <?php foreach($archived_rows as $row): ?>
               <tr>
-                <td><a href="../your-orders/?order=<?php echo $row['order_number']; ?>&archived=true"><?php echo $row['order_number']; ?></a></td>
+                <td><a href="../your-orders/?order=<?php echo $row['order_number']; ?>"><?php echo $row['order_number']; ?></a></td>
                 <td><?php echo $row['order_date']; ?></td>
                 <td><?php echo $row['datetime']; ?></td>
                 <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
