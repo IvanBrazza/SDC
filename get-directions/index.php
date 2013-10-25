@@ -3,6 +3,11 @@
   $title = "Get Directions";
   $page = "all-orders";
 
+  if (empty($_SESSION['user']) or $_SESSION['user']['username'] !== "admin") {
+    header("Location: ../login");
+    die();
+  }
+
   if ($_GET)
   {
     $query = "

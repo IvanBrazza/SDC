@@ -7,9 +7,9 @@
   $title = "Add Order";
   $page = "all-orders";
 
-  if ($_SESSION['user']['username'] !== "admin")
-  {
-    die("Forbidden");
+  if (empty($_SESSION['user']) or $_SESSION['user']['username'] !== "admin") {
+    header("Location: ../login");
+    die();
   }
 
   // If the form was submitted

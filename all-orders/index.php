@@ -6,16 +6,10 @@
   require("../lib/common.php");
   $page = "all-orders";
 
-  if(empty($_SESSION['user']))
+  if(empty($_SESSION['user']) or $_SESSION['user']['username'] !== "admin")
   {
     header("Location: ../login");
     die();
-  }
-
-  if($_SESSION['user']['username'] !== "admin")
-  {
-    header("Location: login.php");
-    die("Forbidden");
   }
 
   if (!empty($_GET['archive']))
