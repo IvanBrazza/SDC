@@ -141,7 +141,7 @@
 
   // If we're pulling up one order, and it's archived, it won't be
   // in $rows, so search with the archived boolean set to true!
-  if (!$row and !empty($_GET['order']))
+  if (empty($row) and !empty($_GET['order']))
   {
     $query = "
       SELECT
