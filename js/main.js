@@ -6,10 +6,7 @@ var $password_check,
     $postcode_check,
     $phone_check,
     $price_check,
-    $add_existing_check = false,
-    $celebration        = false,
-    $cupcake            = false,
-    $other              = false;
+    $add_existing_check = false;
 
 $(document).ready(function() {
   calculateOrderTotal();
