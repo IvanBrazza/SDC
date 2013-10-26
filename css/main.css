@@ -237,13 +237,13 @@ div[id*='AYAH'] {
 #map-canvas {
   height:             400px;
   margin-top:         30px;
-  margin-right:       400px;
+  margin-right:       32%;
   }
 
 #directions-panel {
   height:             400px;
   float:              right;
-  width:              390px;
+  width:              30%;
   overflow:           auto;
   padding-right:      4px;
   margin-top:         14px;

@@ -4,6 +4,7 @@
   <link href="../css/main.css" rel="stylesheet">
   <link href="../css/timepicker.css" rel="stylesheet">
   <link href="../css/jquery-ui.css" rel="stylesheet">
+  <link href="../css/flexslider.css" rel="stylesheet">
 </head>
 <body>
   <script type="text/javascript">
@@ -27,6 +28,7 @@
         <li <?php if ($page === "home") : ?>class="active"<?php endif; ?>><a href="../home">Home</a></li>
         <li <?php if ($page === "about-us") : ?>class="active"<?php endif; ?>><a href="../about-us">About Us</a></li>
         <li <?php if ($page === "testimonials") : ?>class="active"<?php endif; ?>><a href="../testimonials">Testimonials</a></li>
+        <li <?php if ($page === "gallery") : ?>class="active"<?php endif;?>><a href="../gallery">Gallery</a></li>
         <?php if ($_SESSION and $_SESSION['user']['username'] !== "admin") : ?>
           <li <?php if ($page === "place-an-order") : ?>class="active"<?php endif; ?>><a href="../place-an-order">Place An Order</a></li>
           <li <?php if ($page === "your-orders") : ?>class="active"<?php endif; ?>><a href="../your-orders">Your Orders</a></li>

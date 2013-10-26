@@ -6,10 +6,70 @@ var $password_check,
     $postcode_check,
     $phone_check,
     $price_check,
-    $add_existing_check = false;
+    $add_existing_check = false,
+    $celebration        = false,
+    $cupcake            = false,
+    $other              = false;
 
 $(document).ready(function() {
   calculateOrderTotal();
+
+  $('#celebration-carousel').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: false,
+    slideshow: false,
+    itemWidth: 210,
+    itemMargin: 5,
+    asNavFor: '#celebration-slider'
+  });
+   
+  $('#celebration-slider').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: false,
+    slideshowSpeed: 3000,
+    slideshow: true,
+    sync: "#celebration-carousel"
+  });
+
+  $('#cupcake-carousel').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: false,
+    slideshow: false,
+    itemWidth: 210,
+    itemMargin: 5,
+    asNavFor: '#cupcake-slider'
+  });
+   
+  $('#cupcake-slider').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: false,
+    slideshowSpeed: 3000,
+    slideshow: true,
+    sync: "#cupcake-carousel"
+  });
+
+  $('#other-carousel').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: false,
+    slideshow: false,
+    itemWidth: 210,
+    itemMargin: 5,
+    asNavFor: '#other-slider'
+  });
+   
+  $('#other-slider').flexslider({
+    animation: "slide",
+    controlNav: false,
+    animationLoop: false,
+    slideshowSpeed: 3000,
+    slideshow: true,
+    sync: "#other-carousel"
+  });
 
   $(".date").datepicker({
     minDate: 0,
