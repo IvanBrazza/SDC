@@ -14,7 +14,7 @@ $(document).ready(function() {
   $('#celebration-carousel').flexslider({
     animation: "slide",
     controlNav: false,
-    animationLoop: false,
+    animationLoop: true,
     slideshow: false,
     itemWidth: 210,
     itemMargin: 5,
@@ -24,7 +24,7 @@ $(document).ready(function() {
   $('#celebration-slider').flexslider({
     animation: "slide",
     controlNav: false,
-    animationLoop: false,
+    animationLoop: true,
     slideshowSpeed: 3000,
     slideshow: true,
     sync: "#celebration-carousel"
@@ -33,7 +33,7 @@ $(document).ready(function() {
   $('#cupcake-carousel').flexslider({
     animation: "slide",
     controlNav: false,
-    animationLoop: false,
+    animationLoop: true,
     slideshow: false,
     itemWidth: 210,
     itemMargin: 5,
@@ -43,7 +43,7 @@ $(document).ready(function() {
   $('#cupcake-slider').flexslider({
     animation: "slide",
     controlNav: false,
-    animationLoop: false,
+    animationLoop: true,
     slideshowSpeed: 3000,
     slideshow: true,
     sync: "#cupcake-carousel"
@@ -52,7 +52,7 @@ $(document).ready(function() {
   $('#other-carousel').flexslider({
     animation: "slide",
     controlNav: false,
-    animationLoop: false,
+    animationLoop: true,
     slideshow: false,
     itemWidth: 210,
     itemMargin: 5,
@@ -62,7 +62,7 @@ $(document).ready(function() {
   $('#other-slider').flexslider({
     animation: "slide",
     controlNav: false,
-    animationLoop: false,
+    animationLoop: true,
     slideshowSpeed: 3000,
     slideshow: true,
     sync: "#other-carousel"
