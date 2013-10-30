@@ -6,13 +6,21 @@ body {
   text-shadow:        rgba(0, 0, 0, .01) 0 0 1px;
   }
 
-h1, h2, h3, h4, h5, h6 {
+h1 {
   color:              #ea1936;
+  }
+
+h2, h3, h4, h5, h6, th {
+  color:              #21a2e6;
   }
 
 .container {
   margin:             50px auto;
   width:              75%;
+  }
+
+a {
+  color:              #636363;
   }
 /* End General */
 
@@ -169,6 +177,11 @@ table > caption {
   margin-bottom:      2px;
   }
 
+.testimonial-name, span.title {
+  color:              #21a2e6;
+  font-weight:        bold;
+  }
+
 input.valid, textarea.valid {
   color:              #468847 !important;
   background-color:   #DFF0D8 !important;
@@ -195,7 +208,7 @@ input.invalid, textarea.invalid {
 .delete_testimonial_btn {
   background:         none;
   border:             none;
-  color:              #069;
+  color:              #636363;
   text-decoration:    underline;
   cursor:             pointer;
   }
@@ -249,6 +262,7 @@ div[id*='AYAH'] {
   margin-top:         14px;
   }
 
+/* Google Maps */
 .adp {
   margin-top:         -10px;
   }
@@ -277,3 +291,4 @@ div[id*='AYAH'] {
 .adp-placemark {
   border:             1px solid silver!important;
   }
+/* End Google Maps */
