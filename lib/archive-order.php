@@ -10,7 +10,8 @@
       UPDATE
         orders
       SET
-        archived = 1
+        archived = 1,
+        status = 'Complete'
       WHERE
         order_number = :order_number
     ";
