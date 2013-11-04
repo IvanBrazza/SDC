@@ -292,3 +292,7 @@ div[id*='AYAH'] {
   border:             1px solid silver!important;
   }
 /* End Google Maps */
+
+span.arrow>a {
+  text-decoration:    none;
+  }
