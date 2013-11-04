@@ -46,7 +46,46 @@
 
     $row = $stmt->fetch();
     $cake_id = $row['cake_id'];
-  
+    
+    // Generate order number and make sure it is unique
+    $order_number_unique  = false;
+    
+    do
+    {
+      $order_number         = $_SESSION['user']['customer_id'] . rand(10000,99999);
+      
+      $query = "
+        SELECT
+          *
+        FROM
+          orders
+        WHERE
+          order_number = :order_number
+      ";
+
+      $query_params = array(
+        ':order_number' => $order_number
+      );
+
+      try
+      {
+        $stmt     = $db->prepare($query);
+        $result   = $stmt->execute($query_params);
+      }
+      catch(PDOException $ex)
+      {
+        die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
+      }
+
+      $row = $stmt->fetch();
+
+      if (!$row)
+      {
+        $order_number_unique = true;
+      }
+    }
+    while ($order_number_unique === false);
+
     // Insert the order into the DB
     $query = "
       INSERT INTO orders (
@@ -78,7 +117,6 @@
       )
     ";
 
-    $order_number   = $_SESSION['user']['customer_id'] . rand(10000,99999); // Generate a random order number
     $order_date     = date('Y-m-d');
     $status         = "Processing";
 

@@ -141,6 +141,45 @@
 
     $cake_row = $stmt->fetch();
 
+    // Generate order number and make sure it is unique
+    $order_number_unique  = false;
+    
+    do
+    {
+      $order_number   = "m" . rand(10000,99999);
+      
+      $query = "
+        SELECT
+          *
+        FROM
+          orders
+        WHERE
+          order_number = :order_number
+      ";
+
+      $query_params = array(
+        ':order_number' => $order_number
+      );
+
+      try
+      {
+        $stmt     = $db->prepare($query);
+        $result   = $stmt->execute($query_params);
+      }
+      catch(PDOException $ex)
+      {
+        die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
+      }
+
+      $row = $stmt->fetch();
+
+      if (!$row)
+      {
+        $order_number_unique = true;
+      }
+    }
+    while ($order_number_unique === false);
+    
     // Insert the new order into the orders table
     $query = "
       INSERT INTO orders(
@@ -182,7 +221,6 @@
     {
       $customer_id = $_POST['existing_id'];
     }
-    $order_number   = "m" . rand(10000,99999);
     $order_date     = date('Y-m-d');
     $status         = "Processing";
     $cake_id        = $cake_row['cake_id'];
