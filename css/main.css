@@ -296,3 +296,8 @@ div[id*='AYAH'] {
 span.arrow>a {
   text-decoration:    none;
   }
+
+tr.hover {
+  cursor:             pointer;
+  background-color:   #CBEDFF;
+  }

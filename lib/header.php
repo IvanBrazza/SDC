@@ -35,7 +35,7 @@
         <?php endif; ?>
         <?php if ($_SESSION and $_SESSION['user']['username'] === "admin") : ?>
           <li <?php if ($page === "all-orders") : ?>class="active"<?php endif; ?>><a href="../all-orders">All Orders</a></li>
-          <li <?php if ($page === "memberlist") : ?>class="active"<?php endif; ?>><a href="../memberlist">Memberlist</a></li>
+          <li <?php if ($page === "customer-list") : ?>class="active"<?php endif; ?>><a href="../customer-list">Customer List</a></li>
         <?php endif; ?>
       </ul>
     </div>

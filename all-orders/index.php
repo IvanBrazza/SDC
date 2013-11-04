@@ -392,59 +392,51 @@
     <?php if (empty($rows) and empty($manual_rows)) : ?>
       <h3>There are no outstanding orders</h3>
     <?php else : ?>
-      <table class="orders-table">
+      <table class="orders-table" id="orders-js">
         <caption>Outstanding Orders</caption>
-        <tr>
-          <th>Customer ID <br /><span class="arrow"><a href="../all-orders/?sort=DESC&col=customer_id">&#9650;</a> <a href="../all-orders/?sort=ASC&col=customer_id">&#9660;</a></span></th>
-          <th>Order Number <br /><span class="arrow"><a href="../all-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
-          <th>Order Date <br /><span class="arrow"><a href="../all-orders/?sort=DESC&col=order_date">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_date">&#9660;</a></span></th>
-          <th>Required Date <br /><span class="arrow"><a href="../all-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../all-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
-          <th>Status <br /><span class="arrow"><a href="../all-orders/?sort=DESC&col=status">&#9650;</a> <a href="../all-orders/?sort=ASC&col=status">&#9660;</a></span></th>
-        </tr>
-        <?php foreach($rows as $row): ?>
+        <thead>
           <tr>
-            <td><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>"><?php echo $row['customer_id']; ?></a></td>
-            <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"><?php echo $row['order_number']; ?></a></td>
-            <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
-            <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
-            <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
+            <th>Order Number <br /><span class="arrow"><a href="../all-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
+            <th>Order Date <br /><span class="arrow"><a href="../all-orders/?sort=DESC&col=order_date">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_date">&#9660;</a></span></th>
+            <th>Required Date <br /><span class="arrow"><a href="../all-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../all-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
+            <th>Status <br /><span class="arrow"><a href="../all-orders/?sort=DESC&col=status">&#9650;</a> <a href="../all-orders/?sort=ASC&col=status">&#9660;</a></span></th>
           </tr>
-        <?php endforeach; ?>
-        <?php if (!empty($manual_rows)) : ?>
-          <?php foreach ($manual_rows as $row) : ?>
+        </thead>
+        <tbody>
+          <?php foreach($rows as $row): ?>
             <tr>
-              <td>Manual Order</td>
-              <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"><?php echo $row['order_number']; ?></a></td>
+              <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
               <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td><?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?></td>
             </tr>
           <?php endforeach; ?>
-        <?php endif; ?>
+        </tbody>
       </table>
     <?php endif; ?>
     <?php if (empty($archived_rows)) : ?>
       <h3>There are no archived orders</h3>
     <?php else : ?>
-      <table>
+      <table id="orders-js">
         <caption>Archived Orders</caption>
-        <tr>
-          <th>Customer ID <br /><span class="arrow"><a href="../all-orders/?sort=DESC&col=customer_id">&#9650;</a> <a href="../all-orders/?sort=ASC&col=customer_id">&#9660;</a></span></th>
-          <th>Order Number <br /><span class="arrow"><a href="../all-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
-          <th>Order Date <br /><span class="arrow"><a href="../all-orders/?sort=DESC&col=order_date">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_date">&#9660;</a></span></th>
-          <th>Required Date <br /><span class="arrow"><a href="../all-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../all-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
-          <th>Status <br /><span class="arrow"><a href="../all-orders/?sort=DESC&col=status">&#9650;</a> <a href="../all-orders/?sort=ASC&col=status">&#9660;</a></span></th>
-        </tr>
-        <?php foreach($archived_rows as $row): ?>
+        <thead>
           <tr>
-            <td><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>"><?php echo $row['customer_id']; ?></a></td>
-            <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"><?php echo $row['order_number']; ?></a></td>
-            <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
-            <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
-            <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
+            <th>Order Number <br /><span class="arrow"><a href="../all-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
+            <th>Order Date <br /><span class="arrow"><a href="../all-orders/?sort=DESC&col=order_date">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_date">&#9660;</a></span></th>
+            <th>Required Date <br /><span class="arrow"><a href="../all-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../all-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
+            <th>Status <br /><span class="arrow"><a href="../all-orders/?sort=DESC&col=status">&#9650;</a> <a href="../all-orders/?sort=ASC&col=status">&#9660;</a></span></th>
           </tr>
-        <?php endforeach; ?>
+        </thead>
+        <tbody>
+          <?php foreach($archived_rows as $row): ?>
+            <tr>
+              <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
+              <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
+            </tr>
+          <?php endforeach; ?>
+        </tbody>
       </table>
     <?php endif; ?>
   <!-- if user clicked on order number or searched for an order -->
