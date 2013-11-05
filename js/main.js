@@ -602,7 +602,7 @@ function calculateDeliveryCharge()
     if (remaining_miles <= 0) {
       var delivery_charge = 0;
     } else {
-      for (var i = 5, j = 1; i <= 50; i++, j++) {
+      for (var i = 5, j = 3; i <= 50; i++, j+3) {
         if (remaining_miles === i) {
           var delivery_charge = j;
         }
