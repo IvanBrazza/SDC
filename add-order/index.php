@@ -419,7 +419,7 @@
         </div>
         <div>
           <label for="order_date">Date order was placed</label>
-          <input type="text" name="order_date" id="order_date" class="date" onchange="validateInput('#order_date', '#order_date_error')">
+          <input type="text" name="order_date" id="order_date" class="previous-date" onchange="validateInput('#order_date', '#order_date_error')">
         </div>
         <div id="order_date_error" class="validate-error"></div>
         <div>

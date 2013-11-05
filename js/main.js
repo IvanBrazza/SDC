@@ -79,6 +79,10 @@ $(document).ready(function() {
     dateFormat: "yy-mm-dd"
   });
 
+  $(".previous-date").datepicker({
+    dateFormat: "yy-mm-dd"
+  });
+
   $("#datetime").datetimepicker({
     dateFormat: "yy-mm-dd",
     timeFormat: "HH:mm",
