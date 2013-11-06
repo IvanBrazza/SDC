@@ -100,6 +100,13 @@
         , salt      = :salt
       ";
     }
+    if ($_POST['email'] != $_SESSION['user']['email'])
+    {
+      $query .= "
+        , email_verified      = :email_verified
+        , email_verification  = :email_verification
+      ";
+    }
 
     $query .= "
       WHERE
@@ -122,6 +129,12 @@
       $query_params[':salt']     = $salt;
     }
 
+    if ($_POST['email'] != $_SESSION['user']['email'])
+    {
+      $query_params[':email_verification'] = mt_rand(10000,99999) . mt_rand(10000,99999) . mt_rand(10000,99999) . mt_rand(10000,99999) . mt_rand(10000,99999);
+      $query_params[':email_verified']     = "no";
+    }
+    
     try
     {
       $stmt     = $db->prepare($query);
@@ -129,7 +142,7 @@
     }
     catch(PDOException $ex)
     {
-      die("Failed to run query: " . $ex->getMessage());
+      die("Failed to run query: " . $ex->getMessage() . " query: " . $query);
     }
 
     // Update the _SESSION variables
@@ -140,7 +153,17 @@
     $_SESSION['user']['first_name']   = $_POST['first_name'];
     $_SESSION['user']['last_name']    = $_POST['last_name'];
 
-    header("Location: ../edit-account/?update=success");
+    if (!empty($query_params[':email_verification']))
+    {
+      include "../lib/email.php";
+      emailVerification($_POST['email'], $_POST['first_name'], $query_params[':email_verification']);
+      header("Location: ../verify-email/?type=edit");
+    }
+    else
+    {
+      header("Location: ../edit-account/?update=success");
+    }
+
     die();
   }
   else

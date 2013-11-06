@@ -89,7 +89,7 @@
       header("Location: ../home");
       die();
     }
-    else if (!$email_verified and $logged_in)
+    else if (!$email_verified and !$logged_in)
     {
       $display_message = "Your email isn't verified, please check your emails to verify your account.";
     }

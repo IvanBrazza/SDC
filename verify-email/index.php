@@ -8,7 +8,7 @@
   $title = "Thanks For Registering";
   $page = "register";
 
-  if (!empty($_GET))
+  if (!empty($_GET['code']))
   {
     $email              = $_GET['email'];
     $verification_code  = $_GET['code'];
@@ -69,11 +69,13 @@
 
 ?>
 <?php include("../lib/header.php"); ?>
-  <?php if (empty($_GET)) : ?>
+  <?php if (!empty($_GET['type']) and $_GET['type'] === "register") : ?>
     <h3>Thank you for registering, we've sent an email to you to verify your account, please click on the link in the email.</h3>
-  <?php endif; ?>
-  <?php if (!empty($_GET)) : ?>
+  <?php elseif (!empty($_GET['type']) and $_GET['type'] === "edit") : ?>
+    <h3>Your account has been updated and we've sent an email to your updated email address. Please click on the link in the email to verify your email address.</h3>
+    <?php header("refresh:10;url=../lib/logout.php"); ?>
+  <?php else : ?>
     <h3>Thank you. Your email <?php echo $email; ?> is now verified. Redirecting you to the login page...</h3>
-    <?php header( "refresh:5;url=../login" ); ?>
+    <?php header("refresh:5;url=../login"); ?>
   <?php endif; ?>
 <?php include("../lib/footer.php"); ?>

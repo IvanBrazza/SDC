@@ -85,14 +85,14 @@
     $html       = '<html><body>';
     $html      .= '<p>Hi ' . $name . ',</p>';
     $html      .= '<p>Thank you for registering with Star Dream Cakes. Please click the link below to verify your account:</p>';
-    $html      .= '<a href="http://www.ivanbrazza.biz/verify-email/?email=' . $email . '&code=' . $code . '</a>';
+    $html      .= '<a href="http://www.ivanbrazza.biz/verify-email/?email=' . $to . '&code=' . $code . '</a>';
     $html      .= '<br />';
     $html      .= '<p>Thank you,<br />';
     $html      .= 'Star Dream Cakes</p>';
     $html      .= '</body></html>';
 
     $text       = "Hi " . $name . ",\r\nThank you for registering with Star Dream Cakes. Please click the link below to verify your account:" . 
-                  "http://www.ivanbrazza.biz/verify-email/?email=" . $email . "&code=" . $code . "\r\n\r\nThank You,\r\nStar Dream Cakes";
+                  "http://www.ivanbrazza.biz/verify-email/?email=" . $to . "&code=" . $code . "\r\n\r\nThank You,\r\nStar Dream Cakes";
     
     sendEmail($subject, $to, $html, $text);
   }
