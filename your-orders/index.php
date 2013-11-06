@@ -5,7 +5,7 @@
   **/
   require("../lib/common.php");
   $page = "your-orders";
-  if ($_GET)
+  if ($_GET and empty($_GET['sort']))
   {
     $title = "Order " . $_GET['order'];
   }
@@ -104,11 +104,19 @@
       AND
         archived = 0
     ";
-  
+    
+    if (!empty($_GET['sort']))
+    {
+      $query .= "
+        ORDER BY
+          orders." . $_GET['col'] . " " . $_GET['sort']
+      ;
+    }
+
     $query_params = array(
       ':customer_id' => $_SESSION['user']['customer_id']
     );
-  
+
     try
     {
       $stmt     = $db->prepare($query);
@@ -133,6 +141,14 @@
         archived = 1
     ";
   
+    if (!empty($_GET['sort']))
+    {
+      $query .= "
+        ORDER BY
+          orders." . $_GET['col'] . " " . $_GET['sort']
+      ;
+    }
+    
     $query_params = array(
       ':customer_id' => $_SESSION['user']['customer_id']
     );
@@ -215,10 +231,10 @@
         <caption>Outstanding Orders</caption>
         <thead>
           <tr>
-            <th>Order Number</th>
-            <th>Order Date</th>
-            <th>Required Date</th>
-            <th>Status</th>
+            <th>Order Number <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../your-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
+            <th>Order Date <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_date">&#9650;</a> <a href="../your-orders/?sort=ASC&col=order_date">&#9660;</a></span></th>
+            <th>Required Date <span class="arrow"><a href="../your-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../your-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
+            <th>Status <span class="arrow"><a href="../your-orders/?sort=DESC&col=status">&#9650;</a> <a href="../your-orders/?sort=ASC&col=status">&#9660;</a></span></th>
           </tr>
         </thead>
         <tbody>
@@ -240,10 +256,10 @@
         <caption>Archived Orders</caption>
         <thead>
           <tr>
-            <th>Order Number</th>
-            <th>Order Date</th>
-            <th>Required Date</th>
-            <th>Status</th>
+            <th>Order Number <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../your-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
+            <th>Order Date <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_date">&#9650;</a> <a href="../your-orders/?sort=ASC&col=order_date">&#9660;</a></span></th>
+            <th>Required Date <span class="arrow"><a href="../your-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../your-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
+            <th>Status <span class="arrow"><a href="../your-orders/?sort=DESC&col=status">&#9650;</a> <a href="../your-orders/?sort=ASC&col=status">&#9660;</a></span></th>
           </tr>
         </thead>
         <tbody>
