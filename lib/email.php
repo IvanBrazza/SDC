@@ -35,6 +35,29 @@
     }
   }
 
+  function emailStatusUpdate($to, $name, $number, $status)
+  {
+    $subject    = 'Your Order With Star Dream Cakes';
+
+    $html       = '<html><body';
+    $html      .= '<p>Hi ' . $name . ',</p>';
+    $html      .= '<p>Just to let you know that the status of your order ';
+    $html      .=     $number . ' has been updated to ' . $status . '</p>';
+    $html      .= '<br />';
+    $html      .= '<p>If you have any problems, please don\'t hesistate to call.</p>';
+    $html      .= '<p>Thanks,</p>';
+    $html      .= '<p>Fran</p>';
+
+    $text       = "Hi " . $name . ",\r\n";
+    $text      .= "Just to let you know that the status of your order ";
+    $text      .= $number . " has been updated to " . $status . "\r\n";
+    $text      .= "If you have any problems, please don't hesistate to call.\r\n";
+    $text      .= "Thanks,\r\n";
+    $text      .= "Fran";
+
+    sendEmail($subject, $to, $html, $text);
+  }
+
   function emailOrder($to, $name, $number, $date, $datetime, $celebration_date, $comments, $filling, $decoration, $cake_type, $cake_size, $delivery)
   {
     $subject    = 'Your Order With Star Dream Cakes';

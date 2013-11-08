@@ -330,7 +330,8 @@
           last_name,
           address,
           postcode,
-          phone
+          phone,
+          email
         FROM
           users
         WHERE
@@ -480,6 +481,8 @@
                 <option value="Complete">Complete</option>
               </select>
               <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
+              <input type="hidden" value="<?php echo $userrow['first_name']; ?>" name="first_name">
+              <input type="hidden" value="<?php echo $userrow['email']; ?>" name="email">
               <input type="submit" value="Update">
             </form>
           <?php endif; ?>

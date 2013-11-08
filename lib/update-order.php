@@ -30,6 +30,9 @@
     {
       die("Failed to run query: " . $ex->getMessage());
     }
+
+    include "../lib/email.php";
+    emailStatusUpdate($_POST['email'], $_POST['first_name'], $_POST['order_number'], $_POST['status']);
   }
   else if (!empty($_POST['agreed_price']))
   {
