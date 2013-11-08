@@ -9,6 +9,14 @@
   $submitted_username   = "";
   $display_message      = "";
 
+  // If the user is already logged in, redirect them to the
+  // homepage
+  if (!empty($_SESSION))
+  {
+    header("Location: ../home/");
+    die();
+  }
+
   // Set the error text if the page has been redirected due
   // to an error
   if(!empty($_GET['e']))
@@ -18,7 +26,7 @@
       $display_message = "Please login/register to place an order";
     }
   }
-  
+
   // If the login form has been submitted
   if (!empty($_POST))
   {
