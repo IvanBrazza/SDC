@@ -13,6 +13,11 @@
     header("Location: ../login");
     die();
   }
+  else if ($_SESSION['user']['username'] !== "admin")
+  {
+    header("Location: ../home");
+    die();
+  }
 
   $query = "
     SELECT
