@@ -48,6 +48,15 @@
     }
 
     $row = $stmt->fetch();
+    
+    // If the order being pulled doesn't belong to
+    // the logged in user redirect them back to the
+    // your-orders page
+    if ($row['customer_id'] !== $_SESSION['user']['customer_id'])
+    {
+      header("Location: ../your-orders");
+      die();
+    }
 
     // If the order was a delivery
     if ($row['delivery_type'] === "Deliver To Address")
