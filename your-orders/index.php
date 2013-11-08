@@ -20,18 +20,6 @@
     die();
   }
 
-  if (!empty($_GET['archive']))
-  {
-    if ($_GET['archive'] === "success")
-    {
-      $display_message = "Order archived.";
-    }
-    else if ($_GET['archive'] === "fail")
-    {
-      $display_message = "Archive failed.";
-    }
-  }
-
   // If the user clicked on an order
   if (!empty($_GET['order']))
   {
@@ -168,7 +156,7 @@
 ?>
 <?php include("../lib/header.php"); ?>
   <?php if (!empty($_GET['order'])) : ?>
-    <h1>Order <?php echo $row['order_number']; ?><?php if ($row['archived'] === "0") : ?><form action="../lib/archive-order.php" method="POST" id="archive-order"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number" id="order_number"><input type="hidden" value="customer" name="user"><input type="submit" value="Archive Order" class="delete_testimonial_btn"></form><?php else : ?> (archived)<?php endif; ?></h1>
+    <h1>Order <?php echo $row['order_number']; ?><?php if ($row['archived'] === "1") : ?> (archived)<?php endif; ?></h1>
     <table id="single_order">
       <tr>
         <th>Date Order Placed</th>
