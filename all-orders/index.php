@@ -514,7 +514,6 @@
           &pound; 
           <?php if ($row['archived'] === "0") : ?>
             <form action="../lib/update-order.php" method="POST">
-              <input type="hidden" value="<?php echo $_GET['id']; ?>" name="id">
               <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
               <input name="agreed_price" type="text" value="<?php echo $row['agreed_price']; ?>" style="width:50px;">
               <input type="submit" value="Update">
@@ -531,7 +530,6 @@
             &pound; 
             <?php if ($row['archived'] === "0") : ?>
               <form action="../lib/update-order.php" method="POST">
-                <input type="hidden" value="<?php echo $_GET['id']; ?>" name="id">
                 <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
                 <input name="delivery_charge" type="text" value="<?php echo $delivery_row['delivery_charge']; ?>" style="width:50px;">
                 <input type="submit" value="Update">
