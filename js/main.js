@@ -171,15 +171,20 @@ $(document).ready(function() {
   
   $("#delivery").change(function() {
     if ($("#delivery").val() === "Collection") {
-      $("#datetime-label").html("Date/time for collection");
+      $("#datetime-label").html("Date/Time For Collection");
       $("#delivery-charge").hide("fast");
       $("#delivery-charge-html").html(0);
       calculateOrderTotal();
     } else {
-      $("#datetime-label").html("Date/time for delivery");
-      calculateDeliveryCharge();
+      $("#datetime-label").html("Date/Time For Delivery");
+      calculateDeliveryCharge($("#delivery-charge-html"));
+      $("#delivery-charge").show("fast");
     }
   });
+
+  if ($("#delivery").val() === "Deliver To Address") {
+    $("#delivery-charge").show("fast");
+  }
 
   $("#cake_size").change(function() {
     calculateOrderTotal();
@@ -220,7 +225,6 @@ $(document).ready(function() {
   });
 
   $("#add-order-form").submit(function(e) {
-    console.log($add_existing_check);
     if ($add_existing_check) {
       if ($input_check && price_check) {
       } else {
@@ -491,10 +495,11 @@ function calculateOrderTotal()
   var $total         = $("#total-html"),
       $cake_size     = $("#cake_size").val(),
       $cake_type     = $("#cake_type").val(),
-      $total_hidden  = $("input[id=total-hidden]");
+      $agreed_hidden = $("input[id=agreed-hidden]"),
+      $agreed        = $("#agreed-price");
 
   if ($("#delivery-charge-html").html()) {
-    var $delivery_charge = $("#delivery-charge-html").html();
+    var $delivery_charge = $("#delivery-charge-html").html().replace(/\u00A3/g, '');
   } else {
     var $delivery_charge = 0;
   }
@@ -502,119 +507,144 @@ function calculateOrderTotal()
   if ($cake_size === '6"') {
     if ($cake_type === "Sponge"){
       $total.html(25 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(25);
+      $agreed_hidden.val(25);
     } else if ($cake_type === "Marble"){
       $total.html(30 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(30);
+      $agreed_hidden.val(30);
     } else if ($cake_type === "Chocolate") {
       $total.html(32 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(32);
+      $agreed_hidden.val(32);
     } else if ($cake_type === "Fruit"){
       $total.html(35 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(35);
+      $agreed_hidden.val(35);
     }
   } else if ($cake_size === '8"') {
     if ($cake_type === "Sponge"){
       $total.html(30 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(30);
+      $agreed_hidden.val(30);
     } else if ($cake_type === "Marble"){
       $total.html(35 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(35);
+      $agreed_hidden.val(35);
     } else if ($cake_type === "Chocolate") {
       $total.html(37 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(37);
+      $agreed_hidden.val(37);
     } else if ($cake_type === "Fruit"){
       $total.html(45 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(45);
+      $agreed_hidden.val(45);
     }
   } else if ($cake_size === '10"') {
     if ($cake_type === "Sponge"){
       $total.html(40 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(40);
+      $agreed_hidden.val(40);
     } else if ($cake_type === "Marble"){
       $total.html(45 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(45);
+      $agreed_hidden.val(45);
     } else if ($cake_type === "Chocolate") {
       $total.html(47 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(47);
+      $agreed_hidden.val(47);
     } else if ($cake_type === "Fruit"){
       $total.html(60 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(60);
+      $agreed_hidden.val(60);
     }
   } else if ($cake_size === '12"') {
     if ($cake_type === "Sponge"){
       $total.html(60 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(60);
+      $agreed_hidden.val(60);
     } else if ($cake_type === "Marble"){
       $total.html(65 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(65);
+      $agreed_hidden.val(65);
     } else if ($cake_type === "Chocolate") {
       $total.html(80 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(80);
+      $agreed_hidden.val(80);
     } else if ($cake_type === "Fruit"){
       $total.html(85 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(85);
+      $agreed_hidden.val(85);
     }
   } else if ($cake_size === '14"') {
     if ($cake_type === "Sponge"){
       $total.html(75 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(75);
+      $agreed_hidden.val(75);
     } else if ($cake_type === "Marble"){
       $total.html(80 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(80);
+      $agreed_hidden.val(80);
     } else if ($cake_type === "Chocolate") {
       $total.html(84 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(84);
+      $agreed_hidden.val(84);
     } else if ($cake_type === "Fruit"){
       $total.html(125 + parseInt($delivery_charge));
-      $total_hidden.val($total.html());
+      $agreed.html(125);
+      $agreed_hidden.val(125);
     }
   }
 }
 
-function calculateDeliveryCharge()
+function calculateDeliveryCharge(original_html)
 {
-  var $delivery_charge = $("#delivery-charge-html"),
-      $delivery        = $("#delivery-charge");
+  if (original_html.html() === "" || original_html.html() === "0") {
+    var $delivery_charge = original_html;
   
-  var service = new google.maps.DistanceMatrixService();
-  service.getDistanceMatrix(
-    {
-      origins: [$origins],
-      destinations: [$destination],
-      travelMode: google.maps.TravelMode.DRIVING,
-      unitSystem: google.maps.UnitSystem.IMPERIAL
-    }, callback);
+    var service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix(
+      {
+        origins: [$origins],
+        destinations: [$destination],
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.IMPERIAL
+      }, callback);
 
-  function callback(response, status) {
-    var origins = response.originAddresses;
-    var destinations = response.destinationAddresses;
+      function callback(response, status) {
+        var origins = response.originAddresses;
+        var destinations = response.destinationAddresses;
 
-    for (var i = 0; i < origins.length; i++) {
-      var results = response.rows[i].elements;
-      for (var j = 0; j < results.length; j++) {
-        var element = results[j];
-        var distance = element.distance.value;
-      }
-    }
-    
-    var miles = distance*0.000621371;
-    miles = Math.round(miles);
-    var remaining_miles = miles - 5;
-    remaining_miles = Math.round(remaining_miles / 5) * 5;
-
-    if (remaining_miles <= 0) {
-      var delivery_charge = 0;
-    } else {
-      for (var i = 5, j = 3; i <= 50; i++, j+3) {
-        if (remaining_miles === i) {
-          var delivery_charge = j;
+        for (var i = 0; i < origins.length; i++) {
+          var results = response.rows[i].elements;
+          for (var j = 0; j < results.length; j++) {
+          var element = results[j];
+          var distance = element.distance.value;
         }
       }
-    }
+    
+      var miles = distance*0.000621371;
+      miles = Math.round(miles);
+      var remaining_miles = miles - 5;
+      remaining_miles = Math.round(remaining_miles / 5) * 5;
 
-    $delivery_charge.html(delivery_charge);
-    calculateOrderTotal();
-    $delivery.show("fast");
+      if (remaining_miles <= 0) {
+        var delivery_charge = 0;
+      } else {
+        for (var i = 5, j = 3; i <= 50; i++, j=j+3) {
+          if (remaining_miles === i) {
+            var delivery_charge = j;
+            break;
+          } else if (i === 50) {
+            var delivery_charge = "Collection only";
+          }
+        }
+      }
+
+      $delivery_charge.html("&pound;" + delivery_charge);
+      calculateOrderTotal();
+    }
+  } else {
+    return null;
   }
 }

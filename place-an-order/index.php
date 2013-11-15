@@ -132,7 +132,7 @@
       ':delivery_type'      => $_POST['delivery'],
       ':status'             => $status,
       ':datetime'           => $_POST['datetime'],
-      ':agreed_price'       => $_POST['total-hidden']
+      ':agreed_price'       => $_POST['agreed-hidden']
      );
 
     try
@@ -330,10 +330,10 @@
             $destination = "95+Hoe+Lane,EN35SW";
       </script>
       <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKeZpb8doUO3DbEqT3t-uRJYsbEPbD3AE&sensor=false"></script>
-      <span id="delivery-charge"><b>Delivery: &pound;<div id="delivery-charge-html"></div></b></span>
+      <span id="delivery-charge"><b>Delivery: <div id="delivery-charge-html"></div></b></span>
       <br />
       <b>Grand Total: &pound;<div id="total-html"></div></b>
-      <input type="hidden" id="total-hidden" name="total-hidden" value="">
+      <input type="hidden" id="agreed-hidden" name="agreed-hidden" value="">
       <br /><br />
       <input type="submit" value="Submit Order" <?php if ($details_correct === false) : ?>disabled<?php endif; ?> />
     </form>

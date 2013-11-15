@@ -165,7 +165,7 @@
 ?>
 <?php include("../lib/header.php"); ?>
   <?php if (!empty($_GET['order'])) : ?>
-    <h1>Order <?php echo $row['order_number']; ?><?php if ($row['archived'] === "1") : ?> (archived)<?php endif; ?></h1>
+    <h1>Order <?php echo $row['order_number']; ?><?php if ($row['archived'] === "1") : ?> (archived)<?php else: ?> <a href="../edit-order/?order=<?php echo $row['order_number']; ?>" class="small-link">Edit</a><?php endif; ?></h1>
     <table id="single_order">
       <tr>
         <th>Date Order Placed</th>
@@ -211,7 +211,7 @@
       </tr>
       <tr>
         <th>Grand Total</th>
-        <td>&pound;<?php echo $row['agreed_price']+$row['delivery_charge']; ?></td>
+        <td>&pound;<?php echo $row['agreed_price']+$deliveryrow['delivery_charge']; ?></td>
       </tr>
     </table>
   <?php else : ?>

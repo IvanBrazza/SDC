@@ -301,3 +301,11 @@ tr.hover {
   cursor:             pointer;
   background-color:   #CBEDFF;
   }
+
+.small-link {
+  font-size:          0.5em;
+  }
+
+#delivery-edit-row {
+  display:            none;
+  }
