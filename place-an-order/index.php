@@ -100,7 +100,7 @@
         delivery_type,
         status,
         datetime,
-        agreed_price
+        base_price
       ) VALUES (
         :customer_id,
         :order_number,
@@ -113,7 +113,7 @@
         :delivery_type,
         :status,
         :datetime,
-        :agreed_price
+        :base_price
       )
     ";
 
@@ -132,7 +132,7 @@
       ':delivery_type'      => $_POST['delivery'],
       ':status'             => $status,
       ':datetime'           => $_POST['datetime'],
-      ':agreed_price'       => $_POST['agreed-hidden']
+      ':base_price'       => $_POST['base-hidden']
      );
 
     try
@@ -333,7 +333,7 @@
       <span id="delivery-charge"><b>Delivery: <div id="delivery-charge-html"></div></b></span>
       <br />
       <b>Grand Total: &pound;<div id="total-html"></div></b>
-      <input type="hidden" id="agreed-hidden" name="agreed-hidden" value="">
+      <input type="hidden" id="base-hidden" name="base-hidden" value="">
       <br /><br />
       <input type="submit" value="Submit Order" <?php if ($details_correct === false) : ?>disabled<?php endif; ?> />
     </form>

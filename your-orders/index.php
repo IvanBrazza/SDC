@@ -196,8 +196,8 @@
         <td><?php echo htmlentities($row['decoration'], ENT_QUOTES, 'UTF-8'); ?></td>
       </tr>
       <tr>
-        <th>Agreed Price</th>
-        <td>&pound;<?php echo $row['agreed_price']; ?></td>
+        <th>Base Price</th>
+        <td>&pound;<?php echo $row['base_price']; ?></td>
       </tr>
       <?php if (!empty($deliveryrow)) : ?>
         <tr>
@@ -211,7 +211,7 @@
       </tr>
       <tr>
         <th>Grand Total</th>
-        <td>&pound;<?php echo $row['agreed_price']+$deliveryrow['delivery_charge']; ?></td>
+        <td>&pound;<?php echo $row['base_price']+$deliveryrow['delivery_charge']; ?></td>
       </tr>
     </table>
   <?php else : ?>

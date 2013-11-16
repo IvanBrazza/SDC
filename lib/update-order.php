@@ -34,19 +34,19 @@
     include "../lib/email.php";
     emailStatusUpdate($_POST['email'], $_POST['first_name'], $_POST['order_number'], $_POST['status']);
   }
-  else if (!empty($_POST['agreed_price']))
+  else if (!empty($_POST['base_price']))
   {
     $query = "
       UPDATE
         orders
       SET
-        agreed_price = :agreed_price
+        base_price = :base_price
       WHERE
         order_number = :order_number
     ";
 
     $query_params = array(
-      ':agreed_price'   => $_POST['agreed_price'],
+      ':base_price'   => $_POST['base_price'],
       ':order_number'   => $_POST['order_number']
     );
     

@@ -57,7 +57,7 @@
         decoration        = :decoration,
         cake_id           = :cake_id,
         delivery_type     = :delivery_type,
-        agreed_price      = :agreed_price
+        base_price      = :base_price
       WHERE
         order_number = :order_number
     ";
@@ -71,7 +71,7 @@
       ':cake_id'          => $cake_id,
       ':delivery_type'    => $_POST['delivery'],
       ':order_number'     => $_POST['order_number'],
-      ':agreed_price'     => $_POST['agreed-hidden']
+      ':base_price'     => $_POST['base-hidden']
     );
 
     try
@@ -369,8 +369,8 @@
         </td>
       </tr>
       <tr>
-        <th>Agreed Price</th>
-        <td>&pound;<span id="agreed-price"><?php echo $row['agreed_price']; ?></span><input type="hidden" name="agreed-hidden" id="agreed-hidden" value="<?php echo $row['agreed_price']; ?>" /></td>
+        <th>Base Price</th>
+        <td>&pound;<span id="base-price"><?php echo $row['base_price']; ?></span><input type="hidden" name="base-hidden" id="base-hidden" value="<?php echo $row['base_price']; ?>" /></td>
       </tr>
       <tr id="delivery-charge">
         <th>Delivery Charge</th>
@@ -387,7 +387,7 @@
       </tr>
       <tr>
         <th>Grand Total</th>
-        <td>&pound;<span id="total-html"><?php echo "&pound;"; echo $row['agreed_price']+$row['delivery_charge']; ?></span></td>
+        <td>&pound;<span id="total-html"><?php echo "&pound;"; echo $row['base_price']+$row['delivery_charge']; ?></span></td>
       </tr>
     </table>
     <input type="submit" value="Update Order" />

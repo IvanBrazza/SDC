@@ -509,17 +509,17 @@
         <td><?php echo htmlentities($cake_row['cake_size'], ENT_QUOTES, 'UTF-8'); ?></td>
       </tr>
       <tr>
-        <th>Agreed Price</th>
+        <th>Base Price</th>
         <td>
           &pound; 
           <?php if ($row['archived'] === "0") : ?>
             <form action="../lib/update-order.php" method="POST">
               <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
-              <input name="agreed_price" type="text" value="<?php echo $row['agreed_price']; ?>" style="width:50px;">
+              <input name="base_price" type="text" value="<?php echo $row['base_price']; ?>" style="width:50px;">
               <input type="submit" value="Update">
             </form>
           <?php else : ?>
-            <?php echo $row['agreed_price']; ?>
+            <?php echo $row['base_price']; ?>
           <?php endif; ?>
         </td>
       </tr>
@@ -546,7 +546,7 @@
       </tr>
       <tr>
         <th>Grand Total</th>
-        <td>&pound;<?php echo $row['agreed_price']+$delivery_row['delivery_charge']; ?></td>
+        <td>&pound;<?php echo $row['base_price']+$delivery_row['delivery_charge']; ?></td>
       </tr>
     </table>
   <!-- show all orders by a customer -->
