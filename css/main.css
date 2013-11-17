@@ -309,3 +309,9 @@ tr.hover {
 #delivery-edit-row {
   display:            none;
   }
+
+.ajax-load {
+  background-image:   url('../img/ajax-loader.gif');
+  height:             16px;
+  width:              16px;
+  }

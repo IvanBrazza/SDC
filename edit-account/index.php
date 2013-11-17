@@ -29,182 +29,41 @@
     }
   }
 
-  if (!empty($_POST))
+  $query = "
+    SELECT
+      *
+    FROM
+      users
+    WHERE
+      customer_id = :id
+  ";
+
+  $query_params = array(
+    ':id' => $_SESSION['user']['customer_id']
+  );
+
+  try
   {
-    // Check if updated email is already in use
-    if ($_POST['email'] != $_SESSION['user']['email'])
-    {
-      $query = "
-        SELECT
-          *
-        FROM
-          users
-        WHERE
-          email = :email
-      ";
-
-      $query_params = array(
-        ':email' => $_POST['email']
-      );
-
-      try
-      {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        die("Failed to run query: " . $ex->getMessage());
-      }
-
-      $row = $stmt->fetch();
-      if ($row)
-      {
-        header("Location: ../edit-account/?e=email");
-        die();
-      }
-    }
-    
-    // Update password
-    if (!empty($_POST['password']))
-    {
-      $salt       = dechex(mt_rand(0, 2147483647)) . dechex(mt_rand(0, 2147483647));
-      $password   = hash('sha256', $_POST['password'] . $salt);
-      for ( $i = 0; $i < 65536; $i++ )
-      {
-        $password = hash('sha256', $password . $salt);
-      }
-    }
-    else
-    {
-      $password   = null;
-      $salt       = null;
-    }
-
-    $query = "
-      UPDATE 
-        users
-      SET
-        email       = :email,
-        postcode    = :postcode,
-        phone       = :phone,
-        address     = :address,
-        first_name  = :first_name,
-        last_name   = :last_name
-    ";
-
-    if ($password !== null)
-    {
-      $query .= "
-        , password  = :password
-        , salt      = :salt
-      ";
-    }
-    if ($_POST['email'] != $_SESSION['user']['email'])
-    {
-      $query .= "
-        , email_verified      = :email_verified
-        , email_verification  = :email_verification
-      ";
-    }
-
-    $query .= "
-      WHERE
-        customer_id = :user_id
-    ";
-
-    $query_params = array(
-      ':email'        => $_POST['email'],
-      ':user_id'      => $_SESSION['user']['customer_id'],
-      ':postcode'     => $_POST['postcode'],
-      ':phone'        => $_POST['phone'],
-      ':address'      => $_POST['address'],
-      ':first_name'   => $_POST['first_name'],
-      ':last_name'    => $_POST['last_name']
-    );
-
-    if ($password !== null)
-    {
-      $query_params[':password'] = $password;
-      $query_params[':salt']     = $salt;
-    }
-
-    if ($_POST['email'] != $_SESSION['user']['email'])
-    {
-      $query_params[':email_verification'] = mt_rand(10000,99999) . mt_rand(10000,99999) . mt_rand(10000,99999) . mt_rand(10000,99999) . mt_rand(10000,99999);
-      $query_params[':email_verified']     = "no";
-    }
-    
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to run query: " . $ex->getMessage() . " query: " . $query);
-    }
-
-    // Update the _SESSION variables
-    $_SESSION['user']['email']        = $_POST['email'];
-    $_SESSION['user']['postcode']     = $_POST['postcode'];
-    $_SESSION['user']['phone']        = $_POST['phone'];
-    $_SESSION['user']['address']      = $_POST['address'];
-    $_SESSION['user']['first_name']   = $_POST['first_name'];
-    $_SESSION['user']['last_name']    = $_POST['last_name'];
-
-    if (!empty($query_params[':email_verification']))
-    {
-      include "../lib/email.php";
-      emailVerification($_POST['email'], $_POST['first_name'], $query_params[':email_verification']);
-      header("Location: ../verify-email/?type=edit");
-    }
-    else
-    {
-      header("Location: ../edit-account/?update=success");
-    }
-
-    die();
+    $stmt     = $db->prepare($query);
+    $result   = $stmt->execute($query_params);
   }
-  else
+  catch(PDOException $ex)
   {
-    $query = "
-      SELECT
-        *
-      FROM
-        users
-      WHERE
-        customer_id = :id
-    ";
-
-    $query_params = array(
-      ':id' => $_SESSION['user']['customer_id']
-    );
-
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage());
-    }
-
-    $row = $stmt->fetch();
-    $_SESSION['user'] = $row;
+    die("Failed to execute query: " . $ex->getMessage());
   }
+
+  $row = $stmt->fetch();
 ?>
 <?php include("../lib/header.php"); ?>
     <div class="form">
       <h1>Edit Account</h1>
       <div class="success">
-        <span class="success_message">
+        <span class="success_message" id="success_message">
           <?php if (!empty($_GET) and !empty($_GET['update'])) {echo $display_message;} ?>
         </span>
       </div>
       <div class="error">
-        <span class="error_message">
+        <span class="error_message" id="error_message">
           <?php if (!empty($_GET) and !empty($_GET['e'])) {echo $display_message;} ?>
         </span>
       </div>
@@ -248,7 +107,8 @@
           <input type="text" name="phone" id="phone" value="<?php echo $_SESSION['user']['phone'] ?>" onkeyup="validatePhone()" onchange="validatePhone()">
         </div>
         <div id="phone_error" class="validate-error"></div>
-        <input type="submit" value="Update Account" /> 
+        <input type="submit" value="Update Account" />
+        <span class="ajax-load"></span>
       </form>
     </div>
 <?php include("../lib/footer.php"); ?>

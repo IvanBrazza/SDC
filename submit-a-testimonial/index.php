@@ -4,75 +4,17 @@
    submit a testimonial.
   **/
   require("../lib/common.php");
-  require_once("../lib/ayah/ayah.php");
-  $ayah = new AYAH();
   $title = "Submit A Testimonial";
   $page = "testimonials";
-
-  // Set the error text if the page has been redirected
-  // due to an error.
-  if(!empty($_GET['e']))
-  {
-    if ($_GET['e'] === "ayah")
-    {
-      $display_message = "Human verification failed.";
-    }
-  }
-
-  // If the form has been submitted
-  if (!empty($_POST))
-  {
-    // Check AYAH
-    if (array_key_exists("submit", $_POST)) 
-    {
-      // If AYAH was passed, then insert the testimonial into the DB
-      if ($ayah->scoreResult())
-      {
-        $query = "
-          INSERT INTO testimonials (
-            name,
-            email,
-            location,
-            testimonial
-          ) VALUES (
-            :name,
-            :email,
-            :location,
-            :testimonial
-          )
-        ";
-  
-        $query_params = array(
-          ':name'           => $_POST['name'],
-          ':email'          => $_POST['email'],
-          ':location'       => $_POST['location'],
-          ':testimonial'    => $_POST['testimonial']
-        );
-    
-        try
-        {
-          $stmt     = $db->prepare($query);
-          $result   = $stmt->execute($query_params);
-        }
-        catch(PDOException $ex)
-        { 
-          die("Failed to execute query: " . $ex->getMessage());
-        }
-  
-        header("Location: ../testimonials/");
-        die();
-      }
-      else // If AYAH failed then redirect to an error page
-      {
-        header("Location: ../submit-a-testimonial/?e=ayah");
-        die();
-      }
-    }
-  }
 ?>
 <?php include("../lib/header.php"); ?>
   <div class="form">
     <h1>Submit A Testimonial</h1>
+    <script type="text/javascript">
+      var RecaptchaOptions = {
+        theme : 'clean'
+      };
+    </script>
     <form action="index.php" method="POST" id="testimonial-form">
       <div>
         <label for="name">Name</label>
@@ -99,9 +41,12 @@
         </span>
       </div>
       <?php
-        echo $ayah->getPublisherHTML();
+        require_once("../lib/recaptchalib.php");
+        $publickey = "6LePfucSAAAAAKlUO3GQKgfXCd7SvIhtFjBH5F9Z";
+        echo recaptcha_get_html($publickey, null, true);
       ?>
       <input type="submit" id="submit-testimonial" value="Submit Testimonial" name="submit">
+      <span class="ajax-load"></span>
     </form>
   </div>
 <?php include("../lib/footer.php"); ?>

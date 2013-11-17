@@ -92,12 +92,28 @@ $(document).ready(function() {
   $("#comments").css("padding-bottom", "100px");
             
   $("#register-form").submit(function(e) {
+    // Validate the fields
     validatePassword();
     validateUsername();
     validatePassword2();
     validateEmail();
-    
+    $(".ajax-load").css("display", "inline-block");
     if ($password_check && $password2_check && $username_check && $email_check) {
+      // Submit the form
+      $.ajax({
+        type: 'post',
+        url: '../lib/form/register.php',
+        data: $(this).serialize(),
+        success: function(response) {
+          if (response === "registered") {
+            window.location.replace("../verify-email/");
+          } else {
+            $("#error_message").html(response);
+            $(".ajax-load").hide();
+          }
+        }
+      });
+      e.preventDefault();
     } else {
       e.preventDefault();
       validatePassword();
@@ -108,11 +124,28 @@ $(document).ready(function() {
   });
 
   $("#login-form").submit(function(e) {
+    // Validate the fields
     validatePassword();
     validateUsername();
-    
+    $(".ajax-load").css("display", "inline-block");
     if ($password_check && $username_check) {
+      // Submit the form
+      $.ajax({
+        type: 'post',
+        url: '../lib/form/login.php',
+        data: $(this).serialize(),
+        success: function(response) {
+          if (response === 'logged-in') {
+            window.location.replace("../home/");
+          } else {
+            $("#error_message").html(response);
+            $(".ajax-load").hide();
+          }
+        }
+      });
+      e.preventDefault();
     } else {
+      // Don't submit the form
       e.preventDefault();
       validatePassword();
       validateUsername();
@@ -120,45 +153,116 @@ $(document).ready(function() {
   });
   
   $("#order-form").submit(function(e) {
+    // Validate form fields
     validateInput('#design', '#design_error');
     validateInput('#celebration_date', '#celebration_date_error');
     validateInput('textarea#order', '#order_error');
     validateInput('#datetime', '#datetime_error');
-    
+    $(".ajax-load").css("display", "inline-block");
     if ($input_check) {
+      // Submit the form
+      $.ajax({
+        type: 'post',
+        url: '../lib/form/place-an-order.php',
+        data: $(this).serialize(),
+        success: function(response) {
+          if (response === "success") {
+            window.location.replace("../order-placed/");
+          } else {
+            $("#error_message").html("Something went wrong. Try again.");
+            $(".ajax-load").hide();
+          }
+        }
+      });
+      e.preventDefault();
     } else {
       e.preventDefault();
       validateInput('#design', '#design_error');
       validateInput('#celebration_date', '#celebration_date_error');
       validateInput('textarea#order', '#order_error');
       validateInput('#datetime', '#datetime_error');
+      $(".ajax-load").hide();
     }
   });
 
   $("#testimonial-form").submit(function(e) {
+    // Validate the fields
     validateEmail();
     validateInput('#name', '#name_error');
     validateInput('textarea#testimonial', '#testimonial_error');
-    
+    $(".ajax-load").css("display", "inline-block");
     if ($input_check && $email_check) {
+      // Submit the form
+      $.ajax({
+        type: 'post',
+        url: '../lib/form/submit-testimonial.php',
+        data: $(this).serialize(),
+        success: function(response) {
+          if (response === 'testimonial-submitted') {
+            window.location.replace("../testimonials/");
+          } else {
+            $("#error_message").html(response);
+            $(".ajax-load").hide();
+          }
+        }
+      });
+      e.preventDefault();
     } else {
+      // Don't submit the form
       e.preventDefault();
       validateEmail();
       validateInput('#name', '#name_error');
       validateInput('textarea#testimonial', '#testimonial_error');
+      $(".ajax-load").hide();
     }
   });
 
+  $("#delete_testimonial").submit(function(e) {
+    $(".ajax-load").css("display", "inline-block");
+    var $form = $(this);
+    $.ajax({
+      type: 'post',
+      url: '../lib/delete-testimonial.php',
+      data: $(this).serialize(),
+      success: function(response) {
+        if (response === 'success') {
+          $form.closest("div").remove();
+        }
+      }
+    });
+    e.preventDefault();
+  });
+
   $("#edit-account-form").submit(function(e) {
+    // Validate form inputs
     validateEmail();
     validatePostcode();
     validatePhone();
     validateInput('#first_name', '#first_name_error');
     validateInput('#last_name', '#last_name_error');
     validateInput('#address', '#address_error');
-    
+    $(".ajax-load").css("display", "inline-block");
     if ($input_check && $phone_check && $postcode_check && $email_check) {
+      // Submit the form
+      $.ajax({
+        type: 'post',
+        url: '../lib/form/edit-account.php',
+        data: $(this).serialize(),
+        success: function(response) {
+          if (response === "success") {
+            $("#success_message").html("Account updated.");
+            $(".ajax-load").hide();
+          } else if (response === "email-verify") {
+            window.location.replace("../verify-email/?type=edit");
+          } else {
+            $("#error_message").html(response);
+            $(".ajax-load").hide();
+          }
+        }
+      });
+      e.preventDefault();
     } else {
+      // Don't submit the form
       e.preventDefault();
       validateEmail();
       validatePostcode();
@@ -166,6 +270,7 @@ $(document).ready(function() {
       validateInput('#first_name', '#first_name_error');
       validateInput('#last_name', '#last_name_error');
       validateInput('#address', '#address_error');
+      $(".ajax-load").hide();
     }
   });
   
@@ -225,8 +330,20 @@ $(document).ready(function() {
   });
 
   $("#add-order-form").submit(function(e) {
+    $(".ajax-load").css("display", "inline-block");
     if ($add_existing_check) {
       if ($input_check && price_check) {
+        $.ajax({
+          type: 'post',
+          url: '../lib/form/add-order.php',
+          data: $(this).serialize(),
+          success: function(response) {
+            if (response === "success") {
+              window.location.replace("../all-orders/?new-order=added");
+            }
+          }
+        });
+        e.preventDefault();
       } else {
         e.preventDefault();
         validatePrice('#base_price', '#base_price_error');
@@ -239,6 +356,17 @@ $(document).ready(function() {
       }
     } else {
       if ($input_check && $phone_check && $email_check && $postcode_check && $price_check) {
+        $.ajax({
+          type: 'post',
+          url: '../lib/form/add-order.php',
+          data: $(this).serialize(),
+          success: function(response) {
+            if (response === "success") {
+              window.location.replace("../all-orders/?new-order=added");
+            }
+          }
+        });
+        e.preventDefault();
       } else {
         e.preventDefault();
         validatePhone();
