@@ -380,14 +380,18 @@
   <?php elseif (!$_GET or !empty($_GET['archive']) or !empty($_GET['new-order']) or !empty($_GET['sort'])) : ?>
     <h1>All Orders</h1>
     <a href="../add-order">Add Order</a>
-    <form action="../all-orders" method="GET">
+    <form action="../all-orders" method="GET" id="order_search">
       <input type="text" id="order_number" name="order" placeholder="Enter order number" />
-      <input type="hidden" name="type" value="search" />
       <input type="submit" value="Search all orders" />
+      <span class="ajax-load"></span>
     </form>
     <div class="success">
       <span class="success_message">
         <?php echo $display_message; ?>
+      </span>
+    </div>
+    <div class="error">
+      <span class="error_message" id="error_message">
       </span>
     </div>
     <?php if (empty($rows) and empty($manual_rows)) : ?>

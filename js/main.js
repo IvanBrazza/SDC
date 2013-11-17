@@ -273,6 +273,24 @@ $(document).ready(function() {
       $(".ajax-load").hide();
     }
   });
+
+  $("#order_search").submit(function(e) {
+    $(".ajax-load").css("display", "inline-block");
+    $.ajax({
+      type: 'post',
+      url: '../lib/form/order-search.php',
+      data: $(this).serialize(),
+      success: function(response) {
+        if (response === "nope") {
+          $("#error_message").html("That order doesn't exist.");
+          $(".ajax-load").hide();
+        } else {
+          window.location.replace(response);
+        }
+      }
+    });
+    e.preventDefault();
+  });
   
   $("#delivery").change(function() {
     if ($("#delivery").val() === "Collection") {
