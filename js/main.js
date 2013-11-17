@@ -332,7 +332,7 @@ $(document).ready(function() {
   $("#add-order-form").submit(function(e) {
     $(".ajax-load").css("display", "inline-block");
     if ($add_existing_check) {
-      if ($input_check && price_check) {
+      if ($input_check) {
         $.ajax({
           type: 'post',
           url: '../lib/form/add-order.php',
@@ -340,14 +340,14 @@ $(document).ready(function() {
           success: function(response) {
             if (response === "success") {
               window.location.replace("../all-orders/?new-order=added");
+            } else {
+              $(".ajax-load").hide();
             }
           }
         });
         e.preventDefault();
       } else {
         e.preventDefault();
-        validatePrice('#base_price', '#base_price_error');
-        validatePrice('#delivery_charge', '#delivery_charge_error');
         validateInput('#order_date', '#order_date_error');
         validateInput('#datetime', '#datetime_error');
         validateInput('#celebration_date', 'celebration_date_error');
@@ -355,7 +355,7 @@ $(document).ready(function() {
         validateInput('#design', '#design_error');
       }
     } else {
-      if ($input_check && $phone_check && $email_check && $postcode_check && $price_check) {
+      if ($input_check && $phone_check && $email_check && $postcode_check) {
         $.ajax({
           type: 'post',
           url: '../lib/form/add-order.php',
@@ -363,6 +363,8 @@ $(document).ready(function() {
           success: function(response) {
             if (response === "success") {
               window.location.replace("../all-orders/?new-order=added");
+            } else {
+              $(".ajax-load").hide();
             }
           }
         });
@@ -372,8 +374,6 @@ $(document).ready(function() {
         validatePhone();
         validateEmail();
         validatePostcode();
-        validatePrice('#base_price', '#base_price_error');
-        validatePrice('#delivery_charge', '#delivery_charge_error');
         validateInput('#first_name', '#first_name_error');
         validateInput('#last_name', '#last_name_error');
         validateInput('#address', '#address_error');
@@ -589,32 +589,6 @@ function validatePhone()
     $phone.addClass("invalid");
     $phone_error.slideDown("fast");
     $phone_check = false;
-  }
-}
-
-function validatePrice(input, error)
-{
-  var input  = $(input),
-      $input = $(input).val(),
-      $error = $(error);
-
-  if ($input === "") {
-    $error.html("This field cannot be blank");
-    input.removeClass("valid");
-    input.addClass("invalid");
-    $error.slideDown("fast");
-    $price_check = false;
-  } else if (/^[1-9][0-9]?\.?[0-9]{0,2}$/.test($input)) {
-    input.removeClass("invalid");
-    input.addClass("valid");
-    $error.slideUp("fast");
-    $price_check = true;
-  } else {
-    $error.html("Please enter a valid amount of money");
-    input.removeClass("valid");
-    input.addClass("invalid");
-    $error.slideDown("fast");
-    $price_check = false;
   }
 }
 
