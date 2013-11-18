@@ -28,6 +28,9 @@
 ?>
 <?php include("../lib/header.php"); ?>
   <h1>Testimonials</h1>
+  <div class="error">
+    <span class="error_message" id="error_message"></span>
+  </div>
   <?php foreach ($rows as $row) : ?>
     <div>
       <p class="testimonial"><?php echo htmlentities($row['testimonial'], ENT_QUOTES, 'UTF-8'); ?></p>
