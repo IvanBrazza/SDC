@@ -169,7 +169,7 @@ $(document).ready(function() {
           if (response === "success") {
             window.location.replace("../order-placed/");
           } else {
-            $("#error_message").html("Something went wrong. Try again.");
+            $("#error_message").html(response);
             $(".ajax-load").hide();
           }
         }
@@ -227,6 +227,8 @@ $(document).ready(function() {
       success: function(response) {
         if (response === 'success') {
           $form.closest("div").remove();
+        } else {
+          $("#error_message").html(response);
         }
       }
     });
@@ -281,11 +283,11 @@ $(document).ready(function() {
       url: '../lib/form/order-search.php',
       data: $(this).serialize(),
       success: function(response) {
-        if (response === "nope") {
-          $("#error_message").html("That order doesn't exist.");
-          $(".ajax-load").hide();
-        } else {
+        if (response.slice(0,13) === "../all-orders") {
           window.location.replace(response);
+        } else {
+          $("#error_message").html(response);
+          $(".ajax-load").hide();
         }
       }
     });

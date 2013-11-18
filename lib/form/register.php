@@ -36,6 +36,7 @@
       }
       catch(PDOException $ex)
       {
+        echo "Oops! Something went wrong. Try again.";
         die("Failed to run query: " . $ex->getMessage());
       }
       
@@ -68,6 +69,7 @@
       }
       catch(PDOException $ex)
       {
+        echo "Oops! Something went wrong. Try again.";
         die("Failed to run query to check email: " . $ex->getMessage());
       }
     
@@ -134,6 +136,7 @@
       }
       catch(PDOException $ex)
       {
+        echo "Oops! Something went wrong. Try again.";
         die("Failed to run query to register: " . $ex->getMessage());
       }
       

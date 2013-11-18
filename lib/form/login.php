@@ -25,6 +25,7 @@
     }
     catch(PDOException $ex)
     {
+      echo "Oops! Something went wrong. Try again.";
       die("Failed to run query: " . $ex->getMessage());
     }
 
@@ -69,21 +70,26 @@
       $_SESSION['user'] = $row;
       
       echo "logged-in";
+      die();
     }
     else if (!$email_verified and !$logged_in)
     {
       echo "Your email isn't verified, please check your emails to verify your account.";
+      die();
     }
     else if ($row and !$password_correct)
     {
       echo "Incorrect password.";
+      die();
     }
     else if (!$row)
     {
       echo "Incorrect username.";
+      die();
     }
     else
     {
+      echo "Oops! Something went wrong. Try again.";
       die("Login failed");
       $submitted_username = htmlentities($_POST['username'], ENT_QUOTES, 'UTF-8');
     }

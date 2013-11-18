@@ -26,6 +26,7 @@
       }
       catch(PDOException $ex)
       {
+        echo "Oops! Something went wrong. Try again.";
         die("Failed to run query: " . $ex->getMessage());
       }
 
@@ -114,6 +115,7 @@
     }
     catch(PDOException $ex)
     {
+      echo "Oops! Something went wrong. Try again.";
       die("Failed to run query: " . $ex->getMessage() . " query: " . $query);
     }
 

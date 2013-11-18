@@ -42,6 +42,7 @@
       }
       catch(PDOException $ex)
       { 
+        echo "Oops! Something went wrong. Try again.";
         die("Failed to execute query: " . $ex->getMessage());
       }
 

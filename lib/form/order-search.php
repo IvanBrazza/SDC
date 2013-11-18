@@ -21,6 +21,7 @@
   }
   catch(PDOException $ex)
   {
+    echo "Oops! Something went wrong. Try again.";
     die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
   }
 
@@ -32,5 +33,5 @@
   }
   else
   {
-    echo "nope";
+    echo "Order " . $_POST['order'] . " doesn't exist!";
   }
