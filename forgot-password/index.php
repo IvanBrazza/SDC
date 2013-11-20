@@ -4,7 +4,9 @@
     they have forgotten their password.
   **/
   require("../lib/common.php");
+  include_once("../lib/email.php");
   $title = "Forgot Password";
+  $email = new Email;
 
   // Set the error text if the page has been redirected to an error
   if (!empty($_GET['e']))
@@ -91,8 +93,10 @@
       }
       
       // Email the new password to the user
-      include "../lib/email.php";
-      emailPassword($row['email'], $row['first_name'], $plainpassword);
+      $email->password($plainpassword);
+      $email->setFirstName($row['first_name']);
+      $email->setRecipient($row['email']);
+      $email->send();
     }
   }
 ?>

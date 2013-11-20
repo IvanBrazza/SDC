@@ -4,6 +4,9 @@
     from a POST request.
   **/
   require("common.php");
+  include_once("email.php");
+  
+  $email = new Email;
 
   if (!empty($_POST['status']))
   {
@@ -31,8 +34,10 @@
       die("Failed to run query: " . $ex->getMessage());
     }
 
-    include "../lib/email.php";
-    emailStatusUpdate($_POST['email'], $_POST['first_name'], $_POST['order_number'], $_POST['status']);
+    $email->statusUpdate($_POST['order_number'], $_POST['status']);
+    $email->setFirstName($_POST['first_name']);
+    $email->setRecipient($_POST['email']);
+    $email->send();
   }
   else if (!empty($_POST['base_price']))
   {

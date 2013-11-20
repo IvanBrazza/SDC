@@ -1,5 +1,8 @@
 <?php
   require("../common.php");
+  include_once("../email.php");
+
+  $email = new Email;
 
   // If the order form has been submitted
   if (!empty($_POST))
@@ -193,19 +196,19 @@
     }
 
     // Email the order details to the user
-    include "../email.php";
-    emailOrder($_SESSION['user']['email'], 
-               $_SESSION['user']['first_name'],
-               $order_number,
-               $order_date,
-               $_POST["datetime"],
-               $_POST["celebration_date"],
-               $_POST["comments"],
-               $_POST["filling"],
-               $_POST["decoration"],
-               $_POST["cake_type"],
-               $_POST["cake_size"],
-               $_POST["delivery"]);
+    $email->order($order_number,
+                  $order_date,
+                  $_POST["datetime"],
+                  $_POST["celebration_date"],
+                  $_POST["comments"],
+                  $_POST["filling"],
+                  $_POST["decoration"],
+                  $_POST["cake_type"],
+                  $_POST["cake_size"],
+                  $_POST["delivery"]);
+    $email->setFirstName($_SESSION['user']['first_name']);
+    $email->setRecipient($_SESSION['user']['email']);
+    $email->send();
     
     echo "success";
     die();

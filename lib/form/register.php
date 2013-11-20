@@ -1,9 +1,11 @@
 <?php
   require("../common.php");
   require_once("../recaptchalib.php");
+  require_once("../email.php");
   
   $privatekey = "6LePfucSAAAAAHkrfHOrSYPPvJqf6rCiNnhWT77L";
   $resp = recaptcha_check_answer($privatekey, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
+  $email = new Email;
 
   if(!empty($_POST))
   {
@@ -140,9 +142,11 @@
         die("Failed to run query to register: " . $ex->getMessage());
       }
       
-      include "../email.php";
-      emailVerification($_POST['email'], $_POST['first_name'], $email_verification);
-    
+      $email->verification($email_verification);
+      $email->setFirstName($_POST['first_name']);
+      $email->setRecipient($_POST['email']);
+      $email->send();
+
       echo "registered";
       die();
     }
