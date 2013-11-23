@@ -411,8 +411,8 @@
           <?php foreach($rows as $row): ?>
             <tr>
               <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
-              <td><?php echo htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
+              <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
               <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
             </tr>
           <?php endforeach; ?>
@@ -436,8 +436,8 @@
           <?php foreach($archived_rows as $row): ?>
             <tr>
               <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
-              <td><?php echo htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
+              <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
               <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
             </tr>
           <?php endforeach; ?>
@@ -463,11 +463,11 @@
     <table id="single_order">
       <tr>
         <th>Order Placed</th>
-        <td><?php echo $row['order_placed']; ?></td>
+        <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
       </tr>
       <tr>
         <th>Required Date</th>
-        <td><?php echo $row['datetime']; ?> </td>
+        <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?> </td>
       </tr>
       <tr>
         <th>Date Of Celebration</th>
@@ -584,8 +584,8 @@
           <?php foreach($rows as $row): ?>
             <tr>
               <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
-              <td><?php echo htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
+              <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
               <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
             </tr>
           <?php endforeach; ?>
@@ -609,8 +609,8 @@
           <?php foreach($archived_rows as $row): ?>
             <tr>
               <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
-              <td><?php echo htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'); ?></td>
-              <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
+              <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
               <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
             </tr>
           <?php endforeach; ?>
