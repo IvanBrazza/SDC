@@ -427,7 +427,7 @@
         <thead>
           <tr>
             <th>Order Number <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
-            <th>Order Date <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_placed">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
+            <th>Order Placed <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_placed">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
             <th>Required Date <span class="arrow"><a href="../all-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../all-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
             <th>Status <span class="arrow"><a href="../all-orders/?sort=DESC&col=status">&#9650;</a> <a href="../all-orders/?sort=ASC&col=status">&#9660;</a></span></th>
           </tr>
