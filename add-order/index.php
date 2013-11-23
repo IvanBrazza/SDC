@@ -119,10 +119,10 @@
           </select>
         </div>
         <div>
-          <label for="order_date">Date order was placed</label>
-          <input type="text" name="order_date" id="order_date" class="previous-date" onchange="validateInput('#order_date', '#order_date_error')">
+          <label for="order_placed">Date/time order was placed</label>
+          <input type="text" name="order_placed" id="order_placed" class="previous-date" onchange="validateInput('#order_placed', '#order_placed_error')">
         </div>
-        <div id="order_date_error" class="validate-error"></div>
+        <div id="order_placed_error" class="validate-error"></div>
         <div>
           <label for="celebration_date">Date of celebration</label>
           <input type="text" name="celebration_date" id="celebration_date" class="date" onchange="validateInput('#celebration_date', '#celebration_date_error')">

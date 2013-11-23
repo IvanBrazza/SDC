@@ -301,8 +301,8 @@
     <input type="hidden" name="order_number" value="<?php echo $row['order_number']; ?>" />
     <table id="single_order">
       <tr>
-        <th>Date Order Placed</th>
-        <td><?php echo $row['order_date']; ?></td>
+        <th>Order Placed</th>
+        <td><?php echo $row['order_placed']; ?></td>
       </tr>
       <tr>
         <th id="datetime-label">Date/Time For <?php if ($row['delivery_type'] === "Collection") : ?>Collection<?php else : ?>Delivery<?php endif; ?></th>

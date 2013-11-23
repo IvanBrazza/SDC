@@ -402,7 +402,7 @@
         <thead>
           <tr>
             <th>Order Number <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
-            <th>Order Date <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_date">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_date">&#9660;</a></span></th>
+            <th>Order Placed <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_placed">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
             <th>Required Date <span class="arrow"><a href="../all-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../all-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
             <th>Status <span class="arrow"><a href="../all-orders/?sort=DESC&col=status">&#9650;</a> <a href="../all-orders/?sort=ASC&col=status">&#9660;</a></span></th>
           </tr>
@@ -411,7 +411,7 @@
           <?php foreach($rows as $row): ?>
             <tr>
               <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
-              <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
             </tr>
@@ -427,7 +427,7 @@
         <thead>
           <tr>
             <th>Order Number <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
-            <th>Order Date <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_date">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_date">&#9660;</a></span></th>
+            <th>Order Date <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_placed">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
             <th>Required Date <span class="arrow"><a href="../all-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../all-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
             <th>Status <span class="arrow"><a href="../all-orders/?sort=DESC&col=status">&#9650;</a> <a href="../all-orders/?sort=ASC&col=status">&#9660;</a></span></th>
           </tr>
@@ -436,7 +436,7 @@
           <?php foreach($archived_rows as $row): ?>
             <tr>
               <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
-              <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
             </tr>
@@ -462,8 +462,8 @@
       <br /><br />
     <table id="single_order">
       <tr>
-        <th>Date Order Placed</th>
-        <td><?php echo $row['order_date']; ?></td>
+        <th>Order Placed</th>
+        <td><?php echo $row['order_placed']; ?></td>
       </tr>
       <tr>
         <th>Required Date</th>
@@ -575,7 +575,7 @@
         <thead>
           <tr>
             <th>Order Number <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
-            <th>Order Date <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=order_date">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_date">&#9660;</a></span></th>
+            <th>Order Placed <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=order_placed">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
             <th>Required Date <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=datetime">&#9650;</a> <a href="../all-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
             <th>Status <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=status">&#9650;</a> <a href="../all-orders/?sort=ASC&col=status">&#9660;</a></span></th>
           </tr>
@@ -584,7 +584,7 @@
           <?php foreach($rows as $row): ?>
             <tr>
               <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
-              <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
             </tr>
@@ -600,7 +600,7 @@
         <thead>
           <tr>
             <th>Order Number <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
-            <th>Order Date <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=order_date">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_date">&#9660;</a></span></th>
+            <th>Order Placed <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=order_placed">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
             <th>Required Date <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=datetime">&#9650;</a> <a href="../all-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
             <th>Status <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=status">&#9650;</a> <a href="../all-orders/?sort=ASC&col=status">&#9660;</a></span></th>
           </tr>
@@ -609,7 +609,7 @@
           <?php foreach($archived_rows as $row): ?>
             <tr>
               <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
-              <td><?php echo htmlentities($row['order_date'], ENT_QUOTES, 'UTF-8'); ?></td>
+              <td><?php echo htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'); ?></td>
               <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
             </tr>

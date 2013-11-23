@@ -368,7 +368,7 @@ $(document).ready(function() {
         e.preventDefault();
       } else {
         e.preventDefault();
-        validateInput('#order_date', '#order_date_error');
+        validateInput('#order_placed', '#order_placed_error');
         validateInput('#datetime', '#datetime_error');
         validateInput('#celebration_date', 'celebration_date_error');
         validateInput('textarea#order', '#order_error');
@@ -397,7 +397,7 @@ $(document).ready(function() {
         validateInput('#first_name', '#first_name_error');
         validateInput('#last_name', '#last_name_error');
         validateInput('#address', '#address_error');
-        validateInput('#order_date', '#order_date_error');
+        validateInput('#order_placed', '#order_placed_error');
         validateInput('#datetime', '#datetime_error');
         validateInput('#celebration_date', 'celebration_date_error');
         validateInput('textarea#order', '#order_error');

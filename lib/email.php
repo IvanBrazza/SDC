@@ -92,7 +92,7 @@ class Email {
     $this->text       = "Hi, " . $this->firstName . ",\r\n" . 
                         "Here is the order you've requested:\r\n" .
                         "Order Number: " . $number . "\r\n" . 
-                        "Date Order Placed: " . $order_date . "\r\n" .
+                        "Order Placed: " . $order_placed . "\r\n" .
                         "Required Date: " . $datetime . "\r\n" .
                         "Date of Celebration: " . $celebration_date . "\r\n" . 
                         "Comments: " . $comments . "\r\n" . 

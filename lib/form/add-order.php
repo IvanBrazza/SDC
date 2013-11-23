@@ -180,7 +180,7 @@
         filling,
         cake_id,
         base_price,
-        order_date,
+        order_placed,
         delivery_type,
         status,
         datetime
@@ -193,7 +193,7 @@
         :filling,
         :cake_id,
         :base_price,
-        :order_date,
+        :order_placed,
         :delivery_type,
         :status,
         :datetime
@@ -210,7 +210,7 @@
     {
       $customer_id = $_POST['existing_id'];
     }
-    $order_date     = date('Y-m-d');
+    $order_placed     = date('Y-m-d H:i:s');
     $status         = "Processing";
     $cake_id        = $cake_row['cake_id'];
 
@@ -223,7 +223,7 @@
       ':filling'          => $_POST['filling'],
       ':cake_id'          => $cake_id,
       ':base_price'       => $_POST['total-hidden'],
-      ':order_date'       => $order_date,
+      ':order_placed'     => $order_placed,
       ':delivery_type'    => $_POST['delivery'],
       ':status'           => $status,
       ':datetime'         => $_POST['datetime']

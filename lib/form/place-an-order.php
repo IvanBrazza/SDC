@@ -89,7 +89,7 @@
         decoration,
         filling,
         cake_id,
-        order_date,
+        order_placed,
         delivery_type,
         status,
         datetime,
@@ -102,7 +102,7 @@
         :decoration,
         :filling,
         :cake_id,
-        :order_date,
+        :order_placed,
         :delivery_type,
         :status,
         :datetime,
@@ -110,18 +110,18 @@
       )
     ";
 
-    $order_date     = date('Y-m-d');
+    $order_placed   = date('Y-m-d H:i:s');
     $status         = "Processing";
 
     $query_params = array(
       ':customer_id'        => $_SESSION['user']['customer_id'],
       ':order_number'       => $order_number,
-      ':celebration_date'   => $order_date,
+      ':celebration_date'   => $_POST['celebration_date'],
       ':comments'           => $_POST['comments'],
       ':decoration'         => $_POST['decoration'],
       ':filling'            => $_POST['filling'],
       ':cake_id'            => $cake_id,
-      ':order_date'         => $order_date,
+      ':order_placed'       => $order_placed,
       ':delivery_type'      => $_POST['delivery'],
       ':status'             => $status,
       ':datetime'           => $_POST['datetime'],
@@ -197,7 +197,7 @@
 
     // Email the order details to the user
     $email->order($order_number,
-                  $order_date,
+                  $order_placed,
                   $_POST["datetime"],
                   $_POST["celebration_date"],
                   $_POST["comments"],
