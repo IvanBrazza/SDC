@@ -107,6 +107,7 @@
 ?>
 <?php include("../lib/header.php"); ?>
   <h1>Stats</h1>
+  <h2>Order Stats</h2>
   <table id="order-stats">
     <tr>
       <th>Total number of orders:</th>
@@ -171,6 +172,30 @@
       bezierCurve: false,
       scaleStartValue: 0 
     }
+
+    var usersData = [
+      <?php
+        foreach ($users as $user)
+        {
+          $colour = str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT) . str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT) . str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
+          $users[$user['customer_id']]['colour'] = $colour;
+          echo "{value:" . $user['orders'] . ",color:\"#" . $colour . "\"},";
+        }
+      ?>
+    ]
   </script>
-  <canvas id="ordersChart" height="400px" width="400px"></canvas>
+  <h2>Orders placed by month</h2>
+  <canvas id="ordersChart" height="400px" width="400px"></canvas><br/>
+  <h2>Orders placed by customer</h2>
+  <div>  
+    <canvas id="usersChart" height="400px" width="400px"></canvas>
+    <div style="display:inline-block;vertical-align:top;margin-top:140px;">
+      <?php foreach ($users as $user) : ?>
+        <p>
+          <div class="pie-key" style="display:inline-block;background-color:<?php echo $user['colour']; ?>;width:10px;height:10px;"></div>
+          <p style="display:inline-block;margin:0;"><?php echo $user['first_name'] . " " . $user['last_name'] . " - " . $user['orders'] . " orders"; ?></p>
+        </p>
+      <?php endforeach; ?>
+    </div>
+  </div>
 <?php include("../lib/footer.php"); ?>
