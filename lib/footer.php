@@ -1,3 +1,7 @@
+    <hr class="fancy-line">
+    <div class="copyright">
+      <div>&copy; Star Dream Cakes 2013</div>
+    </div>
   </div>
   <script src="../js/jquery-1.10.2.min.js"></script>
   <script src="../js/jquery-ui.js"></script>
