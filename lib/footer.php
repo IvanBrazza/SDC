@@ -3,12 +3,19 @@
       <div>&copy; Star Dream Cakes 2013</div>
     </div>
   </div>
-  <script src="../js/jquery-1.10.2.min.js"></script>
-  <script src="../js/jquery-ui.js"></script>
-  <script src="../js/jquery-ui-timepicker-addon.js"></script>
-  <script src="../js/jquery.flexslider-min.js"></script>
-  <?php if ($page === "stats") :?>
-    <script src="../js/chart.min.js"></script>
+  <script src="../js/jquery/jquery-1.10.2.min.js"></script>
+  <?php if ($_SERVER['REQUEST_URI'] === "/login/" or $_SERVER['REQUEST_URI'] === "/register/" or $_SERVER['REQUEST_URI'] === "/add-order/" or $_SERVER['REQUEST_URI'] === "/place-an-order/") : ?>
+    <script src="../js/forms/main.js"></script>
+    <script src="../js/jquery/jquery-ui.js"></script>
+    <script src="../js/jquery/jquery-ui-timepicker-addon.js"></script>
+  <?php endif; ?>
+  <?php if ($_SERVER['REQUEST_URI'] === "/stats/") :?>
+    <script src="../js/charts/chart.min.js"></script>
+    <script src="../js/charts/main.js"></script>
+  <?php endif; ?>
+  <?php if ($_SERVER['REQUEST_URI'] === "/gallery/") : ?>
+    <script src="../js/jquery/jquery.flexslider-min.js"></script>
+    <script src="../js/gallery/main.js"></script>
   <?php endif; ?>
   <script src="../js/main.js"></script>
 <body>
