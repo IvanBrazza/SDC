@@ -1,4 +1,3 @@
-<?php header("Access-Control-Allow-Origin: *"); ?>
 <head>
   <title><?php echo $title ?> | Star Dream Cakes</title>
   <link rel="icon" href="../favicon.ico">
