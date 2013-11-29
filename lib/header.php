@@ -2,26 +2,18 @@
   <title><?php echo $title ?> | Star Dream Cakes</title>
   <link rel="icon" href="../favicon.ico">
   <link href="../css/main.css" rel="stylesheet">
-  <link href="../css/timepicker.css" rel="stylesheet">
-  <link href="../css/jquery-ui.css" rel="stylesheet">
-  <link href="../css/flexslider.css" rel="stylesheet">
+  <?php if ($_SERVER['REQUEST_URI'] === "/add-order/" or $_SERVER['REQUEST_URI'] === "/place-an-order/") : ?>
+    <link href="../css/timepicker.css" rel="stylesheet">
+    <link href="../css/jquery-ui.css" rel="stylesheet">
+  <?php endif; ?>
+  <?php if ($_SERVER['REQUEST_URI'] === "/gallery/") : ?>
+    <link href="../css/flexslider.css" rel="stylesheet">
+  <?php endif; ?>
+  <?php if (substr($_SERVER['REQUEST_URI'], 0, 16) === "/get-directions/") : ?>
+    <link href="../css/google-maps.css" rel="stylesheet">
+  <?php endif; ?>
 </head>
 <body>
-  <script type="text/javascript">
-    var $buoop = {
-      vs: {i:8,f:15,o:10.6,s:4,n:10},
-      reminder: 0,
-      newwindow: true
-    } 
-    $buoop.ol = window.onload; 
-    window.onload=function(){ 
-      try {if ($buoop.ol) $buoop.ol();}catch (e) {} 
-      var e = document.createElement("script"); 
-      e.setAttribute("type", "text/javascript"); 
-      e.setAttribute("src", "../js/browser.js"); 
-      document.body.appendChild(e); 
-    } 
-  </script> 
   <div class="navbar">
     <div class="nav-container">
       <ul>

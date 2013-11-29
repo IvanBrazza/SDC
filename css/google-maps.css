@@ -1,0 +1,43 @@
+.adp {
+  margin-top:         -10px;
+  }
+
+.adp-text {
+  padding-left:       40px;
+  }
+
+.adp-directions>tbody>tr>td:nth-child(1), .adp-directions>tbody>tr>td:nth-child(2) {
+  width:              23px;
+  }
+
+.adp-directions>tbody>tr>td:nth-child(4) {
+  width:              45px;
+  }
+
+.adp, .adp table, .adp-list, .gm-style div, .gm-style span, .gm-style label, .gm-style a {
+  font-family:        Tahoma, Arial, sans-serif;
+  }
+
+.adp table, .adp td, .adp th {
+  border:             none;
+  border-bottom:      1px solid silver;
+  }
+
+.adp-placemark {
+  border:             1px solid silver!important;
+  }
+
+#directions-panel {
+  height:             400px;
+  float:              right;
+  width:              30%;
+  overflow:           auto;
+  padding-right:      4px;
+  margin-top:         14px;
+  }
+
+#map-canvas {
+  height:             400px;
+  margin-top:         30px;
+  margin-right:       32%;
+  }
