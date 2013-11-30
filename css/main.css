@@ -271,26 +271,14 @@ tr.hover {
   }
 
 /* Copyright footer  */
+div#footer {
+  width:              75%;
+  margin:             0 auto 50px auto;
+  }
+
 hr.fancy-line { 
   border:             0; 
   height:             1px;
-  margin-top:         35px;
-  }
-
-hr.fancy-line:before {
-  top:                -0.5em;
-  height:             1em;
-  }
-
-hr.fancy-line:after {
-  content:            '';
-  height:             0.5em;
-  top:                1px;
-  }
-
-hr.fancy-line:before, hr.fancy-line:after {
-  content:            '';
-  position:           absolute;
   }
 
 hr.fancy-line {

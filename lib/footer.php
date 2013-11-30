@@ -1,3 +1,5 @@
+  </div>
+  <div id="footer">
     <hr class="fancy-line">
     <div class="copyright">
       <div>&copy; Star Dream Cakes 2013</div>
