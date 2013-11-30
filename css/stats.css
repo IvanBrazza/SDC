@@ -1,0 +1,41 @@
+#order-stats {
+  width:              48%;
+  margin:             0;
+  }
+
+div#orders-chart {
+  display:            inline-block;
+  }
+
+div#users-chart {
+  display:            inline-block;
+  width:              585px;
+  position:           relative;
+  }
+
+@media (min-width: 1337px) {
+  div#users-chart {
+    float:            right;
+    }
+  }
+
+div.pie-key {
+  display:            inline-block;
+  width:              10px;
+  height:             10px;
+  }
+
+div#users-chart-key {
+  display:            inline-block;
+  position:           absolute;
+  top:                50%;
+  }
+
+div#users-chart-key > div {
+  margin:             5px 0;
+  }
+
+div#users-chart-key > span {
+  display:            inline-block;
+  margin:             0;
+  }

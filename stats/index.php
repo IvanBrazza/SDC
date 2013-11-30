@@ -106,30 +106,6 @@
   }
 ?>
 <?php include("../lib/header.php"); ?>
-  <h1>Stats</h1>
-  <h2>Order Stats</h2>
-  <table id="order-stats">
-    <tr>
-      <th>Total number of orders:</th>
-      <td><?php echo $orders; ?></td>
-    </tr>
-    <tr>
-      <th>Number of outstanding orders:</th>
-      <td><?php echo $outstanding_orders; ?></td>
-    </tr>
-    <tr>
-      <th>Number of archived orders:</th>
-      <td><?php echo $archived_orders; ?></td>
-    </tr>
-    <tr>
-      <th>Number of orders by customer</th>
-      <td>
-        <?php foreach ($users as $user) : ?>
-          <?php echo $user['first_name'] . " " . $user['last_name'] . ": " . $user['orders']; ?><br />
-        <?php endforeach; ?>
-      </td>
-    </tr>
-  </table>
   <script>
     var ordersData = {
       labels: ["January","February","March","April","May","June","July","August","September","October","November","December"],
@@ -166,11 +142,11 @@
     }
 
     var ordersOptions = {
-      scaleOverride: true,
-      scaleSteps: <?php echo $largestMonth + 1; ?>,
-      scaleStepWidth: 1,
-      bezierCurve: false,
-      scaleStartValue: 0 
+        scaleOverride: true,
+        scaleSteps: <?php echo $largestMonth + 1; ?>,
+        scaleStepWidth: 1,
+        bezierCurve: false,
+        scaleStartValue: 0 
     }
 
     var usersData = [
@@ -183,18 +159,49 @@
         }
       ?>
     ]
+
+    var usersOptions = {
+      segmentStrokeColor: "#E2F8F8",
+      animationSteps: 60
+    }
   </script>
-  <h2>Orders placed by month</h2>
-  <canvas id="ordersChart" height="400px" width="400px"></canvas><br/>
-  <h2>Orders placed by customer</h2>
-  <div>  
-    <canvas id="usersChart" height="400px" width="400px"></canvas>
-    <div style="display:inline-block;vertical-align:top;margin-top:140px;">
+  <h1>Stats</h1>
+  <h2>Order Stats</h2>
+  <table id="order-stats">
+    <tr>
+      <th>Total number of orders:</th>
+      <td><?php echo $orders; ?></td>
+    </tr>
+    <tr>
+      <th>Number of outstanding orders:</th>
+      <td><?php echo $outstanding_orders; ?></td>
+    </tr>
+    <tr>
+      <th>Number of archived orders:</th>
+      <td><?php echo $archived_orders; ?></td>
+    </tr>
+    <tr>
+      <th>Number of orders by customer</th>
+      <td>
+        <?php foreach ($users as $user) : ?>
+          <?php echo $user['first_name'] . " " . $user['last_name'] . ": " . $user['orders']; ?><br />
+        <?php endforeach; ?>
+      </td>
+    </tr>
+  </table>
+  <div id="orders-chart">
+    <h2>Orders placed by month</h2>
+    <canvas id="ordersChart" height="400px" width="400px"></canvas>
+  </div>
+  <div id="users-chart">
+    <h2>Orders placed by customer</h2>
+    <canvas id="usersChart" height="350px" width="350px"></canvas>
+    <div id="users-chart-key">
       <?php foreach ($users as $user) : ?>
-        <p>
-          <div class="pie-key" style="display:inline-block;background-color:<?php echo $user['colour']; ?>;width:10px;height:10px;"></div>
-          <p style="display:inline-block;margin:0;"><?php echo $user['first_name'] . " " . $user['last_name'] . " - " . $user['orders'] . " orders"; ?></p>
-        </p>
+        <div>
+          <div class="pie-key" style="background-color:#<?php echo $user['colour']; ?>;"></div>
+          <span><?php echo $user['first_name'] . " " . $user['last_name'] . " - " . $user['orders'] . " orders"; ?></span>
+        </div>
       <?php endforeach; ?>
     </div>
   </div>

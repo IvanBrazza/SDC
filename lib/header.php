@@ -12,6 +12,9 @@
   <?php if (substr($_SERVER['REQUEST_URI'], 0, 16) === "/get-directions/") : ?>
     <link href="../css/google-maps.css" rel="stylesheet">
   <?php endif; ?>
+  <?php if ($_SERVER['REQUEST_URI'] === "/stats/") : ?>
+    <link href="../css/stats.css" rel="stylesheet">
+  <?php endif; ?>
 </head>
 <body>
   <div class="navbar">
