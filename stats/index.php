@@ -171,9 +171,21 @@
 
     var usersData = [
       <?php
+        $colours = array();
+        $colour_unique = false;
         foreach ($users as $user)
         {
-          $colour = str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT) . str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT) . str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
+          do
+          {
+            $new_colour = str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT) . str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT) . str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
+            if (!in_array($new_colour, $colours))
+            {
+              array_push($colours, $new_colour);
+              $colour = $new_colour;
+              $colour_unique = true;
+            }
+          }
+          while ($colour_unique === false);
           $users[$user['customer_id']]['colour'] = $colour;
           echo "{value:" . $user['orders'] . ",color:\"#" . $colour . "\"},";
         }
