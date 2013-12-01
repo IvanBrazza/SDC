@@ -9,14 +9,8 @@ div#orders-chart {
 
 div#users-chart {
   display:            inline-block;
-  width:              585px;
   position:           relative;
-  }
-
-@media (min-width: 1337px) {
-  div#users-chart {
-    float:            right;
-    }
+  float:              right;
   }
 
 div.pie-key {
