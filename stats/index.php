@@ -12,7 +12,7 @@
     die();
   }
   
-  // Get number of orders placed
+  // Get all order details
   $query = "
     SELECT
       *
@@ -34,6 +34,7 @@
 
   foreach ($rows as $row)
   {
+    // Calculate orders per customer & archived/outstanding
     if ($row['archived'] === "0")
     {
       $outstanding_orders++;
@@ -45,8 +46,26 @@
     $orders++;
     $users[$row['customer_id']]['orders']++;
     $users[$row['customer_id']]['customer_id'] = $row['customer_id'];
-  }
 
+    // Calculate popular filling & decoration
+    $fillings[$row['filling']]['name'] = $row['filling'];
+    $fillings[$row['filling']]['amount']++;
+    $largestFilling = 0;
+    foreach ($fillings as $filling)
+    {
+      $largestFilling = max($largestFilling, $filling['amount']);
+    }
+
+    $decorations[$row['decoration']]['name'] = $row['decoration'];
+    $decorations[$row['decoration']]['amount']++;
+    $largestDecoration = 0;
+    foreach ($decorations as $decoration)
+    {
+      $largestDecoration = max($largestDecoration, $decoration['amount']);
+    }
+  }
+  
+  // Get first & last name for each customer to display
   foreach ($users as $user)
   {
     $query = "
@@ -76,6 +95,7 @@
     $users[$user['customer_id']]['last_name'] = $row['last_name'];
   }
   
+  // Calculate orders placed per month
   for ($i = 0; $i < 12; $i++)
   {
     $query = "
@@ -145,8 +165,8 @@
         scaleOverride: true,
         scaleSteps: <?php echo $largestMonth + 1; ?>,
         scaleStepWidth: 1,
-        bezierCurve: false,
-        scaleStartValue: 0 
+        scaleStartValue: 0,
+        animation: true
     }
 
     var usersData = [
@@ -162,7 +182,111 @@
 
     var usersOptions = {
       segmentStrokeColor: "#E2F8F8",
-      animationSteps: 60
+      animationSteps: 60,
+      animation: true
+    }
+
+    var fillingsData = {
+      labels: ["None", "Butter Cream", "Chocolate", "Other"],
+      datasets: [
+        {
+          fillColor: "rgba(151,187,205,0.5)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          data: [
+            <?php
+              if ($fillings['None']['amount']) {
+                echo $fillings['None']['amount'] . ",";
+              } else {
+                echo "0,";
+              }
+              if ($fillings['Butter Cream']['amount']) {
+                echo $fillings['Butter Cream']['amount'] . ",";
+              } else {
+                echo "0,";
+              }
+              if ($fillings['Chocolate']['amount']) {
+                echo $fillings['Chocolate']['amount'] . ",";
+              } else {
+                echo "0,";
+              }
+              if ($fillings['Other']['amount']) {
+                echo $fillings['Other']['amount'];
+              } else {
+                echo "0";
+              }
+            ?>
+          ]
+        }
+      ]
+    }
+
+    var fillingsOptions = {
+        scaleOverride: true,
+        scaleSteps: <?php echo $largestFilling + 1; ?>,
+        scaleStepWidth: 1,
+        scaleStartValue: 0,
+        animation: true
+    }
+
+    var decorationsData = {
+      labels: ["None", "Royal Icing", "Regal Icing", "Butter Cream", "Chocolate", "Coconut", "Other"],
+      datasets: [
+        {
+          fillColor: "rgba(151,187,205,0.5)",
+          strokeColor: "rgba(151,187,205,1)",
+          pointColor: "rgba(151,187,205,1)",
+          pointStrokeColor: "#fff",
+          data: [
+            <?php
+              if ($decorations['None']['amount']) {
+                echo $decorations['None']['amount'] . ",";
+              } else {
+                echo "0,";
+              }
+              if ($decorations['Royal Icing']['amount']) {
+                echo $decorations['Royal Icing']['amount'] . ",";
+              } else {
+                echo "0,";
+              }
+              if ($decorations['Regal Icing']['amount']) {
+                echo $decorations['Regal Icing']['amount'] . ",";
+              } else {
+                echo "0,";
+              }
+              if ($decorations['Butter Cream']['amount']) {
+                echo $decorations['Butter Cream']['amount'] . ",";
+              } else {
+                echo "0,";
+              }
+              if ($decorations['Chocolate']['amount']) {
+                echo $decorations['Chocolate']['amount'] . ",";
+              } else {
+                echo "0,";
+              }
+              if ($decorations['Coconut']['amount']) {
+                echo $decorations['Coconut']['amount'] . ",";
+              } else {
+                echo "0,";
+              }
+              if ($decorations['Other']['amount']) {
+                echo $decorations['Other']['amount'];
+              } else {
+                echo "0";
+              }
+            ?>
+          ]
+        }
+      ]
+    }
+
+    var decorationsOptions = {
+        scaleOverride: true,
+        scaleSteps: <?php echo $largestDecoration + 1; ?>,
+        scaleStepWidth: 1,
+        scaleStartValue: 0,
+        animation: true
     }
   </script>
   <h1>Stats</h1>
@@ -180,14 +304,6 @@
       <th>Number of archived orders:</th>
       <td><?php echo $archived_orders; ?></td>
     </tr>
-    <tr>
-      <th>Number of orders by customer</th>
-      <td>
-        <?php foreach ($users as $user) : ?>
-          <?php echo $user['first_name'] . " " . $user['last_name'] . ": " . $user['orders']; ?><br />
-        <?php endforeach; ?>
-      </td>
-    </tr>
   </table>
   <div id="orders-chart">
     <h2>Orders placed by month</h2>
@@ -204,5 +320,13 @@
         </div>
       <?php endforeach; ?>
     </div>
+  </div>
+  <div id="fillings-chart">
+    <h2>Popularity of fillings</h2>
+    <canvas id="fillingsChart" height="400px" width="400px"></canvas>
+  </div>
+  <div id="decorations-chart">
+    <h2>Popularity of decorations</h2>
+    <canvas id="decorationsChart"></canvas>
   </div>
 <?php include("../lib/footer.php"); ?>
