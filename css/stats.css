@@ -11,6 +11,10 @@ div#orders-chart, div#fillings-chart, div#decorations-chart {
   display:            inline-block;
   }
 
+canvas#ordersChart, canvas#fillingsChart, canvas#decorationsChart {
+  margin-left:        -35px;
+  }
+
 div#decorations-chart {
   float:              right;
   }

@@ -26,12 +26,12 @@ function calculateWidth() {
   $("#usersChart").attr("height", width * 0.70 + "px");
   $("#users-chart").width(width + "px");
 
-  $("#fillingsChart").attr("width", width * 0.90 + "px");
-  $("#fillingsChart").attr("height", width * 0.80 + "px");
+  $("#fillingsChart").attr("width", width + "px");
+  $("#fillingsChart").attr("height", width * 0.85 + "px");
   $("#fillings-chart").width(width + "px");
 
-  $("#decorationsChart").attr("width", width * 0.90 + "px");
-  $("#decorationsChart").attr("height", width * 0.80 + "px");
+  $("#decorationsChart").attr("width", width + "px");
+  $("#decorationsChart").attr("height", width + "px");
   $("#decorations-chart").width(width + "px");
 }
 

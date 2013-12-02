@@ -274,6 +274,7 @@ tr.hover {
 div#footer {
   width:              75%;
   margin:             0 auto 50px auto;
+  padding-top:        20px;
   }
 
 hr.fancy-line { 
