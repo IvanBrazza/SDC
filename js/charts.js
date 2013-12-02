@@ -10,6 +10,10 @@ $(document).ready(function() {
     calculateWidth();
     drawCharts();
   });
+
+  $(".chart").each(function(i) {
+    $(this).delay((i++) * 400).fadeTo(500, 1);
+  });
 });
 
 function calculateWidth() {

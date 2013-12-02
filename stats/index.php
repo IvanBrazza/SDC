@@ -317,11 +317,11 @@
       <td><?php echo $archived_orders; ?></td>
     </tr>
   </table>
-  <div id="orders-chart">
+  <div id="orders-chart" class="chart">
     <h2>Orders placed by month</h2>
     <canvas id="ordersChart" height="400px" width="400px"></canvas>
   </div>
-  <div id="users-chart">
+  <div id="users-chart" class="chart">
     <h2>Orders placed by customer</h2>
     <canvas id="usersChart" height="350px" width="350px"></canvas>
     <div id="users-chart-key">
@@ -333,11 +333,11 @@
       <?php endforeach; ?>
     </div>
   </div>
-  <div id="fillings-chart">
+  <div id="fillings-chart" class="chart">
     <h2>Popularity of fillings</h2>
     <canvas id="fillingsChart" height="400px" width="400px"></canvas>
   </div>
-  <div id="decorations-chart">
+  <div id="decorations-chart" class="chart">
     <h2>Popularity of decorations</h2>
     <canvas id="decorationsChart"></canvas>
   </div>
