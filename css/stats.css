@@ -8,11 +8,11 @@ div.chart {
   }
 
 div#orders-chart, div#fillings-chart, div#decorations-chart {
-  display:            inline-block;
+  display:            inline;
   }
 
 canvas#ordersChart, canvas#fillingsChart, canvas#decorationsChart {
-  margin-left:        -35px;
+  margin-top:         -50px;
   }
 
 div#decorations-chart {
@@ -20,7 +20,7 @@ div#decorations-chart {
   }
 
 div#users-chart {
-  display:            inline-block;
+  display:            inline;
   position:           relative;
   float:              right;
   }

@@ -127,17 +127,9 @@
 ?>
 <?php include("../lib/header.php"); ?>
   <script>
-    var ordersData = {
-      labels: ["January","February","March","April","May","June","July","August","September","October","November","December"],
-      datasets: [
-        {
-          fillColor: "rgba(151,187,205,0.5)",
-          strokeColor: "rgba(151,187,205,1)",
-          pointColor: "rgba(151,187,205,1)",
-          pointStrokeColor: "#fff",
-          data: [
+    var ordersDataName = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+    var ordersDataValue = [
             <?php
-              $largestMonth = $months[0];
               for ($i = 0; $i < 12; $i++)
               {
                 if ($months[$i]) 
@@ -149,25 +141,9 @@
                   echo "0";
                 } 
                 echo ",";
-
-                if ($months[$i] > $largestMonth)
-                {
-                  $largestMonth = $months[$i];
-                }
               }
             ?>
-          ]
-        }
-      ]
-    }
-
-    var ordersOptions = {
-        scaleOverride: true,
-        scaleSteps: <?php echo $largestMonth + 1; ?>,
-        scaleStepWidth: 1,
-        scaleStartValue: 0,
-        animation: true
-    }
+          ];
 
     var usersData = [
       <?php
@@ -198,15 +174,8 @@
       animation: true
     }
 
-    var fillingsData = {
-      labels: ["None", "Butter Cream", "Chocolate", "Other"],
-      datasets: [
-        {
-          fillColor: "rgba(151,187,205,0.5)",
-          strokeColor: "rgba(151,187,205,1)",
-          pointColor: "rgba(151,187,205,1)",
-          pointStrokeColor: "#fff",
-          data: [
+    var fillingsDataName = ["None", "Butter Cream", "Chocolate", "Other"];
+    var fillingsDataValue = [
             <?php
               if ($fillings['None']['amount']) {
                 echo $fillings['None']['amount'] . ",";
@@ -229,28 +198,10 @@
                 echo "0";
               }
             ?>
-          ]
-        }
-      ]
-    }
+          ];
 
-    var fillingsOptions = {
-        scaleOverride: true,
-        scaleSteps: <?php echo $largestFilling + 1; ?>,
-        scaleStepWidth: 1,
-        scaleStartValue: 0,
-        animation: true
-    }
-
-    var decorationsData = {
-      labels: ["None", "Royal Icing", "Regal Icing", "Butter Cream", "Chocolate", "Coconut", "Other"],
-      datasets: [
-        {
-          fillColor: "rgba(151,187,205,0.5)",
-          strokeColor: "rgba(151,187,205,1)",
-          pointColor: "rgba(151,187,205,1)",
-          pointStrokeColor: "#fff",
-          data: [
+    var decorationsDataName = ["None", "Royal Icing", "Regal Icing", "Butter Cream", "Chocolate", "Coconut", "Other"];
+    var decorationsDataValue = [
             <?php
               if ($decorations['None']['amount']) {
                 echo $decorations['None']['amount'] . ",";
@@ -288,18 +239,7 @@
                 echo "0";
               }
             ?>
-          ]
-        }
-      ]
-    }
-
-    var decorationsOptions = {
-        scaleOverride: true,
-        scaleSteps: <?php echo $largestDecoration + 1; ?>,
-        scaleStepWidth: 1,
-        scaleStartValue: 0,
-        animation: true
-    }
+          ];
   </script>
   <h1>Stats</h1>
   <h2>Order Stats</h2>
