@@ -1,6 +1,21 @@
+var ordersDataName, ordersDataValue, fillingsDataName, fillingsDataValue, decorationsDataName, decorationsDataValue;
 $(document).ready(function() {
   calculateWidth();
-  drawCharts();
+  // Get database data with AJAX
+  $.ajax({
+    type: 'post',
+    url: '../lib/stats.php',
+    success: function(response) {
+      object = JSON.parse(response);
+      ordersDataName = object.orders.name;
+      ordersDataValue = object.orders.value;
+      fillingsDataName = object.fillings.name;
+      fillingsDataValue = object.fillings.value;
+      decorationsDataName = object.decorations.name;
+      decorationsDataValue = object.decorations.value;
+      drawCharts();
+    }
+  });
   usersOptions.animation = false;
 
   $(window).resize(function() {
