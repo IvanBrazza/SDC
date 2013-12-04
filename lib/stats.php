@@ -39,6 +39,8 @@
     {
       $largestDecoration = max($largestDecoration, $decoration['amount']);
     }
+    $users[$row['customer_id']]['orders']++;
+    $users[$row['customer_id']]['customer_id'] = $row['customer_id'];
   }
   
   // Get first & last name for each customer to display
@@ -106,6 +108,11 @@
                        'name' => array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"),
                        'value' => array()
                      ),
+    'users'       => array(
+                       'name' => array(),
+                       'value' => array(),
+                       'fillColour' => array()
+                     ),
     'fillings'    => array(
                        'name' => array("None", "Butter Cream", "Chocolate", "Other"),
                        'value' => array()
@@ -128,6 +135,29 @@
     }
   }
   
+  $colours = array();
+  $colour_unique = false;
+  foreach ($users as $user)
+  {
+    array_push($response['users']['name'], $user['first_name'] . " " . $user['last_name']);
+    array_push($response['users']['value'], $user['orders']);
+    foreach ($users as $user)
+    {
+      do
+      {
+        $new_colour = str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT) . str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT) . str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
+        if (!in_array($new_colour, $colours))
+        {
+          array_push($colours, $new_colour);
+          $colour = $new_colour;
+          $colour_unique = true;
+        }
+      }
+      while ($colour_unique === false);
+      array_push($response['users']['fillColour'], $colour);
+    }
+  }
+
   if ($fillings['None']['amount']) {
     $response['fillings']['value'][0] =  $fillings['None']['amount'];
   } else {

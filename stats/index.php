@@ -44,41 +44,9 @@
       $archived_orders++;
     }
     $orders++;
-    $users[$row['customer_id']]['orders']++;
-    $users[$row['customer_id']]['customer_id'] = $row['customer_id'];
   }
 ?>
 <?php include("../lib/header.php"); ?>
-  <script>
-    var usersData = [
-      <?php
-        $colours = array();
-        $colour_unique = false;
-        foreach ($users as $user)
-        {
-          do
-          {
-            $new_colour = str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT) . str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT) . str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
-            if (!in_array($new_colour, $colours))
-            {
-              array_push($colours, $new_colour);
-              $colour = $new_colour;
-              $colour_unique = true;
-            }
-          }
-          while ($colour_unique === false);
-          $users[$user['customer_id']]['colour'] = $colour;
-          echo "{value:" . $user['orders'] . ",color:\"#" . $colour . "\"},";
-        }
-      ?>
-    ]
-
-    var usersOptions = {
-      segmentStrokeColor: "#E2F8F8",
-      animationSteps: 60,
-      animation: true
-    }
-  </script>
   <h1>Stats</h1>
   <h2>Order Stats</h2>
   <table id="order-stats">
@@ -102,14 +70,6 @@
   <div id="users-chart" class="chart">
     <h2>Orders placed by customer</h2>
     <canvas id="usersChart" height="350px" width="350px"></canvas>
-    <div id="users-chart-key">
-      <?php foreach ($users as $user) : ?>
-        <div>
-          <div class="pie-key" style="background-color:#<?php echo $user['colour']; ?>;"></div>
-          <span><?php echo $user['first_name'] . " " . $user['last_name'] . " - " . $user['orders'] . " orders"; ?></span>
-        </div>
-      <?php endforeach; ?>
-    </div>
   </div>
   <div id="fillings-chart" class="chart">
     <h2>Popularity of fillings</h2>
@@ -117,6 +77,6 @@
   </div>
   <div id="decorations-chart" class="chart">
     <h2>Popularity of decorations</h2>
-    <canvas id="decorationsChart"></canvas>
+    <canvas id="decorationsChart" height="400px" width="400px"></canvas>
   </div>
 <?php include("../lib/footer.php"); ?>
