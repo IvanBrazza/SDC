@@ -84,7 +84,7 @@ function drawBarChart(dataName, dataValue, ctx, can) {
   ctx.strokeStyle = "rgba(128,128,255, 0.5)"; // light blue line
   ctx.beginPath();
   // print row header and draw horizontal grid lines
-  ctx.font = "10pt Helvetica"
+  ctx.font = "10pt Open Sans"
   var count =  0;
   for (scale = maxVal; scale >= 0; scale -= stepSize) {
     y = colHead + (yScalar * count * stepSize);
@@ -107,7 +107,7 @@ function drawBarChart(dataName, dataValue, ctx, can) {
   ctx.restore();
  
   // label samples
-  ctx.font = "8pt Helvetica";
+  ctx.font = "8pt Open Sans";
   ctx.textAlign = "center";
   for (i = 0; i < dataName.length; i++) {
     calcY(dataValue[i]);
@@ -140,7 +140,7 @@ function drawPieChart(dataName, dataValue, fillColour, ctx, can) {
   var midY = can.height / 2;
   numSamples = dataValue.length;
   ctx.strokeStyle = "black";
-  ctx.font = "10pt Helvetica";
+  ctx.font = "10pt Open Sans";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
   // calculate total value of pie
