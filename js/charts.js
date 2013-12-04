@@ -1,10 +1,24 @@
 var ordersData,
     fillingsData,
     decorationsData,
-    usersData;
+    usersData,
+    clear = false,
+    fillColour;
 $(document).ready(function() {
   calculateWidth();
-  // Get database data with AJAX
+  getData();
+
+  window.setInterval(function() {
+    getData();
+  }, 5000);
+
+  $(window).resize(function() {
+    calculateWidth();
+    drawCharts();
+  });
+});
+
+function getData() {
   $.ajax({
     type: 'post',
     url: '../lib/stats.php',
@@ -15,19 +29,13 @@ $(document).ready(function() {
       fillingsData = object.fillings;
       decorationsData = object.decorations;
       drawCharts();
+      $(".chart").each(function(i) {
+        $(this).delay((i++) * 400).fadeTo(500, 1);
+      });
+      clear = true
     }
   });
-
-  $(window).resize(function() {
-    calculateWidth();
-    drawCharts();
-  });
-
-  $(".chart").each(function(i) {
-    $(this).delay((i++) * 400).fadeTo(500, 1);
-  });
-});
-
+}
 function calculateWidth() {
   var width = $(".container").width() * 0.49;
   $("#ordersChart").attr("width", width * 0.90 + "px");
@@ -62,6 +70,7 @@ function drawCharts() {
 }
 
 function drawBarChart(data, ctx, can) {
+  if (clear) ctx.clearRect(0, 0, can.width, can.height);
   var y, tx, ty, metrics, words, line, testLine, testWidth;
   var dataName = data.name;
   var dataValue = data.value;
@@ -127,12 +136,13 @@ function drawBarChart(data, ctx, can) {
 }
 
 function drawPieChart(data, ctx, can) {
+  if (clear) ctx.clearRect(0, 0, can.width, can.height);
   var radius = can.height / 3;
   var midX = can.width / 2;
   var midY = can.height / 2;
   var dataName = data.name;
   var dataValue = data.value;
-  var fillColour = data.fillColour;
+  if (!clear) fillColour = data.fillColour;
   numSamples = dataValue.length;
   ctx.strokeStyle = "black";
   ctx.font = "10pt Open Sans";
