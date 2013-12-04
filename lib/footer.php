@@ -12,7 +12,6 @@
     <script src="../js/jquery/jquery-ui-timepicker-addon.js"></script>
   <?php endif; ?>
   <?php if ($_SERVER['REQUEST_URI'] === "/stats/") :?>
-    <script src="../js/chart.min.js"></script>
     <script src="../js/charts.js"></script>
   <?php endif; ?>
   <?php if ($_SERVER['REQUEST_URI'] === "/gallery/") : ?>
