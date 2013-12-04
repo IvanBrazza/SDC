@@ -1,12 +1,7 @@
-var ordersDataName,
-    ordersDataValue,
-    fillingsDataName,
-    fillingsDataValue,
-    decorationsDataName,
-    decorationsDataValue,
-    usersDataName,
-    usersDataValue,
-    usersFillColour;
+var ordersData,
+    fillingsData,
+    decorationsData,
+    usersData;
 $(document).ready(function() {
   calculateWidth();
   // Get database data with AJAX
@@ -15,15 +10,10 @@ $(document).ready(function() {
     url: '../lib/stats.php',
     success: function(response) {
       object = JSON.parse(response);
-      ordersDataName = object.orders.name;
-      ordersDataValue = object.orders.value;
-      usersDataName = object.users.name;
-      usersDataValue = object.users.value;
-      usersFillColour = object.users.fillColour;
-      fillingsDataName = object.fillings.name;
-      fillingsDataValue = object.fillings.value;
-      decorationsDataName = object.decorations.name;
-      decorationsDataValue = object.decorations.value;
+      ordersData = object.orders;
+      usersData = object.users;
+      fillingsData = object.fillings;
+      decorationsData = object.decorations;
       drawCharts();
     }
   });
@@ -59,20 +49,22 @@ function calculateWidth() {
 
 function drawCharts() {
   var ordersCtx = $("#ordersChart").get(0).getContext("2d");
-  drawBarChart(ordersDataName, ordersDataValue, ordersCtx, document.getElementById("ordersChart"));
+  drawBarChart(ordersData, ordersCtx, document.getElementById("ordersChart"));
 
   var usersCtx = $("#usersChart").get(0).getContext("2d");
-  drawPieChart(usersDataName, usersDataValue, usersFillColour, usersCtx, document.getElementById("usersChart"));
+  drawPieChart(usersData, usersCtx, document.getElementById("usersChart"));
 
   var fillingsCtx = $("#fillingsChart").get(0).getContext("2d");
-  drawBarChart(fillingsDataName, fillingsDataValue, fillingsCtx, document.getElementById("fillingsChart"));
+  drawBarChart(fillingsData, fillingsCtx, document.getElementById("fillingsChart"));
 
   var decorationsCtx = $("#decorationsChart").get(0).getContext("2d");
-  drawBarChart(decorationsDataName, decorationsDataValue, decorationsCtx, document.getElementById("decorationsChart"));
+  drawBarChart(decorationsData, decorationsCtx, document.getElementById("decorationsChart"));
 }
 
-function drawBarChart(dataName, dataValue, ctx, can) {
+function drawBarChart(data, ctx, can) {
   var y, tx, ty, metrics, words, line, testLine, testWidth;
+  var dataName = data.name;
+  var dataValue = data.value;
   var colHead = 50;
   var rowHead = 30;
   var margin = 10;
@@ -134,10 +126,13 @@ function drawBarChart(dataName, dataValue, ctx, can) {
   } 
 }
 
-function drawPieChart(dataName, dataValue, fillColour, ctx, can) {
+function drawPieChart(data, ctx, can) {
   var radius = can.height / 3;
   var midX = can.width / 2;
   var midY = can.height / 2;
+  var dataName = data.name;
+  var dataValue = data.value;
+  var fillColour = data.fillColour;
   numSamples = dataValue.length;
   ctx.strokeStyle = "black";
   ctx.font = "10pt Open Sans";
