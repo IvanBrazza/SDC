@@ -110,14 +110,14 @@ function drawBarChart(dataName, dataValue, ctx, can) {
       metrics = ctx.measureText(testLine);
       testWidth = metrics.width;
       if (testWidth > 20 && n > 0) {
-        ctx.fillText(line, tx, ty - 15);
+        ctx.fillText(line, tx -5, ty - 15);
         line = words[n] + ' ';
       }
       else {
         line = testLine;
       }
     }
-    ctx.fillText(line, tx, ty);
+    ctx.fillText(line, tx - 5, ty);
   }
   function calcY(value) {
     y = can.height - value * yScalar;

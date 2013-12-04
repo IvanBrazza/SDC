@@ -103,7 +103,7 @@
 
   $response = array(
     'orders'      => array(
-                       'name' => array("January","February","March","April","May","June","July","August","September","October","November","December"),
+                       'name' => array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"),
                        'value' => array()
                      ),
     'fillings'    => array(
