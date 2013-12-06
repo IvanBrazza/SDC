@@ -55,7 +55,7 @@
       <span class="error_message" id="error_message">
       </span>
     </div>
-    <form action="index.php" method="POST" id="order-form">
+    <form action="index.php" method="POST" id="order-form" enctype="multipart/form-data">
       <div>
         <label for="filling">Filling</label>
         <select name="filling" id="filling">
@@ -118,6 +118,12 @@
         <input type="text" id="datetime" name="datetime" onchange="validateInput('#datetime', '#datetime_error')">
       </div>
       <div id="datetime_error" class="validate-error"></div>
+      <div>
+        <label for="fileupload" id="fileupload-label">Upload a photo</label>
+        <input type="hidden" name="MAX_FILE_SIZE" value="5242880">
+        <input type="file" name="fileupload" id="fileupload" accept="image/*">
+      </div>
+      <progress></progress>
       <br />
       <script>
         var $origins = <?php echo json_encode(str_replace(" ", "+", $_SESSION['user']['address']) . "," . str_replace(" ", "+", $_SESSION['user']['postcode'])); ?>,

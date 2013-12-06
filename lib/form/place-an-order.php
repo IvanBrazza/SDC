@@ -16,6 +16,42 @@
     // Unset the token
     unset($_SESSION['token']);
 
+    // Check if an image was uploaded, if it was make sure it's valid
+    if (!empty($_FILES['fileupload']['size']))
+    {
+      // Check file size
+      if ($_FILES['fileupload']['size'] > 5242880)
+      {
+        echo "Image too large.";
+        die();
+      }
+      // Check file type
+      if ($_FILES['fileupload']['type'] == "image/gif" or 
+          $_FILES['fileupload']['type'] == "image/jpeg" or
+          $_FILES['fileupload']['type'] == "image/jpg" or
+          $_FILES['fileupload']['type'] == "image/png")
+      {
+        // All good, let's move the file
+        $uploaddir = "/var/www/ivanbrazza.biz/htdocs/upload/" . $_SESSION['user']['customer_id'] . "/";
+        $uploadfile = $uploaddir . basename($_FILES['fileupload']['name']);
+        if (!is_dir($uploaddir))
+        {
+          mkdir($uploaddir, 0777, true);
+        }
+        if (!move_uploaded_file($_FILES['fileupload']['tmp_name'], $uploadfile))
+        {
+          echo "Oops! Something went wrong. Try again.";
+          die();
+        }
+      }
+      else
+      {
+        error_log($_FILES['fileupload']['type'] . " uploaded", 0);
+        echo "Image must be .jpeg, .png or .gif.";
+        die();
+      }
+    }
+
     // Get the cake_id of the cake based on the cake_size and
     // cake_type provided by the user.
     $query = "
@@ -101,7 +137,16 @@
         order_placed,
         delivery_type,
         status,
-        datetime,
+        datetime,";
+
+    if (!empty($_FILES))
+    {
+      $query .= "
+          image,
+      ";
+    }
+
+    $query .= "
         base_price
       ) VALUES (
         :customer_id,
@@ -114,7 +159,16 @@
         :order_placed,
         :delivery_type,
         :status,
-        :datetime,
+        :datetime,";
+
+    if (!empty($_FILES))
+    {
+      $query .= "
+        :image,
+      ";
+    }
+
+    $query .= "
         :base_price
       )
     ";
@@ -134,8 +188,13 @@
       ':delivery_type'      => $_POST['delivery'],
       ':status'             => $status,
       ':datetime'           => $_POST['datetime'],
-      ':base_price'       => $_POST['base-hidden']
+      ':base_price'         => $_POST['base-hidden']
      );
+
+    if (!empty($_FILES))
+    {
+      $query_params[':image'] = str_replace("/var/www/ivanbrazza.biz/htdocs/", "../", $uploadfile);
+    }
 
     try
     {

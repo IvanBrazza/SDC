@@ -313,3 +313,27 @@ div.copyright>div {
   font-size:          0.7em;
   }
 /* End Copyright Footer */
+
+progress {
+  float:              right;
+  display:            none;
+  }
+
+div.image-view {
+  position:           absolute;
+  top:                470px;
+  border:             1px solid #000;
+  left:               30%;
+  display:            none;
+  }
+div.image-view > div.close {
+  position:           absolute;
+  right:              5px;
+  top:                0px;
+  font-size:          20px;
+  font-weight:        bold;
+  }
+
+div.image-view > div.close:hover {
+  cursor:             pointer;
+  }

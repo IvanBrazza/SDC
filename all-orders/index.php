@@ -460,6 +460,12 @@
       <span class="title">Phone: </span>
       <?php echo $userrow['phone']; ?><br />
       <br /><br />
+      <?php if (!empty($row['image'])) : ?>
+        <div class="image-view">
+          <img src="<?php echo $row['image']; ?>" height="400px">
+          <div class="close">X</div>
+        </div>
+      <?php endif; ?>
     <table id="single_order">
       <tr>
         <th>Order Placed</th>
@@ -512,6 +518,12 @@
         <th>Cake Size</th>
         <td><?php echo htmlentities($cake_row['cake_size'], ENT_QUOTES, 'UTF-8'); ?></td>
       </tr>
+      <?php if (!empty($row['image'])) : ?>
+        <tr>
+          <th>Image</th>
+          <td><a href="javascript:" id="image-link">Click here to view image</a></td>
+        </tr>
+      <?php endif; ?>
       <tr>
         <th>Base Price</th>
         <td>

@@ -166,6 +166,12 @@
 <?php include("../lib/header.php"); ?>
   <?php if (!empty($_GET['order'])) : ?>
     <h1>Order <?php echo $row['order_number']; ?><?php if ($row['archived'] === "1") : ?> (archived)<?php else: ?> <a href="../edit-order/?order=<?php echo $row['order_number']; ?>" class="small-link">Edit</a><?php endif; ?></h1>
+    <?php if (!empty($row['image'])) : ?>
+      <div class="image-view">
+        <img src="<?php echo $row['image']; ?>" height="400px">
+        <div class="close">X</div>
+      </div>
+    <?php endif; ?>
     <table id="single_order">
       <tr>
         <th>Order Placed</th>
@@ -195,6 +201,12 @@
         <th>Decoration</th>
         <td><?php echo htmlentities($row['decoration'], ENT_QUOTES, 'UTF-8'); ?></td>
       </tr>
+      <?php if (!empty($row['image'])) : ?>
+        <tr>
+          <th>Image</th>
+          <td><a href="javascript:" id="image-link">Click here to view image</a></td>
+        </tr>
+      <?php endif; ?>
       <tr>
         <th>Base Price</th>
         <td>&pound;<?php echo $row['base_price']; ?></td>

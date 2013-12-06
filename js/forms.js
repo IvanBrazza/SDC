@@ -88,6 +88,12 @@ $(document).ready(function() {
       validateUsername();
     }
   });
+
+  function progressHandlingFunction(e){
+    if(e.lengthComputable){
+      $('progress').attr({value:e.loaded,max:e.total});
+    }
+  }
   
   $("#order-form").submit(function(e) {
     // Validate form fields
@@ -96,12 +102,23 @@ $(document).ready(function() {
     validateInput('textarea#order', '#order_error');
     validateInput('#datetime', '#datetime_error');
     $(".ajax-load").css("display", "inline-block");
+    if ($("#fileupload").val()) {
+      $("progress").show();
+    }
     if ($input_check) {
       // Submit the form
+      var formData = new FormData($('#order-form')[0]);
       $.ajax({
         type: 'post',
         url: '../lib/form/place-an-order.php',
-        data: $(this).serialize(),
+        xhr: function() {
+          var myXhr = $.ajaxSettings.xhr();
+          if(myXhr.upload){
+            myXhr.upload.addEventListener('progress',progressHandlingFunction, false);
+          }
+          return myXhr;
+        },
+        data: formData,
         success: function(response) {
           if (response === "success") {
             window.location.replace("../order-placed/");
@@ -109,7 +126,10 @@ $(document).ready(function() {
             $("#error_message").html(response);
             $(".ajax-load").hide();
           }
-        }
+        },
+        cache: false,
+        contentType: false,
+        processData: false
       });
       e.preventDefault();
     } else {
