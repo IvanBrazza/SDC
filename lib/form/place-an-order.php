@@ -7,6 +7,15 @@
   // If the order form has been submitted
   if (!empty($_POST))
   {
+    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
+    {
+      echo "Invalid token.";
+      die();
+    }
+
+    // Unset the token
+    unset($_SESSION['token']);
+
     // Get the cake_id of the cake based on the cake_size and
     // cake_type provided by the user.
     $query = "

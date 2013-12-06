@@ -12,7 +12,10 @@
     header("Location: ../login/?e=pao");
     die();
   }
-  
+
+  // Generate a token
+  $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
+
   $query = "
     SELECT
       *
@@ -126,6 +129,7 @@
       <b>Grand Total: &pound;<div id="total-html"></div></b>
       <input type="hidden" id="base-hidden" name="base-hidden" value="">
       <br /><br />
+      <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
       <input type="submit" value="Submit Order" <?php if ($details_correct === false) : ?>disabled<?php endif; ?> />
       <span class="ajax-load"></span>
     </form>

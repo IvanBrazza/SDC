@@ -7,6 +7,9 @@
   $title = "Testimonials";
   $page = "testimonials";
   
+  // Generate a token
+  $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
+
   $query = "
     SELECT
       *
@@ -37,9 +40,10 @@
       <span class="testimonial-name">
         <small>-<?php echo htmlentities($row['name'], ENT_QUOTES, 'UTF-8'); ?>
           <i><?php if (!empty($row['location'])) { echo ", "; echo htmlentities($row['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
-          <?php if ($_SESSION and $_SESSION['user']['username'] === "admin") : ?>
+          <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
             <form action="../lib/delete-testimonial.php" method="POST" id="delete_testimonial" class="delete_testimonial">
               <input type="hidden" value="<?php echo $row['id']; ?>" name="id">
+              <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
               <input type="submit" value="Delete" class="delete_testimonial_btn">
             </form>
           <?php endif; ?>

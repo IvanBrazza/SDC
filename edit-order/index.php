@@ -7,7 +7,7 @@
   $page = "your-orders";
   $title = "Edit Order";
 
-  if (empty($_SESSION)) 
+  if (empty($_SESSION['user'])) 
   {
     header("Location: ../login");
     die();

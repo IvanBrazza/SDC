@@ -14,6 +14,9 @@
     die();
   }
 
+  // Generate token
+  $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
+
   if (!empty($_GET['update']))
   {
     if ($_GET['update'] === "success")
@@ -107,6 +110,7 @@
           <input type="text" name="phone" id="phone" value="<?php echo $_SESSION['user']['phone'] ?>" onkeyup="validatePhone()" onchange="validatePhone()">
         </div>
         <div id="phone_error" class="validate-error"></div>
+        <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
         <input type="submit" value="Update Account" />
         <span class="ajax-load"></span>
       </form>

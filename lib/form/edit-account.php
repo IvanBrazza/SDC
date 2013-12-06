@@ -3,6 +3,15 @@
 
   if (!empty($_POST))
   {
+    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
+    {
+      echo "Invalid token.";
+      die();
+    }
+
+    // Unset token
+    unset($_SESSION['token']);
+
     // Check if updated email is already in use
     if ($_POST['email'] != $_SESSION['user']['email'])
     {

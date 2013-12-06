@@ -4,6 +4,15 @@
   // If the form was submitted
   if ($_POST)
   {
+    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
+    {
+      echo "Invalid token.";
+      die();
+    }
+
+    // Unset token
+    unset($_SESSION['token']);
+
     // If we're inserting an order for a customer that
     // isn't registered on the site
     if ($_POST['existing_id'] === "null")

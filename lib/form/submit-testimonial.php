@@ -12,8 +12,16 @@
       echo "reCAPTCHA incorrect.";
       die();
     }
+    else if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
+    {
+      echo "Invalid token.";
+      die();
+    }
     else
     {
+      // Unset the token
+      unset($_SESSION['token']);
+
       $query = "
         INSERT INTO testimonials (
           name,

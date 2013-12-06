@@ -6,6 +6,9 @@
   require("../lib/common.php");
   $title = "Submit A Testimonial";
   $page = "testimonials";
+
+  // Generate a token
+  $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 ?>
 <?php include("../lib/header.php"); ?>
   <div class="form">
@@ -45,6 +48,7 @@
         $publickey = "6LePfucSAAAAAKlUO3GQKgfXCd7SvIhtFjBH5F9Z";
         echo recaptcha_get_html($publickey, null, true);
       ?>
+      <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
       <input type="submit" id="submit-testimonial" value="Submit Testimonial" name="submit">
       <span class="ajax-load"></span>
     </form>

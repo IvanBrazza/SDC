@@ -4,6 +4,15 @@
   // If the login form has been submitted
   if (!empty($_POST))
   {
+    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
+    {
+      echo "Invalid token.";
+      die();
+    }
+    
+    // Unset token
+    unset($_SESSION['token']);
+
     // Let's pull up the user's details from the username provided
     $query = "
       SELECT

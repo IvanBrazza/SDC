@@ -9,7 +9,7 @@
 
   // If the user is already logged in, redirect them to the
   // homepage
-  if (!empty($_SESSION))
+  if (!empty($_SESSION['user']))
   {
     header("Location: ../home/");
     die();
@@ -25,6 +25,8 @@
     }
   }
 
+  // Generate token
+  $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 ?>
 <?php include("../lib/header.php"); ?>
   <div class="error">
@@ -46,7 +48,8 @@
       </div>
       <div id="password-error" class="validate-error"></div>
       <a href="../forgot-password" class="forgot-password">Forgot Password</a>
-      <br /><br /> 
+      <br /><br />
+      <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
       <input type="submit" value="Login" />
       <span class="ajax-load"></span>
     </form> 

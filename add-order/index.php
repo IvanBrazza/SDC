@@ -12,6 +12,9 @@
     die();
   }
 
+  // Generate token
+  $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
+
   // Get a list of all customers
   $query = "
     SELECT
@@ -149,6 +152,7 @@
         <input type="hidden" id="base-hidden" name="total-hidden" value="">
         <br />
         <br />
+        <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
         <input type="submit" value="Add Order">
         <span class="ajax-load"></span>
       </form>
