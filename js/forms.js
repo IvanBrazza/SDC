@@ -555,8 +555,7 @@ function calculateOrderTotal()
   var $total         = $("#total-html"),
       $cake_size     = $("#cake_size").val(),
       $cake_type     = $("#cake_type").val(),
-      $base_hidden = $("input[id=base-hidden]"),
-      $base        = $("#base-price");
+      $base          = $("#base-price");
 
   if ($("#delivery-charge-html").html()) {
     var $delivery_charge = $("#delivery-charge-html").html().replace(/\u00A3/g, '');
@@ -568,91 +567,71 @@ function calculateOrderTotal()
     if ($cake_type === "Sponge"){
       $total.html(25 + parseInt($delivery_charge));
       $base.html(25);
-      $base_hidden.val(25);
     } else if ($cake_type === "Marble"){
       $total.html(30 + parseInt($delivery_charge));
       $base.html(30);
-      $base_hidden.val(30);
     } else if ($cake_type === "Chocolate") {
       $total.html(32 + parseInt($delivery_charge));
       $base.html(32);
-      $base_hidden.val(32);
     } else if ($cake_type === "Fruit"){
       $total.html(35 + parseInt($delivery_charge));
       $base.html(35);
-      $base_hidden.val(35);
     }
   } else if ($cake_size === '8"') {
     if ($cake_type === "Sponge"){
       $total.html(30 + parseInt($delivery_charge));
       $base.html(30);
-      $base_hidden.val(30);
     } else if ($cake_type === "Marble"){
       $total.html(35 + parseInt($delivery_charge));
       $base.html(35);
-      $base_hidden.val(35);
     } else if ($cake_type === "Chocolate") {
       $total.html(37 + parseInt($delivery_charge));
       $base.html(37);
-      $base_hidden.val(37);
     } else if ($cake_type === "Fruit"){
       $total.html(45 + parseInt($delivery_charge));
       $base.html(45);
-      $base_hidden.val(45);
     }
   } else if ($cake_size === '10"') {
     if ($cake_type === "Sponge"){
       $total.html(40 + parseInt($delivery_charge));
       $base.html(40);
-      $base_hidden.val(40);
     } else if ($cake_type === "Marble"){
       $total.html(45 + parseInt($delivery_charge));
       $base.html(45);
-      $base_hidden.val(45);
     } else if ($cake_type === "Chocolate") {
       $total.html(47 + parseInt($delivery_charge));
       $base.html(47);
-      $base_hidden.val(47);
     } else if ($cake_type === "Fruit"){
       $total.html(60 + parseInt($delivery_charge));
       $base.html(60);
-      $base_hidden.val(60);
     }
   } else if ($cake_size === '12"') {
     if ($cake_type === "Sponge"){
       $total.html(60 + parseInt($delivery_charge));
       $base.html(60);
-      $base_hidden.val(60);
     } else if ($cake_type === "Marble"){
       $total.html(65 + parseInt($delivery_charge));
       $base.html(65);
-      $base_hidden.val(65);
     } else if ($cake_type === "Chocolate") {
       $total.html(80 + parseInt($delivery_charge));
       $base.html(80);
-      $base_hidden.val(80);
     } else if ($cake_type === "Fruit"){
       $total.html(85 + parseInt($delivery_charge));
       $base.html(85);
-      $base_hidden.val(85);
     }
   } else if ($cake_size === '14"') {
     if ($cake_type === "Sponge"){
       $total.html(75 + parseInt($delivery_charge));
       $base.html(75);
-      $base_hidden.val(75);
     } else if ($cake_type === "Marble"){
       $total.html(80 + parseInt($delivery_charge));
       $base.html(80);
-      $base_hidden.val(80);
     } else if ($cake_type === "Chocolate") {
       $total.html(84 + parseInt($delivery_charge));
       $base.html(84);
-      $base_hidden.val(84);
     } else if ($cake_type === "Fruit"){
       $total.html(125 + parseInt($delivery_charge));
       $base.html(125);
-      $base_hidden.val(125);
     }
   }
 }

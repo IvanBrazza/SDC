@@ -133,7 +133,6 @@
       <span id="delivery-charge"><b>Delivery: <div id="delivery-charge-html"></div></b></span>
       <br />
       <b>Grand Total: &pound;<div id="total-html"></div></b>
-      <input type="hidden" id="base-hidden" name="base-hidden" value="">
       <br /><br />
       <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
       <input type="submit" value="Submit Order" <?php if ($details_correct === false) : ?>disabled<?php endif; ?> />

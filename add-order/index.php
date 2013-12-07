@@ -149,7 +149,6 @@
         </div>
         <div id="datetime_error" class="validate-error"></div>
         <b>Total: &pound;<div id="total-html"></div></b>
-        <input type="hidden" id="base-hidden" name="total-hidden" value="">
         <br />
         <br />
         <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
