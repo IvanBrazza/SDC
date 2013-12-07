@@ -283,7 +283,7 @@ tr.hover {
   }
 
 .ajax-load {
-  background-image:   url('../img/spinner.svg');
+  background-image:   url('../img/spinner.gif');
   height:             16px;
   width:              16px;
   }
