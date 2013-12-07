@@ -11,8 +11,8 @@ div#orders-chart, div#fillings-chart, div#decorations-chart {
   display:            inline-block;
   }
 
-canvas#ordersChart, canvas#fillingsChart, canvas#decorationsChart, canvas#usersChart {
-  margin-top:         -35px;
+div.chart > h2 {
+  margin-bottom:      0px;
   }
 
 div#decorations-chart {

@@ -43,7 +43,7 @@ function calculateWidth() {
   $("#orders-chart").width(width + "px");
 
   $("#usersChart").attr("width", width + "px");
-  $("#usersChart").attr("height", width * 0.79 + "px");
+  $("#usersChart").attr("height", width * 0.80 - 1 + "px");
   $("#users-chart").width(width + "px");
 
   $("#fillingsChart").attr("width", width * 0.90 + "px");
