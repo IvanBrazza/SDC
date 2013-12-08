@@ -5,7 +5,7 @@ var $buoop = {
 } 
 $(document).ready(function() {
   $('table#orders-js>tbody>tr').click(function() {
-    window.location=$(this).find("a").attr("href");
+    window.location.href($(this).find("a").attr("href"));
   }).hover(function() {
     $(this).toggleClass("hover");
   });
@@ -18,7 +18,7 @@ $(document).ready(function() {
       data: $(this).serialize(),
       success: function(response) {
         if (response.slice(0,13) === "../all-orders") {
-          window.location.replace(response);
+          window.location.href(response);
         } else {
           $("#error_message").html(response);
           $(".ajax-load").hide();
