@@ -43,7 +43,7 @@ $(document).ready(function() {
         data: $(this).serialize(),
         success: function(response) {
           if (response === "registered") {
-            window.location.href("../verify-email/");
+            window.location.href = "../verify-email/";
           } else {
             $("#error_message").html(response);
             $(".ajax-load").hide();
@@ -73,7 +73,7 @@ $(document).ready(function() {
         data: $(this).serialize(),
         success: function(response) {
           if (response === 'logged-in') {
-            window.location.href("../home/");
+            window.location.href = "../home/";
           } else {
             $("#error_message").html(response);
             $(".ajax-load").hide();
@@ -121,7 +121,7 @@ $(document).ready(function() {
         data: formData,
         success: function(response) {
           if (response === "success") {
-            window.location.href("../order-placed/");
+            window.location.href = "../order-placed/";
           } else {
             $("#error_message").html(response);
             $(".ajax-load").hide();
@@ -156,7 +156,7 @@ $(document).ready(function() {
         data: $(this).serialize(),
         success: function(response) {
           if (response === 'testimonial-submitted') {
-            window.location.href("../testimonials/");
+            window.location.href = "../testimonials/";
           } else {
             $("#error_message").html(response);
             $(".ajax-load").hide();
@@ -212,7 +212,7 @@ $(document).ready(function() {
             $("#success_message").html("Account updated.");
             $(".ajax-load").hide();
           } else if (response === "email-verify") {
-            window.location.href("../verify-email/?type=edit");
+            window.location.href = "../verify-email/?type=edit";
           } else {
             $("#error_message").html(response);
             $(".ajax-load").hide();
@@ -298,7 +298,7 @@ $(document).ready(function() {
           data: $(this).serialize(),
           success: function(response) {
             if (response === "success") {
-              window.location.href("../all-orders/?new-order=added");
+              window.location.href = "../all-orders/?new-order=added";
             } else {
               $(".ajax-load").hide();
             }
@@ -321,7 +321,7 @@ $(document).ready(function() {
           data: $(this).serialize(),
           success: function(response) {
             if (response === "success") {
-              window.location.href("../all-orders/?new-order=added");
+              window.location.href = "../all-orders/?new-order=added";
             } else {
               $(".ajax-load").hide();
             }
