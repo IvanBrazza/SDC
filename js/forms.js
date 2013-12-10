@@ -105,34 +105,7 @@ $(document).ready(function() {
     if ($("#fileupload").val()) {
       $("progress").show();
     }
-    if ($input_check) {
-      // Submit the form
-      var formData = new FormData($('#order-form')[0]);
-      $.ajax({
-        type: 'post',
-        url: '../lib/form/place-an-order.php',
-        xhr: function() {
-          var myXhr = $.ajaxSettings.xhr();
-          if(myXhr.upload){
-            myXhr.upload.addEventListener('progress',progressHandlingFunction, false);
-          }
-          return myXhr;
-        },
-        data: formData,
-        success: function(response) {
-          if (response === "success") {
-            window.location.href = "../order-placed/";
-          } else {
-            $("#error_message").html(response);
-            $(".ajax-load").hide();
-          }
-        },
-        cache: false,
-        contentType: false,
-        processData: false
-      });
-      e.preventDefault();
-    } else {
+    if (!$input_check) {
       e.preventDefault();
       validateInput('#design', '#design_error');
       validateInput('#celebration_date', '#celebration_date_error');

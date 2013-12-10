@@ -315,7 +315,7 @@
       }
       else
       {
-        for ($i = 5, $j = 1; $i <= 50; $i = $i + 5, $j++)
+        for ($i = 5, $j = 3; $i <= 50; $i = $i + 5, $j = $j + 3)
         {
           if ($remaining_miles == $i)
           {
@@ -370,7 +370,10 @@
     $email->setFirstName($_SESSION['user']['first_name']);
     $email->setRecipient($_SESSION['user']['email']);
     $email->send();
-    
+
+    // Start PayPal payment process
+    include "../PayPal/PayWithPayPal.php";
+
     echo "success";
     die();
   }

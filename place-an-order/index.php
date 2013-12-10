@@ -55,7 +55,7 @@
       <span class="error_message" id="error_message">
       </span>
     </div>
-    <form action="index.php" method="POST" id="order-form" enctype="multipart/form-data">
+    <form action="../lib/form/place-an-order.php" method="POST" id="order-form" enctype="multipart/form-data">
       <div>
         <label for="filling">Filling</label>
         <select name="filling" id="filling">
