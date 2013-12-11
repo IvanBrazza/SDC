@@ -135,7 +135,7 @@
       <b>Grand Total: &pound;<div id="total-html"></div></b>
       <br /><br />
       <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
-      <input type="submit" value="Submit Order" <?php if ($details_correct === false) : ?>disabled<?php endif; ?> />
+      <input type="image" src="../img/paywithpp.gif" <?php if ($details_correct === false) : ?>disabled<?php endif; ?> />
       <span class="ajax-load"></span>
     </form>
   </div>
