@@ -1,4 +1,6 @@
 <head>
+  <html lang="en" xml:lang="en" xmlns= "http://www.w3.org/1999/xhtml">
+  <meta http-equiv="Content-Language" content="en" />
   <title><?php echo $title ?> | Star Dream Cakes</title>
   <link rel="icon" href="../favicon.ico">
   <link href="../css/main.css" rel="stylesheet">
