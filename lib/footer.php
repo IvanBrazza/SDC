@@ -6,7 +6,7 @@
     </div>
   </div>
   <script src="../js/jquery/jquery-1.10.2.min.js"></script>
-  <?php if ($_SERVER['REQUEST_URI'] === "/login/" or $_SERVER['REQUEST_URI'] === "/register/" or $_SERVER['REQUEST_URI'] === "/add-order/" or $_SERVER['REQUEST_URI'] === "/place-an-order/") : ?>
+  <?php if ($_SERVER['REQUEST_URI'] === "/login/" or $_SERVER['REQUEST_URI'] === "/login/?e=pao" or $_SERVER['REQUEST_URI'] === "/register/" or $_SERVER['REQUEST_URI'] === "/add-order/" or $_SERVER['REQUEST_URI'] === "/place-an-order/") : ?>
     <script src="../js/forms.js"></script>
     <script src="../js/jquery/jquery-ui.js"></script>
     <script src="../js/jquery/jquery-ui-timepicker-addon.js"></script>
