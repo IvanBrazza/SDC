@@ -134,11 +134,19 @@ a {
   width:              50%;
   }
 
-.form>form>div>input, .form>form>div>textarea, .form>form>div>select, .form>form>div>b {
+.form>form>div>input,
+.form>form>div>textarea,
+.form>form>div>select,
+.form>form>div>b,
+.tabslider>ul>li>div>input,
+.tabslider>ul>li>div>textarea,
+.tabslider>ul>li>div>select,
+.tabslider>ul>li>div>b {
   float:              right;
   }
 
-.form>form>div {
+.form>form>div,
+.tabslider>ul>li>div {
   margin-bottom:      9px;
   }
 

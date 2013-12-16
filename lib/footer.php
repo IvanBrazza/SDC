@@ -18,6 +18,9 @@
     <script src="../js/jquery/jquery.flexslider-min.js"></script>
     <script src="../js/gallery.js"></script>
   <?php endif; ?>
+  <?php if ($_SERVER['REQUEST_URI'] === "/place-an-order/") : ?>
+    <script src="../js/place-an-order.js"></script>
+  <?php endif; ?>
   <script src="../js/main.js"></script>
   <script src="../js/browser.js"></script>
 <body>

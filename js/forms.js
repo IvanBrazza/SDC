@@ -25,8 +25,6 @@ $(document).ready(function() {
     timeFormat: "HH:mm",
     minDate: 0
   });
-
-  $("#comments").css("padding-bottom", "100px");
             
   $("#register-form").submit(function(e) {
     // Validate the fields
@@ -89,12 +87,6 @@ $(document).ready(function() {
     }
   });
 
-  function progressHandlingFunction(e){
-    if(e.lengthComputable){
-      $('progress').attr({value:e.loaded,max:e.total});
-    }
-  }
-  
   $("#order-form").submit(function(e) {
     // Validate form fields
     validateInput('#design', '#design_error');
@@ -102,9 +94,6 @@ $(document).ready(function() {
     validateInput('textarea#order', '#order_error');
     validateInput('#datetime', '#datetime_error');
     $(".ajax-load").css("display", "inline-block");
-    if ($("#fileupload").val()) {
-      $("progress").show();
-    }
     if (!$input_check) {
       e.preventDefault();
       validateInput('#design', '#design_error');
@@ -209,11 +198,13 @@ $(document).ready(function() {
   $("#delivery").change(function() {
     if ($("#delivery").val() === "Collection") {
       $("#datetime-label").html("Date/Time For Collection");
+      $("#datetime-label-review").html("Date/time for collection: ");
       $("#delivery-charge").hide("fast");
       $("#delivery-charge-html").html(0);
       calculateOrderTotal();
     } else {
       $("#datetime-label").html("Date/Time For Delivery");
+      $("#datetime-label-review").html("Date/time for delivery: ");
       calculateDeliveryCharge($("#delivery-charge-html"));
       $("#delivery-charge").show("fast");
     }
