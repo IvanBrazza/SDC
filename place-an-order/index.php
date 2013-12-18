@@ -60,7 +60,7 @@
           <div class='moving_bg'>
             &nbsp;
           </div>
-          <span class='tab_item'>The Cake</span>
+          <span class='tab_item active'>The Cake</span>
           <span class='tab_item'>Upload A Photo</span>
           <span class='tab_item'>Delivery</span>
           <span class='tab_item'>Review</span>

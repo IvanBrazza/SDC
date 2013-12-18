@@ -82,6 +82,9 @@ function slideContent(obj) {
 
   $(".tabslider").stop().animate({marginLeft: margin + "px"}, {duration: 300});
 
+  $(".tabs").children().removeClass("active");
+  $(obj).addClass("active");
+
   var height = $(".tabslider").children(":nth-child(" + $(obj).prevAll().size() + ")").height();
   $(".slide_content").stop().animate({height: height}, {duration: 300});
 }
