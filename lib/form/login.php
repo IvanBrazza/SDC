@@ -81,9 +81,9 @@
       echo "logged-in";
       die();
     }
-    else if (!$email_verified and !$logged_in)
+    else if (!$row)
     {
-      echo "Your email isn't verified, please check your emails to verify your account.";
+      echo "Incorrect username.";
       die();
     }
     else if ($row and !$password_correct)
@@ -91,15 +91,15 @@
       echo "Incorrect password.";
       die();
     }
-    else if (!$row)
+    else if (!$email_verified and !$logged_in)
     {
-      echo "Incorrect username.";
+      echo "Your email isn't verified, please check your emails to verify your account.";
       die();
     }
     else
     {
       echo "Oops! Something went wrong. Try again.";
-      die("Login failed");
+      die();
       $submitted_username = htmlentities($_POST['username'], ENT_QUOTES, 'UTF-8');
     }
   }
