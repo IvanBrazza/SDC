@@ -57,7 +57,7 @@
         decoration        = :decoration,
         cake_id           = :cake_id,
         delivery_type     = :delivery_type,
-        base_price      = :base_price
+        base_price        = :base_price
       WHERE
         order_number = :order_number
     ";
@@ -71,7 +71,7 @@
       ':cake_id'          => $cake_id,
       ':delivery_type'    => $_POST['delivery'],
       ':order_number'     => $_POST['order_number'],
-      ':base_price'     => $_POST['base-hidden']
+      ':base_price'       => $_POST['base-hidden']
     );
 
     try
@@ -190,11 +190,13 @@
     // Get all the order details
     $query = "
       SELECT
-        *
+        a.*, b.*
       FROM
-        orders
+        orders a, cakes b
       WHERE
         order_number = :order_number
+      AND
+        b.cake_id = a.cake_id
     ";
   
     $query_params = array(
@@ -256,32 +258,6 @@
       
       $deliveryrow = $stmt->fetch();
     }
-
-    // Pul up cake details
-    $query = "
-      SELECT
-        *
-      FROM
-        cakes
-      WHERE
-        cake_id = :cake_id
-    ";
-
-    $query_params = array(
-      ':cake_id' => $row['cake_id']
-    );
-
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-    }
-    
-    $cakerow = $stmt->fetch();
   }
   else
   {
@@ -349,11 +325,11 @@
         <th>Cake Size</th>
         <td>
           <select name="cake_size" id="cake_size">
-            <option value='6"' <?php if ($cakerow['cake_size'] === '6"') : ?>selected="selected"<?php endif; ?>>6"</option>
-            <option value='8"' <?php if ($cakerow['cake_size'] === '8"') : ?>selected="selected"<?php endif; ?>>8"</option>
-            <option value='10"' <?php if ($cakerow['cake_size'] === '10"') : ?>selected="selected"<?php endif; ?>>10"</option>
-            <option value='12"' <?php if ($cakerow['cake_size'] === '12"') : ?>selected="selected"<?php endif; ?>>12"</option>
-            <option value='14"' <?php if ($cakerow['cake_size'] === '14"') : ?>selected="selected"<?php endif; ?>>14"</option>
+            <option value='6"' <?php if ($row['cake_size'] === '6"') : ?>selected="selected"<?php endif; ?>>6"</option>
+            <option value='8"' <?php if ($row['cake_size'] === '8"') : ?>selected="selected"<?php endif; ?>>8"</option>
+            <option value='10"' <?php if ($row['cake_size'] === '10"') : ?>selected="selected"<?php endif; ?>>10"</option>
+            <option value='12"' <?php if ($row['cake_size'] === '12"') : ?>selected="selected"<?php endif; ?>>12"</option>
+            <option value='14"' <?php if ($row['cake_size'] === '14"') : ?>selected="selected"<?php endif; ?>>14"</option>
           </select>
         </td>
       </tr>
@@ -361,10 +337,10 @@
         <th>Cake Type</th>
         <td>
           <select name="cake_type" id="cake_type">
-            <option value="Sponge" <?php if ($cakerow['cake_type'] === "Sponge") : ?>selected="selected"<?php endif; ?>>Sponge</option>
-            <option value="Marble" <?php if ($cakerow['cake_type'] === "Marble") : ?>selected="selected"<?php endif; ?>>Marble</option>
-            <option value="Chocolate" <?php if ($cakerow['cake_type'] === "Chocolate") : ?>selected="selected"<?php endif; ?>>Chocolate</option>
-            <option value="Fruit" <?php if ($cakerow['cake_type'] === "Fruit") : ?>selected="selected"<?php endif; ?>>Fruit</option>
+            <option value="Sponge" <?php if ($row['cake_type'] === "Sponge") : ?>selected="selected"<?php endif; ?>>Sponge</option>
+            <option value="Marble" <?php if ($row['cake_type'] === "Marble") : ?>selected="selected"<?php endif; ?>>Marble</option>
+            <option value="Chocolate" <?php if ($row['cake_type'] === "Chocolate") : ?>selected="selected"<?php endif; ?>>Chocolate</option>
+            <option value="Fruit" <?php if ($row['cake_type'] === "Fruit") : ?>selected="selected"<?php endif; ?>>Fruit</option>
           </select>
         </td>
       </tr>
@@ -387,7 +363,7 @@
       </tr>
       <tr>
         <th>Grand Total</th>
-        <td>&pound;<span id="total-html"><?php echo "&pound;"; echo $row['base_price']+$row['delivery_charge']; ?></span></td>
+        <td><span id="total-html"><?php echo "&pound;"; echo $row['base_price']+$row['delivery_charge']; ?></span></td>
       </tr>
     </table>
     <input type="submit" value="Update Order" />

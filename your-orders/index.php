@@ -26,11 +26,13 @@
     // Get order details based on the order number
     $query = "
       SELECT
-        *
+        a.*, b.*
       FROM
-        orders
+        orders a, cakes b
       WHERE
         order_number = :order_number
+      AND
+        b.cake_id = a.cake_id
     ";
 
     $query_params = array(
@@ -93,7 +95,7 @@
     // Get all outstanding orders
     $query = "
       SELECT
-        *
+        order_number, order_placed, datetime, status
       FROM
         orders
       WHERE
@@ -129,7 +131,7 @@
     // Get archived orders
     $query = "
       SELECT
-        *
+        order_number, order_placed, datetime, status
       FROM
         orders
       WHERE 
@@ -200,6 +202,14 @@
       <tr>
         <th>Decoration</th>
         <td><?php echo htmlentities($row['decoration'], ENT_QUOTES, 'UTF-8'); ?></td>
+      </tr>
+      <tr>
+        <th>Cake Size</th>
+        <td><?php echo htmlentities($row['cake_size'], ENT_QUOTES, 'UTF-8'); ?></td>
+      </tr>
+      <tr>
+        <th>Cake Type</th>
+        <td><?php echo htmlentities($row['cake_type'], ENT_QUOTES, 'UTF-8'); ?></td>
       </tr>
       <?php if (!empty($row['image'])) : ?>
         <tr>
