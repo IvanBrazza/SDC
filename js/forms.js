@@ -104,38 +104,6 @@ $(document).ready(function() {
     }
   });
 
-  $("#testimonial-form").submit(function(e) {
-    // Validate the fields
-    validateEmail();
-    validateInput('#name', '#name_error');
-    validateInput('textarea#testimonial', '#testimonial_error');
-    $(".ajax-load").css("display", "inline-block");
-    if ($input_check && $email_check) {
-      // Submit the form
-      $.ajax({
-        type: 'post',
-        url: '../lib/form/submit-testimonial.php',
-        data: $(this).serialize(),
-        success: function(response) {
-          if (response === 'testimonial-submitted') {
-            window.location.href = "../testimonials/";
-          } else {
-            $("#error_message").html(response);
-            $(".ajax-load").hide();
-          }
-        }
-      });
-      e.preventDefault();
-    } else {
-      // Don't submit the form
-      e.preventDefault();
-      validateEmail();
-      validateInput('#name', '#name_error');
-      validateInput('textarea#testimonial', '#testimonial_error');
-      $(".ajax-load").hide();
-    }
-  });
-
   $("#delete_testimonial").submit(function(e) {
     $(".ajax-load").css("display", "inline-block");
     var $form = $(this);

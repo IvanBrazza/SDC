@@ -54,6 +54,9 @@
         die("Failed to execute query: " . $ex->getMessage());
       }
 
-      echo "testimonial-submitted";
+      // Generate new token
+      $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
+
+      echo "success " . $_SESSION['token'];
     }
   }

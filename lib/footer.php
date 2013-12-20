@@ -21,6 +21,10 @@
   <?php if ($_SERVER['REQUEST_URI'] === "/place-an-order/") : ?>
     <script src="../js/place-an-order.js"></script>
   <?php endif; ?>
+  <?php if ($_SERVER['REQUEST_URI'] === "/testimonials/") : ?>
+    <script src="../js/testimonials.js"></script>
+    <script src="../js/forms.js"></script>
+  <?php endif; ?>
   <script src="../js/main.js"></script>
   <script src="../js/browser.js"></script>
 <body>
