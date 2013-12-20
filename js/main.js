@@ -28,6 +28,8 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
+  $("#single_order_details").height($("#single_order").height());
+
   $("#image-link").click(function() {
     $("div.image-view").slideDown();
   });

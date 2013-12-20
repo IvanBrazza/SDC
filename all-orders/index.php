@@ -451,25 +451,6 @@
   <!-- if user clicked on order number or searched for an order -->
   <?php elseif (!empty($_GET['order'])) : ?>
     <h1>Order <?php echo $row['order_number']; ?><?php if ($row['archived'] === "0") : ?><form action="../lib/archive-order.php" method="POST" id="archive-order"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number" id="order_number"><input type="submit" value="Archive Order" class="delete_testimonial_btn"></form><?php else : ?> (archived)<?php endif; ?></h1>
-      <p>Placed by <?php echo htmlentities($userrow['first_name'], ENT_QUOTES, 'UTF-8'); echo " "; echo htmlentities($userrow['last_name'], ENT_QUOTES, 'UTF-8'); ?></p>
-      <br />
-      <span class="title">Address:</span><br />
-      <?php echo htmlentities($userrow['address'], ENT_QUOTES, 'UTF-8'); ?><br />
-      <?php echo htmlentities($userrow['postcode'], ENT_QUOTES, 'UTF-8'); ?><br />
-      <?php include "../lib/distance.php"; ?>
-      <i>(<?php echo calculateDistance($userrow['address'], $userrow['postcode']); ?> miles away)</i><br/>
-      <a href="../get-directions?id=<?php echo $row['customer_id']; ?>">Get directions</a>
-      <br />
-      <br />
-      <span class="title">Phone: </span>
-      <?php echo $userrow['phone']; ?><br />
-      <br /><br />
-      <?php if (!empty($row['image'])) : ?>
-        <div class="image-view">
-          <img src="<?php echo $row['image']; ?>" height="400px">
-          <div class="close">X</div>
-        </div>
-      <?php endif; ?>
     <table id="single_order">
       <tr>
         <th>Order Placed</th>
@@ -569,6 +550,27 @@
         <td>&pound;<?php echo $row['base_price']+$delivery_row['delivery_charge']; ?></td>
       </tr>
     </table>
+    <div id="single_order_details">
+      <p>Placed by <?php echo htmlentities($userrow['first_name'], ENT_QUOTES, 'UTF-8'); echo " "; echo htmlentities($userrow['last_name'], ENT_QUOTES, 'UTF-8'); ?></p>
+      <br />
+      <span class="title">Address:</span><br />
+      <?php echo htmlentities($userrow['address'], ENT_QUOTES, 'UTF-8'); ?><br />
+      <?php echo htmlentities($userrow['postcode'], ENT_QUOTES, 'UTF-8'); ?><br />
+      <?php include "../lib/distance.php"; ?>
+      <i>(<?php echo calculateDistance($userrow['address'], $userrow['postcode']); ?> miles away)</i><br/>
+      <a href="../get-directions?id=<?php echo $row['customer_id']; ?>">Get directions</a>
+      <br />
+      <br />
+      <span class="title">Phone: </span>
+      <?php echo $userrow['phone']; ?><br />
+      <br /><br />
+      <?php if (!empty($row['image'])) : ?>
+        <div class="image-view">
+          <img src="<?php echo $row['image']; ?>" height="400px">
+          <div class="close">X</div>
+        </div>
+      <?php endif; ?>
+    </div>
   <!-- show all orders by a customer -->
   <?php elseif (!empty($_GET['id'])) : ?>
     <h1>Orders placed by <?php echo htmlentities($userrow['first_name'], ENT_QUOTES, 'UTF-8'); echo " "; echo htmlentities($userrow['last_name'], ENT_QUOTES, 'UTF-8'); ?></h1>

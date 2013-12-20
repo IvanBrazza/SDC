@@ -187,6 +187,21 @@ table > caption {
   width:              180px;
   }
 
+#single_order {
+  width:              64%;
+  display:            inline-block;
+  }
+
+#single_order_details {
+  display:            inline-block;
+  width:              30%;
+  float:              right;
+  }
+
+#single_order_details > p {
+  margin-top:         0;
+  }
+
 .error_message {
   color:              red;
   }
