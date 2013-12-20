@@ -9,9 +9,6 @@
       echo "Invalid token.";
       die();
     }
-    
-    // Unset token
-    unset($_SESSION['token']);
 
     // Let's pull up the user's details from the username provided
     $query = "
@@ -55,6 +52,9 @@
       if ($check_password === $row['password'])
       {
         $logged_in = true;
+
+        // Unset token
+        unset($_SESSION['token']);
       }
       else
       {
