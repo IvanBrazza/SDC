@@ -11,20 +11,22 @@ var $password_check,
 $(document).ready(function() {
   calculateOrderTotal();
 
-  $(".date").datepicker({
-    minDate: 0,
-    dateFormat: "yy-mm-dd"
-  });
+  if (window.location.pathname != "/testimonials/") {
+    $(".date").datepicker({
+      minDate: 0,
+      dateFormat: "yy-mm-dd"
+    });
 
-  $(".previous-date").datepicker({
-    dateFormat: "yy-mm-dd"
-  });
+    $(".previous-date").datepicker({
+      dateFormat: "yy-mm-dd"
+    });
 
-  $("#datetime").datetimepicker({
-    dateFormat: "yy-mm-dd",
-    timeFormat: "HH:mm",
-    minDate: 0
-  });
+    $("#datetime").datetimepicker({
+      dateFormat: "yy-mm-dd",
+      timeFormat: "HH:mm",
+      minDate: 0
+    });
+  }
             
   $("#register-form").submit(function(e) {
     // Validate the fields
