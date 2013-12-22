@@ -317,6 +317,7 @@ function validateEmail()
     $email_error.html("Please enter your email");
     $email.removeClass("invalid");
     $email.addClass("valid");
+    $email.effect("shake", {}, 500);
     $email_error.slideUp("fast");
     $email_check = false;
   } else if (/^(\w+)@(.+){2,}\.(.+){2,}$/.test(email)){
@@ -328,6 +329,7 @@ function validateEmail()
     $email_error.html("Please enter a valid email");
     $email.removeClass("valid");
     $email.addClass("invalid");
+    $email.effect("shake", {}, 500);
     $email_error.slideDown("fast");
     $email_check = false;
   }
@@ -343,12 +345,14 @@ function validatePassword()
     $password_error.html("Please enter a password");
     $password.removeClass("valid");
     $password.addClass("invalid");
+    $passowrd.effect("shake", {}, 500);
     $password_error.slideDown("fast");
     $password_check = false;
   } else if (password.length < 5) {
     $password_error.html("Password must be at least 5 characters");
     $password.removeClass("valid");
     $password.addClass("invalid");
+    $password.effect("shake", {}, 500);
     $password_error.slideDown("fast");
     $password_check = false;
   } else {
@@ -370,6 +374,7 @@ function validatePassword2()
     $password2_error.html("Please reenter your password");
     $password2.removeClass("invalid");
     $password2.addClass("valid");
+    $password2.effect("shake", {}, 500);
     $password2_error.slideDown("fast");
     $password2_check = false;
   } else if (password === password2) {
@@ -381,6 +386,7 @@ function validatePassword2()
     $password2_error.html("Passwords do not match");
     $password2.removeClass("valid");
     $password2.addClass("invalid");
+    $password2.effect("shake", {}, 500);
     $password2_error.slideDown("fast");
     $password2_check = false;
   }
@@ -396,12 +402,14 @@ function validateUsername()
     $username_error.html("Please enter a username");
     $username.removeClass("valid");
     $username.addClass("invalid");
+    $username.effect("shake", {}, 500);
     $username_error.slideDown("fast");
     $username_check = false;
   } else if (username.length < 3) {
     $username_error.html("Username must be at least 3 characters");
     $username.removeClass("valid");
     $username.addClass("invalid");
+    $username.effect("shake", {}, 500);
     $username_error.slideDown("fast");
     $username_check = false;
   } else {
@@ -422,6 +430,7 @@ function validateInput(input, error)
     $error.html("This field cannot be blank");
     input.removeClass("valid");
     input.addClass("invalid");
+    input.effect("shake", {}, 500);
     $error.slideDown("fast");
     $input_check = false;
   } else {
@@ -442,6 +451,7 @@ function validatePostcode()
     $postcode_error.html("Please enter your postcode");
     $postcode.removeClass("valid");
     $postcode.addClass("invalid");
+    $postcode.effect("shake", {}, 500);
     $postcode_error.slideDown("fast");
     $postcode_check = false;
   } else if (/^[A-Za-z]{1,2}[0-9]{1,2}[A-Za-z]? ?[0-9][A-Za-z]{2}$/.test(postcode)) {
@@ -453,6 +463,7 @@ function validatePostcode()
     $postcode_error.html("Please enter a valid postcode");
     $postcode.removeClass("valid");
     $postcode.addClass("invalid");
+    $postcode.effect("shake", {}, 500);
     $postcode_error.slideDown("fast");
     $postcode_check = false;
   }
@@ -468,6 +479,7 @@ function validatePhone()
     $phone_error.html("Please enter your phone number");
     $phone.removeClass("valid");
     $phone.addClass("invalid");
+    $phone.effect("shake", {}, 500);
     $phone_error.slideDown("fast");
     $phone_check = false;
   } else if (/0[ -]?[1-9](?:[ -]?\d){9}/.test(phone)) {
@@ -479,6 +491,7 @@ function validatePhone()
     $phone_error.html("Please enter a valid phone number");
     $phone.removeClass("valid");
     $phone.addClass("invalid");
+    $phone.effect("shake", {}, 500);
     $phone_error.slideDown("fast");
     $phone_check = false;
   }

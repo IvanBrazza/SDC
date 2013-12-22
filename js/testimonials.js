@@ -33,6 +33,10 @@ $(document).ready(function() {
               $("#testimonials div:last-child > span > small").append("<i>, " + $('#location').val()  + "</i>");
               $("#location").val("");
             }
+            $("#testimonials div:last-child").hide().slideDown(400, function() {
+                                                                $("#submit-testimonial-form").slideUp();
+                                                              });
+            $("#testimonials div:last-child").effect("highlight", {}, 1000);
             $("#name").val("").removeClass("valid");
             $("#email").val("").removeClass("valid");
             $("textarea#testimonial").val("").removeClass("valid");

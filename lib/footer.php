@@ -11,7 +11,6 @@
             strpos($_SERVER['REQUEST_URI'], "add-order") !== false or
             strpos($_SERVER['REQUEST_URI'], "place-an-order") !== false) : ?>
     <script src="../js/forms.js"></script>
-    <script src="../js/jquery/jquery-ui.js"></script>
     <script src="../js/jquery/jquery-ui-timepicker-addon.js"></script>
   <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "stats") !== false) :?>
@@ -31,6 +30,7 @@
   <?php if (strpos($_SERVER['REQUEST_URI'], "all-orders") !== false) : ?>
     <script src="../js/all-orders.js"></script>
   <?php endif; ?>
+  <script src="../js/jquery/jquery-ui.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/browser.js"></script>
 <body>
