@@ -60,4 +60,24 @@ $(document).ready(function() {
       $(".ajax-load").hide();
     }
   });
+
+  $(".delete_testimonial").click(function(e) {
+    $(".ajax-load").css("display", "inline-block");
+    var $button = $(this);
+    $.ajax({
+      type: 'post',
+      url: '../lib/delete-testimonial.php',
+      data: {id: $(this).data("id"), token: $(this).data("token")},
+      success: function(response) {
+        if (response === 'success') {
+          $button.closest("div").slideUp(400, function() {
+            $(this).remove();
+          });
+        } else {
+          $("#error_message").html(response);
+        }
+      }
+    });
+    e.preventDefault();
+  });
 });

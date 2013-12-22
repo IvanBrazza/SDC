@@ -41,11 +41,7 @@
         <span class="testimonial-name">
           <small>- <?php echo htmlentities($row['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($row['location'])) { echo ", "; echo htmlentities($row['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
             <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
-              <form action="../lib/delete-testimonial.php" method="POST" id="delete_testimonial" class="delete_testimonial">
-                <input type="hidden" value="<?php echo $row['id']; ?>" name="id">
-                <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
-                <input type="submit" value="Delete" class="delete_testimonial_btn">
-              </form>
+              <a href="javascript:" data-id="<?php echo $row['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="delete_testimonial">Delete</a>
             <?php endif; ?>
           </small>
         </span>

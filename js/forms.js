@@ -108,26 +108,6 @@ $(document).ready(function() {
     }
   });
 
-  $("#delete_testimonial").submit(function(e) {
-    $(".ajax-load").css("display", "inline-block");
-    var $form = $(this);
-    $.ajax({
-      type: 'post',
-      url: '../lib/delete-testimonial.php',
-      data: $(this).serialize(),
-      success: function(response) {
-        if (response === 'success') {
-          $form.closest("div").slideUp(400, function() {
-            $(this).remove();
-          });
-        } else {
-          $("#error_message").html(response);
-        }
-      }
-    });
-    e.preventDefault();
-  });
-
   $("#edit-account-form").submit(function(e) {
     // Validate form inputs
     validateEmail();
