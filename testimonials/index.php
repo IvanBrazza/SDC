@@ -64,12 +64,12 @@
     <form action="index.php" method="POST" id="testimonial-form">
       <div>
         <label for="name">Name</label>
-        <input type="text" name="name" id="name" onkeyup="validateInput('#name', '#name_error')" onchange="validateInput('#name', '#name_error')">
+        <input type="text" name="name" id="name" onchange="validateInput('#name', '#name_error')">
       </div>
       <div id="name_error" class="validate-error"></div>
       <div>
         <label for="email">Email</label>
-        <input type="text" name="email" id="email" onkeyup="validateEmail()" onchange="validateEmail()">
+        <input type="text" name="email" id="email" onchange="validateEmail()">
       </div>
       <div id="email-error" class="validate-error"></div>
       <div>
@@ -78,7 +78,7 @@
       </div>
       <div>
         <label for="testimonial">Testimonial</label>
-        <textarea name="testimonial" id="testimonial" rows="6" cols="40" onkeyup="validateInput('textarea#testimonial', '#testimonial_error')" onchange="validateInput('textarea#testimonial', '#testimonial_error')"></textarea>
+        <textarea name="testimonial" id="testimonial" rows="6" cols="40" onchange="validateInput('textarea#testimonial', '#testimonial_error')"></textarea>
       </div>
       <div id="testimonial_error" class="validate-error"></div>
       <div class="error">

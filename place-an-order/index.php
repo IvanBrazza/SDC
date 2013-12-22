@@ -118,7 +118,7 @@
                 </div>
                 <div id="comments">
                   <label for="comments">Comments</label>
-                  <textarea name="comments" id="comments" rows="6" cols="30" onkeyup="validateInput('textarea#comments', '#comments_error')" onchange="validateInput('textarea#comments', '#comments_error')"></textarea>
+                  <textarea name="comments" id="comments" rows="6" cols="30" onchange="validateInput('textarea#comments', '#comments_error')"></textarea>
                 </div>
                 <div id="comments_error" class="validate-error"></div>
               </li>

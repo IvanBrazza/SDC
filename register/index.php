@@ -21,22 +21,22 @@
     <form action="index.php" method="post" id="register-form">
       <div>
         <label for="username">Username</label>
-        <input type="text" name="username" id="username" onkeyup="validateUsername()" onchange="validateUsername()">
+        <input type="text" name="username" id="username" onchange="validateUsername()">
       </div>
       <div id="username-error" class="validate-error"></div>
       <div>
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" onkeyup="validatePassword()" onchange="validatePassword()">
+        <input type="password" name="password" id="password" onchange="validatePassword()">
       </div>
       <div id="password-error" class="validate-error"></div>
       <div>
         <label for="password2">Reenter Password</label>
-        <input type="password" name="password2" id="password2" onkeyup="validatePassword2()" onchange="validatePassword2()">
+        <input type="password" name="password2" id="password2" onchange="validatePassword2()">
       </div>
       <div id="password2-error" class="validate-error"></div>
       <div>
         <label for="email">EMail</label>
-        <input type="text" name="email" id="email" onkeyup="validateEmail()" onchange="validateEmail()">
+        <input type="text" name="email" id="email" onchange="validateEmail()">
       </div>
       <div id="email-error" class="validate-error"></div>
       <div class="error">

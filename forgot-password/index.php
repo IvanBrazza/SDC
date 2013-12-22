@@ -110,7 +110,7 @@
       <form action="index.php" method="POST">
         <div>
           <label for="email">EMail</label>
-          <input type="text" name="email" id="email" onkeyup="validateEmail()" onchange="validateEmail()">
+          <input type="text" name="email" id="email" onchange="validateEmail()">
         </div>
         <div id="email-error" class="validate-error"></div>
         <div class="error">

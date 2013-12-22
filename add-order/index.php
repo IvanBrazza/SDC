@@ -54,32 +54,32 @@
         <div class="or">OR</div>
         <div>
           <label for="first_name">First Name</label>
-          <input type="text" name="first_name" id="first_name" onkeyup="validateInput('#first_name', '#first_name_error')" onchange="validateInput('#first_name', '#first_name_error')">
+          <input type="text" name="first_name" id="first_name" onchange="validateInput('#first_name', '#first_name_error')">
         </div>
         <div id="first_name_error" class="validate-error"></div>
         <div>
           <label for="last_name">Last Name</label>
-          <input type="text" name="last_name" id="last_name" onkeyup="validateInput('#last_name', '#last_name_error')" onchange="validateInput('#last_name', '#last_name_error')">
+          <input type="text" name="last_name" id="last_name" onchange="validateInput('#last_name', '#last_name_error')">
         </div>
         <div id="last_name_error" class="validate-error"></div>
         <div>
           <label for="address">Address</label>
-          <input type="text" name="address" id="address" onkeyup="validateInput('#address', '#address_error')" onchange="validateInput('#address', '#address_error')">
+          <input type="text" name="address" id="address" onchange="validateInput('#address', '#address_error')">
         </div>
         <div id="address_error" class="validate-error"></div>
         <div>
           <label for="postcode">Postcode</label>
-          <input type="text" name="postcode" id="postcode" onkeyup="validatePostcode()" onchange="validatePostcode()">
+          <input type="text" name="postcode" id="postcode" onchange="validatePostcode()">
         </div>
         <div id="postcode_error" class="validate-error"></div>
         <div>
           <label for="phone">Phone Number</label>
-          <input type="text" name="phone" id="phone" onkeyup="validatePhone()" onchange="validatePhone()">
+          <input type="text" name="phone" id="phone" onchange="validatePhone()">
         </div>
         <div id="phone_error" class="validate-error"></div>
         <div>
           <label for="email">Email</label>
-          <input type="text" name="email" id="email" onkeyup="validateEmail()" onchange="validateEmail()">
+          <input type="text" name="email" id="email" onchange="validateEmail()">
         </div>
         <div id="email-error" class="validate-error"></div>
       <h3>Order Details</h3>
@@ -133,7 +133,7 @@
         <div id="celebration_date_error" class="validate-error"></div>
         <div id="comments">
           <label for="comments">Comments</label>
-          <textarea id="comments" cols="30" rows="6" name="comments" onkeyup="validateInput('textarea#comments', '#comments_error')" onchange="validateInput('textarea#comments', '#comments_error')"></textarea>
+          <textarea id="comments" cols="30" rows="6" name="comments" onchange="validateInput('textarea#comments', '#comments_error')"></textarea>
         </div>
         <div id="comments_error" class="validate-error"></div>
         <div>
