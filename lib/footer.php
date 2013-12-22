@@ -15,7 +15,7 @@
     <script src="../js/jquery/jquery-ui-timepicker-addon.js"></script>
   <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "stats") !== false) :?>
-    <script src="../js/charts.js"></script>
+    <script src="../js/stats.js"></script>
   <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "gallery") !== false) : ?>
     <script src="../js/jquery/jquery.flexslider-min.js"></script>
