@@ -25,6 +25,9 @@
     <script src="../js/testimonials.js"></script>
     <script src="../js/forms.js"></script>
   <?php endif; ?>
+  <?php if (strpos($_SERVER['REQUEST_URI'], "all-orders") !== false) : ?>
+    <script src="../js/all-orders.js"></script>
+  <?php endif; ?>
   <script src="../js/main.js"></script>
   <script src="../js/browser.js"></script>
 <body>
