@@ -2,7 +2,9 @@ $(document).ready(function() {
   $("#submit-testimonial-form").hide();
   $("#submit-testimonial-form").css("margin", "10px 0 0 0");
   $("#submit-testimonial").click(function() {
-    $("#submit-testimonial-form").slideDown();
+    $("#submit-testimonial-form").slideDown(400, function() {
+      $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+    });
   });
 
   $("#testimonial-form").submit(function(e) {
