@@ -34,8 +34,8 @@ $(document).ready(function() {
     validateUsername();
     validatePassword2();
     validateEmail();
-    $(".ajax-load").css("display", "inline-block");
     if ($password_check && $password2_check && $username_check && $email_check) {
+      $(".ajax-load").css("display", "inline-block");
       // Submit the form
       $.ajax({
         type: 'post',
@@ -64,8 +64,8 @@ $(document).ready(function() {
     // Validate the fields
     validatePassword();
     validateUsername();
-    $(".ajax-load").css("display", "inline-block");
     if ($password_check && $username_check) {
+      $(".ajax-load").css("display", "inline-block");
       // Submit the form
       $.ajax({
         type: 'post',
@@ -132,8 +132,8 @@ $(document).ready(function() {
     validateInput('#first_name', '#first_name_error');
     validateInput('#last_name', '#last_name_error');
     validateInput('#address', '#address_error');
-    $(".ajax-load").css("display", "inline-block");
     if ($input_check && $phone_check && $postcode_check && $email_check) {
+      $(".ajax-load").css("display", "inline-block");
       // Submit the form
       $.ajax({
         type: 'post',
@@ -223,9 +223,9 @@ $(document).ready(function() {
   });
 
   $("#add-order-form").submit(function(e) {
-    $(".ajax-load").css("display", "inline-block");
     if ($add_existing_check) {
       if ($input_check) {
+        $(".ajax-load").css("display", "inline-block");
         $.ajax({
           type: 'post',
           url: '../lib/form/add-order.php',
@@ -249,6 +249,7 @@ $(document).ready(function() {
       }
     } else {
       if ($input_check && $phone_check && $email_check && $postcode_check) {
+        $(".ajax-load").css("display", "inline-block");
         $.ajax({
           type: 'post',
           url: '../lib/form/add-order.php',
