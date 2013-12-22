@@ -11,7 +11,7 @@ var $password_check,
 $(document).ready(function() {
   calculateOrderTotal();
 
-  if (window.location.pathname != "/testimonials/") {
+  if (window.location.pathname != "/testimonials/" && window.location.pathname != "/login/") {
     $(".date").datepicker({
       minDate: 0,
       dateFormat: "yy-mm-dd"
