@@ -117,7 +117,9 @@ $(document).ready(function() {
       data: $(this).serialize(),
       success: function(response) {
         if (response === 'success') {
-          $form.closest("div").remove();
+          $form.closest("div").slideUp(400, function() {
+            $(this).remove();
+          });
         } else {
           $("#error_message").html(response);
         }
