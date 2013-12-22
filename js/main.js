@@ -10,6 +10,8 @@ $(document).ready(function() {
     $(this).toggleClass("hover");
   });
 
+  $(".header > .user").css("float", "right");
+
   $("#order_search").submit(function(e) {
     $(".ajax-load").css("display", "inline-block");
     $.ajax({
