@@ -389,6 +389,21 @@
       <input type="submit" value="Search all orders" />
       <span class="ajax-load"></span>
     </form>
+    <script>
+      var orderNumbers = [
+        <?php
+          foreach ($rows as $row)
+          {
+            echo "\"" . $row['order_number'] . "\",";
+          }
+
+          foreach ($archived_rows as $row)
+          {
+            echo "\"" . $row['order_number'] . "\",";
+          }
+        ?>
+      ];
+    </script>
     <div class="success">
       <span class="success_message">
         <?php echo $display_message; ?>

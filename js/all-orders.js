@@ -17,5 +17,15 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
+  if (window.location.search == "") {
+    $("#order_number").autocomplete({
+      source: orderNumbers,
+      select: function(event, ui) {
+        $("#order_number").val(ui.item.value);
+        $("#order_search").submit();
+      }
+    });
+  }
+
   $("#single_order_details").height($("#single_order").height());
 });

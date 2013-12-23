@@ -8,6 +8,9 @@
     <link href="../css/timepicker.css" rel="stylesheet">
     <link href="../css/jquery-ui.css" rel="stylesheet">
   <?php endif; ?>
+  <?php if (strpos($_SERVER['REQUEST_URI'], "all-orders") !== false) : ?>
+    <link href="../css/jquery-ui.css" rel="stylesheet">
+  <?php endif; ?>
   <?php if ($_SERVER['REQUEST_URI'] === "/gallery/") : ?>
     <link href="../css/flexslider.css" rel="stylesheet">
   <?php endif; ?>
