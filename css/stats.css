@@ -3,10 +3,6 @@
   margin:             0;
   }
 
-div.chart {
-  opacity:            0;
-  }
-
 div#orders-chart, div#fillings-chart, div#decorations-chart {
   display:            inline-block;
   }

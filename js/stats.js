@@ -29,9 +29,6 @@ function getData() {
       fillingsData = object.fillings;
       decorationsData = object.decorations;
       drawCharts();
-      $(".chart").each(function(i) {
-        $(this).delay((i++) * 400).fadeTo(500, 1);
-      });
       clear = true
     }
   });
