@@ -341,9 +341,9 @@ progress {
 
 div.image-view {
   position:           absolute;
-  top:                470px;
+  top:                116px;
   border:             1px solid #000;
-  left:               30%;
+  left:               546px;
   display:            none;
   }
 div.image-view > div.close {

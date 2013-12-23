@@ -13,7 +13,7 @@ $(document).ready(function() {
   $(".header > .user").css("float", "right");
 
   $("#image-link").click(function() {
-    $("div.image-view").slideDown();
+    $("div.image-view").effect("slide");
   });
 
   $("div.image-view>.close").click(function() {
