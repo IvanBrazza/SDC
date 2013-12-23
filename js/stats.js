@@ -3,6 +3,7 @@ var ordersData,
     decorationsData,
     usersData,
     clear = false,
+    object = {orders: "init"},
     fillColour;
 $(document).ready(function() {
   calculateWidth();
@@ -23,13 +24,15 @@ function getData() {
     type: 'post',
     url: '../lib/stats.php',
     success: function(response) {
-      object = JSON.parse(response);
-      ordersData = object.orders;
-      usersData = object.users;
-      fillingsData = object.fillings;
-      decorationsData = object.decorations;
-      drawCharts();
-      clear = true
+      if (JSON.stringify(object.orders) != JSON.stringify(JSON.parse(response).orders)) {
+        object = JSON.parse(response);
+        ordersData = object.orders;
+        usersData = object.users;
+        fillingsData = object.fillings;
+        decorationsData = object.decorations;
+        drawCharts();
+      }
+      clear = true;
     }
   });
 }
