@@ -100,6 +100,5 @@
     {
       echo "Oops! Something went wrong. Try again.";
       die();
-      $submitted_username = htmlentities($_POST['username'], ENT_QUOTES, 'UTF-8');
     }
   }

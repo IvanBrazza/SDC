@@ -39,7 +39,7 @@
     <form action="index.php" method="post" id="login-form"> 
       <div>
         <label for="username">Username</label>
-        <input type="text" name="username" id="username" value="<?php echo $submitted_username; ?>" onchange="validateUsername()"/>
+        <input type="text" name="username" id="username" onchange="validateUsername()"/>
       </div>
       <div id="username-error" class="validate-error"></div>
       <div>
