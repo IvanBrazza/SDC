@@ -4,23 +4,24 @@
   <title><?php echo $title ?> | Star Dream Cakes</title>
   <link rel="icon" href="../favicon.ico">
   <link href="../css/main.css" rel="stylesheet">
-  <?php if ($_SERVER['REQUEST_URI'] === "/add-order/" or $_SERVER['REQUEST_URI'] === "/place-an-order/") : ?>
+  <?php if (strpos($_SERVER['REQUEST_URI'], "add-order") !== false or
+            strpos($_SERVER['REQUEST_URI'], "place-an-order") !== false) : ?>
     <link href="../css/timepicker.css" rel="stylesheet">
     <link href="../css/jquery-ui.css" rel="stylesheet">
   <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "all-orders") !== false) : ?>
     <link href="../css/jquery-ui.css" rel="stylesheet">
   <?php endif; ?>
-  <?php if ($_SERVER['REQUEST_URI'] === "/gallery/") : ?>
+  <?php if (strpos($_SERVER['REQUEST_URI'], "gallery") !== false) : ?>
     <link href="../css/flexslider.css" rel="stylesheet">
   <?php endif; ?>
-  <?php if (substr($_SERVER['REQUEST_URI'], 0, 16) === "/get-directions/") : ?>
+  <?php if (strpos($_SERVER['REQUEST_URI'], "get-directions") !== false) : ?>
     <link href="../css/google-maps.css" rel="stylesheet">
   <?php endif; ?>
-  <?php if ($_SERVER['REQUEST_URI'] === "/stats/") : ?>
+  <?php if (strpos($_SERVER['REQUEST_URI'], "stats") !== false) : ?>
     <link href="../css/stats.css" rel="stylesheet">
   <?php endif; ?>
-  <?php if ($_SERVER['REQUEST_URI'] === "/place-an-order/") : ?>
+  <?php if (strpos($_SERVER['REQUEST_URI'], "place-an-order") !== false) : ?>
     <link href="../css/place-an-order.css" rel="stylesheet">
   <?php endif; ?>
 </head>
