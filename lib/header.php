@@ -29,11 +29,11 @@
         <li <?php if ($page === "about-us") : ?>class="active"<?php endif; ?>><a href="../about-us">About Us</a></li>
         <li <?php if ($page === "testimonials") : ?>class="active"<?php endif; ?>><a href="../testimonials">Testimonials</a></li>
         <li <?php if ($page === "gallery") : ?>class="active"<?php endif;?>><a href="../gallery">Gallery</a></li>
-        <?php if ($_SESSION['user'] and $_SESSION['user']['username'] !== "admin") : ?>
+        <?php if (!empty($_SESSION['user']) and $_SESSION['user']['username'] !== "admin") : ?>
           <li <?php if ($page === "place-an-order") : ?>class="active"<?php endif; ?>><a href="../place-an-order">Place An Order</a></li>
           <li <?php if ($page === "your-orders") : ?>class="active"<?php endif; ?>><a href="../your-orders">Your Orders</a></li>
         <?php endif; ?>
-        <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
+        <?php if (!empty($_SESSION['user']) and $_SESSION['user']['username'] === "admin") : ?>
           <li <?php if ($page === "all-orders") : ?>class="active"<?php endif; ?>><a href="../all-orders">All Orders</a></li>
           <li <?php if ($page === "customer-list") : ?>class="active"<?php endif; ?>><a href="../customer-list">Customer List</a></li>
           <li <?php if ($page === "stats") : ?>class="active"<?php endif;?>><a href="../stats">Stats</a></li>
@@ -47,9 +47,9 @@
         <img src="../img/logo.jpg" alt="logo" height="50px" />
       </div>
       <div class="user">
-        <span>Welcome to Star Dream Cakes<?php if ($_SESSION['user']) : ?>, <?php echo $_SESSION['user']['first_name']; ?>!<?php endif; ?></span><br />
+        <span>Welcome to Star Dream Cakes<?php if (!empty($_SESSION['user'])) : ?>, <?php echo $_SESSION['user']['first_name']; ?>!<?php endif; ?></span><br />
         <span class="links">
-          <?php if ($_SESSION['user']) : ?>
+          <?php if (!empty($_SESSION['user'])) : ?>
             <a href="../edit-account">Edit Account</a> | <a href="../lib/logout.php">Logout</a>
           <?php else : ?>
             <a href="../login">Login</a> | <a href="../register">Register</a>
