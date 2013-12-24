@@ -77,6 +77,11 @@ $(document).ready(function() {
           if (response === 'logged-in') {
             window.location.href = "../home/";
           } else {
+            if (response === 'Incorrect username.') {
+              $("#username").removeClass("valid").addClass("invalid").effect("shake", {}, 500);
+            } else if (response === 'Incorrect password.') {
+              $("#password").removeClass("valid").addClass("invalid").effect("shake", {}, 500);
+            }
             $("#error_message").html(response);
             $(".ajax-load").hide();
           }
