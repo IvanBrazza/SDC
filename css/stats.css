@@ -41,3 +41,8 @@ div#users-chart-key > span {
   display:            inline-block;
   margin:             0;
   }
+
+.ui-dialog-titlebar .ui-dialog-titlebar-close,
+#browser-dialog {
+  display:            none;
+  }

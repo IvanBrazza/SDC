@@ -17,6 +17,7 @@
   <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "stats") !== false) :?>
     <script src="../js/stats.js"></script>
+    <script src="../js/modernizr.js"></script>
   <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "gallery") !== false) : ?>
     <script src="../js/jquery/jquery.flexslider-min.js"></script>

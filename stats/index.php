@@ -47,6 +47,11 @@
   }
 ?>
 <?php include("../lib/header.php"); ?>
+  <div id="browser-dialog" title="Canvas not supported">
+    <p>Sorry! It seems that your browser doesn't support the HTML5 canvas element.
+       This means that you probably won't be able to view the charts that should be
+       displayed below. Please upgrade to a modern browser.</p>
+  </div>
   <h1>Stats</h1>
   <h2>Order Stats</h2>
   <table id="order-stats">

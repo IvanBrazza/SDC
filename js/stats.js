@@ -6,17 +6,46 @@ var ordersData,
     object = {orders: "init"},
     fillColour;
 $(document).ready(function() {
-  calculateWidth();
-  getData();
-
-  window.setInterval(function() {
-    getData();
-  }, 5000);
-
-  $(window).resize(function() {
+  Modernizr.canvas = false;
+  if (Modernizr.canvas) {
     calculateWidth();
-    drawCharts();
-  });
+    getData();
+
+    window.setInterval(function() {
+      getData();
+    }, 5000);
+
+    $(window).resize(function() {
+      calculateWidth();
+      drawCharts();
+    });
+  } else {
+    $("#browser-dialog").dialog({
+      buttons: [
+        {
+          text: "Get Google Chrome",
+          click: function() {
+            window.location.href="http://www.google.com/chrome";
+          }
+        },
+        {
+          text: "Close",
+          click: function() {
+            $(this).dialog("close");
+          }
+        }
+      ],
+      draggable: false,
+      modal: true,
+      position: {
+        my: "center",
+        at: "top+20%",
+        of: window
+      },
+      resizable: false,
+      width: 500
+    });
+  }
 });
 
 function getData() {
