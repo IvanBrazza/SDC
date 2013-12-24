@@ -6,7 +6,6 @@ var ordersData,
     object = {orders: "init"},
     fillColour;
 $(document).ready(function() {
-  Modernizr.canvas = false;
   if (Modernizr.canvas) {
     calculateWidth();
     getData();
