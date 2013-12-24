@@ -1,5 +1,5 @@
 var $buoop = {
-  vs: {i:8,f:15,o:10.6,s:4,n:10},
+  vs: {i:9,f:15,o:10.6,s:4,n:10},
   reminder: 0,
   newwindow: true
 } 
