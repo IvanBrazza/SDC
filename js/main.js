@@ -19,4 +19,6 @@ $(document).ready(function() {
   $("div.image-view>.close").click(function() {
     $("div.image-view").slideUp();
   });
+
+  $("table:not(#single_order)").tablePagination();
 });
