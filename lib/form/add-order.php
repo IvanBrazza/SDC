@@ -345,7 +345,7 @@
     if ($_POST['delivery'] === "Deliver To Address")
     {
       // Calculate the delivery charge
-      include "../lib/distance.php";
+      include "../distance.php";
       $miles = calculateDistance($userrow['address'], $userrow['postcode']);
       $remaining_miles = $miles - 5;
       $remaining_miles = round($remaining_miles / 5) * 5;

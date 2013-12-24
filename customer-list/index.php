@@ -8,14 +8,9 @@
   $title = "Customer List";
   $page = "customer-list";
 
-  if(empty($_SESSION['user']))
+  if(empty($_SESSION['user']) or $_SESSION['user']['username'] !== "admin")
   {
     header("Location: ../login");
-    die();
-  }
-  else if ($_SESSION['user']['username'] !== "admin")
-  {
-    header("Location: ../home");
     die();
   }
 

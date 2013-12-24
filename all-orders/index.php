@@ -14,13 +14,13 @@
 
   if (!empty($_GET['archive']))
   {
-    if ($_GET['archive'] === "success")
-    {
-      $display_message = "Order archived.";
-    }
-    else if ($_GET['archive'] === "fail")
-    {
-      $display_message = "Archive failed.";
+    switch ($_GET['archive']){
+      case "success":
+        $display_message = "Order archived.";
+        break;
+      case "fail":
+        $display_message = "Archive failed.";
+        break;
     }
   }
   else if (!empty($_GET['new-order']))
@@ -377,10 +377,8 @@
   }
 ?>
 <?php include("../lib/header.php"); ?>
-  <?php if (empty($row) and !empty($_GET['order'])) : ?>
-    <h1><span class="error_message">No order exists for order number <?php echo $_GET['order']; ?></span></h1>
   <!--Show all orders-->
-  <?php elseif (!$_GET or !empty($_GET['archive']) or !empty($_GET['new-order']) or !empty($_GET['sort'])) : ?>
+  <?php if (!$_GET or !empty($_GET['archive']) or !empty($_GET['new-order'])) : ?>
     <h1>All Orders</h1>
     <a href="../add-order">Add Order</a>
     <form action="../all-orders" method="GET" id="order_search">
