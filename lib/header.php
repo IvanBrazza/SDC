@@ -22,8 +22,9 @@
   <?php if (strpos($_SERVER['REQUEST_URI'], "stats") !== false) : ?>
     <link href="../css/stats.css" rel="stylesheet">
   <?php endif; ?>
-  <?php if (strpos($_SERVER['REQUEST_URI'], "place-an-order") !== false) : ?>
-    <link href="../css/place-an-order.css" rel="stylesheet">
+  <?php if (strpos($_SERVER['REQUEST_URI'], "place-an-order") !== false or
+            strpos($_SERVER['REQUEST_URI'], "add-order") !== false) : ?>
+    <link href="../css/tabbed-order.css" rel="stylesheet">
   <?php endif; ?>
 </head>
 <body>

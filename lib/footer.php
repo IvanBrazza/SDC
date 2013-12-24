@@ -24,8 +24,9 @@
     <script src="../js/jquery/jquery.flexslider-min.js"></script>
     <script src="../js/gallery.js"></script>
   <?php endif; ?>
-  <?php if (strpos($_SERVER['REQUEST_URI'], "place-an-order") !== false) : ?>
-    <script src="../js/place-an-order.js"></script>
+  <?php if (strpos($_SERVER['REQUEST_URI'], "place-an-order") !== false or
+            strpos($_SERVER['REQUEST_URI'], "add-order") !== false) : ?>
+    <script src="../js/tabbed-order.js"></script>
   <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "testimonials") !== false) : ?>
     <script src="../js/testimonials.js"></script>
