@@ -310,7 +310,7 @@ var validate = {
       $email.effect("shake", {}, 500);
       $email_error.slideUp("fast");
       $email_check = false;
-    } else if (/^(\w+)@(.+){2,}\.(.+){2,}$/.test(email)){
+    } else if (/^(\w+\.?\w*)@(.+){2,}\.(.+){2,}[^\.]$/.test(email)){
       $email.removeClass("invalid");
       $email.addClass("valid");
       $email_error.slideUp("fast");
