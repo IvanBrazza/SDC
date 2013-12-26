@@ -73,7 +73,7 @@
               <li><!-- The Cake -->
                 <div>
                   <label for="celebration_date">Date of celebration</label>
-                  <input type="text" name="celebration_date" class="date" id="celebration_date" onchange="validateInput('#celebration_date', '#celebration_date_error')">
+                  <input type="text" name="celebration_date" class="date" id="celebration_date" onchange="validate.input('#celebration_date', '#celebration_date_error')">
                 </div>
                 <div id="celebration_date_error" class="validate-error"></div>
                 <div>
@@ -118,7 +118,7 @@
                 </div>
                 <div id="comments">
                   <label for="comments">Comments</label>
-                  <textarea name="comments" id="comments" rows="6" cols="30" onchange="validateInput('textarea#comments', '#comments_error')"></textarea>
+                  <textarea name="comments" id="comments" rows="6" cols="30" onchange="validate.input('textarea#comments', '#comments_error')"></textarea>
                 </div>
                 <div id="comments_error" class="validate-error"></div>
               </li>
@@ -147,7 +147,7 @@
                 </div>
                 <div>
                   <label for="datetime" id="datetime-label">Date/time for collection</label>
-                  <input type="text" id="datetime" name="datetime" onchange="validateInput('#datetime', '#datetime_error')">
+                  <input type="text" id="datetime" name="datetime" onchange="validate.input('#datetime', '#datetime_error')">
                 </div>
                 <div id="datetime_error" class="validate-error"></div>
               </li>

@@ -9,9 +9,9 @@ $(document).ready(function() {
 
   $("#testimonial-form").submit(function(e) {
     // Validate the fields
-    validateEmail();
-    validateInput('#name', '#name_error');
-    validateInput('textarea#testimonial', '#testimonial_error');
+    validate.email();
+    validate.input('#name', '#name_error');
+    validate.input('textarea#testimonial', '#testimonial_error');
     $(".ajax-load").css("display", "inline-block");
     if ($input_check && $email_check) {
       // Submit the form
@@ -54,9 +54,9 @@ $(document).ready(function() {
     } else {
       // Don't submit the form
       e.preventDefault();
-      validateEmail();
-      validateInput('#name', '#name_error');
-      validateInput('textarea#testimonial', '#testimonial_error');
+      validate.email();
+      validate.input('#name', '#name_error');
+      validate.input('textarea#testimonial', '#testimonial_error');
       $(".ajax-load").hide();
     }
   });

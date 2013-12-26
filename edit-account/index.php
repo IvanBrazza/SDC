@@ -77,17 +77,17 @@
         </div>
         <div>
           <label for="first_name">First Name</label>
-          <input type="text" name="first_name" id="first_name" value="<?php echo htmlentities($_SESSION['user']['first_name'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validateInput('#first_name', '#first_name_error')"> 
+          <input type="text" name="first_name" id="first_name" value="<?php echo htmlentities($_SESSION['user']['first_name'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#first_name', '#first_name_error')"> 
         </div>
         <div id="first_name_error" class="validate-error"></div>
         <div>
           <label for="last_name">Last Name</label>
-          <input type="text" name="last_name" id="last_name" value="<?php echo htmlentities($_SESSION['user']['last_name'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validateInput('#last_name', '#last_name_error')"> 
+          <input type="text" name="last_name" id="last_name" value="<?php echo htmlentities($_SESSION['user']['last_name'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#last_name', '#last_name_error')"> 
         </div>
         <div id="last_name_error" class="validate-error"></div>
         <div>
           <label for="email">E-Mail Address</label>
-          <input type="text" name="email" id="email" value="<?php echo htmlentities($_SESSION['user']['email'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validateEmail()"> 
+          <input type="text" name="email" id="email" value="<?php echo htmlentities($_SESSION['user']['email'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.email()"> 
         </div>
         <div id="email-error" class="validate-error"></div>
         <div>
@@ -97,17 +97,17 @@
         </div>
         <div>
           <label for="address">Address</label>
-          <input type="text" name="address" id="address" value="<?php echo htmlentities($_SESSION['user']['address'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validateInput('#address', '#address_error')">
+          <input type="text" name="address" id="address" value="<?php echo htmlentities($_SESSION['user']['address'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#address', '#address_error')">
         </div>
         <div id="address_error" class="validate-error"></div>
         <div>
           <label for="postcode">Postcode</label>
-          <input type="text" name="postcode" id="postcode" value="<?php echo htmlentities($_SESSION['user']['postcode'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validatePostcode()">
+          <input type="text" name="postcode" id="postcode" value="<?php echo htmlentities($_SESSION['user']['postcode'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.postcode()">
         </div>
         <div id="postcode_error" class="validate-error"></div>
         <div>
           <label for="phone">Phone number</label>
-          <input type="text" name="phone" id="phone" value="<?php echo $_SESSION['user']['phone'] ?>" onchange="validatePhone()">
+          <input type="text" name="phone" id="phone" value="<?php echo $_SESSION['user']['phone'] ?>" onchange="validate.phone()">
         </div>
         <div id="phone_error" class="validate-error"></div>
         <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">

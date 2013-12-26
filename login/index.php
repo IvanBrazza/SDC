@@ -39,12 +39,12 @@
     <form action="index.php" method="post" id="login-form"> 
       <div>
         <label for="username">Username</label>
-        <input type="text" name="username" id="username" onchange="validateUsername()"/>
+        <input type="text" name="username" id="username" onchange="validate.username()"/>
       </div>
       <div id="username-error" class="validate-error"></div>
       <div>
         <label for="password">Password</label>
-        <input type="password" name="password" id="password" onchange="validatePassword()" />
+        <input type="password" name="password" id="password" onchange="validate.password()" />
       </div>
       <div id="password-error" class="validate-error"></div>
       <a href="../forgot-password" class="forgot-password">Forgot Password</a>

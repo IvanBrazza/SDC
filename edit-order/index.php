@@ -282,11 +282,11 @@
       </tr>
       <tr>
         <th id="datetime-label">Date/Time For <?php if ($row['delivery_type'] === "Collection") : ?>Collection<?php else : ?>Delivery<?php endif; ?></th>
-        <td><input type="text" name="datetime" class="datetime" value="<?php echo $row['datetime']; ?>" id="datetime" onchange="validateInput('#datetime', '#datetime_error')"></td>
+        <td><input type="text" name="datetime" class="datetime" value="<?php echo $row['datetime']; ?>" id="datetime" onchange="validate.input('#datetime', '#datetime_error')"></td>
       </tr>
       <tr>
         <th>Date Of Celebration</th>
-        <td><input type="text" name="celebration_date" value="<?php echo $row['celebration_date']; ?>" class="date" id="celebration_date" onchange="validateInput('#celebration_date', '#celebration_date_error')"></td>
+        <td><input type="text" name="celebration_date" value="<?php echo $row['celebration_date']; ?>" class="date" id="celebration_date" onchange="validate.input('#celebration_date', '#celebration_date_error')"></td>
       </tr>
       <tr>
         <th>Status</th>
@@ -294,7 +294,7 @@
       </tr>
       <tr>
         <th>Comments</th>
-        <td><input type="text" name="comments" value="<?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?>" id="comments" onchange="validateInput('#comments', '#comments_error')"</td>
+        <td><input type="text" name="comments" value="<?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?>" id="comments" onchange="validate.input('#comments', '#comments_error')"</td>
       </tr>
       <tr>
         <th>Filling</th>
