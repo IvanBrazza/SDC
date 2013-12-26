@@ -301,7 +301,8 @@ var validate = {
   email: function() {
     var email             = $("input[name=email]").val(),
         $email            = $("input[name=email]"),
-        $email_error      = $("#email-error");
+        $email_error      = $("#email-error"),
+        regex             = /^(\w+\.?\w*)@(.+){2,}\.(.+){2,}[^\.]$/;
 
     if (email === null) {
       $email_error.html("Please enter your email");
@@ -310,7 +311,7 @@ var validate = {
       $email.effect("shake", {}, 500);
       $email_error.slideUp("fast");
       $email_check = false;
-    } else if (/^(\w+\.?\w*)@(.+){2,}\.(.+){2,}[^\.]$/.test(email)){
+    } else if (regex.test(email)){
       $email.removeClass("invalid");
       $email.addClass("valid");
       $email_error.slideUp("fast");
@@ -425,7 +426,8 @@ var validate = {
   postcode: function() {
     var postcode          = $("input[name=postcode]").val(),
         $postcode         = $("input[name=postcode]"),
-        $postcode_error   = $("#postcode_error");
+        $postcode_error   = $("#postcode_error"),
+        regex             = /^[A-Za-z]{1,2}[0-9]{1,2}[A-Za-z]? ?[0-9][A-Za-z]{2}$/;
 
     if (postcode === null) {
       $postcode_error.html("Please enter your postcode");
@@ -434,7 +436,7 @@ var validate = {
       $postcode.effect("shake", {}, 500);
       $postcode_error.slideDown("fast");
       $postcode_check = false;
-    } else if (/^[A-Za-z]{1,2}[0-9]{1,2}[A-Za-z]? ?[0-9][A-Za-z]{2}$/.test(postcode)) {
+    } else if (regex.test(postcode)) {
       $postcode.removeClass("invalid");
       $postcode.addClass("valid");
       $postcode_error.slideUp("fast");
@@ -451,7 +453,8 @@ var validate = {
   phone: function() {
     var phone         = $("input[name=phone]").val(),
         $phone        = $("input[name=phone]"),
-        $phone_error  = $("#phone_error");
+        $phone_error  = $("#phone_error"),
+        regex         = /0[ -]?[1-9](?:[ -]?\d){9}/;
 
     if (phone === null) {
       $phone_error.html("Please enter your phone number");
@@ -460,7 +463,7 @@ var validate = {
       $phone.effect("shake", {}, 500);
       $phone_error.slideDown("fast");
       $phone_check = false;
-    } else if (/0[ -]?[1-9](?:[ -]?\d){9}/.test(phone)) {
+    } else if (regex.test(phone)) {
       $phone.removeClass("invalid");
       $phone.addClass("valid");
       $phone_error.slideUp("fast");
