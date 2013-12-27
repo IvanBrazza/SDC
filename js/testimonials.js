@@ -12,7 +12,7 @@ $(document).ready(function() {
     validate.email();
     validate.input('#name', '#name_error');
     validate.input('textarea#testimonial', '#testimonial_error');
-    $(".ajax-load").css("display", "inline-block");
+    loader.Show();
     if ($input_check && $email_check) {
       // Submit the form
       $.ajax({
@@ -22,7 +22,7 @@ $(document).ready(function() {
         success: function(response) {
           if (response.substring(0, 7) === 'success') {
             $("#submit-testimonial-form").slideUp();
-            $(".ajax-load").hide();
+            loader.Hide();
             $("#testimonials").append("<div>" + 
                                       "<p class='testimonial'>" + $('textarea#testimonial').val()  + "</p>" + 
                                       "<span class='testimonial-name'>" + 
@@ -46,7 +46,7 @@ $(document).ready(function() {
             $("#token").val(response.substring(8));
           } else {
             $("#error_message").html(response);
-            $(".ajax-load").hide();
+            loader.Hide();
           }
         }
       });
@@ -57,12 +57,12 @@ $(document).ready(function() {
       validate.email();
       validate.input('#name', '#name_error');
       validate.input('textarea#testimonial', '#testimonial_error');
-      $(".ajax-load").hide();
+      loader.Hide();
     }
   });
 
   $(".delete_testimonial").click(function(e) {
-    $(".ajax-load").css("display", "inline-block");
+    loader.Show();
     var $button = $(this);
     $.ajax({
       type: 'post',

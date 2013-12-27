@@ -3,15 +3,11 @@
   <meta http-equiv="Content-Language" content="en" />
   <title><?php echo $title ?> | Star Dream Cakes</title>
   <link rel="icon" href="../favicon.ico">
+  <link href="../css/jquery-ui.css" rel="stylesheet">
   <link href="../css/main.css" rel="stylesheet">
   <?php if (strpos($_SERVER['REQUEST_URI'], "add-order") !== false or
             strpos($_SERVER['REQUEST_URI'], "place-an-order") !== false) : ?>
     <link href="../css/timepicker.css" rel="stylesheet">
-    <link href="../css/jquery-ui.css" rel="stylesheet">
-  <?php endif; ?>
-  <?php if (strpos($_SERVER['REQUEST_URI'], "all-orders") !== false or
-            strpos($_SERVER['REQUEST_URI'], "stats") !== false) : ?>
-    <link href="../css/jquery-ui.css" rel="stylesheet">
   <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "gallery") !== false) : ?>
     <link href="../css/flexslider.css" rel="stylesheet">

@@ -21,4 +21,28 @@ $(document).ready(function() {
   });
 
   $("table:not(#single_order)").tablePagination();
+
+  loader.Init();
 });
+
+var loader = {
+  Init: function() {
+    $("#loading-spinner-dialog").dialog({
+      closeOnEscape: false,
+      draggable: false,
+      height: 107,
+      modal: true,
+      resizable: false,
+      width: 90
+    }).parent().children("div:first-child").css("display", "none");
+    $("#loading-spinner-dialog").dialog("option", "height", 107)
+                                .dialog("close")
+                                .dialog("option", "show", {effect: "fade", duration: 500});
+  },
+  Show: function() {
+    $("#loading-spinner-dialog").dialog("open");
+  },
+  Hide: function() {
+    $("#loading-spinner-dialog").dialog("close");
+  }
+};

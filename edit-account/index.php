@@ -112,7 +112,6 @@
         <div id="phone_error" class="validate-error"></div>
         <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
         <input type="submit" value="Update Account" />
-        <span class="ajax-load"></span>
       </form>
     </div>
 <?php include("../lib/footer.php"); ?>

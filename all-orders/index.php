@@ -385,7 +385,6 @@
       <input type="hidden" id="token" name="token" value="<?php echo $_SESSION['token']; ?>" />
       <input type="text" id="order_number" name="order" placeholder="Enter order number" />
       <input type="submit" value="Search all orders" />
-      <span class="ajax-load"></span>
     </form>
     <script>
       var orderNumbers = [

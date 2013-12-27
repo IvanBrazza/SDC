@@ -224,7 +224,6 @@
                 <br /><br />
                 <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
                 <input type="image" src="../img/paywithpp.gif" <?php if ($details_correct === false) : ?>disabled<?php endif; ?> />
-                <span class="ajax-load"></span>
               </li>
             </ul>
           </div>

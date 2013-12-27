@@ -51,7 +51,6 @@
       <br /><br />
       <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
       <input type="submit" value="Login" />
-      <span class="ajax-load"></span>
     </form> 
   </div>
 <?php include("../lib/footer.php");

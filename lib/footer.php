@@ -5,6 +5,9 @@
       <div>&copy; Star Dream Cakes 2013</div>
     </div>
   </div>
+  <div id="loading-spinner-dialog">
+    <div class="ajax-load"></div>
+  </div>
   <script src="../js/jquery/jquery-1.10.2.min.js"></script>
   <script src="../js/jquery/jquery-ui.js"></script>
   <script src="../js/table-pagination.js"></script>

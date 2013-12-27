@@ -1,6 +1,6 @@
 $(document).ready(function() {
   $("#order_search").submit(function(e) {
-    $(".ajax-load").css("display", "inline-block");
+    loader.Show();
     $.ajax({
       type: 'post',
       url: '../lib/form/order-search.php',
@@ -10,7 +10,7 @@ $(document).ready(function() {
           window.location.href = response;
         } else {
           $("#error_message").html(response);
-          $(".ajax-load").hide();
+          loader.Hide();
         }
       }
     });

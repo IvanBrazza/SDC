@@ -242,7 +242,6 @@
               <br /><br />
               <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
               <input type="submit" value="Add Order">
-              <span class="ajax-load"></span>
             </li>
           </ul>
         </div>

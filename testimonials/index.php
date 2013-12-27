@@ -88,7 +88,6 @@
       ?>
       <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token" id="token">
       <input type="submit" id="submit-testimonial" value="Submit Testimonial" name="submit">
-      <span class="ajax-load"></span>
     </form>
   </div>
 <?php include("../lib/footer.php");

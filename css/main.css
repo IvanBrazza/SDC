@@ -295,13 +295,9 @@ tr.hover {
 .ajax-load {
   background-image:   url('../img/spinner.gif');
   background-repeat:  no-repeat;
-  height:             16px;
-  display:            none;
-  }
-
-.ajax-load:after {
-  content:            "Please wait...";
-  padding-left:       20px;
+  height:             80px;
+  width:              80px;
+  margin:             0 auto;
   }
 
 /* Copyright footer  */
