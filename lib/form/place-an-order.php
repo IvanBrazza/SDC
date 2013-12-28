@@ -1,8 +1,5 @@
 <?php
   require("../common.php");
-  include_once("../email.php");
-
-  $email = new Email;
 
   // If the order form has been submitted
   if (!empty($_POST))
@@ -355,21 +352,6 @@
         die("Failed to run query: " . $ex->getMessage() . "query: " . $query);
       }
     }
-
-    // Email the order details to the user
-    $email->order($order_number,
-                  $order_placed,
-                  $_POST["datetime"],
-                  $_POST["celebration_date"],
-                  $_POST["comments"],
-                  $_POST["filling"],
-                  $_POST["decoration"],
-                  $_POST["cake_type"],
-                  $_POST["cake_size"],
-                  $_POST["delivery"]);
-    $email->setFirstName($_SESSION['user']['first_name']);
-    $email->setRecipient($_SESSION['user']['email']);
-    $email->send();
 
     // Start PayPal payment process
     include "../PayPal/PayWithPayPal.php";

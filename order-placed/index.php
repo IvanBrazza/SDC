@@ -10,7 +10,12 @@
   }
   $page = "place-an-order";
 
-  if (!empty($_GET) and $_GET['failed'] == "true")
+  if (!empty($_GET) and $_GET['failed'] == "false")
+  {
+    shell_exec("php ../lib/sendEmail.php '" . $_SESSION['user']['email'] . "' '" . $_SESSION['user']['name']  .
+               "' >> /var/log/lighttpd/email.log &");
+  }
+  else if (!empty($_GET) and $_GET['failed'] == "true")
   {
     $query = "
       SELECT

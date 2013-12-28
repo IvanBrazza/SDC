@@ -41,7 +41,7 @@
               ->setDescription("Payment description");
 
   $redirectUrls = new RedirectUrls();
-  $redirectUrls->setReturnUrl("http://www.ivanbrazza.biz/order-placed/")
+  $redirectUrls->setReturnUrl("http://www.ivanbrazza.biz/order-placed/?order=" . $order_number . "&failed=false")
                ->setCancelUrl("http://www.ivanbrazza.biz/order-placed/?order=" . $order_number . "&failed=true");
 
   $payment = new Payment();
