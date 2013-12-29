@@ -65,8 +65,8 @@
           <span class='tab_item'>Delivery</span>
           <span class='tab_item'>Review</span>
         </div>
-      <button id="order-form-previous" disabled>Back</button>
-      <button id="order-form-next">Next</button>
+        <a href="javascript:" id="order-form-previous" class="order-form-navigation">Back</a>
+        <a href="javascript:" id="order-form-next" class="order-form-navigation">Next</a>
         <div class='slide_content'>
           <div class='tabslider'>
             <ul>

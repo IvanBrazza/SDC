@@ -5,22 +5,29 @@ $(document).ready(function() {
     slideContent($(this));
   });
 
+  $("#order-form-previous").data("disabled", "true");
+  $("#order-form-next").data("disabled", "false");
+
   $("#order-form-next").click(function() {
-    var next = $(".tabs").find(".active").next();
-    var background = $(".tabs").find(".moving_bg");
+    if ($(this).data("disabled") == "false") {
+      var next = $(".tabs").find(".active").next();
+      var background = $(".tabs").find(".moving_bg");
 
-    $(background).stop().animate({left: next.position()['left']}, {duration: 300});
+      $(background).stop().animate({left: next.position()['left']}, {duration: 300});
 
-    slideContent(next);
+      slideContent(next);
+    }
   });
   
   $("#order-form-previous").click(function() {
-    var previous = $(".tabs").find(".active").prev();
-    var background = $(".tabs").find(".moving_bg");
+    if ($(this).data("disabled") == "false") {
+      var previous = $(".tabs").find(".active").prev();
+      var background = $(".tabs").find(".moving_bg");
 
-    $(background).stop().animate({left: previous.position()['left']}, {duration: 300});
+      $(background).stop().animate({left: previous.position()['left']}, {duration: 300});
 
-    slideContent(previous);
+      slideContent(previous);
+    }
   });
 
   $("#celebration_date").change(function() {
@@ -70,14 +77,14 @@ function slideContent(obj) {
   margin = margin * -1;
 
   if ($(obj).prevAll().size() == 1) {
-    $("#order-form-previous").prop("disabled", true);
-    $("#order-form-next").prop("disabled", false);
+    $("#order-form-previous").data("disabled", "true");
+    $("#order-form-next").data("disabled", "false");
   } else if ($(obj).prevAll().size() == 4) {
-    $("#order-form-next").prop("disabled", true);
-    $("#order-form-previous").prop("disabled", false);
+    $("#order-form-next").data("disabled", "true");
+    $("#order-form-previous").data("disabled", "false");
   } else {
-    $("#order-form-previous").prop("disabled", false);
-    $("#order-form-next").prop("disabled", false);
+    $("#order-form-previous").data("disabled", "false");
+    $("#order-form-next").data("disabled", "false");
   }
 
   $(".tabslider").stop().animate({marginLeft: margin + "px"}, {duration: 300});

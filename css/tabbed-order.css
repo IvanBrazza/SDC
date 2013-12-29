@@ -68,6 +68,10 @@
   padding-bottom:       7px;
   }
 
-button#order-form-next {
+a#order-form-next {
   float:                right;
+  }
+
+a.order-form-navigation {
+  text-decoration:      none;
   }
