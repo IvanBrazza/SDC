@@ -8,8 +8,8 @@
   <div id="loading-spinner-dialog">
     <div class="ajax-load"></div>
   </div>
-  <script src="../js/jquery/jquery-1.10.2.min.js"></script>
-  <script src="../js/jquery/jquery-ui.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
   <script src="../js/table-pagination.js"></script>
   <?php if (strpos($_SERVER['REQUEST_URI'], "login") !== false or
             strpos($_SERVER['REQUEST_URI'], "register") !== false or
