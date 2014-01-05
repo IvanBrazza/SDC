@@ -41,16 +41,7 @@
   $row = $stmt->fetch();
 
   // Email the order details to the user
-  $email->order($row["order_number"],
-                $row["order_placed"],
-                $row["datetime"],
-                $row["celebration_date"],
-                $row["comments"],
-                $row["filling"],
-                $row["decoration"],
-                $row["cake_type"],
-                $row["cake_size"],
-                $row["delivery_type"]);
+  $email->order($row);
   $email->setFirstName($argv[2]);
   $email->setRecipient($argv[1]);
   echo "[" . date("Y-m-d H:i:s") . "]: Sending mail to " . $argv[1] . "\r\n";

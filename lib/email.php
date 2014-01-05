@@ -65,7 +65,7 @@ class Email {
     $this->text      .= "Fran";
   }
 
-  function order($number, $date, $datetime, $celebration_date, $comments, $filling, $decoration, $cake_type, $cake_size, $delivery)
+  function order($orderDetails)
   {
     $this->subject    = 'Your Order With Star Dream Cakes';
   
@@ -73,36 +73,36 @@ class Email {
     $this->html      .= '<p>Hi ' . $this->firstName . ',</p>';
     $this->html      .= '<p>Here is the order you\'ve requested:</p>';
     $this->html      .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
-    $this->html      .= '<tr><th>Order Number</td><td>' . $number . '</td></tr>';
-    $this->html      .= '<tr><th>Date Order Placed</th><td>' . $date . '</td></tr>';
-    $this->html      .= '<tr><th>Required Date</th><td>' . $datetime . '</td></tr>';
-    $this->html      .= '<tr><th>Date of Celebration</th><td>' . $celebration_date . '</td></tr>';
-    $this->html      .= '<tr><th>Comments</th><td>' . $comments . '</td></tr>';
-    $this->html      .= '<tr><th>Filling</th><td>' . $filling . '</td></tr>';
-    $this->html      .= '<tr><th>Decoration</th><td>' . $decoration . '</td></tr>';
-    $this->html      .= '<tr><th>Cake Type</th><td>' . $cake_type . '</td></tr>';
-    $this->html      .= '<tr><th>Cake Size</th><td>' . $cake_size . '</td></tr>';
-    $this->html      .= '<tr><th>Delivery Type</th><td>' . $delivery . '</td></tr>';
+    $this->html      .= '<tr><th>Order Number</td><td>' . $orderDetails['order_number'] . '</td></tr>';
+    $this->html      .= '<tr><th>Date Order Placed</th><td>' . $orderDetails['order_placed'] . '</td></tr>';
+    $this->html      .= '<tr><th>Required Date</th><td>' . $orderDetails['datetime'] . '</td></tr>';
+    $this->html      .= '<tr><th>Date of Celebration</th><td>' . $orderDetails['celebration_date'] . '</td></tr>';
+    $this->html      .= '<tr><th>Comments</th><td>' . $orderDetails['comments'] . '</td></tr>';
+    $this->html      .= '<tr><th>Filling</th><td>' . $orderDetails['filling'] . '</td></tr>';
+    $this->html      .= '<tr><th>Decoration</th><td>' . $orderDetails['decoration'] . '</td></tr>';
+    $this->html      .= '<tr><th>Cake Type</th><td>' . $orderDetails['cake_type'] . '</td></tr>';
+    $this->html      .= '<tr><th>Cake Size</th><td>' . $orderDetails['cake_size'] . '</td></tr>';
+    $this->html      .= '<tr><th>Delivery Type</th><td>' . $orderDetails['delivery_type'] . '</td></tr>';
     $this->html      .= '</table>';
     $this->html      .= '<p>If you have any problems, please don\'t hesitate to call.</p>';
     $this->html      .= '<p>Thanks,</p>';
     $this->html      .= '<p>Fran</p>';
     $this->html      .= '</body></html>';
   
-    $this->text       = "Hi, " . $this->firstName . ",\r\n" . 
+    $this->text       = "Hi, " . $this->firstName . ",\r\n" .
                         "Here is the order you've requested:\r\n" .
-                        "Order Number: " . $number . "\r\n" . 
-                        "Order Placed: " . $order_placed . "\r\n" .
-                        "Required Date: " . $datetime . "\r\n" .
-                        "Date of Celebration: " . $celebration_date . "\r\n" . 
-                        "Comments: " . $comments . "\r\n" . 
-                        "Filling: " . $filling . "\r\n" . 
-                        "Decoration: " . $decoration . "\r\n" . 
-                        "Cake Type: " . $cake_type . "\r\n" . 
-                        "Cake Size: " . $cake_size . "\r\n" . 
-                        "Delivery Type: " . $delivery_type . "\r\n" . 
-                        "If you have any problems, please don't hesitate to call.\r\n" . 
-                        "Thanks,\r\n" . 
+                        "Order Number: " . $orderDetails['order_number'] . "\r\n" .
+                        "Order Placed: " . $orderDetails['order_placed'] . "\r\n" .
+                        "Required Date: " . $orderDetails['datetime'] . "\r\n" .
+                        "Date of Celebration: " . $orderDetails['celebration_date'] . "\r\n" .
+                        "Comments: " . $orderDetails['comments'] . "\r\n" .
+                        "Filling: " . $orderDetails['filling'] . "\r\n" .
+                        "Decoration: " . $orderDetails['decoration'] . "\r\n" .
+                        "Cake Type: " . $orderDetails['cake_type'] . "\r\n" .
+                        "Cake Size: " . $orderDetails['cake_size'] . "\r\n" .
+                        "Delivery Type: " . $orderDetails['delivery_type'] . "\r\n" .
+                        "If you have any problems, please don't hesitate to call.\r\n" .
+                        "Thanks,\r\n" .
                         "Fran.";
   }
 
