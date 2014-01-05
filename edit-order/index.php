@@ -112,25 +112,13 @@
 
       $row = $stmt->fetch();
 
-      include "../lib/distance.php";
-      $miles = calculateDistance($_SESSION['user']['address'], $_SESSION['user']['postcode']);
-      $remaining_miles = $miles - 5;
-      $remaining_miles = round($remaining_miles / 5) * 5;
-      if ($remaining_miles <= 0)
-      {
-        $delivery_charge = 0;
-      }
-      else
-      {
-        for ($i = 5, $j = 3; $i <= 50; $i++, $j = $j + 3)
-        {
-          if ($remaining_miles == $i)
-          {
-            $delivery_charge = $j;
-          }
-        }
-      }
-      
+      include "../lib/delivery.php";
+      $delivery = new Delivery;
+      $delivery->setAddress($_SESSION['user']['address']);
+      $delivery->setPostcode($_SESSION['user']['postcode']);
+      $delivery->calculateDistance();
+      $delivery->calculateDeliveryCharge();
+
       if ($row)
       {
         $query = "
@@ -145,7 +133,7 @@
 
         $query_params = array(
           ':miles'            => $miles,
-          ':delivery_charge'  => $delivery_charge,
+          ':delivery_charge'  => $delivery->getDeliveryCharge(),
           ':order_number'     => $_POST['order_number']
         );
       }

@@ -364,6 +364,16 @@
     
   }
 
+  if (!empty($_GET['order']) or !empty($_GET['id']))
+  {
+    include("../lib/delivery.php");
+    $delivery = new Delivery;
+
+    $delivery->setAddress($userrow['address']);
+    $delivery->setPostcode($userrow['postcode']);
+    $delivery->calculateDistance();
+  }
+
   // Generate token
   $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 
@@ -568,8 +578,7 @@
       <span class="title">Address:</span><br />
       <?php echo htmlentities($userrow['address'], ENT_QUOTES, 'UTF-8'); ?><br />
       <?php echo htmlentities($userrow['postcode'], ENT_QUOTES, 'UTF-8'); ?><br />
-      <?php include "../lib/distance.php"; ?>
-      <i>(<?php echo calculateDistance($userrow['address'], $userrow['postcode']); ?> miles away)</i><br/>
+      <i>(<?php echo $delivery->getDistance(); ?> miles away)</i><br/>
       <a href="../get-directions?id=<?php echo $row['customer_id']; ?>">Get directions</a>
       <br />
       <br />
@@ -589,8 +598,7 @@
     <span class="title">Address:</span><br />
     <?php echo htmlentities($userrow['address'], ENT_QUOTES, 'UTF-8'); ?><br />
     <?php echo htmlentities($userrow['postcode'], ENT_QUOTES, 'UTF-8'); ?><br />
-    <?php include "../lib/distance.php" ?>
-    <i>(<?php echo calculateDistance($userrow['address'], $userrow['postcode']); ?> miles away)</i><br />
+    <i>(<?php echo $delivery->getDistance(); ?> miles away)</i><br />
     <a href="../get-directions?id=<?php echo $row['customer_id']; ?>">Get directions</a>
     <br />
     <br />

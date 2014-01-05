@@ -345,24 +345,12 @@
     if ($_POST['delivery'] === "Deliver To Address")
     {
       // Calculate the delivery charge
-      include "../distance.php";
-      $miles = calculateDistance($userrow['address'], $userrow['postcode']);
-      $remaining_miles = $miles - 5;
-      $remaining_miles = round($remaining_miles / 5) * 5;
-      if ($remaining_miles <= 0)
-      {
-        $delivery_charge = 0;
-      }
-      else
-      {
-        for ($i = 5, $j = 1; $i <= 50; $i = $i + 5, $j++)
-        {
-          if ($remaining_miles == $i)
-          {
-            $delivery_charge = $j;
-          }
-        }
-      }
+      include "../delivery.php";
+      $delivery = new Delivery;
+      $delivery->setAddress($userrow['address']);
+      $delivery->setPostcode($userrow['postcode']);
+      $delivery->calculateDistance();
+      $delivery->calculateDeliveryCharge();
 
       // Insert the delivery details into the "delivery" DB table
       $query = "
@@ -382,7 +370,7 @@
       $query_params = array(
         ':order_number'     => $order_number,
         ':miles'            => $miles,
-        ':delivery_charge'  => $delivery_charge
+        ':delivery_charge'  => $delivery->getDeliveryCharge()
       );
 
       try

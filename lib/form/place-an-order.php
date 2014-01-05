@@ -302,24 +302,12 @@
     // the "delivery" DB table.
     if ($_POST['delivery'] === "Deliver To Address")
     {
-      include "../distance.php";
-      $miles = calculateDistance($_SESSION['user']['address'], $_SESSION['user']['postcode']);
-      $remaining_miles = $miles - 5;
-      $remaining_miles = round($remaining_miles / 5) * 5;
-      if ($remaining_miles <= 0)
-      {
-        $delivery_charge = 0;
-      }
-      else
-      {
-        for ($i = 5, $j = 3; $i <= 50; $i = $i + 5, $j = $j + 3)
-        {
-          if ($remaining_miles == $i)
-          {
-            $delivery_charge = $j;
-          }
-        }
-      }
+      include "../delivery.php";
+      $delivery = new Delivery;
+      $delivery->setAddress($_SESSION['user']['address']);
+      $delivery->setPostcode($_SESSION['user']['postcode']);
+      $delivery->calculateDistance();
+      $delivery->calculateDeliveryCharge();
 
       $query = "
         INSERT INTO delivery (
@@ -338,7 +326,7 @@
       $query_params = array(
         ':order_number'     => $order_number,
         ':miles'            => $miles,
-        ':delivery_charge'  => $delivery_charge
+        ':delivery_charge'  => $delivery->getDeliveryCharge();
       );
 
       try

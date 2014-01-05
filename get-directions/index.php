@@ -37,6 +37,13 @@
     }
 
     $row = $stmt->fetch();
+
+    include "../lib/delivery.php";
+    $delivery = new Delivery();
+    
+    $delivery->setAddress($row['address']);
+    $delivery->setPostcode($row['postcode']);
+    $delivery->calculateDistance();
   }
 ?>
 <?php include("../lib/header.php"); ?>
@@ -46,8 +53,7 @@
     <p><?php echo $row['first_name'] . " " . $row['last_name']; ?><br />
     <?php echo $row['address']; ?><br />
     <?php echo $row['postcode']; ?><br />
-    <?php include "../lib/distance.php"; ?>
-    <i>(<?php echo calculateDistance($row['address'], $row['postcode']); ?> miles away)</i></p>
+    <i>(<?php echo $delivery->getDistance(); ?> miles away)</i></p>
 
     <div id="directions-panel"></div>
     <div id="map-canvas"></div>
