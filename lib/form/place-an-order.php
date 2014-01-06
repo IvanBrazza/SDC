@@ -325,7 +325,7 @@
 
       $query_params = array(
         ':order_number'     => $order_number,
-        ':miles'            => $miles,
+        ':miles'            => $delivery->getDistance,
         ':delivery_charge'  => $delivery->getDeliveryCharge
       );
 
