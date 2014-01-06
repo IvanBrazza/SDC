@@ -4,10 +4,10 @@
     This library connects to the database and starts the session.
   **/
   
-  $username         = "root";
-  $password         = "you are not my supervisor";
+  $username         = "ivanrsfr";
+  $password         = "inspiron1520";
   $host             = "localhost";
-  $dbname           = "sdc_db";
+  $dbname           = "ivanrsfr_sdc";
   $options          = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
   $display_message  = "";
 

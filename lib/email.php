@@ -2,144 +2,81 @@
 class Email {
   var $subject;
   var $to;
-  var $html;
-  var $text;
+  var $body;
   var $firstName;
 
   function send()
   {
-    require_once "Mail.php";
-    require_once "Mail/mime.php";
+    $from = "admin@ivanbrazz.biz";
+    $headers = "From: $from" . "\r\n" . "Reply-To: $from" . "\r\n" ;
 
-    $from = 'Star Dream Cakes <admin@ivanbrazza.biz>';
-    $crlf = "\n";
-    $headers = array(
-                 'From'         => $from,
-                 'Return-Path'  => $from,
-                 'Subject'      => $this->subject
-               );
-
-    $mime = new Mail_mime($crlf);
-    $mime->setTXTBody($this->text);
-    $mime->setHTMLBody($this->html);
-    
-    $body = $mime->get();
-    $headers = $mime->headers($headers);
-  
-    $mail =& Mail::factory('smtp', array(
-      'host'      => 'oxmail.registrar-servers.com',
-      'port'      => '25',
-      'auth'      => true,
-      'username'  => 'admin@ivanbrazza.biz',
-      'password'  => 'inspiron1520',
-      'timeout'   => '30'
-    ));
-  
-    $mail->send($this->to, $headers, $body);
-  
-    if (PEAR::isError($mail))
-    {
-      error_log("Failed to send email: " . $mail->getMessage(), 0);
-      die();
-    }
+    mail($this->to, $this->subject, $this->body, $headers);
   }
 
   function statusUpdate($number, $status)
   {
     $this->subject    = 'Your Order With Star Dream Cakes';
 
-    $this->html       = '<html><body';
-    $this->html      .= '<p>Hi ' . $this->firstName . ',</p>';
-    $this->html      .= '<p>Just to let you know that the status of your order ';
-    $this->html      .=     $number . ' has been updated to ' . $status . '</p>';
-    $this->html      .= '<br />';
-    $this->html      .= '<p>If you have any problems, please don\'t hesistate to call.</p>';
-    $this->html      .= '<p>Thanks,</p>';
-    $this->html      .= '<p>Fran</p>';
-
-    $this->text       = "Hi " . $this->firstName . ",\r\n";
-    $this->text      .= "Just to let you know that the status of your order ";
-    $this->text      .= $number . " has been updated to " . $status . "\r\n";
-    $this->text      .= "If you have any problems, please don't hesistate to call.\r\n";
-    $this->text      .= "Thanks,\r\n";
-    $this->text      .= "Fran";
+    $this->body       = '<html><body';
+    $this->body      .= '<p>Hi ' . $this->firstName . ',</p>';
+    $this->body      .= '<p>Just to let you know that the status of your order ';
+    $this->body      .=     $number . ' has been updated to ' . $status . '</p>';
+    $this->body      .= '<br />';
+    $this->body      .= '<p>If you have any problems, please don\'t hesistate to call.</p>';
+    $this->body      .= '<p>Thanks,</p>';
+    $this->body      .= '<p>Fran</p>';
   }
 
   function order($orderDetails)
   {
     $this->subject    = 'Your Order With Star Dream Cakes';
   
-    $this->html       = '<html><body>';
-    $this->html      .= '<p>Hi ' . $this->firstName . ',</p>';
-    $this->html      .= '<p>Here is the order you\'ve requested:</p>';
-    $this->html      .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
-    $this->html      .= '<tr><th>Order Number</td><td>' . $orderDetails['order_number'] . '</td></tr>';
-    $this->html      .= '<tr><th>Date Order Placed</th><td>' . $orderDetails['order_placed'] . '</td></tr>';
-    $this->html      .= '<tr><th>Required Date</th><td>' . $orderDetails['datetime'] . '</td></tr>';
-    $this->html      .= '<tr><th>Date of Celebration</th><td>' . $orderDetails['celebration_date'] . '</td></tr>';
-    $this->html      .= '<tr><th>Comments</th><td>' . $orderDetails['comments'] . '</td></tr>';
-    $this->html      .= '<tr><th>Filling</th><td>' . $orderDetails['filling'] . '</td></tr>';
-    $this->html      .= '<tr><th>Decoration</th><td>' . $orderDetails['decoration'] . '</td></tr>';
-    $this->html      .= '<tr><th>Cake Type</th><td>' . $orderDetails['cake_type'] . '</td></tr>';
-    $this->html      .= '<tr><th>Cake Size</th><td>' . $orderDetails['cake_size'] . '</td></tr>';
-    $this->html      .= '<tr><th>Delivery Type</th><td>' . $orderDetails['delivery_type'] . '</td></tr>';
-    $this->html      .= '</table>';
-    $this->html      .= '<p>If you have any problems, please don\'t hesitate to call.</p>';
-    $this->html      .= '<p>Thanks,</p>';
-    $this->html      .= '<p>Fran</p>';
-    $this->html      .= '</body></html>';
-  
-    $this->text       = "Hi, " . $this->firstName . ",\r\n" .
-                        "Here is the order you've requested:\r\n" .
-                        "Order Number: " . $orderDetails['order_number'] . "\r\n" .
-                        "Order Placed: " . $orderDetails['order_placed'] . "\r\n" .
-                        "Required Date: " . $orderDetails['datetime'] . "\r\n" .
-                        "Date of Celebration: " . $orderDetails['celebration_date'] . "\r\n" .
-                        "Comments: " . $orderDetails['comments'] . "\r\n" .
-                        "Filling: " . $orderDetails['filling'] . "\r\n" .
-                        "Decoration: " . $orderDetails['decoration'] . "\r\n" .
-                        "Cake Type: " . $orderDetails['cake_type'] . "\r\n" .
-                        "Cake Size: " . $orderDetails['cake_size'] . "\r\n" .
-                        "Delivery Type: " . $orderDetails['delivery_type'] . "\r\n" .
-                        "If you have any problems, please don't hesitate to call.\r\n" .
-                        "Thanks,\r\n" .
-                        "Fran.";
+    $this->body       = '<html><body>';
+    $this->body      .= '<p>Hi ' . $this->firstName . ',</p>';
+    $this->body      .= '<p>Here is the order you\'ve requested:</p>';
+    $this->body      .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
+    $this->body      .= '<tr><th>Order Number</td><td>' . $orderDetails['order_number'] . '</td></tr>';
+    $this->body      .= '<tr><th>Date Order Placed</th><td>' . $orderDetails['order_placed'] . '</td></tr>';
+    $this->body      .= '<tr><th>Required Date</th><td>' . $orderDetails['datetime'] . '</td></tr>';
+    $this->body      .= '<tr><th>Date of Celebration</th><td>' . $orderDetails['celebration_date'] . '</td></tr>';
+    $this->body      .= '<tr><th>Comments</th><td>' . $orderDetails['comments'] . '</td></tr>';
+    $this->body      .= '<tr><th>Filling</th><td>' . $orderDetails['filling'] . '</td></tr>';
+    $this->body      .= '<tr><th>Decoration</th><td>' . $orderDetails['decoration'] . '</td></tr>';
+    $this->body      .= '<tr><th>Cake Type</th><td>' . $orderDetails['cake_type'] . '</td></tr>';
+    $this->body      .= '<tr><th>Cake Size</th><td>' . $orderDetails['cake_size'] . '</td></tr>';
+    $this->body      .= '<tr><th>Delivery Type</th><td>' . $orderDetails['delivery_type'] . '</td></tr>';
+    $this->body      .= '</table>';
+    $this->body      .= '<p>If you have any problems, please don\'t hesitate to call.</p>';
+    $this->body      .= '<p>Thanks,</p>';
+    $this->body      .= '<p>Fran</p>';
+    $this->body      .= '</body></html>';
   }
 
   function verification($code)
   {
     $this->subject    = "Register Your Email";
 
-    $this->html       = '<html><body>';
-    $this->html      .= '<p>Hi ' . $this->firstName . ',</p>';
-    $this->html      .= '<p>Thank you for registering with Star Dream Cakes. Please click the link below to verify your account:</p>';
-    $this->html      .= '<a href="http://www.ivanbrazza.biz/verify-email/?email=' . $to . '&code=' . $code . '>http://www.ivanbrazza.biz/verify-email/?email=' . $to . '&code=' . $code . '</a>';
-    $this->html      .= '<br />';
-    $this->html      .= '<p>Thank you,<br />';
-    $this->html      .= 'Star Dream Cakes</p>';
-    $this->html      .= '</body></html>';
-
-    $this->text       = "Hi " . $this->firstName . ",\r\nThank you for registering with Star Dream Cakes. Please click the link below to verify your account:" . 
-                        "http://www.ivanbrazza.biz/verify-email/?email=" . $to . "&code=" . $code . "\r\n\r\nThank You,\r\nStar Dream Cakes";
+    $this->body       = '<html><body>';
+    $this->body      .= '<p>Hi ' . $this->firstName . ',</p>';
+    $this->body      .= '<p>Thank you for registering with Star Dream Cakes. Please click the link below to verify your account:</p>';
+    $this->body      .= '<a href="http://www.ivanbrazza.biz/verify-email/?email=' . $to . '&code=' . $code . '>http://www.ivanbrazza.biz/verify-email/?email=' . $to . '&code=' . $code . '</a>';
+    $this->body      .= '<br />';
+    $this->body      .= '<p>Thank you,<br />';
+    $this->body      .= 'Star Dream Cakes</p>';
+    $this->body      .= '</body></html>';
   }
   
   function password($password)
   {
     $this->subject    = "Your new password";
 
-    $this->html       = '<html><body>';
-    $this->html      .= '<p>Hi ' . $this->firstName . ',</p>';
-    $this->html      .= '<p>You are receiving this email because you requested a new password for Star Dream Cakes. Here is your new password:</p>';
-    $this->html      .= '<p>' . $password . '</p>';
-    $this->html      .= '<p>Thank you,<br />';
-    $this->html      .= 'Star Dream Cakes</p>';
-    $this->html      .= '</body></html>';
-
-    $this->text       = "Hi " . $this->firstName . ",\r\n" . 
-                        "You are receiving this email because you requested a new password for Star Dream Cakes. Here is your new password:\r\n" . 
-                        $password . "\r\n" . 
-                        "Thank you,\r\n" . 
-                        "Star Dream Cakes";
+    $this->body       = '<html><body>';
+    $this->body      .= '<p>Hi ' . $this->firstName . ',</p>';
+    $this->body      .= '<p>You are receiving this email because you requested a new password for Star Dream Cakes. Here is your new password:</p>';
+    $this->body      .= '<p>' . $password . '</p>';
+    $this->body      .= '<p>Thank you,<br />';
+    $this->body      .= 'Star Dream Cakes</p>';
+    $this->body      .= '</body></html>';
   }
 
   function setRecipient($recipient)
