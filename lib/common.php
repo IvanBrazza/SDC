@@ -22,6 +22,8 @@
 
   $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+  date_default_timezone_set("GMT");
+
   ini_set( "session.cookie_lifetime", "0" );
   session_start();
 ?>
