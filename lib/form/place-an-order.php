@@ -326,7 +326,7 @@
       $query_params = array(
         ':order_number'     => $order_number,
         ':miles'            => $miles,
-        ':delivery_charge'  => $delivery->getDeliveryCharge();
+        ':delivery_charge'  => $delivery->getDeliveryCharge
       );
 
       try
