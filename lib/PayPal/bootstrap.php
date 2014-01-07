@@ -53,7 +53,7 @@ function getApiContext() {
 			'mode' => 'sandbox',
 			'http.ConnectionTimeOut' => 30,
 			'log.LogEnabled' => true,
-			'log.FileName' => '/var/log/lighttpd/PayPal.log',
+			'log.FileName' => '/home/ivanrsfr/PayPal.log',
 			'log.LogLevel' => 'FINE'
 		)
 	);
