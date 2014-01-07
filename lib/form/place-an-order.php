@@ -308,6 +308,8 @@
       $delivery->setPostcode($_SESSION['user']['postcode']);
       $delivery->calculateDistance();
       $delivery->calculateDeliveryCharge();
+      $distance = $delivery->getDistance();
+      $deliveryCharge = $delivery->getDeliveryCharge();
 
       $query = "
         INSERT INTO delivery (
@@ -325,8 +327,8 @@
 
       $query_params = array(
         ':order_number'     => $order_number,
-        ':miles'            => $delivery->getDistance,
-        ':delivery_charge'  => $delivery->getDeliveryCharge
+        ':miles'            => $distance,
+        ':delivery_charge'  => $deliveryCharge
       );
 
       try
