@@ -8,7 +8,10 @@ class Email {
   function send()
   {
     $from = "admin@ivanbrazza.biz";
-    $headers = "From: $from" . "\r\n" . "Reply-To: $from" . "\r\n" ;
+    $headers = "From: $from" . "\r\n" .
+               "Reply-To: $from" . "\r\n" .
+               "MIME-Version: 1.0" . "\r\n" .
+               "Content-type: text/html; charset=iso-8859-1" . "\r\n";
 
     mail($this->to, $this->subject, $this->body, $headers);
   }
