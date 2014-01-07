@@ -7,7 +7,7 @@ class Email {
 
   function send()
   {
-    $from = "admin@ivanbrazz.biz";
+    $from = "admin@ivanbrazza.biz";
     $headers = "From: $from" . "\r\n" . "Reply-To: $from" . "\r\n" ;
 
     mail($this->to, $this->subject, $this->body, $headers);
