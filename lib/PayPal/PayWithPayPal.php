@@ -27,12 +27,12 @@
   $itemList->setItems(array($item1));
 
   $details = new Details();
-  $details->setShipping($delivery_charge)
+  $details->setShipping($deliveryCharge)
           ->setSubtotal($base_price);
 
   $amount = new Amount();
   $amount->setCurrency("GBP")
-         ->setTotal($delivery_charge + $base_price)
+         ->setTotal($deliveryCharge + $base_price)
          ->setDetails($details);
 
   $transaction = new Transaction();
