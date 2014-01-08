@@ -77,8 +77,15 @@
       unset($row['password']);
 
       $_SESSION['user'] = $row;
-      
-      echo "logged-in";
+
+      if (!empty($_POST['redirect']))
+      {
+        echo $_POST['redirect'];
+      }
+      else
+      {
+        echo "logged-in";
+      }
       die();
     }
     else if (!$row)

@@ -9,7 +9,7 @@
 
   if(empty($_SESSION['user']))
   {
-    header("Location: ../login/?e=pao");
+    header("Location: ../login/?e=pao&redirect=" . $_SERVER["REQUEST_URI"]);
     die();
   }
 

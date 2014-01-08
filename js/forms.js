@@ -81,6 +81,8 @@ $(document).ready(function() {
               $("#username").removeClass("valid").addClass("invalid").effect("shake", {}, 500);
             } else if (response === 'Incorrect password.') {
               $("#password").removeClass("valid").addClass("invalid").effect("shake", {}, 500);
+            } else if (response === '/place-an-order/') {
+              window.location.href = "../place-an-order/";
             }
             $("#error_message").html(response);
             loader.Hide();

@@ -49,6 +49,9 @@
       <div id="password-error" class="validate-error"></div>
       <a href="../forgot-password" class="forgot-password">Forgot Password</a>
       <br /><br />
+      <?php if (!empty($_GET['redirect'])) : ?>
+        <input type="hidden" value="<?php echo $_GET['redirect']; ?>" name="redirect">
+      <?php endif; ?>
       <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
       <input type="submit" value="Login" />
     </form> 
