@@ -55,16 +55,7 @@
     // Email the order details to the user
     $email->setFirstName($_SESSION['user']['name']);
     $email->setRecipient($_SESSION['user']['email']);
-    $email->order($row["order_number"],
-                  $row["order_placed"],
-                  $row["datetime"],
-                  $row["celebration_date"],
-                  $row["comments"],
-                  $row["filling"],
-                  $row["decoration"],
-                  $row["cake_type"],
-                  $row["cake_size"],
-                  $row["delivery_type"]);
+    $email->order($row);
     $email->send();
   }
   else if (!empty($_GET) and $_GET['failed'] == "true")
