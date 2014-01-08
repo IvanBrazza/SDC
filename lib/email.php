@@ -4,12 +4,13 @@ class Email {
   var $to;
   var $body;
   var $firstName;
+  var $from;
 
   function send()
   {
     $from = "admin@ivanbrazza.biz";
-    $headers = "From: $from" . "\r\n" .
-               "Reply-To: $from" . "\r\n" .
+    $headers = "From: $this->from" . "\r\n" .
+               "Reply-To: $this->from" . "\r\n" .
                "MIME-Version: 1.0" . "\r\n" .
                "Content-type: text/html; charset=iso-8859-1" . "\r\n";
 
@@ -18,6 +19,8 @@ class Email {
 
   function statusUpdate($number, $status)
   {
+    $this->from       = "Star Dream Cakes <orders@ivanbrazza.biz>";
+
     $this->subject    = 'Your Order With Star Dream Cakes';
 
     $this->body       = '<html><body';
@@ -32,6 +35,8 @@ class Email {
 
   function order($orderDetails)
   {
+    $this->from       = "Star Dream Cakes <orders@ivanbrazza.biz>";
+
     $this->subject    = 'Your Order With Star Dream Cakes';
   
     $this->body       = '<html><body>';
@@ -57,6 +62,8 @@ class Email {
 
   function verification($code)
   {
+    $this->from       = "Star Dream Cakes <noreply@ivanbrazza.biz>";
+
     $this->subject    = "Register Your Email";
 
     $this->body       = '<html><body>';
@@ -71,6 +78,8 @@ class Email {
   
   function password($password)
   {
+    $this->from       = "Star Dream Cakes <noreply@ivanbrazza.biz>";
+
     $this->subject    = "Your new password";
 
     $this->body       = '<html><body>';
