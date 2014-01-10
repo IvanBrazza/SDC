@@ -34,9 +34,9 @@
       die("Failed to run query: " . $ex->getMessage());
     }
 
-    $email->statusUpdate($_POST['order_number'], $_POST['status']);
     $email->setFirstName($_POST['first_name']);
     $email->setRecipient($_POST['email']);
+    $email->statusUpdate($_POST['order_number'], $_POST['status']);
     $email->send();
   }
   else if (!empty($_POST['base_price']))
