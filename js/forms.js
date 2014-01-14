@@ -81,11 +81,12 @@ $(document).ready(function() {
               $("#username").removeClass("valid").addClass("invalid").effect("shake", {}, 500);
             } else if (response === 'Incorrect password.') {
               $("#password").removeClass("valid").addClass("invalid").effect("shake", {}, 500);
-            } else if (response === '/place-an-order/') {
-              window.location.href = "../place-an-order/";
+            } else if (response.substring(0, 8)  === 'redirect') {
+              window.location.href = response.substring(9);
+            } else {
+              $("#error_message").html(response);
+              loader.Hide();
             }
-            $("#error_message").html(response);
-            loader.Hide();
           }
         }
       });

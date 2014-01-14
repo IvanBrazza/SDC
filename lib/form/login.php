@@ -80,7 +80,7 @@
 
       if (!empty($_POST['redirect']))
       {
-        echo $_POST['redirect'];
+        echo "redirect=.." . $_POST['redirect'];
       }
       else
       {

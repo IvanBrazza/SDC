@@ -16,7 +16,7 @@
   
   if(empty($_SESSION['user']))
   {
-    header("Location: ../login");
+    header("Location: ../login/?redirect=" . $_SERVER["REQUEST_URI"]);
     die();
   }
 
