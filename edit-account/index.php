@@ -14,6 +14,8 @@
     die();
   }
 
+  forceHTTPS();
+
   // Generate token
   $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 

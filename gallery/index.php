@@ -5,6 +5,8 @@
   include("../lib/common.php");
   $title = "Gallery";
   $page = "gallery";
+
+  forceHTTP();
 ?>
 <?php include("../lib/header.php"); ?>
   <h1>Gallery</h1>

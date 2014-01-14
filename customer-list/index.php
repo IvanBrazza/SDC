@@ -14,6 +14,8 @@
     die();
   }
 
+  forceHTTPS();
+
   $query = "
     SELECT
       customer_id,

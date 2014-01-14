@@ -6,7 +6,9 @@
   require("../lib/common.php");
   $title = "Testimonials";
   $page = "testimonials";
-  
+
+  forceHTTPS();
+
   // Generate a token
   $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 

@@ -15,6 +15,8 @@
     die();
   }
 
+  forceHTTPS();
+
   // Set the error text if the page has been redirected due
   // to an error
   if(!empty($_GET['e']))

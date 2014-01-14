@@ -12,6 +12,8 @@
     die();
   }
 
+  forceHTTPS();
+
   // Get all order details
   $query = "
     SELECT

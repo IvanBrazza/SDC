@@ -12,6 +12,8 @@
     die();
   }
 
+  forceHTTPS();
+
   if (!empty($_GET['archive']))
   {
     switch ($_GET['archive']){

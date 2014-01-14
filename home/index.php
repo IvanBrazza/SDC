@@ -2,6 +2,8 @@
   require("../lib/common.php");
   $title = "Home";
   $page = "home";
+
+  forceHTTP();
 ?>
 <?php include("../lib/header.php"); ?>
   <h1>Home</h1>
