@@ -8,7 +8,6 @@ class Email {
 
   function send()
   {
-    $from = "admin@ivanbrazza.biz";
     $headers = "From: $this->from" . "\r\n" .
                "Reply-To: $this->from" . "\r\n" .
                "MIME-Version: 1.0" . "\r\n" .
@@ -26,8 +25,10 @@ class Email {
     $this->body       = '<html><body';
     $this->body      .= '<p>Hi ' . $this->firstName . ',</p>';
     $this->body      .= '<p>Just to let you know that the status of your order ';
-    $this->body      .=     $number . ' has been updated to ' . $status . '</p>';
-    $this->body      .= '<br />';
+    $this->body      .=  $number . ' has been updated to ' . $status . '</p>';
+    $this->body      .= '<p>To view your order, click on the link below:<br>';
+    $this->body      .= '<a href="https://www.ivanbrazza.biz/your-orders/?order=' . $number;
+    $this->body      .= '">https://www.ivanbrazza.biz/your-orders/?order=' . $number . '</a></p>';
     $this->body      .= '<p>If you have any problems, please don\'t hesistate to call.</p>';
     $this->body      .= '<p>Thanks,</p>';
     $this->body      .= '<p>Fran</p>';
