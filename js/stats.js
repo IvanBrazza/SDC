@@ -128,7 +128,7 @@ function drawLineChart(data, ctx, can) {
 
   ctx.lineWidth = 2;
   ctx.strokeStyle = 'rgba(128,128,255, 0.2)';
-  ctx.font = 'italic 8pt Open Sans';
+  ctx.font = '8pt Open Sans';
   ctx.textAlign = "center";
 
   // Draw the axises

@@ -3,6 +3,7 @@
   <meta http-equiv="Content-Language" content="en" />
   <title><?php echo $title ?> | Star Dream Cakes</title>
   <link rel="icon" href="../favicon.ico">
+  <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,400' rel='stylesheet' type='text/css'>
   <link href="../css/jquery-ui.css" rel="stylesheet">
   <link href="../css/main.css" rel="stylesheet">
   <?php if (strpos($_SERVER['REQUEST_URI'], "add-order") !== false or
