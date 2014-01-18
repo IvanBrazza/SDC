@@ -105,8 +105,20 @@
 
   $response = array(
     'orders'      => array(
-                       'name' => array("Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"),
-                       'value' => array()
+                       'values' => array(
+                         array("X" => "Jan", "Y" => ""),
+                         array("X" => "Feb", "Y" => ""),
+                         array("X" => "Mar", "Y" => ""),
+                         array("X" => "Apr", "Y" => ""),
+                         array("X" => "May", "Y" => ""),
+                         array("X" => "Jun", "Y" => ""),
+                         array("X" => "Jul", "Y" => ""),
+                         array("X" => "Aug", "Y" => ""),
+                         array("X" => "Sep", "Y" => ""),
+                         array("X" => "Oct", "Y" => ""),
+                         array("X" => "Nov", "Y" => ""),
+                         array("X" => "Dec", "Y" => ""),
+                       )
                      ),
     'users'       => array(
                        'name' => array(),
@@ -127,11 +139,11 @@
   {
     if ($months[$i]) 
     {
-      $response['orders']['value'][$i] = $months[$i];
+      $response['orders']['values'][$i]["Y"] = $months[$i];
     } 
     else 
     {
-      $response['orders']['value'][$i] = 0;
+      $response['orders']['values'][$i]["Y"] = 0;
     }
   }
   

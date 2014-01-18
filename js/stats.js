@@ -84,8 +84,9 @@ function calculateWidth() {
 }
 
 function drawCharts() {
-  var ordersCtx = $("#ordersChart").get(0).getContext("2d");
-  drawBarChart(ordersData, ordersCtx, document.getElementById("ordersChart"));
+  var ordersCan = $("#ordersChart"),
+      ordersCtx = ordersCan[0].getContext("2d");
+  drawLineChart(ordersData, ordersCtx, ordersCan);
 
   var usersCtx = $("#usersChart").get(0).getContext("2d");
   drawPieChart(usersData, usersCtx, document.getElementById("usersChart"));
@@ -97,6 +98,79 @@ function drawCharts() {
   drawBarChart(decorationsData, decorationsCtx, document.getElementById("decorationsChart"));
 }
 
+function drawLineChart(data, ctx, can) {
+  var xPadding = 30,
+      yPadding = 30;
+
+  // Returns the max Y value in our data list
+  function getMaxY() {
+    var max = 0;
+
+    for(var i = 0; i < data.values.length; i ++) {
+      if(data.values[i].Y > max) {
+        max = data.values[i].Y;
+      }
+    }
+
+    max += 10 - max % 10;
+    return max;
+  }
+
+  // Return the x pixel for a graph point
+  function getXPixel(val) {
+    return ((can.width() - xPadding) / data.values.length) * val + (xPadding * 1.5);
+  }
+
+  // Return the y pixel for a graph point
+  function getYPixel(val) {
+    return can.height() - (((can.height() - yPadding) / getMaxY()) * val) - yPadding;
+  }
+
+  ctx.lineWidth = 2;
+  ctx.strokeStyle = 'rgba(128,128,255, 0.2)';
+  ctx.font = 'italic 8pt Open Sans';
+  ctx.textAlign = "center";
+
+  // Draw the axises
+  ctx.beginPath();
+  ctx.moveTo(xPadding, 0);
+  ctx.lineTo(xPadding, can.height() - yPadding);
+  ctx.lineTo(can.width(), can.height() - yPadding);
+  ctx.stroke();
+
+  // Draw the X value texts
+  for(var i = 0; i < data.values.length; i ++) {
+    ctx.fillText(data.values[i].X, getXPixel(i), can.height() - yPadding + 20);
+  }
+
+  // Draw the Y value texts
+  ctx.textAlign = "right"
+  ctx.textBaseline = "middle";
+
+  for(var i = 0; i < getMaxY(); i += 5) {
+    ctx.fillText(i, xPadding - 10, getYPixel(i));
+  }
+
+  ctx.strokeStyle = 'rgba(151,187,205,1)';
+
+  // Draw the line graph
+  ctx.beginPath();
+  ctx.moveTo(getXPixel(0), getYPixel(data.values[0].Y));
+  for(var i = 1; i < data.values.length; i ++) {
+    ctx.lineTo(getXPixel(i), getYPixel(data.values[i].Y));
+  }
+  ctx.stroke();
+
+  // Draw the dots
+  ctx.fillStyle = 'rgba(134, 168, 185, 1)';
+
+  for(var i = 0; i < data.values.length; i ++) {
+    ctx.beginPath();
+    ctx.arc(getXPixel(i), getYPixel(data.values[i].Y), 4, 0, Math.PI * 2, true);
+    ctx.fill();
+  }
+}
+
 function drawBarChart(data, ctx, can) {
   if (clear) ctx.clearRect(0, 0, can.width, can.height);
   var y, tx, ty, metrics, words, line, testLine, testWidth;
@@ -106,7 +180,7 @@ function drawBarChart(data, ctx, can) {
   var rowHead = 30;
   var margin = 10;
   var maxVal = Math.max.apply(Math, dataValue) + 1;
-  var stepSize = 1;
+  var stepSize = 5;
   var yScalar = (can.height - colHead - margin) / (maxVal);
   var xScalar = (can.width - rowHead) / (dataName.length + 1);
   ctx.lineWidth = 0.5;
@@ -115,7 +189,7 @@ function drawBarChart(data, ctx, can) {
   // print row header and draw horizontal grid lines
   ctx.font = "10pt Open Sans"
   var count =  0;
-  for (scale = maxVal; scale >= 0; scale -= stepSize) {
+  for (scale = Math.round((maxVal+5) / 10) * 10; scale >= 0; scale -= stepSize) {
     y = colHead + (yScalar * count * stepSize);
     ctx.fillText(scale, margin,y + margin);
     ctx.moveTo(rowHead, y)
@@ -131,7 +205,7 @@ function drawBarChart(data, ctx, can) {
   ctx.scale(xScalar, -1 * yScalar);
   // draw bars
   for (i = 0; i < dataName.length; i++) {
-    ctx.fillRect(i + 1, 0, 0.5, dataValue[i]);
+    ctx.fillRect(i + 1, -1, 0.5, dataValue[i]);
   }
   ctx.restore();
  
@@ -149,14 +223,14 @@ function drawBarChart(data, ctx, can) {
       metrics = ctx.measureText(testLine);
       testWidth = metrics.width;
       if (testWidth > 20 && n > 0) {
-        ctx.fillText(line, tx -5, ty - 15);
+        ctx.fillText(line, tx, ty - 5);
         line = words[n] + ' ';
       }
       else {
         line = testLine;
       }
     }
-    ctx.fillText(line, tx - 5, ty);
+    ctx.fillText(line, tx, ty + 10);
   }
   function calcY(value) {
     y = can.height - value * yScalar;
