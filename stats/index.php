@@ -74,9 +74,9 @@
     <h2>Orders placed by month</h2>
     <canvas id="ordersChart" height="400px" width="400px"></canvas>
   </div>
-  <div id="users-chart" class="chart">
-    <h2>Orders placed by customer</h2>
-    <canvas id="usersChart" height="350px" width="350px"></canvas>
+  <div id="cakes-chart" class="chart">
+    <h2>Popularity of cake types</h2>
+    <canvas id="cakesChart" height="350px" width="350px"></canvas>
   </div>
   <div id="fillings-chart" class="chart">
     <h2>Popularity of fillings</h2>

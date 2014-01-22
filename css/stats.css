@@ -15,31 +15,10 @@ div#decorations-chart {
   float:              right;
   }
 
-div#users-chart {
+div#cakes-chart {
   display:            inline-block;
   position:           relative;
   float:              right;
-  }
-
-div.pie-key {
-  display:            inline-block;
-  width:              10px;
-  height:             10px;
-  }
-
-div#users-chart-key {
-  display:            inline-block;
-  position:           absolute;
-  top:                50%;
-  }
-
-div#users-chart-key > div {
-  margin:             5px 0;
-  }
-
-div#users-chart-key > span {
-  display:            inline-block;
-  margin:             0;
   }
 
 .ui-dialog-titlebar .ui-dialog-titlebar-close,

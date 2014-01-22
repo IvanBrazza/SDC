@@ -55,7 +55,7 @@ function getData() {
       if (JSON.stringify(object.orders) != JSON.stringify(JSON.parse(response).orders)) {
         object = JSON.parse(response);
         ordersData = object.orders;
-        usersData = object.users;
+        cakesData = object.cakes;
         fillingsData = object.fillings;
         decorationsData = object.decorations;
         drawCharts();
@@ -70,9 +70,9 @@ function calculateWidth() {
   $("#ordersChart").attr("height", width * 0.80 + "px");
   $("#orders-chart").width(width + "px");
 
-  $("#usersChart").attr("width", width + "px");
-  $("#usersChart").attr("height", width * 0.80 - 1 + "px");
-  $("#users-chart").width(width + "px");
+  $("#cakesChart").attr("width", width * 0.90 + "px");
+  $("#cakesChart").attr("height", width * 0.80 - 1 + "px");
+  $("#cakes-chart").width(width + "px");
 
   $("#fillingsChart").attr("width", width * 0.90 + "px");
   $("#fillingsChart").attr("height", width * 0.80 + "px");
@@ -88,8 +88,8 @@ function drawCharts() {
       ordersCtx = ordersCan[0].getContext("2d");
   drawLineChart(ordersData, ordersCtx, ordersCan);
 
-  var usersCtx = $("#usersChart").get(0).getContext("2d");
-  drawPieChart(usersData, usersCtx, document.getElementById("usersChart"));
+  var cakesCtx = $("#cakesChart").get(0).getContext("2d");
+  drawBarChart(cakesData, cakesCtx, document.getElementById("cakesChart"));
 
   var fillingsCtx = $("#fillingsChart").get(0).getContext("2d");
   drawBarChart(fillingsData, fillingsCtx, document.getElementById("fillingsChart"));
@@ -185,7 +185,7 @@ function drawBarChart(data, ctx, can) {
   var colHead = 50;
   var rowHead = 30;
   var margin = 10;
-  var maxVal = Math.max.apply(Math, dataValue) + 1;
+  var maxVal = Math.ceil(Math.max.apply(Math, dataValue)/5) * 5;
   var stepSize = 5;
   var yScalar = (can.height - colHead - margin) / (maxVal);
   var xScalar = (can.width - rowHead) / (dataName.length + 1);
@@ -195,11 +195,11 @@ function drawBarChart(data, ctx, can) {
   // print row header and draw horizontal grid lines
   ctx.font = "10pt Open Sans"
   var count =  0;
-  for (scale = Math.round((maxVal+5) / 10) * 10; scale >= 0; scale -= stepSize) {
+  for (scale = maxVal; scale >= 0; scale -= stepSize) {
     y = colHead + (yScalar * count * stepSize);
     ctx.fillText(scale, margin,y + margin);
-    ctx.moveTo(rowHead, y)
-    ctx.lineTo(can.width, y)
+    ctx.moveTo(rowHead, y + margin - 1)
+    ctx.lineTo(can.width, y + margin -1)
     count++;
   }
   ctx.stroke();
@@ -229,14 +229,14 @@ function drawBarChart(data, ctx, can) {
       metrics = ctx.measureText(testLine);
       testWidth = metrics.width;
       if (testWidth > 20 && n > 0) {
-        ctx.fillText(line, tx, ty - 5);
+        ctx.fillText(line, tx, ty - 8);
         line = words[n] + ' ';
       }
       else {
         line = testLine;
       }
     }
-    ctx.fillText(line, tx, ty + 10);
+    ctx.fillText(line, tx, ty + 8);
   }
   function calcY(value) {
     y = can.height - value * yScalar;

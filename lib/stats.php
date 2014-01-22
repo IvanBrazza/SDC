@@ -41,8 +41,12 @@
     }
     $users[$row['customer_id']]['orders']++;
     $users[$row['customer_id']]['customer_id'] = $row['customer_id'];
+
+    $cakes[$row['cake_id']]['cake_id'] = $row['cake_id'];
+    $cakes[$row['cake_id']]['value']++;
   }
-  
+
+
   // Get first & last name for each customer to display
   foreach ($users as $user)
   {
@@ -120,10 +124,9 @@
                          array("X" => "Dec", "Y" => ""),
                        )
                      ),
-    'users'       => array(
-                       'name' => array(),
-                       'value' => array(),
-                       'fillColour' => array()
+    'cakes'       => array(
+                       'name' => array("6\"", "8\"", "10\"", "12\"", "14\"", "Sponge", "Marble", "Chocolate", "Fruit"),
+                       'value' => array(0, 0, 0, 0, 0, 0, 0, 0)
                      ),
     'fillings'    => array(
                        'name' => array("None", "Butter Cream", "Chocolate", "Other"),
@@ -135,6 +138,81 @@
                      )
   );
 
+  // Get cake details
+  foreach ($cakes as $cake)
+  {
+    $query = "
+      SELECT
+        *
+      FROM
+        cakes
+      WHERE
+        cake_id = :cake_id
+    ";
+
+    $query_params = array(
+      ":cake_id" => $cake['cake_id']
+    );
+
+    try
+    {
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
+    }
+    catch(PDOException $ex)
+    {
+      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
+    }
+
+    $row = $stmt->fetch();
+
+    if ($row['cake_size'] == "6\"")
+    {
+      $response['cakes']['value'][0] += $cake['value'];
+    }
+    else if ($row['cake_size'] == "8\"")
+    {
+      $response['cakes']['value'][1] += $cake['value'];
+    }
+    else if ($row['cake_size'] == "10\"")
+    {
+      $response['cakes']['value'][2] += $cake['value'];
+    }
+    else if ($row['cake_size'] == "12\"")
+    {
+      $response['cakes']['value'][3] += $cake['value'];
+    }
+    else if ($row['cake_size'] == "14\"")
+    {
+      $response['cakes']['value'][4] += $cake['value'];
+    }
+
+    if ($row['cake_type'] == "Sponge")
+    {
+      $response['cakes']['value'][5] += $cake['value'];
+    }
+    else if ($row['cake_type'] == "Marble")
+    {
+      $response['cakes']['value'][6] += $cake['value'];
+    }
+    else if ($row['cake_type'] == "Chocolate")
+    {
+      $response['cakes']['value'][7] += $cake['value'];
+    }
+    else if ($row['cake_type'] == "Fruit")
+    {
+      $response['cakes']['value'][8] += $cake['value'];
+    }
+  }
+
+  for ($i = 0; $i < 9; $i++)
+  {
+    if (!$response['cakes']['value'][$i])
+    {
+      $response['cakes']['value'][$i] = 0;
+    }
+  }
+
   for ($i = 0; $i < 12; $i++)
   {
     if ($months[$i]) 
@@ -144,29 +222,6 @@
     else 
     {
       $response['orders']['values'][$i]["Y"] = 0;
-    }
-  }
-  
-  $colours = array();
-  $colour_unique = false;
-  foreach ($users as $user)
-  {
-    array_push($response['users']['name'], $user['first_name'] . " " . $user['last_name']);
-    array_push($response['users']['value'], $user['orders']);
-    foreach ($users as $user)
-    {
-      do
-      {
-        $new_colour = str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT) . str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT) . str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
-        if (!in_array($new_colour, $colours))
-        {
-          array_push($colours, $new_colour);
-          $colour = $new_colour;
-          $colour_unique = true;
-        }
-      }
-      while ($colour_unique === false);
-      array_push($response['users']['fillColour'], $colour);
     }
   }
 
