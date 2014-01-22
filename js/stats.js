@@ -172,7 +172,7 @@ function drawLineChart(data, ctx, can) {
 
   for(var i = 0; i < data.values.length; i ++) {
     ctx.beginPath();
-    ctx.arc(getXPixel(i), getYPixel(data.values[i].Y), 4, 0, Math.PI * 2, true);
+    ctx.arc(getXPixel(i), getYPixel(data.values[i].Y), 3, 0, Math.PI * 2, true);
     ctx.fill();
   }
 }
