@@ -231,7 +231,12 @@
       <?php endif; ?>
       <tr>
         <th>Delivery Type</th>
-        <td><?php echo htmlentities($row['delivery_type'], ENT_QUOTES, 'UTF-8'); ?></td>
+        <td>
+          <?php echo htmlentities($row['delivery_type'], ENT_QUOTES, 'UTF-8'); ?>
+          <?php if ($row['delivery_type'] === "Collection") : ?>
+            <a href="../get-directions/">Get Directions</a>
+          <?php endif; ?>
+        </td>
       </tr>
       <tr>
         <th>Grand Total</th>
