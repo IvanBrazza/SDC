@@ -146,11 +146,17 @@ function drawLineChart(data, ctx, can) {
   // Draw the Y value texts
   ctx.textAlign = "right"
   ctx.textBaseline = "middle";
+  ctx.lineWidth = 1;
 
   for(var i = 0; i < getMaxY(); i += 5) {
     ctx.fillText(i, xPadding - 10, getYPixel(i));
+    ctx.beginPath();
+    ctx.moveTo(xPadding, getYPixel(i));
+    ctx.lineTo(can.width(), getYPixel(i));
+    ctx.stroke();
   }
 
+  ctx.lineWidth = 2;
   ctx.strokeStyle = 'rgba(151,187,205,1)';
 
   // Draw the line graph
