@@ -49,22 +49,29 @@
       }
     }
 
-    // Get the cake_id of the cake based on the cake_size and
-    // cake_type provided by the user.
+    // Get the cake_id, filling_id and decor_id of
+    // the cake based on the cake_size, cake_type,
+    // filling and decoration provided by the user.
     $query = "
       SELECT
-        cake_id
+        a.cake_id, b.decor_id, c.filling_id
       FROM
-        cakes
+        cakes a, decorations b, fillings c
       WHERE
-        cake_size = :cake_size
+        a.cake_size = :cake_size
       AND
-        cake_type = :cake_type
+        a.cake_type = :cake_type
+      AND
+        b.decor_name = :decoration
+      AND
+        c.filling_name = :filling
     ";
 
     $query_params = array(
       ':cake_size'  => $_POST['cake_size'],
-      ':cake_type'  => $_POST['cake_type']
+      ':cake_type'  => $_POST['cake_type'],
+      ':decoration' => $_POST['decoration'],
+      ':filling'    => $_POST['filling']
     );
     
     try
@@ -80,6 +87,8 @@
 
     $row = $stmt->fetch();
     $cake_id = $row['cake_id'];
+    $decor_id = $row['decor_id'];
+    $filling_id = $row['filling_id'];
     
     // Generate order number and make sure it is unique
     $order_number_unique  = false;
@@ -221,8 +230,8 @@
         order_number,
         celebration_date,
         comments,
-        decoration,
-        filling,
+        decor_id,
+        filling_id,
         cake_id,
         order_placed,
         delivery_type,
@@ -243,8 +252,8 @@
         :order_number,
         :celebration_date,
         :comments,
-        :decoration,
-        :filling,
+        :decor_id,
+        :filling_id,
         :cake_id,
         :order_placed,
         :delivery_type,
@@ -271,8 +280,8 @@
       ':order_number'       => $order_number,
       ':celebration_date'   => $_POST['celebration_date'],
       ':comments'           => $_POST['comments'],
-      ':decoration'         => $_POST['decoration'],
-      ':filling'            => $_POST['filling'],
+      ':decor_id'           => $decor_id,
+      ':filling_id'         => $filling_id,
       ':cake_id'            => $cake_id,
       ':order_placed'       => $order_placed,
       ':delivery_type'      => $_POST['delivery'],

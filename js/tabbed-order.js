@@ -35,11 +35,11 @@ $(document).ready(function() {
   });
 
   $("#filling").change(function() {
-    $("#filling-review").html($("#filling").val());
+    $("#filling-review").html($("#filling").val() + " - &pound;5");
   });
 
   $("#decoration").change(function() {
-    $("#decoration-review").html($("#decoration").val());
+    $("#decoration-review").html($("#decoration").val() + " - &pound;5");
   });
 
   $("#cake_size").change(function() {

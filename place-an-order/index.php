@@ -222,6 +222,8 @@
                 </table>
                 <span id="delivery-charge"><b>Delivery: <div id="delivery-charge-html"></div></b></span>
                 <br />
+                <b>Base Price: &pound;<div id="base-price"></div></b>
+                <br />
                 <b>Grand Total: &pound;<div id="total-html"></div></b>
                 <br /><br />
                 <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">

@@ -28,13 +28,17 @@
     // Get order details based on the order number
     $query = "
       SELECT
-        a.*, b.*
+        a.*, b.*, c.decor_name, c.decor_price, d.filling_name, d.filling_price
       FROM
-        orders a, cakes b
+        orders a, cakes b, decorations c, fillings d
       WHERE
         order_number = :order_number
       AND
         b.cake_id = a.cake_id
+      AND
+        a.decor_id = c.decor_id
+      AND
+        a.filling_id = d.filling_id
     ";
 
     $query_params = array(
@@ -199,11 +203,11 @@
       </tr>
       <tr>
         <th>Filling</th>
-        <td><?php echo htmlentities($row['filling'], ENT_QUOTES, 'UTF-8'); ?></td>
+        <td><?php echo htmlentities($row['filling_name'], ENT_QUOTES, 'UTF-8')." - &pound;".htmlentities($row['filling_price'], ENT_QUOTES, 'UTF-8'); ?></td>
       </tr>
       <tr>
         <th>Decoration</th>
-        <td><?php echo htmlentities($row['decoration'], ENT_QUOTES, 'UTF-8'); ?></td>
+        <td><?php echo htmlentities($row['decor_name'], ENT_QUOTES, 'UTF-8')." - &pound;".htmlentities($row['decor_price'], ENT_QUOTES, 'UTF-8'); ?></td>
       </tr>
       <tr>
         <th>Cake Size</th>
@@ -240,7 +244,7 @@
       </tr>
       <tr>
         <th>Grand Total</th>
-        <td>&pound;<?php echo $row['base_price']+$deliveryrow['delivery_charge']; ?></td>
+        <td>&pound;<?php echo $row['base_price']+$deliveryrow['delivery_charge']+$row['filling_price']+$row['decor_price']; ?></td>
       </tr>
     </table>
   <?php else : ?>

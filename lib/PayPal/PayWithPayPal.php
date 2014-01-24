@@ -17,22 +17,31 @@
   $payer->setPaymentMethod("paypal");
 
   $item1 = new Item();
-  $item1->setname($_POST['cake_size'] . " " . $_POST['cake_type'] . " cake, filled with " . $_POST['filling'] . 
-                  ", decorated with " . $_POST['decoration'])
+  $item1->setname($_POST['cake_size'] . " " . $_POST['cake_type'] . " cake")
         ->setCurrency("GBP")
         ->setQuantity(1)
         ->setPrice($base_price);
+  $filling = new Item();
+  $filling->setname("Filling: " . $_POST['filling'])
+          ->setCurrency("GBP")
+          ->setQuantity(1)
+          ->SetPrice(5);
+  $decoration = new Item();
+  $decoration->setname("Decoration: " . $_POST['decoration'])
+             ->setCurrency("GBP")
+             ->setQuantity(1)
+             ->SetPrice(5);
 
   $itemList = new ItemList();
-  $itemList->setItems(array($item1));
+  $itemList->setItems(array($item1, $filling, $decoration));
 
   $details = new Details();
   $details->setShipping($deliveryCharge)
-          ->setSubtotal($base_price);
+          ->setSubtotal($base_price + 10);
 
   $amount = new Amount();
   $amount->setCurrency("GBP")
-         ->setTotal($deliveryCharge + $base_price)
+         ->setTotal($deliveryCharge + $base_price + 10)
          ->setDetails($details);
 
   $transaction = new Transaction();

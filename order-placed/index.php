@@ -22,18 +22,24 @@
         a.datetime,
         a.celebration_date,
         a.comments,
-        a.filling,
-        a.decoration,
         a.delivery_type,
         b.cake_type,
-        b.cake_size
+        b.cake_size,
+        c.filling_name,
+        d.decor_name
       FROM
         orders a,
-        cakes b
+        cakes b,
+        fillings c,
+        decorations d
       WHERE
         a.order_number = :order_number
       AND
         a.cake_id = b.cake_id
+      AND
+        a.filling_id = c.filling_id
+      AND
+        a.decor_id = d.decor_id
     ";
 
     $query_params = array(

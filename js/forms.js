@@ -184,6 +184,14 @@ $(document).ready(function() {
     calculateOrderTotal();
   });
 
+  $("#filling").change(function() {
+    calculateOrderTotal();
+  });
+
+  $("#decoration").change(function() {
+    calculateOrderTotal();
+  });
+
   $("#existing_id").change(function() {
     if ($("#existing_id").val() !== "null") {
       var $first_name         = $("input[name=first_name]"),
@@ -484,10 +492,14 @@ var validate = {
 
 function calculateOrderTotal()
 {
-  var $total         = $("#total-html"),
-      $cake_size     = $("#cake_size").val(),
-      $cake_type     = $("#cake_type").val(),
-      $base          = $("#base-price");
+  var $total            = $("#total-html"),
+      $cake_size        = $("#cake_size").val(),
+      $cake_type        = $("#cake_type").val(),
+      $filling          = $("#filling").val(),
+      fillingPrice      = 0,
+      $decoration       = $("#decoration").val(),
+      decorationPrice   = 0,
+      $base             = $("#base-price");
 
   if ($("#delivery-charge-html").html()) {
     var $delivery_charge = $("#delivery-charge-html").html().replace(/\u00A3/g, '');
@@ -566,6 +578,34 @@ function calculateOrderTotal()
       $base.html(125);
     }
   }
+
+  if ($filling == "None") {
+    fillingPrice = 0;
+  } else if ($filling == "Butter Cream") {
+    fillingPrice = 5;
+  } else if ($filling == "Chocolate") {
+    fillingPrice = 5;
+  } else if ($filling == "Other") {
+    fillingPrice = 5;
+  }
+
+  if ($decoration == "None") {
+    decorationPrice = 0;
+  } else if ($decoration == "Royal Icing") {
+    decorationPrice = 5;
+  } else if ($decoration == "Regal Icing") {
+    decorationPrice = 5;
+  } else if ($decoration == "Butter Cream") {
+    decorationPrice = 5;
+  } else if ($decoration == "Chocolate") {
+    decorationPrice = 5;
+  } else if ($decoration == "Coconut") {
+    decorationPrice = 5;
+  } else if ($decoration == "Other") {
+    decorationPrice = 5;
+  }
+
+  $total.html(parseInt($total.html()) + decorationPrice + fillingPrice);
 }
 
 function calculateDeliveryCharge(original_html)

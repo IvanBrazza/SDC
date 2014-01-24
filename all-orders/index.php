@@ -85,9 +85,17 @@
     // orders by that customer.
     if (!empty($_GET['order']))
     {
-      $query .= "
-        AND
+      $query = "
+        SELECT
+          a.*, b.filling_price, b.filling_name, c.decor_price, c.decor_name
+        FROM
+          orders a, fillings b, decorations c
+        WHERE
           order_number = :order_number
+        AND
+          a.filling_id = b.filling_id
+        AND
+          a.decor_id = c.decor_id
       ";
 
       $query_params = array(
@@ -513,11 +521,11 @@
       </tr>
       <tr>
         <th>Filling</th>
-        <td><?php echo htmlentities($row['filling'], ENT_QUOTES, 'UTF-8'); ?></td>
+        <td><?php echo htmlentities($row['filling_name'], ENT_QUOTES, 'UTF-8')." - &pound;".htmlentities($row['filling_price'], ENT_QUOTES, 'UTF-8'); ?></td>
       </tr>
       <tr>
         <th>Decoration</th>
-        <td><?php echo htmlentities($row['decoration'], ENT_QUOTES, 'UTF-8'); ?></td>
+        <td><?php echo htmlentities($row['decor_name'], ENT_QUOTES, 'UTF-8')." - &pound;".htmlentities($row['decor_price'], ENT_QUOTES, 'UTF-8'); ?></td>
       </tr>
       <tr>
         <th>Cake Type</th>
@@ -571,7 +579,7 @@
       </tr>
       <tr>
         <th>Grand Total</th>
-        <td>&pound;<?php echo $row['base_price']+$delivery_row['delivery_charge']; ?></td>
+        <td>&pound;<?php echo $row['base_price']+$delivery_row['delivery_charge']+$row['filling_price']+$row['decor_price']; ?></td>
       </tr>
     </table>
     <div id="single_order_details">
