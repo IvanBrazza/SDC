@@ -22,6 +22,27 @@ class Delivery {
     $this->distance = round($meters * 0.000621371);
   }
 
+  function recursiveDelivery($miles, $i, $j) {
+    $i += 5;
+    $j += 3;
+
+    if ($i == 50)
+    {
+      $this->deliveryCharge = 0;
+      return;
+    }
+
+    if ($miles == $i)
+    {
+      $this->deliveryCharge = $j;
+      return;
+    }
+    else
+    {
+      $this->recursiveDelivery($miles, $i, $j);
+    }
+  }
+
   function calculateDeliveryCharge() {
     $remaining_miles = $this->distance - 5;
     $remaining_miles = round($remaining_miles / 5) * 5;
@@ -31,13 +52,7 @@ class Delivery {
     }
     else
     {
-      for ($i = 5, $j = 1; $i <= 50; $i = $i + 5, $j++)
-      {
-        if ($remaining_miles == $i)
-        {
-          $this->deliveryCharge = $j;
-        }
-      }
+      $this->recursiveDelivery($remaining_miles, 0, 0);
     }
   }
 

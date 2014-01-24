@@ -570,6 +570,8 @@ function calculateOrderTotal()
 
 function calculateDeliveryCharge(original_html)
 {
+  var delivery_charge;
+
   if (original_html.html() === "" || original_html.html() === "0") {
     var $delivery_charge = original_html;
   
@@ -600,16 +602,9 @@ function calculateDeliveryCharge(original_html)
       remaining_miles = Math.round(remaining_miles / 5) * 5;
 
       if (remaining_miles <= 0) {
-        var delivery_charge = 0;
+        delivery_charge = 0;
       } else {
-        for (var i = 5, j = 3; i <= 50; i++, j=j+3) {
-          if (remaining_miles === i) {
-            var delivery_charge = j;
-            break;
-          } else if (i === 50) {
-            var delivery_charge = "Collection only";
-          }
-        }
+        recursiveDelivery(remaining_miles, 0, 0);
       }
 
       $delivery_charge.html("&pound;" + delivery_charge);
@@ -617,5 +612,22 @@ function calculateDeliveryCharge(original_html)
     }
   } else {
     return null;
+  }
+
+  function recursiveDelivery(miles, i, j) {
+    i += 5;
+    j += 3;
+
+    if (i == 50) {
+      delivery_charge = "Collection only";
+      return;
+    }
+
+    if (miles == i) {
+      delivery_charge = j;
+      return;
+    } else {
+      recursiveDelivery(miles, i, j);
+    }
   }
 }
