@@ -31,7 +31,6 @@
   text-align:           center;
   z-index:              200;
   position:             relative;
-  cursor:               pointer;
   }
 
 .tabbed_content .slide_content {

@@ -1,10 +1,4 @@
 $(document).ready(function() {
-  $(".tab_item").click(function() {
-    $(".moving_bg").stop().animate({left: $(this).position()['left']}, {duration: 300});
-
-    slideContent($(this));
-  });
-
   $("#order-form-previous").data("disabled", "true");
   $("#order-form-next").data("disabled", "false");
 
