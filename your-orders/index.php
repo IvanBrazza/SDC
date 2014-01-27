@@ -72,7 +72,7 @@
       // Get the delivery details for the order
       $query = "
         SELECT
-          *
+          delivery_charge
         FROM
           delivery
         WHERE
@@ -94,6 +94,7 @@
       }
 
       $deliveryrow = $stmt->fetch();
+      $row['delivery_charge'] = $deliveryrow['delivery_charge'];
     }
   }
   else
@@ -101,13 +102,11 @@
     // Get all outstanding orders
     $query = "
       SELECT
-        order_number, order_placed, datetime, status
+        order_number, order_placed, datetime, status, archived
       FROM
         orders
       WHERE
         customer_id = :customer_id
-      AND
-        archived = 0
     ";
     
     if (!empty($_GET['sort']))
@@ -140,42 +139,6 @@
     }
   
     $rows = $stmt->fetchAll();
-    
-    // Get archived orders
-    $query = "
-      SELECT
-        order_number, order_placed, datetime, status
-      FROM
-        orders
-      WHERE 
-        customer_id = :customer_id
-      AND
-        archived = 1
-    ";
-  
-    if (!empty($_GET['sort']))
-    {
-      $query .= "
-        ORDER BY
-          orders." . $_GET['col'] . " " . $_GET['sort']
-      ;
-    }
-    
-    $query_params = array(
-      ':customer_id' => $_SESSION['user']['customer_id']
-    );
-  
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to run query: " . $ex->getMessage());
-    }
-  
-    $archived_rows = $stmt->fetchAll();
   }
 ?>
 <?php include("../lib/header.php"); ?>
@@ -234,10 +197,10 @@
         <th>Base Price</th>
         <td>&pound;<?php echo $row['base_price']; ?></td>
       </tr>
-      <?php if (!empty($deliveryrow)) : ?>
+      <?php if ($row['delivery_type'] == "Deliver To Address") : ?>
         <tr>
           <th>Delivery Charge</th>
-          <td>&pound;<?php echo $deliveryrow['delivery_charge']; ?></td>
+          <td>&pound;<?php echo $row['delivery_charge']; ?></td>
         </tr>
       <?php endif; ?>
       <tr>
@@ -276,40 +239,40 @@
         </thead>
         <tbody>
           <?php foreach($rows as $row): ?>
+            <?php if ($row['archived'] == 0) : ?>
+              <tr>
+                <td><a href="../your-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
+                <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
+                <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
+                <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
+              </tr>
+            <?php endif; ?>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+    <?php endif; ?>
+    <table id="orders-js">
+      <caption>Archived Orders</caption>
+      <thead>
+        <tr>
+          <th>Order Number <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../your-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
+          <th>Order Placed <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_placed">&#9650;</a> <a href="../your-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
+          <th>Required Date <span class="arrow"><a href="../your-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../your-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
+          <th>Status <span class="arrow"><a href="../your-orders/?sort=DESC&col=status">&#9650;</a> <a href="../your-orders/?sort=ASC&col=status">&#9660;</a></span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach($rows as $row): ?>
+          <?php if ($row['archived'] == 1) : ?>
             <tr>
               <td><a href="../your-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
               <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
               <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
               <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
             </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
-    <?php endif; ?>
-    <?php if (empty($archived_rows)) : ?>
-      <h3>You have no archived orders</h3>
-    <?php else : ?>
-      <table id="orders-js">
-        <caption>Archived Orders</caption>
-        <thead>
-          <tr>
-            <th>Order Number <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../your-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
-            <th>Order Placed <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_placed">&#9650;</a> <a href="../your-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
-            <th>Required Date <span class="arrow"><a href="../your-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../your-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
-            <th>Status <span class="arrow"><a href="../your-orders/?sort=DESC&col=status">&#9650;</a> <a href="../your-orders/?sort=ASC&col=status">&#9660;</a></span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach($archived_rows as $row): ?>
-            <tr>
-              <td><a href="../your-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
-              <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
-              <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
-              <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
-            </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
-    <?php endif; ?>
+          <?php endif; ?>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
   <?php endif; ?>
 <?php include("../lib/footer.php"); ?>
