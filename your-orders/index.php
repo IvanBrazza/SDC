@@ -117,6 +117,13 @@
           orders." . $_GET['col'] . " " . $_GET['sort']
       ;
     }
+    else
+    {
+      $query .= "
+        ORDER BY
+          orders.order_placed DESC
+      ";
+    }
 
     $query_params = array(
       ':customer_id' => $_SESSION['user']['customer_id']
