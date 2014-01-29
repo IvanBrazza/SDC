@@ -10,9 +10,9 @@ $(document).ready(function() {
     calculateWidth();
     getData();
 
-    window.setInterval(function() {
-      getData();
-    }, 5000);
+//    window.setInterval(function() {
+ //     getData();
+  //  }, 5000);
 
     $(window).resize(function() {
       calculateWidth();
@@ -54,6 +54,7 @@ function getData() {
     success: function(response) {
       if (JSON.stringify(object.orders) != JSON.stringify(JSON.parse(response).orders)) {
         object = JSON.parse(response);
+        console.log(object);
         ordersData = object.orders;
         cakesData = object.cakes;
         fillingsData = object.fillings;
@@ -211,7 +212,7 @@ function drawBarChart(data, ctx, can) {
   ctx.scale(xScalar, -1 * yScalar);
   // draw bars
   for (i = 0; i < dataName.length; i++) {
-    ctx.fillRect(i + 1, -1, 0.5, dataValue[i]);
+    ctx.fillRect(i + 1, -2, 0.5, dataValue[i]);
   }
   ctx.restore();
  

@@ -23,29 +23,18 @@
 
   foreach ($rows as $row)
   {
-    // Calculate popular filling & decoration
-    $fillings[$row['filling']]['name'] = $row['filling'];
-    $fillings[$row['filling']]['amount']++;
-    $largestFilling = 0;
-    foreach ($fillings as $filling)
-    {
-      $largestFilling = max($largestFilling, $filling['amount']);
-    }
-
-    $decorations[$row['decoration']]['name'] = $row['decoration'];
-    $decorations[$row['decoration']]['amount']++;
-    $largestDecoration = 0;
-    foreach ($decorations as $decoration)
-    {
-      $largestDecoration = max($largestDecoration, $decoration['amount']);
-    }
     $users[$row['customer_id']]['orders']++;
     $users[$row['customer_id']]['customer_id'] = $row['customer_id'];
 
     $cakes[$row['cake_id']]['cake_id'] = $row['cake_id'];
     $cakes[$row['cake_id']]['value']++;
-  }
 
+    $fillings[$row['filling_id']]['filling_id'] = $row['filling_id'];
+    $fillings[$row['filling_id']]['value']++;
+
+    $decorations[$row['decor_id']]['decor_id'] = $row['decor_id'];
+    $decorations[$row['decor_id']]['value']++;
+  }
 
   // Get first & last name for each customer to display
   foreach ($users as $user)
@@ -130,13 +119,111 @@
                      ),
     'fillings'    => array(
                        'name' => array("None", "Butter Cream", "Chocolate", "Other"),
-                       'value' => array()
+                       'value' => array(0, 0, 0, 0)
                      ),
     'decorations' => array(
                        'name' => array("None", "Royal Icing", "Regal Icing", "Butter Cream", "Chocolate", "Coconut", "Other"),
-                       'value' => array()
+                       'value' => array(0, 0, 0, 0, 0, 0, 0)
                      )
   );
+
+  foreach ($fillings as $filling)
+  {
+    $query = "
+      SELECT
+        *
+      FROM
+        fillings
+      WHERE
+        filling_id = :filling_id
+    ";
+
+    $query_params = array(
+      ':filling_id' => $filling['filling_id']
+    );
+
+    try
+    {
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
+    }
+    catch(PDOException $ex)
+    {
+      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
+    }
+
+    $row = $stmt->fetch();
+
+    if ($row['filling_name'] == "Butter Cream")
+    {
+      $response['fillings']['value'][1] += $filling['value'];
+    }
+    else if ($row['filling_name'] == "Chocoalte")
+    {
+      $response['fillings']['value'][2] += $filling['value'];
+    }
+    else if ($row['filling_name'] == "Other")
+    {
+      $response['fillings']['value'][3] += $filling['value'];
+    }
+  }
+
+  foreach ($decorations as $decoration)
+  {
+    $query = "
+      SELECT
+        *
+      FROM
+        decorations
+      WHERE
+        decor_id = :decor_id
+    ";
+
+    $query_params = array(
+      ':decor_id' => $decoration['decor_id']
+    );
+
+    try
+    {
+      $stmt     = $db->prepare($query);
+      $result   = $stmt->execute($query_params);
+    }
+    catch(PDOException $ex)
+    {
+      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
+    }
+
+    $row = $stmt->fetch();
+
+    if ($row['decor_name'] == "Royal Icing")
+    {
+      $response['decorations']['value'][1] += $decoration['value'];
+    }
+    else if ($row['decor_name'] == "Regal Icing")
+    {
+      $response['decorations']['value'][2] += $decoration['value'];
+    }
+    else if ($row['decor_name'] == "Butter Cream")
+    {
+      $response['decorations']['value'][3] += $decoration['value'];
+    }
+    else if ($row['decor_name'] == "Chocolate")
+    {
+      $response['decorations']['value'][4] += $decoration['value'];
+    }
+    else if ($row['decor_name'] == "Coconut")
+    {
+      $response['decorations']['value'][5] += $decoration['value'];
+    }
+    else if ($row['decor_name'] == "Other")
+    {
+      $response['decorations']['value'][6] += $decoration['value'];
+    }
+//    else if ($row['decor_name'] == "None")
+//    {
+//      $response['decorations']['value'][0] += $decoration['value'];
+//    }
+  }
 
   // Get cake details
   foreach ($cakes as $cake)
@@ -223,63 +310,6 @@
     {
       $response['orders']['values'][$i]["Y"] = 0;
     }
-  }
-
-  if ($fillings['None']['amount']) {
-    $response['fillings']['value'][0] =  $fillings['None']['amount'];
-  } else {
-    $response['fillings']['value'][0] =  0;
-  }
-  if ($fillings['Butter Cream']['amount']) {
-    $response['fillings']['value'][1] =  $fillings['Butter Cream']['amount'];
-  } else {
-    $response['fillings']['value'][1] =  0;
-  }
-  if ($fillings['Chocolate']['amount']) {
-    $response['fillings']['value'][2] =  $fillings['Chocolate']['amount'];
-  } else {
-    $response['fillings']['value'][2] =  0;
-  }
-  if ($fillings['Other']['amount']) {
-    $response['fillings']['value'][3] =  $fillings['Other']['amount'];
-  } else {
-    $response['fillings']['value'][3] =  0;
-  }
-
-  if ($decorations['None']['amount']) {
-    $response['decorations']['value'][0] =  $decorations['None']['amount'];
-  } else {
-    $response['decorations']['value'][0] =  0;
-  }
-  if ($decorations['Royal Icing']['amount']) {
-    $response['decorations']['value'][1] =  $decorations['Royal Icing']['amount'];
-  } else {
-    $response['decorations']['value'][1] =  0;
-  }
-  if ($decorations['Regal Icing']['amount']) {
-    $response['decorations']['value'][2] =  $decorations['Regal Icing']['amount'];
-  } else {
-    $response['decorations']['value'][2] =  0;
-  }
-  if ($decorations['Butter Cream']['amount']) {
-    $response['decorations']['value'][3] =  $decorations['Butter Cream']['amount'];
-  } else {
-    $response['decorations']['value'][3] =  0;
-  }
-  if ($decorations['Chocolate']['amount']) {
-    $response['decorations']['value'][4] =  $decorations['Chocolate']['amount'];
-  } else {
-    $response['decorations']['value'][4] =  0;
-  }
-  if ($decorations['Coconut']['amount']) {
-    $response['decorations']['value'][5] =  $decorations['Coconut']['amount'];
-  } else {
-    $response['decorations']['value'][5] =  0;
-  }
-  if ($decorations['Other']['amount']) {
-    $response['decorations']['value'][6] =  $decorations['Other']['amount'];
-  } else {
-    $response['decorations']['value'][6] =  0;
   }
 
   echo json_encode($response);
