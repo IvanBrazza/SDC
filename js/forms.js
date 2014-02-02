@@ -495,9 +495,9 @@ function calculateOrderTotal()
   var $total            = $("#total-html"),
       $cake_size        = $("#cake_size").val(),
       $cake_type        = $("#cake_type").val(),
-      $filling          = $("#filling").val(),
+      fillingId         = $("#filling").val(),
       fillingPrice      = 0,
-      $decoration       = $("#decoration").val(),
+      decorationId      = $("#decoration").val(),
       decorationPrice   = 0,
       $base             = $("#base-price");
 
@@ -579,33 +579,30 @@ function calculateOrderTotal()
     }
   }
 
-  if ($filling == "None") {
-    fillingPrice = 0;
-  } else if ($filling == "Butter Cream") {
-    fillingPrice = 5;
-  } else if ($filling == "Chocolate") {
-    fillingPrice = 5;
-  } else if ($filling == "Other") {
-    fillingPrice = 5;
-  }
+  $.ajax({
+    type: 'post',
+    url: '../lib/get-fillingdecor.php',
+    data: {type: "filling", id: fillingId},
+    success: function(response) {
+      object = JSON.parse(response);
+      fillingPrice = parseInt(object.price);
+      $("#filling-review").html(object.name + " - &pound;" + object.price);
+    }
+  });
 
-  if ($decoration == "None") {
-    decorationPrice = 0;
-  } else if ($decoration == "Royal Icing") {
-    decorationPrice = 5;
-  } else if ($decoration == "Regal Icing") {
-    decorationPrice = 5;
-  } else if ($decoration == "Butter Cream") {
-    decorationPrice = 5;
-  } else if ($decoration == "Chocolate") {
-    decorationPrice = 5;
-  } else if ($decoration == "Coconut") {
-    decorationPrice = 5;
-  } else if ($decoration == "Other") {
-    decorationPrice = 5;
-  }
-
-  $total.html(parseInt($total.html()) + decorationPrice + fillingPrice);
+  $.ajax({
+    type: 'post',
+    url: '../lib/get-fillingdecor.php',
+    data: {type: "decor", id: decorationId},
+    success: function(response) {
+      object = JSON.parse(response);
+      decorationPrice = parseInt(object.price);
+      $("#decoration-review").html(object.name + " - &pound;" + object.price);
+    }
+  });
+  setTimeout(function() {
+    $total.html(parseInt($total.html()) + decorationPrice + fillingPrice);
+  }, 1000);
 }
 
 function calculateDeliveryCharge(original_html)

@@ -28,14 +28,6 @@ $(document).ready(function() {
     $("#celebration-date-review").html($("#celebration_date").val());
   });
 
-  $("#filling").change(function() {
-    $("#filling-review").html($("#filling").val() + " - &pound;5");
-  });
-
-  $("#decoration").change(function() {
-    $("#decoration-review").html($("#decoration").val() + " - &pound;5");
-  });
-
   $("#cake_size").change(function() {
     $("#cake-size-review").html($("#cake_size").val());
   });

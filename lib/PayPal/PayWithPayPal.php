@@ -21,16 +21,68 @@
         ->setCurrency("GBP")
         ->setQuantity(1)
         ->setPrice($base_price);
+
+  $query = "
+    SELECT
+      filling_price, filling_name
+    FROM
+      fillings
+    WHERE
+      filling_id = :filling_id
+  ";
+
+  $query_params = array(
+    ':filling_id' => $_POST['filling']
+  );
+
+  try
+  {
+    $stmt = $db->prepare($query);
+    $result = $stmt->execute($query_params);
+  }
+  catch(PDOException $ex)
+  {
+    die("Failed to execute query: " . $ex->getMessage . " query: " . $query);
+  }
+
+  $row = $stmt->fetch();
+
   $filling = new Item();
-  $filling->setname("Filling: " . $_POST['filling'])
+  $filling->setname("Filling: " . $row['filling_name'])
           ->setCurrency("GBP")
           ->setQuantity(1)
-          ->SetPrice(5);
+          ->SetPrice($row['filling_price']);
+
+  $query = "
+    SELECT
+      decor_price, decor_name
+    FROM
+      decorations
+    WHERE
+      decor_id = :decor_id
+  ";
+
+  $query_params = array(
+    ':decor_id' => $_POST['decoration']
+  );
+
+  try
+  {
+    $stmt = $db->prepare($query);
+    $result = $stmt->execute($query_params);
+  }
+  catch(PDOException $ex)
+  {
+    die("Failed to execute query: " . $ex->getMessage . " query: " . $query);
+  }
+
+  $row = $stmt->fetch();
+
   $decoration = new Item();
-  $decoration->setname("Decoration: " . $_POST['decoration'])
+  $decoration->setname("Decoration: " . $row['decor_name'])
              ->setCurrency("GBP")
              ->setQuantity(1)
-             ->SetPrice(5);
+             ->SetPrice($row['decor_price']);
 
   $itemList = new ItemList();
   $itemList->setItems(array($item1, $filling, $decoration));
