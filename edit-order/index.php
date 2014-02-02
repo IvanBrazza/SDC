@@ -33,17 +33,9 @@
       ':cake_size' => $_POST['cake_size']
     );
 
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query:" . $ex->getMessage() . " query: " . $query);
-    }
+    $db->runQuery($query, $query_params);
 
-    $row      = $stmt->fetch();
+    $row      = $db->fetch();
     $cake_id  = $row['cake_id'];
 
     $query = "
@@ -74,15 +66,7 @@
       ':base_price'       => $_POST['base-hidden']
     );
 
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query:" . $ex->getMessage() . " query: " . $query);
-    }
+    $db->runQuery($query, $query_params);
 
     if ($_POST['delivery'] === "Deliver To Address")
     {
@@ -99,18 +83,9 @@
         ':order_number' => $_POST['order_number']
       );
       
-      try
-      {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        die("Failed to execute query:" . $ex->getMessage() . " query: " . $query);
-  
-      }
+      $db->runQuery($query, $query_params);
 
-      $row = $stmt->fetch();
+      $row = $db->fetch();
 
       include "../lib/delivery.php";
       $delivery = new Delivery;
@@ -158,16 +133,7 @@
         );
       }
       
-      try
-      {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        die("Failed to execute query:" . $ex->getMessage() . " query: " . $query);
-  
-      }
+      $db->runQuery($query, $query_params);
     }
 
     header("Location: ../your-orders/?order=" . $_POST['order_number']);
@@ -191,17 +157,9 @@
       ':order_number' => $_GET['order']
     );
   
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-    }
+    $db->runQuery($query, $query_params);
   
-    $row = $stmt->fetch();
+    $row = $db->fetch();
     
     // If the order is not from the logged in customer, die
     if ($row['customer_id'] != $_SESSION['user']['customer_id'])
@@ -233,18 +191,10 @@
       $query_params = array(
         ':order_number' => $_GET['order']
       );
-    
-      try
-      {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-      }
-      
-      $deliveryrow = $stmt->fetch();
+
+      $db->runQuery($query, $query_params);
+
+      $deliveryrow = $db->fetch();
     }
   }
   else

@@ -24,20 +24,11 @@
       ':username' => $_POST['username']
     );
 
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      echo "Oops! Something went wrong. Try again.";
-      die("Failed to run query: " . $ex->getMessage());
-    }
+    $db->runQuery($query, $query_params);
 
     $logged_in = false;
 
-    $row = $stmt->fetch();
+    $row = $db->fetch();
     
     // If $row is empty, it's because the user doesn't exist in
     // the DB. If it's not, then let's check the password to see

@@ -46,17 +46,9 @@
       ':order_number' => $_GET['order']
     );
 
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-    }
+    $db->runQuery($query, $query_params);
 
-    $row = $stmt->fetch();
+    $row = $db->fetch();
 
     // Email the order details to the user
     $email->setFirstName($_SESSION['user']['name']);
@@ -79,17 +71,9 @@
       ':order_number' => $_GET['order']
     );
 
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-    }
+    $db->runQuery($query, $query_params);
 
-    $row = $stmt->fetch();
+    $row = $db->fetch();
 
     if ($row['delivery_type'] == "Deliver To Address")
     {
@@ -104,15 +88,7 @@
         ':order_number' => $_GET['order']
       );
 
-      try
-      {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-      }
+      $db->runQuery($query, $query_params);
     }
     $query = "
       DELETE FROM
@@ -125,15 +101,7 @@
       ':order_number' => $_GET['order']
     );
 
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-    }
+    $db->runQuery($query, $query_params);
   }
 ?>
 <?php include("../lib/header.php"); ?>

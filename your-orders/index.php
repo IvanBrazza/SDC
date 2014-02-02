@@ -44,18 +44,10 @@
     $query_params = array(
       ':order_number' => $_GET['order']
     );
-    
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to run query: " . $ex->getMessage());
-    }
 
-    $row = $stmt->fetch();
+    $db->runQuery($query, $query_params);
+
+    $row = $db->fetch();
     
     // If the order being pulled doesn't belong to
     // the logged in user redirect them back to the
@@ -83,17 +75,9 @@
         ':order_number' => $_GET['order']
       );
 
-      try
-      {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        die("Failed to run query: " . $ex->getMessage() . " query: " . $query);
-      }
+      $db->runQuery($query, $query_params);
 
-      $deliveryrow = $stmt->fetch();
+      $deliveryrow = $db->fetch();
       $row['delivery_charge'] = $deliveryrow['delivery_charge'];
     }
   }
@@ -128,17 +112,9 @@
       ':customer_id' => $_SESSION['user']['customer_id']
     );
 
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to run query: " . $ex->getMessage());
-    }
-  
-    $rows = $stmt->fetchAll();
+    $db->runQuery($query, $query_params);
+
+    $rows = $db->fetchAll();
   }
 ?>
 <?php include("../lib/header.php"); ?>

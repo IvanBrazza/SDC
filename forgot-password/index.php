@@ -34,17 +34,9 @@
       ':email' => $_POST['email']
     );
 
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-    }
+    $db->runQuery($query, $query_params);
 
-    $row = $stmt->fetch();
+    $row = $db->fetch();
     
     // If the email isn't in the DB, $row will be empty, therefore
     // redirect to an error.
@@ -82,16 +74,8 @@
         ':email'    => $row['email']
       );
 
-      try
-      {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-      }
-      
+      $db->runQuery($query, $query_params);
+
       // Email the new password to the user
       $email->password($plainpassword);
       $email->setFirstName($row['first_name']);

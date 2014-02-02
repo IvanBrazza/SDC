@@ -49,17 +49,8 @@
       ':order_number' => $_GET['order']
     );
 
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage() . "\nQuery: " . $query);
-    }
-
-    $row = $stmt->fetch();
+    $db->runQuery($query, $query_params);
+    $row = $db->fetch();
 
     $customer_id = $row['customer_id'];
   }
@@ -161,26 +152,18 @@
     }
   }
 
-  try
+  if (!empty($query_params))
   {
-    $stmt = $db->prepare($query);
-    if (!empty($query_params))
-    {
-      $result = $stmt->execute($query_params);
-    }
-    else
-    {
-      $result =  $stmt->execute();
-    }
+    $db->runQuery($query, $query_params);
   }
-  catch(PDOException $ex)
+  else
   {
-    die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
+    $db->runQuery($query, null);
   }
 
   if (!empty($_GET['order']))
   {
-    $row = $stmt->fetch();
+    $row = $db->fetch();
     if ($row['delivery_type'] == "Deliver To Address")
     {
       $query = "
@@ -196,23 +179,15 @@
         ':order_number' => $_GET['order']
       );
 
-      try
-      {  
-        $stmt = $db->prepare($query);
-        $result = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-      }
+      $db->runQuery($query, $query_params);
 
-      $temp = $stmt->fetch();
+      $temp = $db->fetch();
       $row['delivery_charge'] = $temp['delivery_charge'];
     }
   }
   else
   {
-    $rows = $stmt->fetchAll();
+    $rows = $db->fetchAll();
   }
 
   if (!empty($_GET['order']) or !empty($_GET['id']))

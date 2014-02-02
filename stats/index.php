@@ -22,17 +22,9 @@
       orders
   ";
 
-  try
-  {
-    $stmt     = $db->prepare($query);
-    $result   = $stmt->execute();
-  }
-  catch(PDOException $ex)
-  {
-    die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-  }
+  $db->runQuery($query, null);
 
-  $rows = $stmt->fetchAll();
+  $rows = $db->fetchAll();
 
   foreach ($rows as $row)
   {

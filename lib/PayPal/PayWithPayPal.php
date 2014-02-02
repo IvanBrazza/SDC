@@ -35,17 +35,9 @@
     ':filling_id' => $_POST['filling']
   );
 
-  try
-  {
-    $stmt = $db->prepare($query);
-    $result = $stmt->execute($query_params);
-  }
-  catch(PDOException $ex)
-  {
-    die("Failed to execute query: " . $ex->getMessage . " query: " . $query);
-  }
+  $db->runQuery($query, $query_params);
 
-  $row = $stmt->fetch();
+  $row = $db->fetch();
 
   $filling = new Item();
   $filling->setname("Filling: " . $row['filling_name'])
@@ -66,17 +58,9 @@
     ':decor_id' => $_POST['decoration']
   );
 
-  try
-  {
-    $stmt = $db->prepare($query);
-    $result = $stmt->execute($query_params);
-  }
-  catch(PDOException $ex)
-  {
-    die("Failed to execute query: " . $ex->getMessage . " query: " . $query);
-  }
+  $db->runQuery($query, $query_params);
 
-  $row = $stmt->fetch();
+  $row = $db->fetch();
 
   $decoration = new Item();
   $decoration->setname("Decoration: " . $row['decor_name'])

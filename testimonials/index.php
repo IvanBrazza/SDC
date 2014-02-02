@@ -19,17 +19,9 @@
       testimonials
   ";
 
-  try
-  {
-    $stmt     = $db->prepare($query);
-    $result   = $stmt->execute();
-  }
-  catch(PDOException $ex)
-  {
-    die("Failed to execute query: " . $ex->getMessage());
-  }
+  $db->runQuery($query, null);
 
-  $rows = $stmt->fetchAll();
+  $rows = $db->fetchAll();
 ?>
 <?php include("../lib/header.php"); ?>
   <h1>Testimonials</h1>

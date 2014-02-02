@@ -37,19 +37,10 @@
       $query_params = array(
         ':username' => $_POST['username']
       );
-      
-      try
-      {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        echo "Oops! Something went wrong. Try again.";
-        die("Failed to run query: " . $ex->getMessage());
-      }
-      
-      $row = $stmt->fetch();
+
+      $db->runQuery($query, $query_params);
+
+      $row = $db->fetch();
     
       if ($row)
       {
@@ -70,19 +61,10 @@
       $query_params = array(
         ':email' => $_POST['email']
       );
-      
-      try
-      {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        echo "Oops! Something went wrong. Try again.";
-        die("Failed to run query to check email: " . $ex->getMessage());
-      }
-    
-      $row = $stmt->fetch();
+
+      $db->runQuery($query, $query_params);
+
+      $row = $db->fetch();
      
       if ($row)
       {
@@ -137,18 +119,9 @@
         ':email_verification'   => $email_verification,
         ':email_verified'       => 'no'
       );
-      
-      try
-      {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        echo "Oops! Something went wrong. Try again.";
-        die("Failed to run query to register: " . $ex->getMessage());
-      }
-      
+
+      $db->runQuery($query, $query_params);
+
       $email->verification($email_verification);
       $email->setFirstName($_POST['first_name']);
       $email->setRecipient($_POST['email']);

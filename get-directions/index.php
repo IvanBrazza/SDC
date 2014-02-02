@@ -29,17 +29,9 @@
       ':customer_id' => $_GET['id']
     );
 
-    try
-    {
-      $stmt   = $db->prepare($query);
-      $result = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getmessage() . " query: " . $query);
-    }
+    $db->runQuery($query, $query_params);
 
-    $row = $stmt->fetch();
+    $row = $db->fetch();
     
     $delivery->setAddress($row['address']);
     $delivery->setPostcode($row['postcode']);

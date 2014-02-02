@@ -34,17 +34,9 @@
       );
     }
 
-    try
-    {
-      $stmt = $db->prepare($query);
-      $result = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage . " query: " . $query);
-    }
+    $db->runQuery($query, $query_params);
 
-    $row = $stmt->fetch();
+    $row = $db->fetch();
 
     if ($_POST['type'] == "filling")
     {

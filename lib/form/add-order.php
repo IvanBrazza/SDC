@@ -44,17 +44,9 @@
           ':phone'      => $_POST['phone'],
           ':email'      => $_POST['email']
       );
-  
-      try
-      {
-        $stmt = $db->prepare($query);
-        $result = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        die("Failed to execute query: " . $ex->getMessage());
-      }
-  
+
+      $db->runQuery($query, $query_params);
+
       // Get the customer_id of the new user we just created
       // so we can use it in the orders table
       $query = "
@@ -67,18 +59,10 @@
         LIMIT
           1
       ";
-  
-      try
-      {
-        $stmt = $db->prepare($query);
-        $result = $stmt->execute();
-      }
-      catch(PDOException $ex)
-      {
-        die("Failed to execute query: " . $ex->getMessage() . "Query: " . $query);
-      }
-  
-      $row = $stmt->fetch();
+
+      $db->runQuery($query, null);
+
+      $row = $db->fetch();
     }
     else
     {
@@ -95,18 +79,10 @@
       $query_params = array(
         ':customer_id' => $_POST['existing_id']
       );
-  
-      try
-      {
-        $stmt = $db->prepare($query);
-        $result = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        die("Failed to execute query: " . $ex->getMessage() . "Query: " . $query);
-      }
-  
-      $userrow = $stmt->fetch();
+
+      $db->runQuery($query, $query_params);
+
+      $userrow = $db->fetch();
     }
 
     // Get the cake ID of the cake based on
@@ -127,17 +103,9 @@
       ':cake_type' => $_POST['cake_type']
     );
 
-    try
-    {
-      $stmt = $db->prepare($query);
-      $result = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage() . "query: " . $query);
-    }
+    $db->runQuery($query, $query_params);
 
-    $cake_row = $stmt->fetch();
+    $cake_row = $db->fetch();
 
     // Generate order number and make sure it is unique
     $order_number_unique  = false;
@@ -159,17 +127,9 @@
         ':order_number' => $order_number
       );
 
-      try
-      {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-      }
+      $db->runQuery($query, $query_params);
 
-      $row = $stmt->fetch();
+      $row = $db->fetch();
 
       if (!$row)
       {
@@ -331,15 +291,7 @@
       ':datetime'         => $_POST['datetime']
     );
 
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage() . "Query: " . $query);
-    }
+    $db->runQuery($query, $query_params);
 
     // If the order is for delivery
     if ($_POST['delivery'] === "Deliver To Address")
@@ -373,15 +325,7 @@
         ':delivery_charge'  => $delivery->getDeliveryCharge()
       );
 
-      try
-      {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        die("Failed to run query: " . $ex->getMessage() . "query: " . $query);
-      }
+      $db->runQuery($query, $query_params);
     }
     
     echo "success";

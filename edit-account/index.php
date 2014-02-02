@@ -47,17 +47,9 @@
     ':id' => $_SESSION['user']['customer_id']
   );
 
-  try
-  {
-    $stmt     = $db->prepare($query);
-    $result   = $stmt->execute($query_params);
-  }
-  catch(PDOException $ex)
-  {
-    die("Failed to execute query: " . $ex->getMessage());
-  }
+  $db->runQuery($query, $query_params);
 
-  $row = $stmt->fetch();
+  $row = $db->fetch();
 ?>
 <?php include("../lib/header.php"); ?>
     <div class="form">

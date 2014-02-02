@@ -20,18 +20,9 @@
     ':order_number' => $_POST['order']
   );
 
-  try
-  {
-    $stmt     = $db->prepare($query);
-    $result   = $stmt->execute($query_params);
-  }
-  catch(PDOException $ex)
-  {
-    echo "Oops! Something went wrong. Try again.";
-    die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-  }
+  $db->runQuery($query, $query_params);
 
-  $row = $stmt->fetch();
+  $row = $db->fetch();
 
   if ($row)
   {

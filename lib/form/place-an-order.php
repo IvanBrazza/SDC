@@ -65,19 +65,10 @@
       ':cake_size'  => $_POST['cake_size'],
       ':cake_type'  => $_POST['cake_type']
     );
-    
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      echo "Oops! Something went wrong. Try again.";
-      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-    }
 
-    $row = $stmt->fetch();
+    $db->runQuery($query, $query_params);
+
+    $row = $db->fetch();
     $cake_id = $row['cake_id'];
     
     // Generate order number and make sure it is unique
@@ -100,18 +91,9 @@
         ':order_number' => $order_number
       );
 
-      try
-      {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        echo "Oops! Something went wrong. Try again.";
-        die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-      }
+      $db->runQuery($query, $query_params);
 
-      $row = $stmt->fetch();
+      $row = $db->fetch();
 
       if (!$row)
       {
@@ -285,17 +267,8 @@
       $query_params[':image'] = str_replace("/var/www/ivanbrazza.biz/htdocs/", "../", $uploadfile);
     }
 
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      echo "Oops! Something went wrong. Try again.";
-      die("Failed to run query: " . $ex->getMessage());
-    }
-    
+    $db->runQuery($query, $query_params);
+
     // If the order is to be delivered then calculate the
     // delivery charge and insert the delivery details into
     // the "delivery" DB table.
@@ -330,16 +303,7 @@
         ':delivery_charge'  => $deliveryCharge
       );
 
-      try
-      {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        echo "Oops! Something went wrong. Try again.";
-        die("Failed to run query: " . $ex->getMessage() . "query: " . $query);
-      }
+      $db->runQuery($query, $query_params);
     }
 
     // Start PayPal payment process

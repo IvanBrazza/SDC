@@ -28,18 +28,9 @@
         ':email' => $_POST['email']
       );
 
-      try
-      {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      {
-        echo "Oops! Something went wrong. Try again.";
-        die("Failed to run query: " . $ex->getMessage());
-      }
+      $db->runQuery($query, $query_params);
 
-      $row = $stmt->fetch();
+      $row = $db->fetch();
       if ($row)
       {
         echo "That email address is already in use.";
@@ -116,17 +107,8 @@
       $query_params[':email_verification'] = mt_rand(10000,99999) . mt_rand(10000,99999) . mt_rand(10000,99999) . mt_rand(10000,99999) . mt_rand(10000,99999);
       $query_params[':email_verified']     = "no";
     }
-    
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      echo "Oops! Something went wrong. Try again.";
-      die("Failed to run query: " . $ex->getMessage() . " query: " . $query);
-    }
+
+    $db->runQuery($query, $query_params);
 
     // Update the _SESSION variables
     $_SESSION['user']['email']        = $_POST['email'];

@@ -9,17 +9,9 @@
       orders
   ";
 
-  try
-  {
-    $stmt     = $db->prepare($query);
-    $result   = $stmt->execute();
-  }
-  catch(PDOException $ex)
-  {
-    die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-  }
+  $db->runQuery($query, $query_params);
 
-  $rows = $stmt->fetchAll();
+  $rows = $db->fetchAll();
 
   foreach ($rows as $row)
   {
@@ -52,16 +44,8 @@
       ':customer_id' => $user['customer_id']
     );
 
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-    }
-    $row = $stmt->fetch();
+    $db->runQuery($query, $query_params);
+    $row = $db->fetch();
     $users[$user['customer_id']]['first_name'] = $row['first_name'];
     $users[$user['customer_id']]['last_name'] = $row['last_name'];
   }
@@ -78,17 +62,9 @@
         MONTH(order_placed) = $i
     ";
 
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute();
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-    }
+    $db->runQuery($query, null);
 
-    $rows = $stmt->fetchAll();
+    $rows = $db->fetchAll();
     
     foreach ($rows as $row)
     {
@@ -142,17 +118,9 @@
       ':filling_id' => $filling['filling_id']
     );
 
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-    }
+    $db->runQuery($query, $query_params);
 
-    $row = $stmt->fetch();
+    $row = $db->fetch();
 
     if ($row['filling_name'] == "Butter Cream")
     {
@@ -183,17 +151,9 @@
       ':decor_id' => $decoration['decor_id']
     );
 
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-    }
+    $db->runQuery($query, $query_params);
 
-    $row = $stmt->fetch();
+    $row = $db->fetch();
 
     if ($row['decor_name'] == "Royal Icing")
     {
@@ -241,17 +201,9 @@
       ":cake_id" => $cake['cake_id']
     );
 
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-    }
+    $db->runQuery($query, $query_params);
 
-    $row = $stmt->fetch();
+    $row = $db->fetch();
 
     if ($row['cake_size'] == "6\"")
     {

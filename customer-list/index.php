@@ -33,17 +33,9 @@
     ':user_id' => $_SESSION['user']['customer_id']
   );
 
-  try
-  {
-    $stmt     = $db->prepare($query);
-    $result   = $stmt->execute($query_params);
-  }
-  catch(PDOException $ex)
-  {
-    die("Failed to run query: " . $ex->getMessage());
-  }
+  $db->runQuery($query, $query_params);
 
-  $rows = $stmt->fetchAll();
+  $rows = $db->fetchAll();
 ?>
 <?php include("../lib/header.php"); ?>
   <h1>Customer List</h1> 

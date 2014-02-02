@@ -24,15 +24,7 @@
       ':order_number'   => $_POST['order_number']
     );
 
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to run query: " . $ex->getMessage());
-    }
+    $db->runQuery($query, $query_params);
 
     $email->setFirstName($_POST['first_name']);
     $email->setRecipient($_POST['email']);
@@ -55,15 +47,7 @@
       ':order_number'   => $_POST['order_number']
     );
     
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to run query: " . $ex->getMessage());
-    }
+    $db->runQuery($query, $query_params);
   }
   else if (!empty($_POST['delivery_charge']))
   {
@@ -81,15 +65,7 @@
       ':order_number'     => $_POST['order_number']
     );
     
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to run query: " . $ex->getMessage());
-    }
+    $db->runQuery($query, $query_params);
   }
   header("Location: ../all-orders/?order=" . $_POST['order_number']);
   die();

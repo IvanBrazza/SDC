@@ -42,17 +42,8 @@
         ':location'       => $_POST['location'],
         ':testimonial'    => $_POST['testimonial']
       );
-    
-      try
-      {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute($query_params);
-      }
-      catch(PDOException $ex)
-      { 
-        echo "Oops! Something went wrong. Try again.";
-        die("Failed to execute query: " . $ex->getMessage());
-      }
+
+      $db->runQuery($query, $query_params);
 
       // Generate new token
       $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");

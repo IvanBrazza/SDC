@@ -20,15 +20,7 @@
       ':order_number' => $_POST['order_number']
     );
 
-    try
-    {
-      $stmt   = $db->prepare($query);
-      $result = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage() . " query: " . $query);
-    }
+    $db->runQuery($query, $query_params);
 
     header("Location: ../all-orders/?archive=success");
     die();

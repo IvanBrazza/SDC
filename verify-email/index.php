@@ -29,17 +29,9 @@
       ':email' => $_GET['email']
     );
 
-    try
-    {
-      $stmt     = $db->prepare($query);
-      $result   = $stmt->execute($query_params);
-    }
-    catch(PDOException $ex)
-    {
-      die("Failed to execute query: " . $ex->getMessage());
-    }
+    $db->runQuery($query, $query_params);
 
-    $row = $stmt->fetch();
+    $row = $db->fetch();
 
     if ($row['email_verification'] === $verification_code)
     {
@@ -55,15 +47,7 @@
           email_verified = 'yes'
       ";
 
-      try
-      {
-        $stmt     = $db->prepare($query);
-        $result   = $stmt->execute();
-      }
-      catch(PDOException $ex)
-      {
-        die("Failed to execute query: " . $ex->getMessage());
-      }
+      $db->runQuery($query, null);
     }
   }
 

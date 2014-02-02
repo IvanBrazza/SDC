@@ -25,17 +25,9 @@
       customer_id ASC
   ";
 
-  try
-  {
-    $stmt     = $db->prepare($query);
-    $result   = $stmt->execute();
-  }
-  catch(PDOException $ex)
-  {
-    die("Failed to execute query: " . $ex->getMessage() . "Query: " . $query);
-  }
+  $db->runQuery($query, null);
 
-  $existing_rows = $stmt->fetchAll();
+  $existing_rows = $db->fetchAll();
 ?>
 <?php include("../lib/header.php"); ?>
   <h1>Add Order</h1>
