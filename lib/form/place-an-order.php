@@ -274,7 +274,7 @@
     // the "delivery" DB table.
     if ($_POST['delivery'] === "Deliver To Address")
     {
-      include "../delivery.php";
+      include "../delivery.class.php";
       $delivery = new Delivery;
       $delivery->setAddress($_SESSION['user']['address']);
       $delivery->setPostcode($_SESSION['user']['postcode']);

@@ -20,7 +20,7 @@
   // order from the database if it was not successful
   if (!empty($_GET) and $_GET['failed'] == "false")
   {
-    include("../lib/email.php");
+    include("../lib/email.class.php");
     $email = new Email;
 
     $query = "

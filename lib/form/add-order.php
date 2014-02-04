@@ -297,7 +297,7 @@
     if ($_POST['delivery'] === "Deliver To Address")
     {
       // Calculate the delivery charge
-      include "../delivery.php";
+      include "../delivery.class.php";
       $delivery = new Delivery;
       $delivery->setAddress($userrow['address']);
       $delivery->setPostcode($userrow['postcode']);

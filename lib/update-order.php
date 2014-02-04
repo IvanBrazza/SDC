@@ -4,7 +4,7 @@
     from a POST request.
   **/
   require("common.php");
-  include_once("email.php");
+  include_once("email.class.php");
   
   $email = new Email;
 

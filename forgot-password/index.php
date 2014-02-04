@@ -4,7 +4,7 @@
     they have forgotten their password.
   **/
   require("../lib/common.php");
-  include_once("../lib/email.php");
+  include_once("../lib/email.class.php");
   $title = "Forgot Password";
   $email = new Email;
 

@@ -1,7 +1,7 @@
 <?php
   require("../common.php");
   require_once("../recaptchalib.php");
-  require_once("../email.php");
+  require_once("../email.class.php");
   
   $privatekey = "6LePfucSAAAAAHkrfHOrSYPPvJqf6rCiNnhWT77L";
   $resp = recaptcha_check_answer($privatekey, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);

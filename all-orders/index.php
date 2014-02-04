@@ -190,7 +190,7 @@
   // calculate the distance to be displayed
   if (!empty($_GET['order']) or !empty($_GET['id']))
   {
-    include("../lib/delivery.php");
+    include("../lib/delivery.class.php");
     $delivery = new Delivery;
 
     if (!empty($_GET['id']))

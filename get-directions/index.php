@@ -11,7 +11,7 @@
 
   // Create a new delivery object to be
   // used for distance calculation
-  include "../lib/delivery.php";
+  include "../lib/delivery.class.php";
   $delivery = new Delivery();
 
   // If GET, then it means directions are to

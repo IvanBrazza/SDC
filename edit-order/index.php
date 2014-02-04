@@ -91,7 +91,7 @@
 
       $row = $db->fetch();
 
-      include "../lib/delivery.php";
+      include "../lib/delivery.class.php";
       $delivery = new Delivery;
       $delivery->setAddress($_SESSION['user']['address']);
       $delivery->setPostcode($_SESSION['user']['postcode']);

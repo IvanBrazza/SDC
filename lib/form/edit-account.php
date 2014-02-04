@@ -120,7 +120,7 @@
 
     if (!empty($query_params[':email_verification']))
     {
-      include "../lib/email.php";
+      include "../lib/email.class.php";
       emailVerification($_POST['email'], $_POST['first_name'], $query_params[':email_verification']);
       echo "email-verify";
     }

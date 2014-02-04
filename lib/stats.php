@@ -21,9 +21,6 @@
   // Calculate the popularity of each cake ID, filling and decoration
   foreach ($rows as $row)
   {
-    $users[$row['customer_id']]['orders']++;
-    $users[$row['customer_id']]['customer_id'] = $row['customer_id'];
-
     // +1 each cake ID
     $cakes[$row['cake_id']]['cake_id'] = $row['cake_id'];
     $cakes[$row['cake_id']]['value']++;
@@ -198,10 +195,10 @@
     {
       $response['decorations']['value'][6] += $decoration['value'];
     }
-//    else if ($row['decor_name'] == "None")
-//    {
-//      $response['decorations']['value'][0] += $decoration['value'];
-//    }
+    else if ($row['decor_name'] == "None")
+    {
+      $response['decorations']['value'][0] += $decoration['value'];
+    }
   }
 
   // For each cake ID, get the cake details
@@ -262,14 +259,6 @@
     else if ($row['cake_type'] == "Fruit")
     {
       $response['cakes']['value'][8] += $cake['value'];
-    }
-  }
-
-  for ($i = 0; $i < 9; $i++)
-  {
-    if (!$response['cakes']['value'][$i])
-    {
-      $response['cakes']['value'][$i] = 0;
     }
   }
 
