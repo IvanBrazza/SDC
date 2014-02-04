@@ -8,14 +8,17 @@
   $title = "Customer List";
   $page = "customer-list";
 
+  // Only the admin user can access this page
   if(empty($_SESSION['user']) or $_SESSION['user']['username'] !== "admin")
   {
     header("Location: ../login");
     die();
   }
 
+  // Use HTTPS since secure data is being displayed
   forceHTTPS();
 
+  // Get customer details
   $query = "
     SELECT
       customer_id,

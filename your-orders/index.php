@@ -14,12 +14,14 @@
     $title = $_SESSION['user']['first_name'] . "'s Orders";
   }
   
+  // Only logged in users can access this page
   if(empty($_SESSION['user']))
   {
     header("Location: ../login/?redirect=" . $_SERVER["REQUEST_URI"]);
     die();
   }
 
+  // Use HTTPS since secure data is being transferred
   forceHTTPS();
 
   // If the user clicked on an order

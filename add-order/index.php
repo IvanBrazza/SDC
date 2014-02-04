@@ -7,6 +7,7 @@
   $title = "Add Order";
   $page = "all-orders";
 
+  // Only the admin can access this page
   if (empty($_SESSION['user']) or $_SESSION['user']['username'] !== "admin") {
     header("Location: ../login");
     die();

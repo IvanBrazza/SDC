@@ -1,4 +1,9 @@
 <?php
+  /**
+    order-placed/ - thank the user for their order and
+    email a confirmation to them or delete it from the
+    database if they cancelled it
+  **/
   require("../lib/common.php");
   if (!empty($_GET) and $_GET['failed'] == "true")
   {
@@ -10,6 +15,9 @@
   }
   $page = "place-an-order";
 
+  // If the order was successful, get the order details
+  // and send an email confirmation. Otherwise, delete the
+  // order from the database if it was not successful
   if (!empty($_GET) and $_GET['failed'] == "false")
   {
     include("../lib/email.php");

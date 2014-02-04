@@ -1,8 +1,12 @@
 <?php
+  /**
+    about-us/ - display a page describing the business
+  **/
   require("../lib/common.php");
   $title = "About Us";
   $page = "about-us";
 
+  // Use HTTP since there isn't any secure content being displayed
   forceHTTP();
 ?>
 <?php include("../lib/header.php"); ?>

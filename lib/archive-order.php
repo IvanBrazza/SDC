@@ -1,6 +1,6 @@
 <?php
   /**
-    lib/archive-order.php - a library to archive an order
+    lib/archive-order.php - archive an order
   **/
   require("common.php");
 

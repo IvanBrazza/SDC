@@ -6,12 +6,14 @@
   $page = "stats";
   $title = "Stats";
 
+  // Only the admin user can access this page
   if (empty($_SESSION) or $_SESSION['user']['username'] != "admin")
   {
     header("Location: ../home/");
     die();
   }
 
+  // Use HTTPS since secure data is being transferred
   forceHTTPS();
 
   // Get all order details

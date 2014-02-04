@@ -7,6 +7,7 @@
   $page = "your-orders";
   $title = "Edit Order";
 
+  // Only logged in users can access this page
   if (empty($_SESSION['user'])) 
   {
     header("Location: ../login");
@@ -68,6 +69,9 @@
 
     $db->runQuery($query, $query_params);
 
+    // If the delivery type is deliver rather than collection,
+    // check if there is already a row in the delivery table
+    // and if there is, update it, if not then add one
     if ($_POST['delivery'] === "Deliver To Address")
     {
       $query = "
@@ -136,6 +140,7 @@
       $db->runQuery($query, $query_params);
     }
 
+    // Return back to order details after the update
     header("Location: ../your-orders/?order=" . $_POST['order_number']);
     die();
   }

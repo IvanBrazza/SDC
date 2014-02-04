@@ -6,6 +6,7 @@ class Email {
   var $firstName;
   var $from;
 
+  // A function which sends the email
   function send()
   {
     $headers = "From: $this->from" . "\r\n" .
@@ -16,6 +17,8 @@ class Email {
     mail($this->to, $this->subject, $this->body, $headers);
   }
 
+  // A function which sets the body, from and subject
+  // to send an email about a status update for an order
   function statusUpdate($number, $status)
   {
     $this->from       = "Star Dream Cakes <orders@ivanbrazza.biz>";
@@ -34,6 +37,8 @@ class Email {
     $this->body      .= '<p>Fran</p>';
   }
 
+  // A function which sets the body, from and subject
+  // to send an email containing the order placed
   function order($orderDetails)
   {
     $this->from       = "Star Dream Cakes <orders@ivanbrazza.biz>";
@@ -61,6 +66,8 @@ class Email {
     $this->body      .= '</body></html>';
   }
 
+  // A function which sets the body, from and subject
+  // to send a verification email
   function verification($code)
   {
     $this->from       = "Star Dream Cakes <noreply@ivanbrazza.biz>";
@@ -76,7 +83,9 @@ class Email {
     $this->body      .= 'Star Dream Cakes</p>';
     $this->body      .= '</body></html>';
   }
-  
+
+  // A function which sets the body, from and subject
+  // to send a reset password email
   function password($password)
   {
     $this->from       = "Star Dream Cakes <noreply@ivanbrazza.biz>";
@@ -92,11 +101,13 @@ class Email {
     $this->body      .= '</body></html>';
   }
 
+  // A function which sets the recipient
   function setRecipient($recipient)
   {
     $this->to = $recipient;
   }
 
+  // A function which sets the first name
   function setFirstName($namevar)
   {
     $this->firstName = $namevar;

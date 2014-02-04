@@ -1,4 +1,9 @@
 <?php
+  /**
+    lib/stats.php - a script which gets all the details
+    to be displayed on the stats page and returns it in
+    JSON format
+  **/
   require("common.php");
   
   // Get all order details
@@ -13,17 +18,21 @@
 
   $rows = $db->fetchAll();
 
+  // Calculate the popularity of each cake ID, filling and decoration
   foreach ($rows as $row)
   {
     $users[$row['customer_id']]['orders']++;
     $users[$row['customer_id']]['customer_id'] = $row['customer_id'];
 
+    // +1 each cake ID
     $cakes[$row['cake_id']]['cake_id'] = $row['cake_id'];
     $cakes[$row['cake_id']]['value']++;
 
+    // +1 each filling
     $fillings[$row['filling_id']]['filling_id'] = $row['filling_id'];
     $fillings[$row['filling_id']]['value']++;
 
+    // +1 each decoration
     $decorations[$row['decor_id']]['decor_id'] = $row['decor_id'];
     $decorations[$row['decor_id']]['value']++;
   }
@@ -72,6 +81,10 @@
     }
   }
 
+  // Start building the response. Orders contains X and Y values for
+  // each month for the line graph, cakes contains values for each cake type
+  // and size (default 0), fillings contains values for each filling (default
+  // 0) and decorations contains values for each decoration (default 0)
   $response = array(
     'orders'      => array(
                        'values' => array(
@@ -103,6 +116,9 @@
                      )
   );
 
+  // For each filling ID, get the filling details
+  // from the database and add its popularity to
+  // the response
   foreach ($fillings as $filling)
   {
     $query = "
@@ -136,6 +152,9 @@
     }
   }
 
+  // For each decoration ID, get the decoration details
+  // from the database and add its popularity to
+  // the response
   foreach ($decorations as $decoration)
   {
     $query = "
@@ -185,7 +204,9 @@
 //    }
   }
 
-  // Get cake details
+  // For each cake ID, get the cake details
+  // from the database and add its popularity to
+  // the response
   foreach ($cakes as $cake)
   {
     $query = "
@@ -252,6 +273,7 @@
     }
   }
 
+  // For each month, add its popularity to the response
   for ($i = 0; $i < 12; $i++)
   {
     if ($months[$i]) 
@@ -264,5 +286,6 @@
     }
   }
 
+  // Return the response in JSON format
   echo json_encode($response);
 ?>

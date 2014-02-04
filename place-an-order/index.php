@@ -13,11 +13,13 @@
     die();
   }
 
+  // Use HTTPS since secure data is being transferred
   forceHTTPS();
 
   // Generate a token
   $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 
+  // Get user details to make sure they have been entered
   $query = "
     SELECT
       *

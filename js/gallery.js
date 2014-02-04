@@ -1,3 +1,6 @@
+/**
+  js/gallery.js - code specific to the gallery page
+**/
 $(document).ready(function() {
   $('#celebration-carousel').flexslider({
     animation: "slide",

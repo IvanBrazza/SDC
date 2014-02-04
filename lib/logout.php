@@ -4,8 +4,10 @@
   **/
   require("common.php");
 
+  // Unset the session
   unset($_SESSION['user']);
 
+  // Redirect to the login page
   header("Location: ../login");
   die("Redirecting to login.php");
 ?>

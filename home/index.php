@@ -3,6 +3,7 @@
   $title = "Home";
   $page = "home";
 
+  // Use HTTP since no secure data is being displayed
   forceHTTP();
 ?>
 <?php include("../lib/header.php"); ?>

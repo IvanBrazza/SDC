@@ -15,6 +15,7 @@
     die();
   }
 
+  // Use HTTPS since secure data is being transferred
   forceHTTPS();
 
   // Set the error text if the page has been redirected due

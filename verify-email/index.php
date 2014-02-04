@@ -8,12 +8,14 @@
   $title = "Thanks For Registering";
   $page = "register";
 
+  // If a verification code is being submitted
   if (!empty($_GET['code']))
   {
     $email              = $_GET['email'];
     $verification_code  = $_GET['code'];
     $email_verified     = false;
 
+    // Get details about verification based on email in GET
     $query = "
       SELECT
         email,
@@ -38,6 +40,7 @@
       $email_verified = true;
     }
 
+    // If the email is verified, update the database accordingly
     if ($email_verified === true)
     {
       $query = "

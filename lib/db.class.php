@@ -3,6 +3,7 @@ class DB {
   var $result;
   var $database;
 
+  // A function which creates a connection to the databse
   function init() {
     $username         = "ivanrsfr";
     $password         = "inspiron1520";
@@ -23,6 +24,9 @@ class DB {
     $this->database->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   }
 
+  // A function which runs a query passed as parameters,
+  // if it fails, email the webmaster and redirect the
+  // user to the oops page
   function runQuery($query, $query_params) {
     try
     {
@@ -58,10 +62,12 @@ class DB {
     }
   }
 
+  // A function to fetch a single row from the query
   function fetch() {
     return $this->result->fetch();
   }
 
+  // A function to fetch multiple rows from the query
   function fetchAll() {
     return $this->result->fetchAll();
   }

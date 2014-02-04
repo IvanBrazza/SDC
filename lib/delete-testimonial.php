@@ -7,6 +7,7 @@
 
   if ($_POST)
   {
+    // If the token is invalid, die
     if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
     {
       echo "Invalid token.";
@@ -16,6 +17,7 @@
     // Unset the token
     unset($_SESSION['token']);
 
+    // Delete the testimonial based on its ID
     $query = "
       DELETE FROM
         testimonials

@@ -8,17 +8,20 @@
   $title = "Edit Account";
   $page = "edit-account";
 
+  // Only logged in users can access this page
   if (empty($_SESSION['user']))
   {
     header("Location: ../login");
     die();
   }
 
+  // Use HTTPS since secure data is being transferred
   forceHTTPS();
 
   // Generate token
   $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 
+  // Display messages
   if (!empty($_GET['update']))
   {
     if ($_GET['update'] === "success")
@@ -34,6 +37,8 @@
     }
   }
 
+  // Get customer details to be displayed
+  // in the HTML
   $query = "
     SELECT
       *

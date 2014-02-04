@@ -7,6 +7,7 @@
   $title  = "Register";
   $page   = "register";
 
+  // Use HTTPS since secure data is being transferred
   forceHTTPS();
 
   // Generate token

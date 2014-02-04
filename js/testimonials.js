@@ -1,4 +1,10 @@
+/**
+  js/testimonials.js - code specific to the testimonials page
+**/
 $(document).ready(function() {
+  // Hide the submit testimonial form, set some CSS for it,
+  // and when the link is clicked to submit the testimonial,
+  // show the form and scroll down to it.
   $("#submit-testimonial-form").hide();
   $("#submit-testimonial-form").css("margin", "10px 0 0 0");
   $("#submit-testimonial").click(function() {
@@ -7,14 +13,21 @@ $(document).ready(function() {
     });
   });
 
+  // When the submit testimonial form is submitted
   $("#testimonial-form").submit(function(e) {
     // Validate the fields
     validate.email();
     validate.input('#name', '#name_error');
     validate.input('textarea#testimonial', '#testimonial_error');
+    // Show the loading spinner
     loader.Show();
+    // If the validation has passed, submit the form, otherwise
+    // call the validation functions
     if ($input_check && $email_check) {
-      // Submit the form
+      // Submit the form via AJAX to lib/form/submit-testimonial.php.
+      // If the testimonial was successfully added, hide the form
+      // and add the testimonial to the page. Otherwise, show the
+      // error message returned by the server
       $.ajax({
         type: 'post',
         url: '../lib/form/submit-testimonial.php',
@@ -61,9 +74,15 @@ $(document).ready(function() {
     }
   });
 
+  // When the admin clicks the button to delete a testimonial
   $(".delete_testimonial").click(function(e) {
+    // Show the loader and set $button to the button clicked
     loader.Show();
     var $button = $(this);
+    // Make an AJAX call to lib/delete-testimonial.php to delete
+    // the testimonial, sending the testimonial ID and token as
+    // the data. If successfully deleted, remove the testimonial,
+    // otherwise show the error message returned by the server
     $.ajax({
       type: 'post',
       url: '../lib/delete-testimonial.php',

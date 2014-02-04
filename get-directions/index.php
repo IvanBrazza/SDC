@@ -3,14 +3,23 @@
   $title = "Get Directions";
   $page = "all-orders";
 
+  // Only logged in users can access this page
   if (empty($_SESSION['user'])) {
     header("Location: ../login");
     die();
   }
 
+  // Create a new delivery object to be
+  // used for distance calculation
   include "../lib/delivery.php";
   $delivery = new Delivery();
 
+  // If GET, then it means directions are to
+  // be displayed for the admin to a customers
+  // house. So get their details and calculate
+  // the distance, otherwise directions are to
+  // be displayed for the customer to the collection
+  // point
   if ($_GET)
   {
     $query = "

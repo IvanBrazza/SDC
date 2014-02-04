@@ -1,8 +1,15 @@
 <?php
+  /**
+    lib/getfilling-decor.php - a script which is called via
+    AJAX which gets the details of a cake filling or decoration
+    for when an order is being placed
+  **/
   require("common.php");
 
   if ($_POST)
   {
+    // If filling details are needed, get them,
+    // else if decoration details are needed, get those
     if ($_POST['type'] == "filling")
     {
       $query = "
@@ -38,6 +45,8 @@
 
     $row = $db->fetch();
 
+    // Set the response according to filling
+    // or decoration
     if ($_POST['type'] == "filling")
     {
       $response = array(
@@ -53,6 +62,7 @@
       );
     }
 
+    // Return the details in JSON format
     echo json_encode($response);
   }
 ?>

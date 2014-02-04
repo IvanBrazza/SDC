@@ -6,14 +6,17 @@
   require("../lib/common.php");
   $page = "all-orders";
 
+  // Only the admin user can access this page
   if(empty($_SESSION['user']) or $_SESSION['user']['username'] !== "admin")
   {
     header("Location: ../login");
     die();
   }
 
+  // Use HTTPS since secure content is being transferred
   forceHTTPS();
 
+  // Display messages based on GET
   if (!empty($_GET['archive']))
   {
     switch ($_GET['archive']){
@@ -32,31 +35,15 @@
       $display_message = "Order added.";
     }
   }
-  
-  // Get the customer_id from the order_number
-  if (!empty($_GET['order']))
-  {
-    $query = "
-      SELECT
-        customer_id
-      FROM
-        orders
-      WHERE
-        order_number = :order_number
-    ";
 
-    $query_params = array(
-      ':order_number' => $_GET['order']
-    );
-
-    $db->runQuery($query, $query_params);
-    $row = $db->fetch();
-
-    $customer_id = $row['customer_id'];
-  }
-
+  // If GET then run specific queries, otherwise
+  // get all order details
   if ($_GET)
   {
+    // If a single order is to be displayed, get
+    // the details about that order, else if a
+    // user ID is in the GET, then get all the
+    // orders by that user
     if (!empty($_GET['order']))
     {
       $query = "
@@ -107,6 +94,9 @@
         ':get_id' => $_GET['id']
       );
 
+      // If sort is in GET then sort the orders
+      // by the GET details, otherwise sort by
+      // most recent order at the top by default
       if (!empty($_GET['sort']))
       {
         $query .= "
@@ -136,6 +126,9 @@
         orders
     ";
 
+    // If sort is in GET then sort the orders
+    // by the GET details, otherwise sort by
+    // most recent order at the top by default
     if (!empty($_GET['sort']))
     {
       $query .= "
@@ -164,6 +157,8 @@
   if (!empty($_GET['order']))
   {
     $row = $db->fetch();
+    // If the delivery type is deliver rather than
+    // collection, then get the delivery details
     if ($row['delivery_type'] == "Deliver To Address")
     {
       $query = "
@@ -190,6 +185,9 @@
     $rows = $db->fetchAll();
   }
 
+  // If a single order is being displayed or all orders
+  // by a customer, create a new Delivery object and
+  // calculate the distance to be displayed
   if (!empty($_GET['order']) or !empty($_GET['id']))
   {
     include("../lib/delivery.php");
@@ -211,6 +209,7 @@
   // Generate token
   $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 
+  // Set the page title based on what is being displayed
   if (!$_GET or !empty($_GET['archive']) or !empty($_GET['sort']))
   {
     $title = "All Orders";

@@ -8,6 +8,10 @@
   
   $email = new Email;
 
+  // Update the status of the order and email a
+  // status update email to the customer. Else update
+  // the base price based on the form data. Else update
+  // the delivery charge based on the form data
   if (!empty($_POST['status']))
   {
     $query = "
