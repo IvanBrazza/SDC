@@ -32,11 +32,7 @@
       users
   ";
 
-  $query_params = array(
-    ':user_id' => $_SESSION['user']['customer_id']
-  );
-
-  $db->runQuery($query, $query_params);
+  $db->runQuery($query, null);
 
   $rows = $db->fetchAll();
 ?>
