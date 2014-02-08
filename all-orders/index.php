@@ -140,7 +140,7 @@
     {
       $query .= "
         ORDER BY
-          orders.order_placed ASC
+          orders.order_placed DESC
       ";
     }
   }
