@@ -324,19 +324,20 @@
       <tr>
         <th>Status</th>
         <td>
-          <?php echo $row['status']; ?>
           <?php if ($row['archived'] === "0") : ?>
-            <form action="../lib/update-order.php" method="POST" style="margin-left:10px;">
+            <form action="../lib/update-order.php" method="POST">
               <select name="status">
-                <option value="Processing">Processing</option>
-                <option value="Dispatched">Dispatched</option>
-                <option value="Complete">Complete</option>
+                <option <?php if ($row['status'] == "Processing") : ?>selected<?php endif; ?> value="Processing">Processing</option>
+                <option <?php if ($row['status'] == "Dispatched") : ?>selected<?php endif; ?> value="Dispatched">Dispatched</option>
+                <option <?php if ($row['status'] == "Complete") : ?>selected<?php endif; ?> value="Complete">Complete</option>
               </select>
               <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
               <input type="hidden" value="<?php echo $row['first_name']; ?>" name="first_name">
               <input type="hidden" value="<?php echo $row['email']; ?>" name="email">
               <input type="submit" value="Update">
             </form>
+          <?php else : ?>
+            <?php echo $row['status']; ?>
           <?php endif; ?>
         </td>
       </tr>
