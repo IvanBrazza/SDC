@@ -63,6 +63,10 @@
     <?php header("refresh:10;url=../lib/logout.php"); ?>
   <?php else : ?>
     <h3>Thank you. Your email <?php echo $email; ?> is now verified. Redirecting you to the login page...</h3>
-    <?php header("refresh:5;url=../login"); ?>
+    <script>
+      setTimeout(function() {
+        window.location="../login/";
+      }, 6000);
+    </script>
   <?php endif; ?>
 <?php include("../lib/footer.php"); ?>
