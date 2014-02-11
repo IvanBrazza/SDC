@@ -80,8 +80,12 @@ $(document).ready(function() {
           } else {
             if (response === 'Incorrect username.') {
               $("#username").removeClass("valid").addClass("invalid").effect("shake", {}, 500);
+              $("#error_message").html(response);
+              loader.Hide();
             } else if (response === 'Incorrect password.') {
               $("#password").removeClass("valid").addClass("invalid").effect("shake", {}, 500);
+              $("#error_message").html(response);
+              loader.Hide();
             } else if (response.substring(0, 8)  === 'redirect') {
               window.location.href = response.substring(9);
             } else {
