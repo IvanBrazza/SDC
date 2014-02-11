@@ -43,6 +43,7 @@
       if ($check_password === $row['password'])
       {
         $logged_in = true;
+        $password_correct = true;
 
         // Unset token
         unset($_SESSION['token']);
