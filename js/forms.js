@@ -48,6 +48,7 @@ $(document).ready(function() {
             window.location.href = "../verify-email/";
           } else {
             $("#error_message").html(response);
+            Recaptcha.reload();
             loader.Hide();
           }
         }
