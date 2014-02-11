@@ -45,7 +45,7 @@ $(document).ready(function() {
         data: $(this).serialize(),
         success: function(response) {
           if (response === "registered") {
-            window.location.href = "../verify-email/";
+            window.location.href = "../verify-email/?type=register";
           } else {
             $("#error_message").html(response);
             Recaptcha.reload();
