@@ -43,6 +43,10 @@
     $display_message = 'Please <a href="../edit-account">update your details</a> before placing an order.';
     $details_correct = false;
   }
+  else
+  {
+    $details_correct = true;
+  }
 ?>
 <?php include("../lib/header.php"); ?>
   <h1>Place An Order</h1>
@@ -52,6 +56,10 @@
         <?php echo $display_message; ?>
         <script>
           var $details_correct = false;
+        </script>
+      <?php else : ?>
+        <script>
+          var $details_correct = true;
         </script>
       <?php endif; ?>
     </span>
