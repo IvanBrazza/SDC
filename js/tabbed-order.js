@@ -8,6 +8,13 @@ $(document).ready(function() {
   $("#order-form-previous").data("disabled", "true");
   $("#order-form-next").data("disabled", "false");
 
+  // Disable the order form if the customer hasn't
+  // updated their account details
+  if (!$details_correct) {
+    $(".tabbed_content").find("input, select, textarea").prop("disabled",true);
+    $("#order-form-next").data("disabled", "true");
+  }
+
   // When the "next" link is clicked
   $("#order-form-next").click(function() {
     // If the link isn't disabled, go to the next tab

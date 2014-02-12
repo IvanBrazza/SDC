@@ -48,6 +48,12 @@
   <h1>Place An Order</h1>
   <div class="error">
     <span class="error_message" id="error_message">
+      <?php if (!$details_correct) : ?>
+        <?php echo $display_message; ?>
+        <script>
+          var $details_correct = false;
+        </script>
+      <?php endif; ?>
     </span>
   </div>
   <form action="../lib/form/place-an-order.php" method="POST" id="order-form" enctype="multipart/form-data">
