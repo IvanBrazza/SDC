@@ -89,6 +89,7 @@ $(document).ready(function() {
       data: {id: $(this).data("id"), token: $(this).data("token")},
       success: function(response) {
         if (response === 'success') {
+          loader.Hide();
           $button.closest("div").slideUp(400, function() {
             $(this).remove();
           });
