@@ -75,22 +75,26 @@ $(document).ready(function() {
         url: '../lib/form/login.php',
         data: $(this).serialize(),
         success: function(response) {
-          if (response === 'logged-in') {
+          object = JSON.parse(response);
+          if (object.status === 'success') {
             window.location.href = "../home/";
           } else {
-            if (response === 'Incorrect username.') {
+            if (object.status === 'Incorrect username.') {
               $("#username").removeClass("valid").addClass("invalid").effect("shake", {}, 500);
-              $("#error_message").html(response);
+              $("#error_message").html(object.status);
               loader.Hide();
-            } else if (response === 'Incorrect password.') {
+              $("#token").val(object.token);
+            } else if (object.status === 'Incorrect password.') {
               $("#password").removeClass("valid").addClass("invalid").effect("shake", {}, 500);
-              $("#error_message").html(response);
+              $("#error_message").html(object.status);
               loader.Hide();
-            } else if (response.substring(0, 8)  === 'redirect') {
-              window.location.href = response.substring(9);
+              $("#token").val(object.token);
+            } else if (object.status  === 'redirect') {
+              window.location.href = object.redirect;
             } else {
-              $("#error_message").html(response);
+              $("#error_message").html(object.status);
               loader.Hide();
+              $("#token").val(object.token);
             }
           }
         }

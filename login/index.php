@@ -55,7 +55,7 @@
       <?php if (!empty($_GET['redirect'])) : ?>
         <input type="hidden" value="<?php echo $_GET['redirect']; ?>" name="redirect">
       <?php endif; ?>
-      <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
+      <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token" id="token">
       <input type="submit" value="Login" />
     </form> 
   </div>

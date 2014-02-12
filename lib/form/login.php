@@ -59,6 +59,9 @@
       }
     }
     
+    // Generate a new token
+    $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
+
     // If the $logged_in var is true, unset the salt and password vars
     // for security reasons, then set the sessions details and redirect
     // the user to the homepage. Else, display an error message depending
@@ -72,32 +75,54 @@
 
       if (!empty($_POST['redirect']))
       {
-        echo "redirect=.." . $_POST['redirect'];
+        $response = array(
+          "status"   => "redirect",
+          "redirect" => $_POST['redirect']
+        );
       }
       else
       {
-        echo "logged-in";
+        $response = array(
+          "status" => "success"
+        );
       }
+      echo json_encode($response);
       die();
     }
     else if (!$row)
     {
-      echo "Incorrect username.";
+      $response = array(
+        "status" => "Incorrect username.",
+        "token"  => $_SESSION['token']
+      );
+      echo json_encode($response);
       die();
     }
     else if ($row and !$password_correct)
     {
-      echo "Incorrect password.";
+      $response = array(
+        "status" => "Incorrect password.",
+        "token"  => $_SESSION['token']
+      );
+      echo json_encode($response);
       die();
     }
     else if (!$email_verified and !$logged_in)
     {
-      echo "Your email isn't verified, please check your emails to verify your account.";
+      $response = array(
+        "status" => "Your email isn't verified, please check your emails to verify your account.",
+        "token"  => $_SESSION['token']
+      );
+      echo json_encode($response);
       die();
     }
     else
     {
-      echo "Oops! Something went wrong. Try again.";
+      $response = array (
+        "status" => "Oops! Something went wrong. Try again.",
+        "token"  => $_SESSION['token']
+      );
+      echo json_encode($response);
       die();
     }
   }
