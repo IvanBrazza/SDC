@@ -20,11 +20,23 @@ $(document).ready(function() {
     // If the link isn't disabled, go to the next tab
     if ($(this).data("disabled") == "false") {
       var next = $(".tabs").find(".active").next();
-      var background = $(".tabs").find(".moving_bg");
+      var current = $(next).prevAll().size()-1;
+      if (current == 1) {
+        validate.input('#celebration_date', '#celebration_date_error');
+        if ($("#comments").data("required") == "true") {
+          validate.input("textarea#comments", "#comments_error");
+        }
+      } else if (current == 3) {
+        validate.input('#datetime', '#datetime_error');
+      }
 
-      $(background).stop().animate({left: next.position()['left']}, {duration: 300});
+      if ($input_check) {
+        var background = $(".tabs").find(".moving_bg");
 
-      slideContent(next);
+        $(background).stop().animate({left: next.position()['left']}, {duration: 300});
+
+        slideContent(next);
+      }
     }
   });
 

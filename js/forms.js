@@ -195,10 +195,24 @@ $(document).ready(function() {
 
   $("#filling").change(function() {
     calculateOrderTotal();
+    if ($(this).val() == "3") {
+      $("#comments").data("required", "true");
+    } else if ($("#decoration").val() == "6") {
+      $("#comments").data("required", "true");
+    } else {
+      $("#comments").data("required", "false");
+    }
   });
 
   $("#decoration").change(function() {
     calculateOrderTotal();
+    if ($(this).val() == "6") {
+      $("#comments").data("required", "true");
+    } else if ($("#filling").val() == "3") {
+      $("#comments").data("required", "true");
+    } else {
+      $("#comments").data("required", "false");
+    }
   });
 
   $("#existing_id").change(function() {
