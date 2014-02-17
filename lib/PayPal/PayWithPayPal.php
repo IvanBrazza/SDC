@@ -38,12 +38,13 @@
   $db->runQuery($query, $query_params);
 
   $row = $db->fetch();
+  $fillingPrice = $row['filling_price'];
 
   $filling = new Item();
   $filling->setname("Filling: " . $row['filling_name'])
           ->setCurrency("GBP")
           ->setQuantity(1)
-          ->SetPrice($row['filling_price']);
+          ->SetPrice($fillingPrice);
 
   $query = "
     SELECT
@@ -61,23 +62,24 @@
   $db->runQuery($query, $query_params);
 
   $row = $db->fetch();
+  $decorPrice = $row['decor_price'];
 
   $decoration = new Item();
   $decoration->setname("Decoration: " . $row['decor_name'])
              ->setCurrency("GBP")
              ->setQuantity(1)
-             ->SetPrice($row['decor_price']);
+             ->SetPrice($decorPrice);
 
   $itemList = new ItemList();
   $itemList->setItems(array($item1, $filling, $decoration));
 
   $details = new Details();
   $details->setShipping($deliveryCharge)
-          ->setSubtotal($base_price + 10);
+          ->setSubtotal($base_price + $fillingPrice + $decorPrice);
 
   $amount = new Amount();
   $amount->setCurrency("GBP")
-         ->setTotal($deliveryCharge + $base_price + 10)
+         ->setTotal($deliveryCharge + $base_price + $fillingPrice + $decorPrice)
          ->setDetails($details);
 
   $transaction = new Transaction();
