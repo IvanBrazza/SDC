@@ -36,6 +36,9 @@ $(document).ready(function() {
         $(background).stop().animate({left: next.position()['left']}, {duration: 300});
 
         slideContent(next);
+      } else {
+        var height = $(".tabslider").children(":nth-child(" + current + ")").height();
+        $(".slide_content").stop().animate({height: height}, {duration: 300});
       }
     }
   });
