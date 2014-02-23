@@ -53,7 +53,7 @@
     switch ($_GET['e'])
     {
       case "1":
-        $display_message = "Image too large.";
+        $display_message = "Image must be smaller than 5 megabytes.";
         break;
       case "2":
         $display_message = "File must be .jpg, .jpeg, .png or .gif.";
@@ -160,7 +160,8 @@
                 If you wish for your cake to have a picture printed onto edible paper, you
                 can upload it clicking the "Choose File" or "Browse" button below. Please
                 make sure that the picture is high quality and note that you can only
-                upload .jpg, .jpeg, .png or .gif files.
+                upload .jpg, .jpeg, .png or .gif files, and the image must be less than
+                5 megabytes in size.
               </label>
               <br /><br /><br />
               <input type="hidden" name="MAX_FILE_SIZE" value="5242880">
