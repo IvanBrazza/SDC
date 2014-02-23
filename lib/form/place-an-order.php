@@ -29,7 +29,7 @@
           $_FILES['fileupload']['type'] == "image/png")
       {
         // All good, let's move the file
-        $uploaddir = "/var/www/ivanbrazza.biz/htdocs/upload/" . $_SESSION['user']['customer_id'] . "/";
+        $uploaddir = "/home/ivanrsfr/www/upload/" . $_SESSION['user']['customer_id'] . "/";
         $uploadfile = $uploaddir . basename($_FILES['fileupload']['name']);
         if (!is_dir($uploaddir))
         {
