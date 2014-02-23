@@ -14,12 +14,12 @@
     unset($_SESSION['token']);
 
     // Check if an image was uploaded, if it was make sure it's valid
-    if (!empty($_FILES['fileupload']['size']))
+    if ($_FILES['fileupload']['error'] == 0)
     {
       // Check file size
       if ($_FILES['fileupload']['size'] > 5242880)
       {
-        echo "Image too large.";
+        header("Location: ../../place-an-order/?e=1");
         die();
       }
       // Check file type
@@ -43,10 +43,22 @@
       }
       else
       {
-        error_log($_FILES['fileupload']['type'] . " uploaded", 0);
-        echo "Image must be .jpeg, .png or .gif.";
+        header("Location: ../../place-an-order/?e=2");
         die();
       }
+    }
+    else if ($_FILES['fileupload']['error'] == 1 or $_FILES['fileupload']['error'] == 2)
+    {
+      header("Location: ../../place-an-order/?e=1");
+      die();
+    }
+    else if ($_FILES['fileupload']['error'] == 3 or
+             $_FILES['fileupload']['error'] == 6 or
+             $_FILES['fileupload']['error'] == 7 or
+             $_FILES['fileupload']['error'] == 8)
+    {
+      header("Location: ../../place-an-order/?e=3");
+      die();
     }
 
     // Get the cake_id of the cake based on the cake_size and cake_type

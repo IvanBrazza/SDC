@@ -47,6 +47,22 @@
   {
     $details_correct = true;
   }
+
+  if (!empty($_GET))
+  {
+    switch ($_GET['e'])
+    {
+      case "1":
+        $display_message = "Image too large.";
+        break;
+      case "2":
+        $display_message = "File must be .jpg, .jpeg, .png or .gif.";
+        break;
+      case "3":
+        $display_message = "Oops! Something went wrong. Try again.";
+        break;
+    }
+  }
 ?>
 <?php include("../lib/header.php"); ?>
   <h1>Place An Order</h1>
@@ -56,6 +72,11 @@
         <?php echo $display_message; ?>
         <script>
           var $details_correct = false;
+        </script>
+      <?php elseif (!empty($_GET)) : ?>
+        <?php echo $display_message; ?>
+        <script>
+          var $details_correct = true;
         </script>
       <?php else : ?>
         <script>
