@@ -31,10 +31,13 @@
         a.celebration_date,
         a.comments,
         a.delivery_type,
+        a.base_price,
         b.cake_type,
         b.cake_size,
         c.filling_name,
-        d.decor_name
+        c.filling_price,
+        d.decor_name,
+        d.decor_price
       FROM
         orders a,
         cakes b,
@@ -116,6 +119,73 @@
   <?php if (!empty($_GET['failed']) and $_GET['failed'] == "true") : ?>
     <h3>Your order has been cancelled.</h3>
   <?php else : ?>
-    <h3>Thank you for your order, a copy of it has been emailed to you. Any further updates to your order will be sent to you by email</h3>
+    <h2>Thank You</h2>
+    <p>Here's what you ordered:</p>
+    <?php if (!empty($row['image'])) : ?>
+      <div class="image-view">
+        <img src="<?php echo $row['image']; ?>" height="400px">
+        <div class="close">X</div>
+      </div>
+    <?php endif; ?>
+    <table id="single_order">
+      <tr>
+        <th>Required Date</th>
+        <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?> </td>
+      </tr>
+      <tr>
+        <th>Date Of Celebration</th>
+        <td><?php echo $row['celebration_date']; ?></td>
+      </tr>
+      <tr>
+        <th>Comments</th>
+        <td><?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?></td>
+      </tr>
+      <tr>
+        <th>Filling</th>
+        <td><?php echo htmlentities($row['filling_name'], ENT_QUOTES, 'UTF-8')." - &pound;".htmlentities($row['filling_price'], ENT_QUOTES, 'UTF-8'); ?></td>
+      </tr>
+      <tr>
+        <th>Decoration</th>
+        <td><?php echo htmlentities($row['decor_name'], ENT_QUOTES, 'UTF-8')." - &pound;".htmlentities($row['decor_price'], ENT_QUOTES, 'UTF-8'); ?></td>
+      </tr>
+      <tr>
+        <th>Cake Size</th>
+        <td><?php echo htmlentities($row['cake_size'], ENT_QUOTES, 'UTF-8'); ?></td>
+      </tr>
+      <tr>
+        <th>Cake Type</th>
+        <td><?php echo htmlentities($row['cake_type'], ENT_QUOTES, 'UTF-8'); ?></td>
+      </tr>
+      <?php if (!empty($row['image'])) : ?>
+        <tr>
+          <th>Image</th>
+          <td><a href="javascript:" id="image-link">Click here to view image</a></td>
+        </tr>
+      <?php endif; ?>
+      <tr>
+        <th>Base Price</th>
+        <td>&pound;<?php echo $row['base_price']; ?></td>
+      </tr>
+      <?php if ($row['delivery_type'] == "Deliver To Address") : ?>
+        <tr>
+          <th>Delivery Charge</th>
+          <td>&pound;<?php echo $row['delivery_charge']; ?></td>
+        </tr>
+      <?php endif; ?>
+      <tr>
+        <th>Delivery Type</th>
+        <td>
+          <?php echo htmlentities($row['delivery_type'], ENT_QUOTES, 'UTF-8'); ?>
+          <?php if ($row['delivery_type'] === "Collection") : ?>
+            <a href="../get-directions/">Get Directions</a>
+          <?php endif; ?>
+        </td>
+      </tr>
+      <tr>
+        <th>Grand Total</th>
+        <td>&pound;<?php echo $row['base_price']+$deliveryrow['delivery_charge']+$row['filling_price']+$row['decor_price']; ?></td>
+      </tr>
+    </table>
+    <p>A copy of your order has been emailed to you. Any further updates to your order will be sent to you by email</p>
   <?php endif; ?>
 <?php include("../lib/footer.php"); ?>
