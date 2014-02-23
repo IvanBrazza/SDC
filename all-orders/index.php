@@ -423,7 +423,7 @@
       <br /><br />
       <?php if (!empty($row['image'])) : ?>
         <div class="image-view">
-          <img src="<?php echo $row['image']; ?>" height="400px">
+          <img src="<?php echo str_replace("/home/ivanrsfr/www/", "../", $row['image']); ?>" height="400px">
           <div class="close">X</div>
         </div>
       <?php endif; ?>

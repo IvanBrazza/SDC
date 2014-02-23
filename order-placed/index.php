@@ -32,6 +32,7 @@
         a.comments,
         a.delivery_type,
         a.base_price,
+        a.image,
         b.cake_type,
         b.cake_size,
         c.filling_name,
@@ -60,6 +61,27 @@
     $db->runQuery($query, $query_params);
 
     $row = $db->fetch();
+
+    if ($row['delivery_type'] == "Deliver To Address")
+    {
+      $query = "
+        SELECT
+          delivery_charge
+        FROM
+          delivery
+        WHERE
+          order_number = :order_number
+      ";
+
+      $query_params = array(
+        ':order_number' => $_GET['order']
+      );
+
+      $db->runQuery($query, $query_params);
+
+      $temp = $db->fetch();
+      $row['delivery_charge'] = $temp['delivery_charge'];
+    }
 
     // Email the order details to the user
     $email->setFirstName($_SESSION['user']['name']);
@@ -123,7 +145,7 @@
     <p>Here's what you ordered:</p>
     <?php if (!empty($row['image'])) : ?>
       <div class="image-view">
-        <img src="<?php echo $row['image']; ?>" height="400px">
+        <img src="<?php echo str_replace("/home/ivanrsfr/www/", "../", $row['image']); ?>" height="400px">
         <div class="close">X</div>
       </div>
     <?php endif; ?>
