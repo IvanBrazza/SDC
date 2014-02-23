@@ -331,3 +331,7 @@ div.image-view > div.close {
 div.image-view > div.close:hover {
   cursor:             pointer;
   }
+
+.help {
+  font-size:          0.8em;
+  }

@@ -27,6 +27,8 @@ $(document).ready(function() {
     }
   });
 
+  $(document).tooltip();
+
   // Enable clickable rows on order and customers tables
   $('table#orders-js>tbody>tr').click(function() {
     window.location.href = $(this).find("a").attr("href");

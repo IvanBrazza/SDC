@@ -103,12 +103,12 @@
           <ul>
             <li><!-- The Cake -->
               <div>
-                <label for="celebration_date">Date of celebration</label>
+                <label for="celebration_date">Date of celebration <a href="javascript:" class="help" title="The date of the event you are ordering a cake for.">?</a></label>
                 <input type="text" name="celebration_date" class="date" id="celebration_date" onchange="validate.input('#celebration_date', '#celebration_date_error')">
               </div>
               <div id="celebration_date_error" class="validate-error"></div>
               <div>
-                <label for="filling">Filling</label>
+                <label for="filling">Filling <a href="javascript:" class="help" title="The filling you want your cake to have. If you choose 'Other' please specify the filling in the comments box.">?</a></label>
                 <select name="filling" id="filling">
                   <option value="0">None</option>
                   <option value="1">Butter Cream</option>
@@ -117,7 +117,7 @@
                 </select>
               </div>
               <div>
-                <label for="decoration">Decoration</label>
+                <label for="decoration">Decoration <a href="javascript:" class="help" title="What you want your cake to be decorated in. If you choose 'Other' please specify the decoration in the comments box.">?</a></label>
                 <select name="decoration" id="decoration">
                   <option value="0">None</option>
                   <option value="1">Royal Icing</option>
@@ -129,7 +129,7 @@
                 </select>
               </div>
                 <div>
-                <label for="cake_size">Size of cake</label>
+                <label for="cake_size">Size of cake <a href="javascript:" class="help" title="The size you want the cake to be in inches.">?</a></label>
                 <select name="cake_size" id="cake_size">
                   <option value='6"'>6"</option>
                   <option value='8"'>8"</option>
@@ -148,7 +148,7 @@
                 </select>
               </div>
               <div id="comments">
-                <label for="comments">Comments</label>
+                <label for="comments">Comments <a href="javascript:" class="help" title="Any additional comments you may have to make or if you chose filling/decoration as 'Other'.">?</a></label>
                 <textarea name="comments" id="comments" rows="6" cols="30" onchange="validate.input('textarea#comments', '#comments_error')"></textarea>
               </div>
               <div id="comments_error" class="validate-error"></div>
