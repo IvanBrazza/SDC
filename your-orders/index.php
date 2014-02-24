@@ -124,7 +124,7 @@
     <h1>Order <?php echo $row['order_number']; ?><?php if ($row['archived'] === "1") : ?> (archived)<?php else: ?> <a href="../edit-order/?order=<?php echo $row['order_number']; ?>" class="small-link">Edit</a><?php endif; ?></h1>
     <?php if (!empty($row['image'])) : ?>
       <div class="image-view">
-        <img src="<?php echo $row['image']; ?>" height="400px">
+        <img src="<?php echo str_replace("/home/ivanrsfr/www/", "../", $row['image']); ?>" height="400px">
         <div class="close">X</div>
       </div>
     <?php endif; ?>
