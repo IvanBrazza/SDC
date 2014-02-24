@@ -77,7 +77,7 @@ class Email {
     $this->body       = '<html><body>';
     $this->body      .= '<p>Hi ' . $this->firstName . ',</p>';
     $this->body      .= '<p>Thank you for registering with Star Dream Cakes. Please click the link below to verify your account:</p>';
-    $this->body      .= '<a href="http://www.ivanbrazza.biz/verify-email/?email=' . $to . '&code=' . $code . '>http://www.ivanbrazza.biz/verify-email/?email=' . $to . '&code=' . $code . '</a>';
+    $this->body      .= '<a href="http://www.ivanbrazza.biz/verify-email/?email=' . $this->to . '&code=' . $code . '">http://www.ivanbrazza.biz/verify-email/?email=' . $this->to . '&code=' . $code . '</a>';
     $this->body      .= '<br />';
     $this->body      .= '<p>Thank you,<br />';
     $this->body      .= 'Star Dream Cakes</p>';
