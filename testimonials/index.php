@@ -28,9 +28,6 @@
 ?>
 <?php include("../lib/header.php"); ?>
   <h1>Testimonials</h1>
-  <div class="error">
-    <span class="error_message" id="error_message"></span>
-  </div>
   <div id="testimonials">
     <?php foreach ($rows as $row) : ?>
       <div>
@@ -47,6 +44,9 @@
   </div>
   <br /><br />
   <a href="javascript:" id="submit-testimonial">Submit A Testimonial</a>
+  <div class="error">
+    <span class="error_message" id="error_message"></span>
+  </div>
   <div id="submit-testimonial-form" class="form">
     <script type="text/javascript">
       var RecaptchaOptions = {

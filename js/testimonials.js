@@ -35,6 +35,7 @@ $(document).ready(function() {
         success: function(response) {
           if (response.substring(0, 7) === 'success') {
             $("#submit-testimonial-form").slideUp();
+            $("#error_message").hide();
             loader.Hide();
             $("#testimonials").append("<div>" + 
                                       "<p class='testimonial'>" + $('textarea#testimonial').val()  + "</p>" + 
@@ -58,6 +59,9 @@ $(document).ready(function() {
             Recaptcha.reload();
             $("#token").val(response.substring(8));
           } else {
+            if (response == "reCAPTCHA incorrect.") {
+              Recaptcha.reload();
+            }
             $("#error_message").html(response);
             loader.Hide();
           }
