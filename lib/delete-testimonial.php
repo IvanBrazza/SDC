@@ -31,7 +31,13 @@
 
     $db->runQuery($query, $query_params);
 
-    echo "success";
+    $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
+
+    $response = array(
+      "response" => "success",
+      "token" => $_SESSION['token']
+    );
+    echo json_encode($response);;
     die();
   }
   else

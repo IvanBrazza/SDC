@@ -92,11 +92,13 @@ $(document).ready(function() {
       url: '../lib/delete-testimonial.php',
       data: {id: $(this).data("id"), token: $(this).data("token")},
       success: function(response) {
-        if (response === 'success') {
+        object = JSON.parse(response);
+        if (object.response === 'success') {
           loader.Hide();
           $button.closest("div").slideUp(400, function() {
             $(this).remove();
           });
+          $(".delete_testimonial").data("token", object.token);
         } else {
           $("#error_message").html(response);
         }
