@@ -32,6 +32,7 @@
     <?php foreach ($rows as $row) : ?>
       <div>
         <p class="testimonial"><?php echo htmlentities($row['testimonial'], ENT_QUOTES, 'UTF-8'); ?></p>
+        <div class="downarrow"></div>
         <span class="testimonial-name">
           <small>- <?php echo htmlentities($row['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($row['location'])) { echo ", "; echo htmlentities($row['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
             <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
