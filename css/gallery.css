@@ -1,0 +1,25 @@
+#celebration-tiles li,
+#cupcakes-tiles li,
+#other-tiles li {
+  background:         #ffffff;
+  border-radius:      5px;
+  border:             1px solid gray;
+  padding:            5px 5px 1px 5px;
+  list-style-type:    none;
+  display:            none;
+  cursor:             pointer;
+  }
+
+#celebration-container,
+#cupcakes-container,
+#other-container {
+  position:           relative;
+  }
+
+.load {
+  background-image:   url('../img/spinner.gif');
+  background-repeat:  no-repeat;
+  height:             80px;
+  width:              80px;
+  margin:             0 auto;
+  }

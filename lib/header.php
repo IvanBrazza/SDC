@@ -11,7 +11,7 @@
     <link href="../css/timepicker.css" rel="stylesheet">
   <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "gallery") !== false) : ?>
-    <link href="../css/flexslider.css" rel="stylesheet">
+    <link href="../css/gallery.css" rel="stylesheet">
   <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "get-directions") !== false) : ?>
     <link href="../css/google-maps.css" rel="stylesheet">
