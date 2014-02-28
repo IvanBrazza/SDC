@@ -33,28 +33,6 @@
     $decorations[$row['decor_id']]['decor_id'] = $row['decor_id'];
     $decorations[$row['decor_id']]['value']++;
   }
-
-  // Get first & last name for each customer to display
-  foreach ($users as $user)
-  {
-    $query = "
-      SELECT
-        *
-      FROM
-        users
-      WHERE
-        customer_id = :customer_id
-    ";
-
-    $query_params = array(
-      ':customer_id' => $user['customer_id']
-    );
-
-    $db->runQuery($query, $query_params);
-    $row = $db->fetch();
-    $users[$user['customer_id']]['first_name'] = $row['first_name'];
-    $users[$user['customer_id']]['last_name'] = $row['last_name'];
-  }
   
   // Calculate orders placed per month
   for ($i = 0; $i < 13; $i++)
