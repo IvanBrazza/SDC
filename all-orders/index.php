@@ -435,7 +435,7 @@
     <?php echo htmlentities($rows[0]['address'], ENT_QUOTES, 'UTF-8'); ?><br />
     <?php echo htmlentities($rows[0]['postcode'], ENT_QUOTES, 'UTF-8'); ?><br />
     <i>(<?php echo $delivery->getDistance(); ?> miles away)</i><br />
-    <a href="../get-directions?id=<?php echo $rows[0]['customer_id']; ?>">Get directions</a>
+    <a href="../get-directions?id=<?php echo $_GET['id']; ?>">Get directions</a>
     <br />
     <br />
     <span class="title">Phone: </span>
