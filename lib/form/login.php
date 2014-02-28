@@ -80,12 +80,35 @@
           "redirect" => $_POST['redirect']
         );
       }
+      else if ($row['last_login'] == "0000-00-00 00:00:00")
+      {
+        $response = array(
+          "status"   => "redirect",
+          "redirect" => "/edit-account/?first=login"
+        );
+      }
       else
       {
         $response = array(
           "status" => "success"
         );
       }
+
+      $query = "
+        UPDATE
+          users
+        SET
+          last_login = :date
+        WHERE
+          customer_id = :customer_id
+      ";
+
+      $query_params = array(
+        ':date'         => date('Y-m-d H:i:s'),
+        ':customer_id'  => $row['customer_id']
+      );
+
+      $db->runQuery($query, $query_params);
       echo json_encode($response);
       die();
     }

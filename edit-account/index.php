@@ -36,6 +36,10 @@
       $display_message = "That email address is already in use.";
     }
   }
+  else if (!empty($_GET['first']))
+  {
+    $display_message = "Please update your account details.";
+  }
 
   // Get customer details to be displayed
   // in the HTML
@@ -62,6 +66,7 @@
       <div class="success">
         <span class="success_message" id="success_message">
           <?php if (!empty($_GET) and !empty($_GET['update'])) {echo $display_message;} ?>
+          <?php if (!empty($_GET) and !empty($_GET['first'])) {echo $display_message;} ?>
         </span>
       </div>
       <div class="error">
