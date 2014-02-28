@@ -114,98 +114,26 @@
     }
     while ($order_number_unique === false);
 
-    // Calculate base price
-    switch ($_POST['cake_size'])
-    {
-      case '6"':
-        switch ($_POST['cake_type'])
-        {
-          case "Sponge":
-            $base_price = 25;
-            break;
-          case "Marble":
-            $base_price = 30;
-            break;
-          case "Chocolate":
-            $base_price = 32;
-            break;
-          case "Fruit":
-            $base_price = 35;
-            break;
-        }
-        break;
-      case '8"':
-        switch ($_POST['cake_type'])
-        {
-          case "Sponge":
-            $base_price = 30;
-            break;
-          case "Marble":
-            $base_price = 35;
-            break;
-          case "Chocolate":
-            $base_price = 37;
-            break;
-          case "Fruit":
-            $base_price = 45;
-            break;
-        }
-        break;
-      case '10"':
-        switch ($_POST['cake_type'])
-        {
-          case "Sponge":
-            $base_price = 40;
-            break;
-          case "Marble":
-            $base_price = 45;
-            break;
-          case "Chocolate":
-            $base_price = 47;
-            break;
-          case "Fruit":
-            $base_price = 60;
-            break;
-        }
-        break;
-      case '12"':
-        switch ($_POST['cake_type'])
-        {
-          case "Sponge":
-            $base_price = 60;
-            break;
-          case "Marble":
-            $base_price = 65;
-            break;
-          case "Chocolate":
-            $base_price = 80;
-            break;
-          case "Fruit":
-            $base_price = 85;
-            break;
-        }
-        break;
-      case '14"':
-        switch ($_POST['cake_type'])
-        {
-          case "Sponge":
-            $base_price = 75;
-            break;
-          case "Marble":
-            $base_price = 80;
-            break;
-          case "Chocolate":
-            $base_price = 84;
-            break;
-          case "Fruit":
-            $base_price = 125;
-            break;
-        }
-        break;
-      default:
-        echo "Oops! Something went wrong. Try again.";
-        die();
-    }
+    $query = "
+      SELECT
+        cake_price
+      FROM
+        cakes
+      WHERE
+        cake_size = :cake_size
+      AND
+        cake_type = :cake_type
+    ";
+
+    $query_params = array(
+      'cake_size' => $_POST['cake_size'],
+      'cake_type' => $_POST['cake_type']
+    );
+
+    $db->runQuery($query, $query_params);
+    $row = $db->fetch();
+
+    $base_price = $row['cake_price'];
 
     // Insert the order into the DB
     $query = "
