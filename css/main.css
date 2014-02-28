@@ -195,7 +195,7 @@ table > caption {
   margin-bottom:      0;
   padding:            10px 50px;
   position:           relative;
-  background-image:   linear-gradient(#CEF3FF, #B7EDFF);
+  background-image:   linear-gradient(#E4F8FF, #CBF2FF);
   border-radius:      5px;
   }
 
@@ -224,7 +224,7 @@ table > caption {
   height:             0;
   border-left:        15px solid transparent;
   border-right:       15px solid transparent;
-  border-top:         15px solid #B7EDFF;
+  border-top:         15px solid #CBF2FF;
   margin:             0 0 0 25px;
   }
 
