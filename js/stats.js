@@ -72,7 +72,6 @@ function getData() {
     success: function(response) {
       if (JSON.stringify(object.orders) != JSON.stringify(JSON.parse(response).orders)) {
         object = JSON.parse(response);
-        console.log(object);
         ordersData = object.orders;
         cakesData = object.cakes;
         fillingsData = object.fillings;
