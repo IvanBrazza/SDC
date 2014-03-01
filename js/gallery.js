@@ -36,7 +36,12 @@ $(document).ready(function() {
       fillEmptySpace: true
     });
     $("#celebration-load").hide();
-    $celebration.show();
+    $celebration.hide();
+    var d = 0;
+    $celebration.each(function() {
+      $(this).delay(d).fadeIn();
+      d += 100;
+    });
   });
 
   // When the images for the cupcakes section are
@@ -52,7 +57,12 @@ $(document).ready(function() {
       verticalOffset: 10
     });
     $("#cupcakes-load").hide();
-    $cupcakes.show();
+    $cupcakes.hide();
+    var d = 0;
+    $cupcakes.each(function() {
+      $(this).delay(d).fadeIn();
+      d += 100;
+    });
   });
 
   // When the images for the other section are
@@ -68,6 +78,11 @@ $(document).ready(function() {
       verticalOffset: 10
     });
     $("#other-load").hide();
-    $other.show();
+    $other.hide();
+    var d = 0;
+    $other.each(function() {
+      $(this).delay(d).fadeIn();
+      d += 100;
+    });
   });
 });
