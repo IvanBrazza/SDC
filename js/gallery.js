@@ -37,8 +37,13 @@ $(document).ready(function() {
     });
     $("#celebration-load").hide();
     $celebration.hide();
+    $("#celebration-container .wookmark-placeholder").hide();
     var d = 0;
     $celebration.each(function() {
+      $(this).delay(d).fadeIn();
+      d += 100;
+    });
+    $("#celebration-container .wookmark-placeholder").each(function() {
       $(this).delay(d).fadeIn();
       d += 100;
     });
@@ -54,12 +59,18 @@ $(document).ready(function() {
       itemWidth: 200,
       align: "center",
       offset: 3,
-      verticalOffset: 10
+      verticalOffset: 10,
+      fillEmptySpace: true
     });
     $("#cupcakes-load").hide();
     $cupcakes.hide();
+    $("#cupcakes-container .wookmark-placeholder").hide();
     var d = 0;
     $cupcakes.each(function() {
+      $(this).delay(d).fadeIn();
+      d += 100;
+    });
+    $("#cupcakes-container .wookmark-placeholder").each(function() {
       $(this).delay(d).fadeIn();
       d += 100;
     });
@@ -75,12 +86,18 @@ $(document).ready(function() {
       itemWidth: 200,
       align: "center",
       offset: 3,
-      verticalOffset: 10
+      verticalOffset: 10,
+      fillEmptySpace: true
     });
     $("#other-load").hide();
     $other.hide();
+    $("#other-container .wookmark-placeholder").hide();
     var d = 0;
     $other.each(function() {
+      $(this).delay(d).fadeIn();
+      d += 100;
+    });
+    $("#other-container .wookmark-placeholder").each(function() {
       $(this).delay(d).fadeIn();
       d += 100;
     });
