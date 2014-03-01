@@ -59,17 +59,16 @@ $(document).ready(function() {
 var loader = {
   Init: function() {
     $("#loading-spinner-dialog").dialog({
+      autoOpen: false,
       closeOnEscape: false,
       draggable: false,
       height: 107,
       modal: true,
       position: "top",
       resizable: false,
+      show: {effect: "fade", duration: 500},
       width: 90
     }).parent().children("div:first-child").css("display", "none");
-    $("#loading-spinner-dialog").dialog("option", "height", 107)
-                                .dialog("close")
-                                .dialog("option", "show", {effect: "fade", duration: 500});
   },
   Show: function() {
     $("#loading-spinner-dialog").dialog("open");
