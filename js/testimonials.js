@@ -38,7 +38,8 @@ $(document).ready(function() {
             $("#error_message").hide();
             loader.Hide();
             $("#testimonials").append("<div>" + 
-                                      "<p class='testimonial'>" + $('textarea#testimonial').val()  + "</p>" + 
+                                      "<p class='testimonial unapproved'>" + $('textarea#testimonial').val()  + "</p>" + 
+                                      "<div class='downarrow unapproved'></div>" +
                                       "<span class='testimonial-name'>" + 
                                       "<small>- " + 
                                       $('#name').val() +
@@ -49,10 +50,15 @@ $(document).ready(function() {
               $("#testimonials div:last-child > span > small").append("<i>, " + $('#location').val()  + "</i>");
               $("#location").val("");
             }
+            $("#testimonials div:last-child > span > small").append("<span id='unapproved'><i> (unapproved)</i></span>");
             $("#testimonials div:last-child").hide().slideDown(400, function() {
                                                                 $("#submit-testimonial-form").slideUp();
                                                               });
             $("#testimonials div:last-child").effect("highlight", {}, 1000);
+            $("<div>Thank you for submitting a testimonial. It has been sent for approval and will appear on this page once approved</div>").dialog({
+              position: "top",
+              title: "Thank you"
+            });
             $("#name").val("").removeClass("valid");
             $("#email").val("").removeClass("valid");
             $("textarea#testimonial").val("").removeClass("valid");
@@ -99,6 +105,36 @@ $(document).ready(function() {
             $(this).remove();
           });
           $(".delete_testimonial").data("token", object.token);
+        } else {
+          $("#error_message").html(response);
+        }
+      }
+    });
+    e.preventDefault();
+  });
+
+  // When the admin clicks the button to approve a testimonial
+  $(".approve_testimonial").click(function(e) {
+    // Show the loader and set $button to the button clicked
+    loader.Show();
+    var $button = $(this);
+    // Make an AJAX call to lib/approve-testimonial.php to approve
+    // the testimonial, sending the testimonial ID and token as
+    // the data. If successfully approved, update the testimonial,
+    // classes to indicate approval otherwise show the error message
+    // returned by the server
+    $.ajax({
+      type: 'post',
+      url: '../lib/approve-testimonial.php',
+      data: {id: $(this).data("id"), token: $(this).data("token")},
+      success: function(response) {
+        object = JSON.parse(response);
+        if (object.response === 'success') {
+          loader.Hide();
+          $button.closest("div").find(".unapproved").removeClass("unapproved").addClass("approved");
+          $button.siblings("#unapproved").remove();
+          $button.remove();
+          $(".delete_testimonial, .approve_testimonial").data("token", object.token);
         } else {
           $("#error_message").html(response);
         }

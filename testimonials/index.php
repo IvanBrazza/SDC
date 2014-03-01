@@ -30,17 +30,34 @@
   <h1>Testimonials</h1>
   <div id="testimonials">
     <?php foreach ($rows as $row) : ?>
-      <div>
-        <p class="testimonial"><?php echo htmlentities($row['testimonial'], ENT_QUOTES, 'UTF-8'); ?></p>
-        <div class="downarrow"></div>
-        <span class="testimonial-name">
-          <small>- <?php echo htmlentities($row['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($row['location'])) { echo ", "; echo htmlentities($row['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
-            <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
+      <?php if ($row['approved'] == 1) : ?>
+        <div>
+          <p class="testimonial approved"><?php echo htmlentities($row['testimonial'], ENT_QUOTES, 'UTF-8'); ?></p>
+          <div class="downarrow approved"></div>
+          <span class="testimonial-name">
+            <small>- <?php echo htmlentities($row['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($row['location'])) { echo ", "; echo htmlentities($row['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
+              <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
+                <a href="javascript:" data-id="<?php echo $row['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="delete_testimonial">Delete</a>
+              <?php endif; ?>
+            </small>
+          </span>
+        </div>
+      <?php endif; ?>
+    <?php endforeach ?>
+    <?php foreach ($rows as $row) : ?>
+      <?php if ($row['approved'] == 0 and $_SESSION['user']['username'] == "admin") : ?>
+        <div>
+          <p class="testimonial unapproved"><?php echo htmlentities($row['testimonial'], ENT_QUOTES, 'UTF-8'); ?></p>
+          <div class="downarrow unapproved"></div>
+          <span class="testimonial-name">
+            <small>- <?php echo htmlentities($row['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($row['location'])) { echo ", "; echo htmlentities($row['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
+              <span id="unapproved"><i> (unapproved)</i></span>
               <a href="javascript:" data-id="<?php echo $row['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="delete_testimonial">Delete</a>
-            <?php endif; ?>
-          </small>
-        </span>
-      </div>
+              <a href="javascript:" data-id="<?php echo $row['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="approve_testimonial">Approve</a>
+            </small>
+          </span>
+        </div>
+      <?php endif; ?>
     <?php endforeach ?>
   </div>
   <br /><br />
