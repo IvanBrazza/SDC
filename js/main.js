@@ -63,6 +63,7 @@ var loader = {
       draggable: false,
       height: 107,
       modal: true,
+      position: "top",
       resizable: false,
       width: 90
     }).parent().children("div:first-child").css("display", "none");
