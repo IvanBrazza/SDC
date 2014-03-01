@@ -46,9 +46,7 @@
   </div>
   <div class="container">
     <div class="header">
-      <div class="logo">
-        <img src="../img/logo.jpg" alt="logo" height="50px" />
-      </div>
+      <div class="logo"></div>
       <div class="user">
         <span>Welcome to Star Dream Cakes<?php if (!empty($_SESSION['user'])) : ?>, <?php echo $_SESSION['user']['first_name']; ?>!<?php endif; ?></span><br />
         <span class="links">

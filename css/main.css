@@ -77,10 +77,14 @@ a {
 
 .logo {
   display:            inline-block;
+  width:              400px;
+  height:             65px;
+  background-image:   url(../img/header-logo.png);
   }
 
 .user {
   display:            inline-block;
+  margin-top:         13px;
   }
 
 .user>.links {
