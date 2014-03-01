@@ -2,10 +2,14 @@
   js/gallery.js - code specific to the gallery page
 **/
 $(document).ready(function() {
+  // Define jQuery selector vars
   var $celebration = $("#celebration-tiles li"),
       $cupcakes    = $("#cupcakes-tiles li"),
       $other       = $("#other-tiles li")
 
+  // For each thumbnail, give it a tooltip containing
+  // the larger version of the img thumbnail and set
+  // the width of the tootltip to the width of the img
   $(".thumb").tooltip({
     open: function(event, ui) {
       ui.tooltip.css("max-width", $(ui.tooltip).find("img").width() + "px");
@@ -18,6 +22,9 @@ $(document).ready(function() {
     $(this).tooltip("option", "content", $content);
   });
 
+  // When the images for the celebration section are
+  // loaded, setup the masonry layout, hide the spinner,
+  // and show the images once loaded
   $celebration.imagesLoaded(function() {
     $celebration.wookmark({
       autoResize: true,
@@ -32,6 +39,9 @@ $(document).ready(function() {
     $celebration.show();
   });
 
+  // When the images for the cupcakes section are
+  // loaded, setup the masonry layout, hide the spinner,
+  // and show the images once loaded
   $cupcakes.imagesLoaded(function() {
     $cupcakes.wookmark({
       autoResize: true,
@@ -45,6 +55,9 @@ $(document).ready(function() {
     $cupcakes.show();
   });
 
+  // When the images for the other section are
+  // loaded, setup the masonry layout, hide the spinner,
+  // and show the images once loaded
   $other.imagesLoaded(function() {
     $other.wookmark({
       autoResize: true,
