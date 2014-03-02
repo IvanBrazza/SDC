@@ -10,7 +10,7 @@ $(document).ready(function() {
 
   // Disable the order form if the customer hasn't
   // updated their account details
-  if (!$details_correct) {
+  if (window.location.pathname == "/place-an-order/" && !$details_correct) {
     $(".tabbed_content").find("input, select, textarea").prop("disabled",true);
     $("#order-form-next").data("disabled", "true");
   }
