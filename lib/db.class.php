@@ -53,7 +53,7 @@ class DB {
         <p>There's been an error over at Star Dream Cakes. It happened at " . date("Y-m-d H:i") . ".</p>
         <p>Below is the error and the query.</p><br />
         <p>Query:<br />" . $query . "</p><br />
-        <p>Error:<br />" . $ex->getMessage . "</p><br />
+        <p>Error:<br />" . $ex->getMessage() . "</p><br />
         </body></html>
       ";
       mail("dudeman1996@gmail.com", $subject, $body, $headers);
