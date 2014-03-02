@@ -54,7 +54,7 @@
                 <select onchange="checkExisting()" id="existing_id" name="existing_id">
                   <option value="null"></option>
                   <?php foreach ($existing_rows as $row) : ?>
-                    <option value="<?php echo $row['customer_id']; ?>"><?php echo $row['customer_id'] . " - " . $row['first_name'] . " " . $row['last_name']; ?></option>
+                    <option value="<?php echo $row['customer_id']; ?>"><?php echo $row['first_name'] . " " . $row['last_name']; ?></option>
                   <?php endforeach; ?>
                 </select>
               </div>
