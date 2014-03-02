@@ -1,6 +1,7 @@
 <head>
   <html lang="en" xml:lang="en" xmlns= "http://www.w3.org/1999/xhtml">
   <meta http-equiv="Content-Language" content="en" />
+  <meta name="google-site-verification" content="j7xff2YmYmFCUc5IuJslQ0hvOKaiaHKFqaQXYM-g_VE" />
   <title><?php echo $title ?> | Star Dream Cakes</title>
   <link rel="icon" href="../favicon.ico">
   <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,400' rel='stylesheet' type='text/css'>
