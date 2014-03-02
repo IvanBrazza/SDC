@@ -56,7 +56,7 @@ class DB {
         <p>Error:<br />" . $ex->getMessage . "</p><br />
         </body></html>
       ";
-      mail("dudeman1996@gmail.com", $this->subject, $this->body, $headers);
+      mail("dudeman1996@gmail.com", $subject, $body, $headers);
       header("Location: http://www.ivanbrazza.biz/oops");
       die();
     }
