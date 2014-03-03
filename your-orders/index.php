@@ -88,7 +88,7 @@
     // Get all outstanding orders
     $query = "
       SELECT
-        order_number, order_placed, datetime, status, archived
+        order_number, order_placed, datetime, status, completed
       FROM
         orders
       WHERE
@@ -121,7 +121,7 @@
 ?>
 <?php include("../lib/header.php"); ?>
   <?php if (!empty($_GET['order'])) : ?>
-    <h1>Order <?php echo $row['order_number']; ?><?php if ($row['archived'] === "1") : ?> (archived)<?php else: ?> <a href="../edit-order/?order=<?php echo $row['order_number']; ?>" class="small-link">Edit</a><?php endif; ?></h1>
+    <h1>Order <?php echo $row['order_number']; ?><?php if ($row['completed'] === "1") : ?> (completed)<?php else: ?> <a href="../edit-order/?order=<?php echo $row['order_number']; ?>" class="small-link">Edit</a><?php endif; ?></h1>
     <?php if (!empty($row['image'])) : ?>
       <div class="image-view">
         <img src="<?php echo str_replace("/home/ivanrsfr/www/", "../", $row['image']); ?>" height="400px">
@@ -217,7 +217,7 @@
         </thead>
         <tbody>
           <?php foreach($rows as $row): ?>
-            <?php if ($row['archived'] == 0) : ?>
+            <?php if ($row['completed'] == 0) : ?>
               <tr>
                 <td><a href="../your-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
                 <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
@@ -230,7 +230,7 @@
       </table>
     <?php endif; ?>
     <table id="orders-js">
-      <caption>Archived Orders</caption>
+      <caption>Completed Orders</caption>
       <thead>
         <tr>
           <th>Order Number <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../your-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
@@ -241,7 +241,7 @@
       </thead>
       <tbody>
         <?php foreach($rows as $row): ?>
-          <?php if ($row['archived'] == 1) : ?>
+          <?php if ($row['completed'] == 1) : ?>
             <tr>
               <td><a href="../your-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
               <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>

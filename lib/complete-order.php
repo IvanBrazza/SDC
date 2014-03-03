@@ -1,6 +1,6 @@
 <?php
   /**
-    lib/archive-order.php - archive an order
+    lib/complete-order.php - mark an order as compelte
   **/
   require("common.php");
 
@@ -10,7 +10,7 @@
       UPDATE
         orders
       SET
-        archived = 1,
+        completed = 1,
         status = 'Complete'
       WHERE
         order_number = :order_number
@@ -19,14 +19,14 @@
     $query_params = array(
       ':order_number' => $_POST['order_number']
     );
-
+    
     $db->runQuery($query, $query_params);
 
-    header("Location: ../all-orders/?archive=success");
+    header("Location: ../all-orders/?completed=success");
     die();
   }
   else
   {
-    die("Error arhiving order");
+    die("Error completing order");
   }
 ?>

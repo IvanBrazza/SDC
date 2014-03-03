@@ -17,14 +17,14 @@
   forceHTTPS();
 
   // Display messages based on GET
-  if (!empty($_GET['archive']))
+  if (!empty($_GET['completed']))
   {
-    switch ($_GET['archive']){
+    switch ($_GET['completed']){
       case "success":
-        $display_message = "Order archived.";
+        $display_message = "Order completed.";
         break;
       case "fail":
-        $display_message = "Archive failed.";
+        $display_message = "Complete failed.";
         break;
     }
   }
@@ -38,7 +38,7 @@
 
   // If GET then run specific queries, otherwise
   // get all order details
-  if ($_GET)
+  if ($_GET && empty($_GET['completed']) && empty($_GET['new-order']))
   {
     // If a single order is to be displayed, get
     // the details about that order, else if a
@@ -79,7 +79,7 @@
     {
       $query = "
         SELECT
-          a.order_number, a.order_placed, a.datetime, a.status, a.archived,
+          a.order_number, a.order_placed, a.datetime, a.status, a.completed,
           b.first_name, b.last_name, b.address, b.postcode, b.phone, b.email
         FROM
           orders a,
@@ -121,7 +121,7 @@
         order_placed,
         datetime,
         status,
-        archived
+        completed
       FROM
         orders
     ";
@@ -210,7 +210,7 @@
   $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 
   // Set the page title based on what is being displayed
-  if (!$_GET or !empty($_GET['archive']) or !empty($_GET['sort']))
+  if (!$_GET or !empty($_GET['completed']) or !empty($_GET['sort']))
   {
     $title = "All Orders";
   }
@@ -228,7 +228,7 @@
 ?>
 <?php include("../lib/header.php"); ?>
   <!--Show all orders-->
-  <?php if (!$_GET or !empty($_GET['archive']) or !empty($_GET['new-order'])) : ?>
+  <?php if (!$_GET or !empty($_GET['completed']) or !empty($_GET['new-order'])) : ?>
     <h1>All Orders</h1>
     <a href="../add-order">Add Order</a>
     <form action="../all-orders" method="GET" id="order_search">
@@ -270,7 +270,7 @@
         </thead>
         <tbody>
           <?php foreach($rows as $row): ?>
-            <?php if ($row['archived'] == 0) : ?>
+            <?php if ($row['completed'] == 0) : ?>
               <tr>
                 <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
                 <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
@@ -283,7 +283,7 @@
       </table>
     <?php endif; ?>
     <table id="orders-js">
-      <caption>Archived Orders</caption>
+      <caption>Completed Orders</caption>
       <thead>
         <tr>
           <th>Order Number <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
@@ -294,7 +294,7 @@
       </thead>
       <tbody>
         <?php foreach($rows as $row): ?>
-          <?php if ($row['archived'] == 1) : ?>
+          <?php if ($row['completed'] == 1) : ?>
             <tr>
               <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
               <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
@@ -307,7 +307,7 @@
     </table>
   <!-- if user clicked on order number or searched for an order -->
   <?php elseif (!empty($_GET['order'])) : ?>
-    <h1>Order <?php echo $row['order_number']; ?><?php if ($row['archived'] === "0") : ?><form action="../lib/archive-order.php" method="POST" id="archive-order"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number" id="order_number"><input type="submit" value="Archive Order" class="delete_testimonial_btn"></form><?php else : ?> (archived)<?php endif; ?></h1>
+    <h1>Order <?php echo $row['order_number']; ?><?php if ($row['completed'] === "0") : ?><form action="../lib/complete-order.php" method="POST" id="complete-order"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number" id="order_number"><input type="submit" value="Complete Order" class="delete_testimonial_btn"></form><?php else : ?> (completed)<?php endif; ?></h1>
     <table id="single_order">
       <tr>
         <th>Order Placed</th>
@@ -324,7 +324,7 @@
       <tr>
         <th>Status</th>
         <td>
-          <?php if ($row['archived'] === "0") : ?>
+          <?php if ($row['completed'] === "0") : ?>
             <form action="../lib/update-order.php" method="POST">
               <select name="status">
                 <option <?php if ($row['status'] == "Processing") : ?>selected<?php endif; ?> value="Processing">Processing</option>
@@ -371,7 +371,7 @@
         <th>Base Price</th>
         <td>
           &pound; 
-          <?php if ($row['archived'] === "0") : ?>
+          <?php if ($row['completed'] === "0") : ?>
             <form action="../lib/update-order.php" method="POST">
               <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
               <input name="base_price" type="text" value="<?php echo $row['base_price']; ?>" style="width:50px;">
@@ -387,7 +387,7 @@
           <th>Delivery Charge</th>
           <td>
             &pound; 
-            <?php if ($row['archived'] === "0") : ?>
+            <?php if ($row['completed'] === "0") : ?>
               <form action="../lib/update-order.php" method="POST">
                 <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
                 <input name="delivery_charge" type="text" value="<?php echo $row['delivery_charge']; ?>" style="width:50px;">
@@ -456,7 +456,7 @@
         </thead>
         <tbody>
           <?php foreach($rows as $row): ?>
-            <?php if ($row['archived'] == 0) : ?>
+            <?php if ($row['completed'] == 0) : ?>
               <tr>
                 <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
                 <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
@@ -469,7 +469,7 @@
       </table>
     <?php endif; ?>
     <table id="orders-js">
-      <caption>Archived Orders</caption>
+      <caption>Completed Orders</caption>
       <thead>
         <tr>
           <th>Order Number <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
@@ -480,7 +480,7 @@
       </thead>
       <tbody>
         <?php foreach($rows as $row): ?>
-          <?php if ($row['archived'] == 1) : ?>
+          <?php if ($row['completed'] == 1) : ?>
             <tr>
               <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
               <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>

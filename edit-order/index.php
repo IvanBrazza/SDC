@@ -173,9 +173,9 @@
       die();
     }
 
-    // If the order is archived, die. You can't edit an archived
+    // If the order is completed, die. You can't edit a completed
     // order (is that not obvious?)
-    if ($row['archived'] === "1")
+    if ($row['completed'] === "1")
     {
       header("Location: ../home");
       die();
@@ -215,7 +215,7 @@
         $destination = "95+Hoe+Lane,EN35SW";
   </script>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKeZpb8doUO3DbEqT3t-uRJYsbEPbD3AE&sensor=false"></script>
-  <h1>Editing Order <?php echo $row['order_number']; ?><?php if ($row['archived'] === "1") : ?> (archived)<?php endif; ?></h1>
+  <h1>Editing Order <?php echo $row['order_number']; ?><?php if ($row['completed'] === "1") : ?> (completed)<?php endif; ?></h1>
   <form action="index.php" method="POST">
     <input type="hidden" name="order_number" value="<?php echo $row['order_number']; ?>" />
     <table id="single_order">

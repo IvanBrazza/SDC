@@ -30,14 +30,14 @@
 
   foreach ($rows as $row)
   {
-    // Calculate orders per customer & archived/outstanding
-    if ($row['archived'] === "0")
+    // Calculate orders per customer & completed/outstanding
+    if ($row['completed'] === "0")
     {
       $outstanding_orders++;
     } 
-    else if ($row['archived'] === "1")
+    else if ($row['completed'] === "1")
     {
-      $archived_orders++;
+      $completed_orders++;
     }
     $orders++;
   }
@@ -60,8 +60,8 @@
       <td><?php echo $outstanding_orders; ?></td>
     </tr>
     <tr>
-      <th>Number of archived orders:</th>
-      <td><?php echo $archived_orders; ?></td>
+      <th>Number of completed orders:</th>
+      <td><?php echo $completed_orders; ?></td>
     </tr>
   </table>
   <div id="orders-chart" class="chart">
