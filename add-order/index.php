@@ -96,20 +96,22 @@
               <div>
                 <label for="filling">Filling</label>
                 <select name="filling" id="filling">
-                  <option value="None">None</option>
-                  <option value="Butter Cream">Butter Cream</option>
-                  <option value="Chocolate">Chocolate</option>
+                  <option value="0">None</option>
+                  <option value="1">Butter Cream</option>
+                  <option value="2">Chocolate</option>
+                  <option value="3">Other (specify in comments)</option>
                 </select>
               </div>
               <div>
                 <label for="decoration">Cake to be decorated in</label>
                 <select name="decoration" id="decoration">
-                  <option value="None">None</option>
-                  <option value="Royal Icing">Royal Icing</option>
-                  <option value="Regal Icing">Regal Icing</option>
-                  <option value="Butter Cream">Butter Cream</option>
-                  <option value="Chocolate">Chocolate</option>
-                  <option value="Coconut">Coconut</option>
+                  <option value="0">None</option>
+                  <option value="1">Royal Icing</option>
+                  <option value="2">Regal Icing</option>
+                  <option value="3">Butter Cream</option>
+                  <option value="4">Chocolate</option>
+                  <option value="5">Coconut</option>
+                  <option value="6">Other (specify in comments)</option>
                 </select>
               </div>
               <div>
