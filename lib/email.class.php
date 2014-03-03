@@ -18,6 +18,24 @@ class Email {
   }
 
   // A function which sets the body, from and subject
+  // to send an email about a new testimonial being submitted
+  function testimonial($testimonialDetails)
+  {
+    $this->from       = 'Star Dream Cakes <webmaster@ivanbrazza.biz>';
+
+    $this->subject    = 'New Testimonial Submitted';
+
+    $this->body       = '<html><body>';
+    $this->body      .= '<p>A new testimonial has been submitted to the Star Dream Cakes website:</p>';
+    $this->body      .= '<p>' . $testimonialDetails['testimonial'] . '</p>';
+    $this->body      .= '<p>Submitted by: ' . $testimonialDetails['name'] . '</p><br>';
+    $this->body      .= '<p>To approve or delete this testimonial, click on the following link:</p>';
+    $this->body      .= '<a href="https://www.ivanbrazza.biz/testimonials/">';
+    $this->body      .= 'https://www.ivanbrazza.biz/testimonials/</a>';
+    $this->body      .= '</html></body>';
+  }
+
+  // A function which sets the body, from and subject
   // to send an email about a status update for an order
   function statusUpdate($number, $status)
   {
@@ -25,7 +43,7 @@ class Email {
 
     $this->subject    = 'Your Order With Star Dream Cakes';
 
-    $this->body       = '<html><body';
+    $this->body       = '<html><body>';
     $this->body      .= '<p>Hi ' . $this->firstName . ',</p>';
     $this->body      .= '<p>Just to let you know that the status of your order ';
     $this->body      .=  $number . ' has been updated to ' . $status . '</p>';

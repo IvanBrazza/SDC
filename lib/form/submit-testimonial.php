@@ -45,6 +45,17 @@
 
       $db->runQuery($query, $query_params);
 
+      $testimonialDetails = array(
+        'name'          => $_POST['name'],
+        'testimonial'   => $_POST['testimonial']
+      );
+
+      include("../email.class.php");
+      $email = new Email;
+      $email->setRecipient("dudeman1996@gmail.com");
+      $email->testimonial($testimonialDetails);
+      $email->send();
+
       // Generate new token
       $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 
