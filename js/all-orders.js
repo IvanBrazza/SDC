@@ -27,7 +27,7 @@ $(document).ready(function() {
 
   // If not GET (i.e. displaying all orders and not
   // a specific order
-  if (window.location.search == "") {
+  if (window.location.search == "" || window.location.search.indexOf("sort") >= 0) {
     // Enable autocomplete for the order search form
     // with all of the order numbers. If the user
     // clicks on one of these autocompletes, insert
