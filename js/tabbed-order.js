@@ -17,28 +17,77 @@ $(document).ready(function() {
 
   // When the "next" link is clicked
   $("#order-form-next").click(function() {
-    // If the link isn't disabled, go to the next tab
-    if ($(this).data("disabled") == "false") {
-      var next = $(".tabs").find(".active").next();
-      var current = $(next).prevAll().size()-1;
-      if (current == 1) {
-        validate.input('#celebration_date', '#celebration_date_error');
-        if ($("#comments").data("required") == "true") {
-          validate.input("textarea#comments", "#comments_error");
-        }
-      } else if (current == 3) {
-        validate.input('#datetime', '#datetime_error');
-      }
-
-      if ($input_check) {
+    if (window.location.pathname =="/place-an-order/") {
+      // If the link isn't disabled, go to the next tab
+      if ($(this).data("disabled") == "false") {
+        var next = $(".tabs").find(".active").next();
+        var current = $(next).prevAll().size()-1;
         var background = $(".tabs").find(".moving_bg");
 
-        $(background).stop().animate({left: next.position()['left']}, {duration: 300});
-
-        slideContent(next);
-      } else {
-        var height = $(".tabslider").children(":nth-child(" + current + ")").height();
-        $(".slide_content").stop().animate({height: height}, {duration: 300});
+        if (current == 1) {
+          validate.input('#celebration_date', '#celebration_date_error');
+          if ($("#comments").data("required") == "true") {
+            validate.input("textarea#comments", "#comments_error");
+          }
+        } else if (current == 3) {
+          validate.input('#datetime', '#datetime_error');
+        }
+  
+        if ($input_check) {
+          $(background).stop().animate({left: next.position()['left']}, {duration: 300});
+          slideContent(next);
+        } else {
+          var height = $(".tabslider").children(":nth-child(" + current + ")").height();
+          $(".slide_content").stop().animate({height: height}, {duration: 300});
+        }
+      }
+    } else {
+      if ($(this).data("disabled") == "false") {
+        var next = $(".tabs").find(".active").next();
+        var current = $(next).prevAll().size()-1;
+        var background = $(".tabs").find(".moving_bg");
+        if (current == 1) {
+          if ($("#existing_id").val() == "null") {
+            validate.input('#first_name', '#first_name_error');
+            validate.input('#last_name', '#last_name_error');
+            validate.input('#address', '#address_error');
+            validate.postcode();
+            validate.phone();
+            validate.email();
+            if ($input_check && $postcode_check && $phone_check && $email_check) {
+              $(background).stop().animate({left: next.position()['left']}, {duration: 300});
+              slideContent(next);
+            } else {
+              var height = $(".tabslider").children(":nth-child(" + current + ")").height();
+              $(".slide_content").stop().animate({height: height}, {duration: 300});
+            }
+          } else {
+            $(background).stop().animate({left: next.position()['left']}, {duration: 300});
+            slideContent(next);
+          }
+        } else if (current == 2) {
+          validate.input('#celebration_date', '#celebration_date_error');
+          validate.input('#order_placed', '#order_placed_error');
+          if ($("#comments").data("required") == "true") {
+            validate.input("textarea#comments", "#comments_error");
+          }
+          if ($input_check) {
+            $(background).stop().animate({left: next.position()['left']}, {duration: 300});
+            slideContent(next);
+          } else {
+            var height = $(".tabslider").children(":nth-child(" + current + ")").height();
+            $(".slide_content").stop().animate({height: height}, {duration: 300});
+          }
+        } else if (current == 3) {
+          validate.input('#datetime', '#datetime_error');
+          if ($input_check) {
+            $(background).stop().animate({left: next.position()['left']}, {duration: 300});
+            slideContent(next);
+          } else {
+            var height = $(".tabslider").children(":nth-child(" + current + ")").height();
+            $(".slide_content").stop().animate({height: height}, {duration: 300});
+          }
+        }
       }
     }
   });
