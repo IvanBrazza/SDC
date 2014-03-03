@@ -209,5 +209,6 @@
       </tr>
     </table>
     <p>A copy of your order has been emailed to you. Any further updates to your order will be sent to you by email</p>
+    <a href="../print/?order=<?php echo $_GET['order']; ?>" target="_blank">Click here to print your order</a>
   <?php endif; ?>
 <?php include("../lib/footer.php"); ?>
