@@ -4,7 +4,9 @@
     format suitable for printing
   **/
   require("../lib/common.php");
-  
+
+  forceHTTPS();
+
   if ($_GET)
   {
     $query = "
