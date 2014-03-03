@@ -36,81 +36,76 @@
     }
   }
 
-  // If GET then run specific queries, otherwise
-  // get all order details
-  if ($_GET && empty($_GET['completed']) && empty($_GET['new-order']))
+  // If a single order is to be displayed, get
+  // the details about that order, else if a
+  // user ID is in the GET, then get all the
+  // orders by that user
+  if (!empty($_GET['order']))
   {
-    // If a single order is to be displayed, get
-    // the details about that order, else if a
-    // user ID is in the GET, then get all the
-    // orders by that user
-    if (!empty($_GET['order']))
-    {
-      $query = "
-        SELECT
-          a.*,
-          b.filling_price, b.filling_name,
-          c.decor_price, c.decor_name,
-          d.cake_size, d.cake_type,
-          e.first_name, e.last_name, e.address, e.postcode, e.phone, e.email
-        FROM
-          orders a,
-          fillings b,
-          decorations c,
-          cakes d,
-          users e
-        WHERE
-          order_number = :order_number
-        AND
-          a.filling_id = b.filling_id
-        AND
-          a.decor_id = c.decor_id
-        AND
-          a.cake_id = d.cake_id
-        AND
-          a.customer_id = e.customer_id
-      ";
+    $query = "
+      SELECT
+        a.*,
+        b.filling_price, b.filling_name,
+        c.decor_price, c.decor_name,
+        d.cake_size, d.cake_type,
+        e.first_name, e.last_name, e.address, e.postcode, e.phone, e.email
+      FROM
+        orders a,
+        fillings b,
+        decorations c,
+        cakes d,
+        users e
+      WHERE
+        order_number = :order_number
+      AND
+        a.filling_id = b.filling_id
+      AND
+        a.decor_id = c.decor_id
+      AND
+        a.cake_id = d.cake_id
+      AND
+        a.customer_id = e.customer_id
+    ";
 
-      $query_params = array(
-        ':order_number' => $_GET['order']
-      );
+    $query_params = array(
+      ':order_number' => $_GET['order']
+    );
+  }
+  else if (!empty($_GET['id']))
+  {
+    $query = "
+      SELECT
+        a.order_number, a.order_placed, a.datetime, a.status, a.completed,
+        b.first_name, b.last_name, b.address, b.postcode, b.phone, b.email
+      FROM
+        orders a,
+        users b
+      WHERE
+        a.customer_id = :get_id
+      AND
+        b.customer_id = a.customer_id
+    ";
+
+    $query_params = array(
+      ':get_id' => $_GET['id']
+    );
+
+    // If sort is in GET then sort the orders
+    // by the GET details, otherwise sort by
+    // most recent order at the top by default
+    if (!empty($_GET['sort']))
+    {
+      $query .= "
+        ORDER BY
+          a." . $_GET['col'] . " " . $_GET['sort']
+      ;
     }
-    else if (!empty($_GET['id']))
+    else
     {
-      $query = "
-        SELECT
-          a.order_number, a.order_placed, a.datetime, a.status, a.completed,
-          b.first_name, b.last_name, b.address, b.postcode, b.phone, b.email
-        FROM
-          orders a,
-          users b
-        WHERE
-          a.customer_id = :get_id
-        AND
-          b.customer_id = a.customer_id
+      $query .= "
+        ORDER BY
+          a.order_placed ASC
       ";
-
-      $query_params = array(
-        ':get_id' => $_GET['id']
-      );
-
-      // If sort is in GET then sort the orders
-      // by the GET details, otherwise sort by
-      // most recent order at the top by default
-      if (!empty($_GET['sort']))
-      {
-        $query .= "
-          ORDER BY
-            a." . $_GET['col'] . " " . $_GET['sort']
-        ;
-      }
-      else
-      {
-        $query .= "
-          ORDER BY
-            a.order_placed ASC
-        ";
-      }
     }
   }
   else
@@ -227,86 +222,8 @@
   }
 ?>
 <?php include("../lib/header.php"); ?>
-  <!--Show all orders-->
-  <?php if (!$_GET or !empty($_GET['completed']) or !empty($_GET['new-order'])) : ?>
-    <h1>All Orders</h1>
-    <a href="../add-order">Add Order</a>
-    <form action="../all-orders" method="GET" id="order_search">
-      <input type="hidden" id="token" name="token" value="<?php echo $_SESSION['token']; ?>" />
-      <input type="text" id="order_number" name="order" placeholder="Enter order number" />
-      <input type="submit" value="Search all orders" />
-    </form>
-    <script>
-      var orderNumbers = [
-        <?php
-          foreach ($rows as $row)
-          {
-            echo "\"" . $row['order_number'] . "\",";
-          }
-        ?>
-      ];
-    </script>
-    <div class="success">
-      <span class="success_message">
-        <?php echo $display_message; ?>
-      </span>
-    </div>
-    <div class="error">
-      <span class="error_message" id="error_message">
-      </span>
-    </div>
-    <?php if (empty($rows)) : ?>
-      <h3>There are no outstanding orders</h3>
-    <?php else : ?>
-      <table class="orders-table" id="orders-js">
-        <caption>Outstanding Orders</caption>
-        <thead>
-          <tr>
-            <th>Order Number <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
-            <th>Order Placed <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_placed">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
-            <th>Required Date <span class="arrow"><a href="../all-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../all-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
-            <th>Status <span class="arrow"><a href="../all-orders/?sort=DESC&col=status">&#9650;</a> <a href="../all-orders/?sort=ASC&col=status">&#9660;</a></span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach($rows as $row): ?>
-            <?php if ($row['completed'] == 0) : ?>
-              <tr>
-                <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
-                <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
-                <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
-                <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
-              </tr>
-            <?php endif; ?>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
-    <?php endif; ?>
-    <table id="orders-js">
-      <caption>Completed Orders</caption>
-      <thead>
-        <tr>
-          <th>Order Number <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
-          <th>Order Placed <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_placed">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
-          <th>Required Date <span class="arrow"><a href="../all-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../all-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
-          <th>Status <span class="arrow"><a href="../all-orders/?sort=DESC&col=status">&#9650;</a> <a href="../all-orders/?sort=ASC&col=status">&#9660;</a></span></th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach($rows as $row): ?>
-          <?php if ($row['completed'] == 1) : ?>
-            <tr>
-              <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
-              <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
-              <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
-              <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
-            </tr>
-          <?php endif; ?>
-        <?php endforeach; ?>
-      </tbody>
-    </table>
   <!-- if user clicked on order number or searched for an order -->
-  <?php elseif (!empty($_GET['order'])) : ?>
+  <?php if (!empty($_GET['order'])) : ?>
     <h1>Order <?php echo $row['order_number']; ?><?php if ($row['completed'] === "0") : ?><form action="../lib/complete-order.php" method="POST" id="complete-order"><input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number" id="order_number"><input type="submit" value="Complete Order" class="delete_testimonial_btn"></form><?php else : ?> (completed)<?php endif; ?></h1>
     <table id="single_order">
       <tr>
@@ -476,6 +393,84 @@
           <th>Order Placed <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=order_placed">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
           <th>Required Date <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=datetime">&#9650;</a> <a href="../all-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
           <th>Status <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=status">&#9650;</a> <a href="../all-orders/?sort=ASC&col=status">&#9660;</a></span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach($rows as $row): ?>
+          <?php if ($row['completed'] == 1) : ?>
+            <tr>
+              <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
+              <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
+              <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
+              <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
+            </tr>
+          <?php endif; ?>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  <?php else : ?>
+    <!--Show all orders-->
+    <h1>All Orders</h1>
+    <a href="../add-order">Add Order</a>
+    <form action="../all-orders" method="GET" id="order_search">
+      <input type="hidden" id="token" name="token" value="<?php echo $_SESSION['token']; ?>" />
+      <input type="text" id="order_number" name="order" placeholder="Enter order number" />
+      <input type="submit" value="Search all orders" />
+    </form>
+    <script>
+      var orderNumbers = [
+        <?php
+          foreach ($rows as $row)
+          {
+            echo "\"" . $row['order_number'] . "\",";
+          }
+        ?>
+      ];
+    </script>
+    <div class="success">
+      <span class="success_message">
+        <?php echo $display_message; ?>
+      </span>
+    </div>
+    <div class="error">
+      <span class="error_message" id="error_message">
+      </span>
+    </div>
+    <?php if (empty($rows)) : ?>
+      <h3>There are no outstanding orders</h3>
+    <?php else : ?>
+      <table class="orders-table" id="orders-js">
+        <caption>Outstanding Orders</caption>
+        <thead>
+          <tr>
+            <th>Order Number <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
+            <th>Order Placed <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_placed">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
+            <th>Required Date <span class="arrow"><a href="../all-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../all-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
+            <th>Status <span class="arrow"><a href="../all-orders/?sort=DESC&col=status">&#9650;</a> <a href="../all-orders/?sort=ASC&col=status">&#9660;</a></span></th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach($rows as $row): ?>
+            <?php if ($row['completed'] == 0) : ?>
+              <tr>
+                <td><a href="../all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
+                <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
+                <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
+                <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
+              </tr>
+            <?php endif; ?>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+    <?php endif; ?>
+    <table id="orders-js">
+      <caption>Completed Orders</caption>
+      <thead>
+        <tr>
+          <th>Order Number <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
+          <th>Order Placed <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_placed">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
+          <th>Required Date <span class="arrow"><a href="../all-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../all-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
+          <th>Status <span class="arrow"><a href="../all-orders/?sort=DESC&col=status">&#9650;</a> <a href="../all-orders/?sort=ASC&col=status">&#9660;</a></span></th>
         </tr>
       </thead>
       <tbody>
