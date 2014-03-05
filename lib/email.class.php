@@ -119,6 +119,37 @@ class Email {
     $this->body      .= '</body></html>';
   }
 
+  // A function which sets the body, from and subject
+  // to send an email to the client to notify them
+  // of a new order
+  function orderAdmin($orderDetails, $customerDetails)
+  {
+    $this->from       = "Star Dream Cakes <orders@ivanbrazza.biz>";
+
+    $this->subject    = 'A New Order Has Been Placed';
+
+    $this->body       = '<html><body>';
+    $this->body      .= '<p>Hi ' . $this->firstName . ',</p>';
+    $this->body      .= '<p>A new order has been placed on the Star Dream Cakes website:</p>';
+    $this->body      .= '<table rules="all" style="border-color: #666;" cellpadding="10">';
+    $this->body      .= '<tr><th>Order Number</td><td>' . $orderDetails['order_number'] . '</td></tr>';
+    $this->body      .= '<tr><th>Date Order Placed</th><td>' . $orderDetails['order_placed'] . '</td></tr>';
+    $this->body      .= '<tr><th>Required Date</th><td>' . $orderDetails['datetime'] . '</td></tr>';
+    $this->body      .= '<tr><th>Date of Celebration</th><td>' . $orderDetails['celebration_date'] . '</td></tr>';
+    $this->body      .= '<tr><th>Comments</th><td>' . $orderDetails['comments'] . '</td></tr>';
+    $this->body      .= '<tr><th>Filling</th><td>' . $orderDetails['filling_name'] . '</td></tr>';
+    $this->body      .= '<tr><th>Decoration</th><td>' . $orderDetails['decor_name'] . '</td></tr>';
+    $this->body      .= '<tr><th>Cake Type</th><td>' . $orderDetails['cake_type'] . '</td></tr>';
+    $this->body      .= '<tr><th>Cake Size</th><td>' . $orderDetails['cake_size'] . '</td></tr>';
+    $this->body      .= '<tr><th>Delivery Type</th><td>' . $orderDetails['delivery_type'] . '</td></tr>';
+    $this->body      .= '</table>';
+    $this->body      .= '<p>Placed by: ' . $customerDetails['first_name'] . " " . $customerDetails['last_name'] . "</p>";
+    $this->body      .= '<p>You can view the order here: <a href="https://www.ivanbrazza.biz/all-orders/?order=';
+    $this->body      .= $orderDetails['order_number'] . '">https://www.ivanbrazza.biz/all-orders/?order=';
+    $this->body      .= $orderDetails['order_number'] . '</a></p>';
+    $this->body      .= '</body></html>';
+  }
+
   // A function which sets the recipient
   function setRecipient($recipient)
   {

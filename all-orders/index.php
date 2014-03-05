@@ -9,7 +9,7 @@
   // Only the admin user can access this page
   if(empty($_SESSION['user']) or $_SESSION['user']['username'] !== "admin")
   {
-    header("Location: ../login");
+    header("Location: ../login/?redirect=" . $_SERVER['REQUEST_URI']);
     die();
   }
 

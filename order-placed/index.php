@@ -84,9 +84,15 @@
     }
 
     // Email the order details to the user
-    $email->setFirstName($_SESSION['user']['name']);
+    $email->setFirstName($_SESSION['user']['first_name']);
     $email->setRecipient($_SESSION['user']['email']);
     $email->order($row);
+    $email->send();
+
+    // Email the order details to Fran/Helmira
+    $email->setFirstName("Ivan");
+    $email->setRecipient("dudeman1996@gmail.com");
+    $email->orderAdmin($row, $_SESSION['user']);
     $email->send();
   }
   else if (!empty($_GET) and $_GET['failed'] == "true")
