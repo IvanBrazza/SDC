@@ -246,7 +246,6 @@
               <select name="status">
                 <option <?php if ($row['status'] == "Processing") : ?>selected<?php endif; ?> value="Processing">Processing</option>
                 <option <?php if ($row['status'] == "Dispatched") : ?>selected<?php endif; ?> value="Dispatched">Dispatched</option>
-                <option <?php if ($row['status'] == "Complete") : ?>selected<?php endif; ?> value="Complete">Complete</option>
               </select>
               <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
               <input type="hidden" value="<?php echo $row['first_name']; ?>" name="first_name">
