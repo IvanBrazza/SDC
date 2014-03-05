@@ -8,6 +8,8 @@
   $title = "Forgot Password";
   $email = new Email;
 
+  forceHTTPS();
+
   // Set the error text if the page has been redirected to an error
   if (!empty($_GET['e']))
   {
