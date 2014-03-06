@@ -6,19 +6,19 @@ class Delivery {
   var $distance;
 
   // A function to set the address
-  function setAddress($addressVar) {
+  public function setAddress($addressVar) {
     $this->address = str_replace(" ", "+", $addressVar);
   }
 
   // A function to set the postcode
-  function setPostcode($postcodeVar) {
+  public function setPostcode($postcodeVar) {
     $this->postcode = str_replace(" ", "+", $postcodeVar);
   }
 
   // A function that calculates the distance between
   // the clients house and the customers house using
   // the Google Maps Distance Matrix API
-  function calculateDistance() {
+  public function calculateDistance() {
     $destination = $this->address . "," . $this->postcode;
     $url = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=95+Hoe+Lane,EN35SW&destinations=" . $destination . "&sensor=false&units=imperial";
     $json = file_get_contents($url);
@@ -29,7 +29,7 @@ class Delivery {
 
   // A recursively-called function that calculates
   // the delivery charge
-  function recursiveDelivery($miles, $i, $j) {
+  private function recursiveDelivery($miles, $i, $j) {
     $i += 5;
     $j += 3;
 
@@ -52,7 +52,7 @@ class Delivery {
 
   // A function that uses a recursive function
   // to calculate the delivery charge
-  function calculateDeliveryCharge() {
+  public function calculateDeliveryCharge() {
     $remaining_miles = $this->distance - 5;
     $remaining_miles = round($remaining_miles / 5) * 5;
     if ($remaining_miles <= 0)
@@ -66,12 +66,12 @@ class Delivery {
   }
 
   // A function that returns the delivery charge
-  function getDeliveryCharge() {
+  public function getDeliveryCharge() {
     return $this->deliveryCharge;
   }
 
   // A function that returns the distance
-  function getDistance() {
+  public function getDistance() {
     return $this->distance;
   }
 }
