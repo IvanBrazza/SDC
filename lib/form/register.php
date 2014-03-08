@@ -122,9 +122,9 @@
 
       $db->runQuery($query, $query_params);
 
-      $email->verification($email_verification);
-      $email->setFirstName($_POST['first_name']);
+      $email->setFirstName($_POST['username']);
       $email->setRecipient($_POST['email']);
+      $email->verification($email_verification);
       $email->send();
 
       echo "registered";
