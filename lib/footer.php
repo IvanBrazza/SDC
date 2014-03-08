@@ -15,6 +15,7 @@
             strpos($_SERVER['REQUEST_URI'], "register") !== false or
             strpos($_SERVER['REQUEST_URI'], "add-order") !== false or
             strpos($_SERVER['REQUEST_URI'], "place-an-order") !== false or
+            strpos($_SERVER['REQUEST_URI'], "forgot-password") !== false or
             strpos($_SERVER['REQUEST_URI'], "edit-account") !== false) : ?>
     <script src="../js/forms.js"></script>
     <script src="../js/jquery/jquery-ui-timepicker-addon.js"></script>

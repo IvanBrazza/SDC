@@ -110,6 +110,46 @@ $(document).ready(function() {
     }
   });
 
+  $("#forgot-password-form").submit(function(e) {
+    // Validate the fields
+    validate.email();
+    if ($email_check) {
+      loader.Show();
+      // Submit the form
+      $.ajax({
+        type: 'post',
+        url: '../lib/form/forgot-password.php',
+        data: $(this).serialize(),
+        success: function(response) {
+        console.log(response);
+          object = JSON.parse(response);
+          if (object.status === 'success') {
+            $("#email").removeClass("valid").addClass("valid");
+            $("#error_message").hide();
+            $("#success_message").html("Password reset. Please check your emails for a new password.");
+            loader.Hide();
+          } else {
+            if (object.status === 'Email doesn\'t exist.') {
+              $("#email").removeClass("valid").addClass("invalid").effect("shake", {}, 500);
+              $("#error_message").html(object.status);
+              loader.Hide();
+              $("#token").val(object.token);
+            } else {
+              $("#error_message").html(object.status);
+              loader.Hide();
+              $("#token").val(object.token);
+            }
+          }
+        }
+      });
+      e.preventDefault();
+    } else {
+      // Don't submit the form
+      e.preventDefault();
+      validate.email();
+    }
+  });
+
   $("#order-form").submit(function(e) {
     // Validate form fields
     validate.input('#design', '#design_error');
