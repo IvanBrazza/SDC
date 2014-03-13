@@ -150,6 +150,22 @@ class Email {
     $this->body      .= '</body></html>';
   }
 
+  public function requestTestimonial($orderNumber)
+  {
+    $this->from       = "Star Dream Cakes <orders@ivanbrazza.biz>";
+
+    $this->subject    = 'Your Order Is Complete';
+
+    $this->body       = '<html><body>';
+    $this->body      .= '<p>Hi ' . $this->firstName . ',</p>';
+    $this->body      .= '<p>Thank you for your order ' . $orderNumber . ', we hope you enjoyed it.</p>';
+    $this->body      .= '<p>We would appreciate if you could leave a testimonial on our website regarding ';
+    $this->body      .= 'your order. To do so click the following link:</p>';
+    $this->body      .= '<a href="https://www.ivanbrazza.biz/testimonials/#submit">https://www.ivanbrazza.biz/testimonials/#submit</a>';
+    $this->body      .= '<br><p>Thank you,<br>';
+    $this->body      .= 'Star Dream Cakes</p>';
+  }
+
   // A function which sets the recipient
   public function setRecipient($recipient)
   {

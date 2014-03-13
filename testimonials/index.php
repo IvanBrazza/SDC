@@ -61,7 +61,7 @@
     <?php endforeach ?>
   </div>
   <br /><br />
-  <a href="javascript:" id="submit-testimonial">Submit A Testimonial</a>
+  <a href="javascript:" name="submit" id="submit-testimonial">Submit A Testimonial</a>
   <div class="error">
     <span class="error_message" id="error_message"></span>
   </div>

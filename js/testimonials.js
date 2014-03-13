@@ -2,6 +2,16 @@
   js/testimonials.js - code specific to the testimonials page
 **/
 $(document).ready(function() {
+  // Show and scroll to the Submit Testimonial form if #submit
+  if (window.location.hash == "#submit") {
+    setTimeout(function() {
+      $("#submit-testimonial-form").slideDown(400, function() {
+        $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+      });
+    }, 500);
+    console.log("skdjfh");
+  }
+
   // Hide the submit testimonial form, set some CSS for it,
   // and when the link is clicked to submit the testimonial,
   // show the form and scroll down to it.
