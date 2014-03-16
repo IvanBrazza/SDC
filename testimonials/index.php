@@ -27,38 +27,48 @@
   $rows = $db->fetchAll();
 ?>
 <?php include("../lib/header.php"); ?>
+<div class="col-md-12">
   <h1>Testimonials</h1>
-  <div id="testimonials">
-    <?php foreach ($rows as $row) : ?>
-      <?php if ($row['approved'] == 1) : ?>
-        <div>
-          <p class="testimonial approved"><?php echo htmlentities($row['testimonial'], ENT_QUOTES, 'UTF-8'); ?></p>
-          <div class="downarrow approved"></div>
+  <div class="container" id="testimonials">
+    <?php for ($i = 0; $i < count($rows); $i++) : ?>
+      <div class="row">
+        <div class="col-md-6">
+          <p class="testimonial <?php if ($rows[$i]['approved'] == 0) : ?>unapproved<?php else : ?>approved<?php endif; ?>">
+            <?php echo htmlentities($rows[$i]['testimonial'], ENT_QUOTES, 'UTF-8'); ?>
+          </p>
+          <div class="downarrow <?php if ($rows[$i]['approved'] == 0) : ?>unapproved<?php else : ?>approved<?php endif; ?>"></div>
           <span class="testimonial-name">
-            <small>- <?php echo htmlentities($row['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($row['location'])) { echo ", "; echo htmlentities($row['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
+            <small>- <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
               <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
-                <a href="javascript:" data-id="<?php echo $row['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="delete_testimonial">Delete</a>
+                <?php if ($rows[$i]['approved'] == 0) : ?>
+                  <span id="unapproved"><i> (unapproved)</i></span>
+                  <a href="javascript:" data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="approve_testimonial">Approve</a>
+                <?php endif; ?>
+                <a href="javascript:" data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="delete_testimonial">Delete</a>
               <?php endif; ?>
             </small>
           </span>
         </div>
-      <?php endif; ?>
-    <?php endforeach ?>
-    <?php foreach ($rows as $row) : ?>
-      <?php if ($row['approved'] == 0 and $_SESSION['user']['username'] == "admin") : ?>
-        <div>
-          <p class="testimonial unapproved"><?php echo htmlentities($row['testimonial'], ENT_QUOTES, 'UTF-8'); ?></p>
-          <div class="downarrow unapproved"></div>
-          <span class="testimonial-name">
-            <small>- <?php echo htmlentities($row['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($row['location'])) { echo ", "; echo htmlentities($row['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
-              <span id="unapproved"><i> (unapproved)</i></span>
-              <a href="javascript:" data-id="<?php echo $row['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="delete_testimonial">Delete</a>
-              <a href="javascript:" data-id="<?php echo $row['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="approve_testimonial">Approve</a>
-            </small>
-          </span>
-        </div>
-      <?php endif; ?>
-    <?php endforeach ?>
+        <?php $i++; ?>
+        <?php if ($rows[$i]) : ?>
+          <div class="col-md-6">
+            <p class="testimonial <?php if ($rows[$i]['approved'] == 0) : ?>unapproved<?php else : ?>approved<?php endif; ?>"><?php echo htmlentities($rows[$i]['testimonial'], ENT_QUOTES, 'UTF-8'); ?></p>
+            <div class="downarrow <?php if ($rows[$i]['approved'] == 0) : ?>unapproved<?php else : ?>approved<?php endif; ?>"></div>
+            <span class="testimonial-name">
+              <small>- <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
+                <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
+                  <?php if ($rows[$i]['approved'] == 0) : ?>
+                    <span id="unapproved"><i> (unapproved)</i></span>
+                    <a href="javascript:" data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="approve_testimonial">Approve</a>
+                  <?php endif; ?>
+                  <a href="javascript:" data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="delete_testimonial">Delete</a>
+                 <?php endif; ?>
+              </small>
+            </span>
+          </div>
+        <?php endif; ?>
+      </div>
+    <?php endfor; ?>
   </div>
   <br /><br />
   <a href="javascript:" name="submit" id="submit-testimonial">Submit A Testimonial</a>
@@ -71,38 +81,54 @@
         theme : 'clean'
       };
     </script>
-    <form action="index.php" method="POST" id="testimonial-form">
-      <div>
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" onchange="validate.input('#name', '#name_error')">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <form action="index.php" method="POST" id="testimonial-form" role="form">
+            <div class="form-group">
+              <label for="name" class="col-sm-4 control-label">Name</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="name" id="name" onchange="validate.input('#name', '#name_error')">
+                <div id="name_error" class="validate-error"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email" class="col-sm-4 control-label">Email</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="email" id="email" onchange="validate.email()">
+                <div id="email-error" class="validate-error"></div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="location" class="col-sm-4 control-label">Location</label>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" name="location" id="location">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="testimonial" class="col-sm-4 control-label">Testimonial</label>
+              <div class="col-sm-8">
+                <textarea class="form-control" name="testimonial" id="testimonial" rows="6" cols="40" onchange="validate.input('textarea#testimonial', '#testimonial_error')"></textarea>
+                <div id="testimonial_error" class="validate-error"></div>
+              </div>
+            </div>
+            <div class="error">
+              <span class="error_message">
+                <?php echo $display_message; ?>
+              </span>
+            </div>
+            <?php
+              require_once("../lib/recaptchalib.php");
+              $publickey = "6LePfucSAAAAAKlUO3GQKgfXCd7SvIhtFjBH5F9Z";
+              echo recaptcha_get_html($publickey, null, true);
+            ?>
+            <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token" id="token">
+            <input type="submit" id="submit-testimonial" value="Submit Testimonial" name="submit">
+          </form>
+        </div>
+        <div class="col-md-6"></div>
       </div>
-      <div id="name_error" class="validate-error"></div>
-      <div>
-        <label for="email">Email</label>
-        <input type="text" name="email" id="email" onchange="validate.email()">
-      </div>
-      <div id="email-error" class="validate-error"></div>
-      <div>
-        <label for="location">Location</label>
-        <input type="text" name="location" id="location">
-      </div>
-      <div>
-        <label for="testimonial">Testimonial</label>
-        <textarea name="testimonial" id="testimonial" rows="6" cols="40" onchange="validate.input('textarea#testimonial', '#testimonial_error')"></textarea>
-      </div>
-      <div id="testimonial_error" class="validate-error"></div>
-      <div class="error">
-        <span class="error_message">
-          <?php echo $display_message; ?>
-        </span>
-      </div>
-      <?php
-        require_once("../lib/recaptchalib.php");
-        $publickey = "6LePfucSAAAAAKlUO3GQKgfXCd7SvIhtFjBH5F9Z";
-        echo recaptcha_get_html($publickey, null, true);
-      ?>
-      <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token" id="token">
-      <input type="submit" id="submit-testimonial" value="Submit Testimonial" name="submit">
-    </form>
+    </div>
   </div>
+</div>
 <?php include("../lib/footer.php");

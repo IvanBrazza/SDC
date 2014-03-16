@@ -1,26 +1,3 @@
-#order-stats {
-  width:              48%;
-  margin:             0;
-  }
-
-div#orders-chart, div#fillings-chart, div#decorations-chart {
-  display:            inline-block;
-  }
-
-div.chart > h2 {
-  margin-bottom:      0px;
-  }
-
-div#decorations-chart {
-  float:              right;
-  }
-
-div#cakes-chart {
-  display:            inline-block;
-  position:           relative;
-  float:              right;
-  }
-
 .ui-dialog-titlebar .ui-dialog-titlebar-close,
 #browser-dialog {
   display:            none;

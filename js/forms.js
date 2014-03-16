@@ -13,24 +13,24 @@ $(document).ready(function() {
     calculateOrderTotal();
   }
 
-  if (window.location.pathname != "/testimonials/" &&
-      window.location.pathname != "/login/" &&
-      window.location.pathname != "/edit-account/") {
-    $(".date").datepicker({
-      minDate: 0,
-      dateFormat: "yy-mm-dd"
-    });
-
-    $(".previous-date").datepicker({
-      dateFormat: "yy-mm-dd"
-    });
-
-    $("#datetime").datetimepicker({
-      dateFormat: "yy-mm-dd",
-      timeFormat: "HH:mm",
-      minDate: 0
-    });
-  }
+//  if (window.location.pathname != "/testimonials/" &&
+//      window.location.pathname != "/login/" &&
+//      window.location.pathname != "/edit-account/") {
+//    $(".date").datepicker({
+//      minDate: 0,
+//      dateFormat: "yy-mm-dd"
+//    });
+//
+//    $(".previous-date").datepicker({
+//      dateFormat: "yy-mm-dd"
+//    });
+//
+//    $("#datetime").datetimepicker({
+//      dateFormat: "yy-mm-dd",
+//      timeFormat: "HH:mm",
+//      minDate: 0
+//    });
+//  }
             
   $("#register-form").submit(function(e) {
     // Validate the fields
@@ -82,7 +82,9 @@ $(document).ready(function() {
             window.location.href = "../home/";
           } else {
             if (object.status === 'Incorrect username.') {
-              $("#username").removeClass("valid").addClass("invalid").effect("shake", {}, 500);
+              $("#username").closest("div.form-group")
+                            .removeClass("has-success")
+                            .addClass("has-error");
               $("#error_message").html(object.status);
               loader.Hide();
               $("#token").val(object.token);
@@ -376,53 +378,49 @@ function checkExisting()
 var validate = {
   email: function() {
     var email             = $("input[name=email]").val(),
-        $email            = $("input[name=email]"),
+        $email            = $("input[name=email]").closest("div.form-group"),
         $email_error      = $("#email-error"),
         regex             = /^(\w+\.?\w*)@(.+){2,}\.(.+){2,}[^\.]$/;
 
     if (email === null) {
       $email_error.html("Please enter your email");
-      $email.removeClass("invalid");
-      $email.addClass("valid");
-      $email.effect("shake", {}, 500);
+      $email.removeClass("has-success");
+      $email.addClass("has-error");
       $email_error.slideUp("fast");
       $email_check = false;
     } else if (regex.test(email)){
-      $email.removeClass("invalid");
-      $email.addClass("valid");
+      $email.removeClass("has-error");
+      $email.addClass("has-success");
       $email_error.slideUp("fast");
       $email_check = true;
     } else {
       $email_error.html("Please enter a valid email");
-      $email.removeClass("valid");
-      $email.addClass("invalid");
-      $email.effect("shake", {}, 500);
+      $email.removeClass("has-success");
+      $email.addClass("has-error");
       $email_error.slideDown("fast");
       $email_check = false;
     }
   },
   password: function() {
     var password          = $("input[name=password]").val(),
-        $password         = $("input[name=password]"),
+        $password         = $("input[name=password]").closest("div.form-group"),
         $password_error   = $("#password-error");
 
     if (password === null) {
       $password_error.html("Please enter a password");
-      $password.removeClass("valid");
-      $password.addClass("invalid");
-      $passowrd.effect("shake", {}, 500);
+      $password.removeClass("has-success");
+      $password.addClass("has-error");
       $password_error.slideDown("fast");
       $password_check = false;
     } else if (password.length < 5) {
       $password_error.html("Password must be at least 5 characters");
-      $password.removeClass("valid");
-      $password.addClass("invalid");
-      $password.effect("shake", {}, 500);
+      $password.removeClass("has-success");
+      $password.addClass("has-error");
       $password_error.slideDown("fast");
       $password_check = false;
     } else {
-      $password.removeClass("invalid");
-      $password.addClass("valid");
+      $password.removeClass("has-error");
+      $password.addClass("has-success");
       $password_error.slideUp("fast");
       $password_check = true;
     }
@@ -430,125 +428,116 @@ var validate = {
   password2: function() {
     var password          = $("input[name=password]").val(),
         password2         = $("input[name=password2]").val(),
-        $password2        = $("input[name=password2]"),
+        $password2        = $("input[name=password2]").closest("div.form-group"),
         $password2_error  = $("#password2-error");
 
     if (password2 === null) {
       $password2_error.html("Please reenter your password");
-      $password2.removeClass("invalid");
-      $password2.addClass("valid");
-      $password2.effect("shake", {}, 500);
+      $password2.removeClass("has-error");
+      $password2.addClass("has-success");
       $password2_error.slideDown("fast");
       $password2_check = false;
     } else if (password === password2) {
-      $password2.removeClass("invalid");
-      $password2.addClass("valid");
+      $password2.removeClass("has-error");
+      $password2.addClass("has-success");
       $password2_error.slideUp("fast");
       $password2_check = true;
     } else {
       $password2_error.html("Passwords do not match");
-      $password2.removeClass("valid");
-      $password2.addClass("invalid");
-      $password2.effect("shake", {}, 500);
+      $password2.removeClass("has-success");
+      $password2.addClass("has-error");
       $password2_error.slideDown("fast");
       $password2_check = false;
     }
   },
   username: function() {
     var username          = $("input[name=username]").val(),
-        $username         = $("input[name=username]"),
+        $username         = $("input[name=username]").closest("div.form-group"),
         $username_error   = $("#username-error");
 
     if (username === null) {
       $username_error.html("Please enter a username");
-      $username.removeClass("valid");
-      $username.addClass("invalid");
-      $username.effect("shake", {}, 500);
+      $username.removeClass("has-success");
+      $username.addClass("has-error");
       $username_error.slideDown("fast");
       $username_check = false;
     } else if (username.length < 3) {
       $username_error.html("Username must be at least 3 characters");
-      $username.removeClass("valid");
-      $username.addClass("invalid");
-      $username.effect("shake", {}, 500);
+      $username.removeClass("has-success");
+      $username.addClass("has-error");
       $username_error.slideDown("fast");
       $username_check = false;
     } else {
-      $username.removeClass("invalid");
-      $username.addClass("valid");
+      $username.removeClass("has-error");
+      $username.addClass("has-success");
       $username_error.slideUp("fast");
       $username_check = true;
     }
   },
-  input: function(input, error) {
-    var input  = $(input),
-        $input = $(input).val(),
+  input: function(inputParam, error) {
+    var input  = $(inputParam).closest("div.form-group"),
+        $input = $(inputParam).val(),
         $error = $(error);
 
     if ($input === "") {
       $error.html("This field cannot be blank");
-      input.removeClass("valid");
-      input.addClass("invalid");
-      input.effect("shake", {}, 500);
+      input.removeClass("has-success");
+      input.addClass("has-error");
       $error.slideDown("fast");
       $input_check = false;
     } else {
-      input.removeClass("invalid");
-      input.addClass("valid");
+      input.removeClass("has-error");
+      input.addClass("has-success");
       $error.slideUp("fast");
       $input_check = true;
     }
   },
   postcode: function() {
     var postcode          = $("input[name=postcode]").val(),
-        $postcode         = $("input[name=postcode]"),
+        $postcode         = $("input[name=postcode]").closest("div.form-group"),
         $postcode_error   = $("#postcode_error"),
         regex             = /^[A-Za-z]{1,2}[0-9]{1,2}[A-Za-z]? ?[0-9][A-Za-z]{2}$/;
 
     if (postcode === null) {
       $postcode_error.html("Please enter your postcode");
-      $postcode.removeClass("valid");
-      $postcode.addClass("invalid");
-      $postcode.effect("shake", {}, 500);
+      $postcode.removeClass("has-success");
+      $postcode.addClass("has-error");
       $postcode_error.slideDown("fast");
       $postcode_check = false;
     } else if (regex.test(postcode)) {
-      $postcode.removeClass("invalid");
-      $postcode.addClass("valid");
+      $postcode.removeClass("has-error");
+      $postcode.addClass("has-success");
       $postcode_error.slideUp("fast");
       $postcode_check = true;
     } else {
       $postcode_error.html("Please enter a valid postcode");
-      $postcode.removeClass("valid");
-      $postcode.addClass("invalid");
-      $postcode.effect("shake", {}, 500);
+      $postcode.removeClass("has-success");
+      $postcode.addClass("has-error");
       $postcode_error.slideDown("fast");
       $postcode_check = false;
     }
   },
   phone: function() {
     var phone         = $("input[name=phone]").val(),
-        $phone        = $("input[name=phone]"),
+        $phone        = $("input[name=phone]").closest("div.form-group"),
         $phone_error  = $("#phone_error"),
         regex         = /0[ -]?[1-9](?:[ -]?\d){9}/;
 
     if (phone === null) {
       $phone_error.html("Please enter your phone number");
-      $phone.removeClass("valid");
-      $phone.addClass("invalid");
-      $phone.effect("shake", {}, 500);
+      $phone.removeClass("has-success");
+      $phone.addClass("has-error");
       $phone_error.slideDown("fast");
       $phone_check = false;
     } else if (regex.test(phone)) {
-      $phone.removeClass("invalid");
-      $phone.addClass("valid");
+      $phone.removeClass("has-error");
+      $phone.addClass("has-success");
       $phone_error.slideUp("fast");
       $phone_check = true;
     } else {
       $phone_error.html("Please enter a valid phone number");
-      $phone.removeClass("valid");
-      $phone.addClass("invalid");
-      $phone.effect("shake", {}, 500);
+      $phone.removeClass("has-success");
+      $phone.addClass("has-error");
       $phone_error.slideDown("fast");
       $phone_check = false;
     }

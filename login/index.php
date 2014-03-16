@@ -32,31 +32,33 @@
   $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 ?>
 <?php include("../lib/header.php"); ?>
+<div class="col-md-4"></div>
+<div class="col-md-4">
   <div class="error">
     <span class="error_message" id="error_message">
       <?php echo $display_message; ?>
     </span>
   </div>
-  <div class="form">
-    <h1>Login</h1> 
-    <form action="index.php" method="post" id="login-form"> 
-      <div>
-        <label for="username">Username</label>
-        <input type="text" name="username" id="username" onchange="validate.username()"/>
-      </div>
-      <div id="username-error" class="validate-error"></div>
-      <div>
-        <label for="password">Password</label>
-        <input type="password" name="password" id="password" onchange="validate.password()" />
-      </div>
-      <div id="password-error" class="validate-error"></div>
-      <a href="../forgot-password" class="forgot-password">Forgot Password</a>
-      <br /><br />
-      <?php if (!empty($_GET['redirect'])) : ?>
-        <input type="hidden" value="<?php echo $_GET['redirect']; ?>" name="redirect">
-      <?php endif; ?>
-      <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token" id="token">
-      <input type="submit" value="Login" />
-    </form> 
-  </div>
+  <h1>Login</h1> 
+  <form action="index.php" method="post" id="login-form" role="form">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" class="form-control" name="username" id="username" onchange="validate.username()" placeholder="Enter Username">
+    </div>
+    <div id="username-error" class="validate-error"></div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" name="password" id="password" onchange="validate.password()" placeholder="Enter Password">
+    </div>
+    <div id="password-error" class="validate-error"></div>
+    <a href="../forgot-password" class="forgot-password">Forgot Password</a>
+    <br /><br />
+    <?php if (!empty($_GET['redirect'])) : ?>
+      <input type="hidden" value="<?php echo $_GET['redirect']; ?>" name="redirect">
+    <?php endif; ?>
+    <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token" id="token">
+    <button type="submit" class="btn btn-default">Login</button>
+  </form>
+</div>
+<div class="col-md-4"></div>
 <?php include("../lib/footer.php");

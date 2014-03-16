@@ -4,6 +4,7 @@ body {
   background-color:   #ebf7f7;
   font-family:        'Open Sans', sans-serif;
   text-shadow:        rgba(0, 0, 0, .01) 0 0 1px;
+  padding-top:        50px;
   }
 
 h1 {
@@ -14,17 +15,25 @@ h2, h3, h4, h5, h6, th {
   color:              #21a2e6;
   }
 
-.container {
+/*.container {
   margin:             50px auto;
   width:              75%;
-  }
+  }*/
 
 a {
   color:              #636363;
   }
+
+.modal-sm {
+  width:              140px;
+  }
+
+.navbar-brand {
+  padding:            0;
+  }
 /* End General */
 
-/* 2. Navigation Bar */
+/* 2. Navigation Bar
 .navbar {
   background-color:   #272727;
   height:             31px;
@@ -70,37 +79,6 @@ a {
   }
 /* End Navigation Bar */
 
-/* Header */
-.header {
-  margin-top:         -25px;
-  }
-
-.logo {
-  display:            inline-block;
-  width:              400px;
-  height:             65px;
-  background-image:   url(../img/header-logo.png);
-  }
-
-.user {
-  display:            inline-block;
-  margin-top:         13px;
-  }
-
-.user>.links {
-  float:              right;
-  }
-
-.user>span {
-  font-size:          small;
-  }
-
-.user>.links>a {
-  text-decoration:    none;
-  color:              #919191;
-  }
-/* End Header */
-
 .orders {
   width:              80%;
   margin-left:        auto;
@@ -111,23 +89,6 @@ a {
   width:              60%;
   margin-left:        auto;
   margin-right:       auto;
-  }
-
-.form {
-  margin-left:        auto;
-  margin-right:       auto;
-  width:              50%;
-  }
-
-.form>form>div>input,
-.form>form>div>textarea,
-.form>form>div>select,
-.form>form>div>b,
-.tabslider>ul>li>div>input,
-.tabslider>ul>li>div>textarea,
-.tabslider>ul>li>div>select,
-.tabslider>ul>li>div>b {
-  float:              right;
   }
 
 .form>form>div,
@@ -201,6 +162,10 @@ p.approved {
 
 p.unapproved {
   background-image:   linear-gradient(#D6D6D6, #ADADAD);
+  }
+
+#testimonials>div {
+  margin-top:         25px;
   }
 
 .testimonial {

@@ -12,7 +12,7 @@ $(document).ready(function() {
   // the width of the tootltip to the width of the img
   $(".thumb").tooltip({
     open: function(event, ui) {
-      ui.tooltip.css("max-width", $(ui.tooltip).find("img").width() + "px");
+      ui.tooltip.css("max-width", $(ui.tooltip).find("img").width()+21 + "px");
     },
     position: { my: "left+15 center", at: "right center" },
     track: true

@@ -60,34 +60,50 @@
   // each month for the line graph, cakes contains values for each cake type
   // and size (default 0), fillings contains values for each filling (default
   // 0) and decorations contains values for each decoration (default 0)
+  $fillColor = "#d0edeb";
+  $strokeColor = "#21a2e6";
   $response = array(
     'orders'      => array(
-                       'values' => array(
-                         array("X" => "Jan", "Y" => ""),
-                         array("X" => "Feb", "Y" => ""),
-                         array("X" => "Mar", "Y" => ""),
-                         array("X" => "Apr", "Y" => ""),
-                         array("X" => "May", "Y" => ""),
-                         array("X" => "Jun", "Y" => ""),
-                         array("X" => "Jul", "Y" => ""),
-                         array("X" => "Aug", "Y" => ""),
-                         array("X" => "Sep", "Y" => ""),
-                         array("X" => "Oct", "Y" => ""),
-                         array("X" => "Nov", "Y" => ""),
-                         array("X" => "Dec", "Y" => ""),
+                       'labels' => array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"),
+                       'datasets' => array(
+                         0 => array (
+                           "fillColor" => $fillColor,
+                           "strokeColor" => $strokeColor,
+                           "pointColor" => $strokeColor,
+                           "pointStrokeColor" => "#fff",
+                           "data" => array(0,0,0,0,0,0,0,0,0,0,0,0)
+                         )
                        )
                      ),
     'cakes'       => array(
-                       'name' => array("6\"", "8\"", "10\"", "12\"", "14\"", "Sponge", "Marble", "Chocolate", "Fruit"),
-                       'value' => array(0, 0, 0, 0, 0, 0, 0, 0)
+                       'labels' => array("6\"", "8\"", "10\"", "12\"", "14\"", "Sponge", "Marble", "Chocolate", "Fruit"),
+                       'datasets' => array(
+                         0 => array(
+                           "fillColor" => $fillColor,
+                           "strokeColor" => $strokeColor,
+                           "data" => array(0,0,0,0,0,0,0,0,0)
+                         )
+                       )
                      ),
     'fillings'    => array(
-                       'name' => array("None", "Butter Cream", "Chocolate", "Other"),
-                       'value' => array(0, 0, 0, 0)
+                       'labels' => array("None", "Butter Cream", "Chocolate", "Other"),
+                       'datasets' => array(
+                         0 => array(
+                           "fillColor" => $fillColor,
+                           "strokeColor" => $strokeColor,
+                           "data" => array(0,0,0,0)
+                         )
+                       )
                      ),
     'decorations' => array(
-                       'name' => array("None", "Royal Icing", "Regal Icing", "Butter Cream", "Chocolate", "Coconut", "Other"),
-                       'value' => array(0, 0, 0, 0, 0, 0, 0)
+                       'labels' => array("None", "Royal Icing", "Regal Icing", "Butter Cream", "Chocolate", "Coconut", "Other"),
+                       'datasets' => array(
+                         0 => array(
+                           "fillColor" => $fillColor,
+                           "strokeColor" => $strokeColor,
+                           "data" => array(0,0,0,0,0,0,0)
+                         )
+                       )
                      )
   );
 
@@ -113,17 +129,21 @@
 
     $row = $db->fetch();
 
-    if ($row['filling_name'] == "Butter Cream")
+    if ($row['filling_name'] == "None")
     {
-      $response['fillings']['value'][1] += $filling['value'];
+      $response['fillings']['datasets'][0]['data'][0] += $filling['value'];
+    }
+    else if ($row['filling_name'] == "Butter Cream")
+    {
+      $response['fillings']['datasets'][0]['data'][1] += $filling['value'];
     }
     else if ($row['filling_name'] == "Chocoalte")
     {
-      $response['fillings']['value'][2] += $filling['value'];
+      $response['fillings']['datasets'][0]['data'][2] += $filling['value'];
     }
     else if ($row['filling_name'] == "Other")
     {
-      $response['fillings']['value'][3] += $filling['value'];
+      $response['fillings']['datasets'][0]['data'][3] += $filling['value'];
     }
   }
 
@@ -151,31 +171,31 @@
 
     if ($row['decor_name'] == "Royal Icing")
     {
-      $response['decorations']['value'][1] += $decoration['value'];
+      $response['decorations']['datasets'][0]['data'][1] += $decoration['value'];
     }
     else if ($row['decor_name'] == "Regal Icing")
     {
-      $response['decorations']['value'][2] += $decoration['value'];
+      $response['decorations']['datasets'][0]['data'][2] += $decoration['value'];
     }
     else if ($row['decor_name'] == "Butter Cream")
     {
-      $response['decorations']['value'][3] += $decoration['value'];
+      $response['decorations']['datasets'][0]['data'][3] += $decoration['value'];
     }
     else if ($row['decor_name'] == "Chocolate")
     {
-      $response['decorations']['value'][4] += $decoration['value'];
+      $response['decorations']['datasets'][0]['data'][4] += $decoration['value'];
     }
     else if ($row['decor_name'] == "Coconut")
     {
-      $response['decorations']['value'][5] += $decoration['value'];
+      $response['decorations']['datasets'][0]['data'][5] += $decoration['value'];
     }
     else if ($row['decor_name'] == "Other")
     {
-      $response['decorations']['value'][6] += $decoration['value'];
+      $response['decorations']['datasets'][0]['data'][6] += $decoration['value'];
     }
     else if ($row['decor_name'] == "None")
     {
-      $response['decorations']['value'][0] += $decoration['value'];
+      $response['decorations']['datasets'][0]['data'][0] += $decoration['value'];
     }
   }
 
@@ -203,40 +223,40 @@
 
     if ($row['cake_size'] == "6\"")
     {
-      $response['cakes']['value'][0] += $cake['value'];
+      $response['cakes']['datasets'][0]['data'][0] += $cake['value'];
     }
     else if ($row['cake_size'] == "8\"")
     {
-      $response['cakes']['value'][1] += $cake['value'];
+      $response['cakes']['datasets'][0]['data'][1] += $cake['value'];
     }
     else if ($row['cake_size'] == "10\"")
     {
-      $response['cakes']['value'][2] += $cake['value'];
+      $response['cakes']['datasets'][0]['data'][2] += $cake['value'];
     }
     else if ($row['cake_size'] == "12\"")
     {
-      $response['cakes']['value'][3] += $cake['value'];
+      $response['cakes']['datasets'][0]['data'][3] += $cake['value'];
     }
     else if ($row['cake_size'] == "14\"")
     {
-      $response['cakes']['value'][4] += $cake['value'];
+      $response['cakes']['datasets'][0]['data'][4] += $cake['value'];
     }
 
     if ($row['cake_type'] == "Sponge")
     {
-      $response['cakes']['value'][5] += $cake['value'];
+      $response['cakes']['datasets'][0]['data'][5] += $cake['value'];
     }
     else if ($row['cake_type'] == "Marble")
     {
-      $response['cakes']['value'][6] += $cake['value'];
+      $response['cakes']['datasets'][0]['data'][6] += $cake['value'];
     }
     else if ($row['cake_type'] == "Chocolate")
     {
-      $response['cakes']['value'][7] += $cake['value'];
+      $response['cakes']['datasets'][0]['data'][7] += $cake['value'];
     }
     else if ($row['cake_type'] == "Fruit")
     {
-      $response['cakes']['value'][8] += $cake['value'];
+      $response['cakes']['datasets'][0]['data'][8] += $cake['value'];
     }
   }
 
@@ -245,12 +265,8 @@
   {
     if ($months[$i]) 
     {
-      $response['orders']['values'][$i]["Y"] = $months[$i];
+      $response['orders']['datasets'][0]['data'][$i] = $months[$i];
     } 
-    else 
-    {
-      $response['orders']['values'][$i]["Y"] = 0;
-    }
   }
 
   // Return the response in JSON format

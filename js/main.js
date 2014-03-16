@@ -27,7 +27,7 @@ $(document).ready(function() {
     }
   });
 
-  $(document).tooltip();
+  //$(document).tooltip();
 
   // Enable clickable rows on order and customers tables
   $('table#orders-js>tbody>tr').click(function() {
@@ -58,22 +58,16 @@ $(document).ready(function() {
 
 var loader = {
   Init: function() {
-    $("#loading-spinner-dialog").dialog({
-      autoOpen: false,
-      closeOnEscape: false,
-      draggable: false,
-      height: 107,
-      modal: true,
-      position: "top",
-      resizable: false,
-      show: {effect: "fade", duration: 500},
-      width: 90
-    }).parent().children("div:first-child").css("display", "none");
+    $("#loading-spinner-dialog").modal({
+      backdrop: 'static',
+      keyboard: false,
+      show: false,
+    });
   },
   Show: function() {
-    $("#loading-spinner-dialog").dialog("open");
+    $("#loading-spinner-dialog").modal("show");
   },
   Hide: function() {
-    $("#loading-spinner-dialog").dialog("close");
+    $("#loading-spinner-dialog").modal("hide");
   }
 };

@@ -9,6 +9,7 @@
   forceHTTP();
 ?>
 <?php include("../lib/header.php"); ?>
+<div class="col-md-12">
   <h1>Gallery</h1>
   <h3>Celebration Cakes</h3>
   <div id="celebration-container">
@@ -145,4 +146,5 @@
       </li>
     </ul>
   </div>
+</div>
 <?php include("../lib/footer.php"); ?>

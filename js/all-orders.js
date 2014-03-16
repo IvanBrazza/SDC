@@ -32,13 +32,13 @@ $(document).ready(function() {
     // with all of the order numbers. If the user
     // clicks on one of these autocompletes, insert
     // that value into the form and submit it
-    $("#order_number").autocomplete({
-      source: orderNumbers,
-      select: function(event, ui) {
-        $("#order_number").val(ui.item.value);
-        $("#order_search").submit();
-      }
-    });
+//    $("#order_number").autocomplete({
+//      source: orderNumbers,
+//      select: function(event, ui) {
+//        $("#order_number").val(ui.item.value);
+//        $("#order_search").submit();
+//      }
+//    });
   }
 
   $("#single_order_details").height($("#single_order").height());
