@@ -31,6 +31,25 @@ a {
 .navbar-brand {
   padding:            0;
   }
+
+.tab-pane {
+  padding:            10px;
+  border-radius:      8px;
+  }
+
+.nav-tabs {
+  border:             none;
+  background-color:   #ffffff;
+  border-radius:      4px;
+  }
+
+.nav-tabs > li.active > a {
+  border-bottom-color:#dddddd;
+  }
+
+.nav-tabs > li.active > a {
+  border-radius:      4px;
+  }
 /* End General */
 
 /* 2. Navigation Bar

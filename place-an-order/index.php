@@ -65,6 +65,7 @@
   }
 ?>
 <?php include("../lib/header.php"); ?>
+<div class="col-md-12">
   <h1>Place An Order</h1>
   <div class="error">
     <span class="error_message" id="error_message">
@@ -85,77 +86,89 @@
       <?php endif; ?>
     </span>
   </div>
-  <form action="../lib/form/place-an-order.php" method="POST" id="order-form" enctype="multipart/form-data">
-    <div class='tabbed_content'>
-      <div class='tabs'>
-        <div class='moving_bg'>
-          &nbsp;
-        </div>
-        <span class='tab_item active'>The Cake</span>
-        <span class='tab_item'>Upload A Photo</span>
-        <span class='tab_item'>Delivery</span>
-        <span class='tab_item'>Review</span>
-      </div>
-      <a href="javascript:" id="order-form-previous" class="order-form-navigation">Back</a>
-      <a href="javascript:" id="order-form-next" class="order-form-navigation">Next</a>
-      <div class='slide_content'>
-        <div class='tabslider'>
-          <ul>
-            <li><!-- The Cake -->
-              <div>
-                <label for="celebration_date">Date of celebration <a href="javascript:" class="help" title="The date of the event you are ordering a cake for.">?</a></label>
-                <input type="text" name="celebration_date" class="date" id="celebration_date" onchange="validate.input('#celebration_date', '#celebration_date_error')">
-              </div>
-              <div id="celebration_date_error" class="validate-error"></div>
-              <div>
-                <label for="filling">Filling <a href="javascript:" class="help" title="The filling you want your cake to have. If you choose 'Other' please specify the filling in the comments box.">?</a></label>
-                <select name="filling" id="filling">
-                  <option value="0">None</option>
-                  <option value="1">Butter Cream</option>
-                  <option value="2">Chocolate</option>
-                  <option value="3">Other (specify in comments)</option>
-                </select>
-              </div>
-              <div>
-                <label for="decoration">Decoration <a href="javascript:" class="help" title="What you want your cake to be decorated in. If you choose 'Other' please specify the decoration in the comments box.">?</a></label>
-                <select name="decoration" id="decoration">
-                  <option value="0">None</option>
-                  <option value="1">Royal Icing</option>
-                  <option value="2">Regal Icing</option>
-                  <option value="3">Butter Cream</option>
-                  <option value="4">Chocolate</option>
-                  <option value="5">Coconut</option>
-                  <option value="6">Other (specify in comments)</option>
-                </select>
-              </div>
-                <div>
-                <label for="cake_size">Size of cake <a href="javascript:" class="help" title="The size you want the cake to be in inches.">?</a></label>
-                <select name="cake_size" id="cake_size">
-                  <option value='6"'>6"</option>
-                  <option value='8"'>8"</option>
-                  <option value='10"'>10"</option>
-                  <option value='12"'>12"</option>
-                  <option value='14"'>14"</option>
-                  </select>
-              </div>
-              <div>
-                <label for="cake_type">Type of cake</label>
-                <select name="cake_type" id="cake_type">
-                  <option value="Sponge">Sponge</option>
-                  <option value="Marble">Marble</option>
-                  <option value="Chocolate">Chocolate</option>
-                    <option value="Fruit">Fruit</option>
-                </select>
-              </div>
-              <div id="comments">
-                <label for="comments">Comments <a href="javascript:" class="help" title="Any additional comments you may have to make or if you chose filling/decoration as 'Other'.">?</a></label>
-                <textarea name="comments" id="comments" rows="6" cols="30" onchange="validate.input('textarea#comments', '#comments_error')"></textarea>
-              </div>
-              <div id="comments_error" class="validate-error"></div>
-            </li>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <form action="../lib/form/place-an-order.php" method="POST" class="form-horizontal" id="order-form" enctype="multipart/form-data" role="form">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#thecake" data-toggle="tab">The Cake</a></li>
+            <li><a href="#uploadaphoto" data-toggle="tab">Upload A Photo</a></li>
+            <li><a href="#delivery" data-toggle="tab">Delivery</a></li>
+            <li><a href="#review" data-toggle="tab">Review</a></li>
           </ul>
-          <ul>
-            <li><!-- Upload A Photo -->
+          <div class="tab-content">
+            <div class="tab-pane fade in active" id="thecake">
+              <div class="form-group">
+                <label for="celebration_date" class="col-sm-4 control-label">Date of celebration <a href="javascript:" class="help" title="The date of the event you are ordering a cake for.">?</a></label>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-7">
+                  <input type="text" class="form-control" name="celebration_date" class="date" id="celebration_date" onchange="validate.input('#celebration_date', '#celebration_date_error')">
+                  <div id="celebration_date_error" class="validate-error"></div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="filling" class="col-sm-4 control-label">Filling <a href="javascript:" class="help" title="The filling you want your cake to have. If you choose 'Other' please specify the filling in the comments box.">?</a></label>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-7">
+                  <select name="filling" id="filling" class="form-control">
+                    <option value="0">None</option>
+                    <option value="1">Butter Cream</option>
+                    <option value="2">Chocolate</option>
+                    <option value="3">Other (specify in comments)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="decoration" class="col-sm-4 control-label">Decoration <a href="javascript:" class="help" title="What you want your cake to be decorated in. If you choose 'Other' please specify the decoration in the comments box.">?</a></label>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-7">
+                  <select name="decoration" id="decoration" class="form-control">
+                    <option value="0">None</option>
+                    <option value="1">Royal Icing</option>
+                    <option value="2">Regal Icing</option>
+                    <option value="3">Butter Cream</option>
+                    <option value="4">Chocolate</option>
+                    <option value="5">Coconut</option>
+                    <option value="6">Other (specify in comments)</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="cake_size" class="col-sm-4 control-label">Size of cake <a href="javascript:" class="help" title="The size you want the cake to be in inches.">?</a></label>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-7">
+                  <select name="cake_size" id="cake_size" class="form-control">
+                    <option value='6"'>6"</option>
+                    <option value='8"'>8"</option>
+                    <option value='10"'>10"</option>
+                    <option value='12"'>12"</option>
+                    <option value='14"'>14"</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="cake_type" class="col-sm-4 control-label">Type of cake</label>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-7">
+                  <select name="cake_type" id="cake_type" class="form-control">
+                    <option value="Sponge">Sponge</option>
+                    <option value="Marble">Marble</option>
+                    <option value="Chocolate">Chocolate</option>
+                    <option value="Fruit">Fruit</option>
+                  </select>
+                </div>
+              </div>
+              <div id="comments" class="form-group">
+                <label for="comments" class="col-sm-4 control-label">Comments <a href="javascript:" class="help" title="Any additional comments you may have to make or if you chose filling/decoration as 'Other'.">?</a></label>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-7">
+                  <textarea name="comments" id="comments" rows="6" cols="30" class="form-control" onchange="validate.input('textarea#comments', '#comments_error')"></textarea>
+                  <div id="comments_error" class="validate-error"></div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade in" id="uploadaphoto">
               <label for="fileupload" id="fileupload-label">
                 If you wish for your cake to have a picture printed onto edible paper, you
                 can upload it clicking the "Choose File" or "Browse" button below. Please
@@ -166,27 +179,28 @@
               <br /><br /><br />
               <input type="hidden" name="MAX_FILE_SIZE" value="5242880">
               <input type="file" name="fileupload" id="fileupload" accept="image/*">
-            </li>
-          </ul>
-          <ul>
-            <li><!-- Delivery -->
-              <div>
-                <label for="delivery">Delivery options</label>
-                <select name="delivery" id="delivery">
-                  <option value="Collection">Collection</option>
-                  <option value="Deliver To Address">Delivery</option>
-                </select>
+            </div>
+            <div class="tab-pane fade in" id="delivery">
+              <div class="form-group">
+                <label for="delivery" class="col-sm-4 control-label">Delivery options</label>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-7">
+                  <select name="delivery" id="delivery" class="form-control">
+                    <option value="Collection">Collection</option>
+                    <option value="Deliver To Address">Delivery</option>
+                  </select>
+                </div>
               </div>
-              <div>
-                <label for="datetime" id="datetime-label">Date/time for collection</label>
-                <input type="text" id="datetime" name="datetime" onchange="validate.input('#datetime', '#datetime_error')">
+              <div class="form-group">
+                <label for="datetime" id="datetime-label" class="col-sm-4 control-label">Date/time for collection</label>
+                <div class="col-sm-1"></div>
+                <div class="col-sm-7">
+                  <input type="text" id="datetime" class="form-control" name="datetime" onchange="validate.input('#datetime', '#datetime_error')">
+                </div>
               </div>
               <div id="datetime_error" class="validate-error"></div>
-            </li>
-          </ul>
-          <ul>
-            <li><!-- Review -->
-              <br />
+            </div>
+            <div class="tab-pane fade in" id="review">
               <script>
                 var $origins = <?php echo json_encode(str_replace(" ", "+", $_SESSION['user']['address']) . "," . str_replace(" ", "+", $_SESSION['user']['postcode'])); ?>,
                     $destination = "95+Hoe+Lane,EN35SW";
@@ -258,10 +272,12 @@
               <br /><br />
               <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
               <input type="image" src="../img/paywithpp.gif" <?php if ($details_correct === false) : ?>disabled<?php endif; ?> />
-            </li>
-          </ul>
-        </div>
+            </div>
+          </div>
+        </form>
       </div>
+      <div class="col-md-2"></div>
     </div>
-  </form>
+  </div>
+</div>
 <?php include("../lib/footer.php");

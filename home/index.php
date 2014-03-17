@@ -49,7 +49,13 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#"></a></li>
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome to Star Dream Cakes<?php if (!empty($_SESSION['user'])) : ?>, <?php echo $_SESSION['user']['first_name']; ?>!<?php endif; ?> <b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <?php if (!empty($_SESSION['user'])) : ?>
+                Welcome, <?php echo $_SESSION['user']['first_name']; ?>!
+              <?php else : ?>
+                Welcome to Star Dream Cakes!
+              <?php endif; ?> <b class="caret"></b>
+            </a>
             <ul class="dropdown-menu">
               <?php if (!empty($_SESSION['user'])) : ?>
                 <li><a href="../edit-account">Edit Account</a></li>
