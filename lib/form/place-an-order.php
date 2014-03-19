@@ -13,54 +13,6 @@
     // Unset the token
     unset($_SESSION['token']);
 
-    // Check if an image was uploaded, if it was make sure it's valid
-    if ($_FILES['fileupload']['error'] == 0)
-    {
-      // Check file size
-      if ($_FILES['fileupload']['size'] > 5242880)
-      {
-        header("Location: ../../place-an-order/?e=1");
-        die();
-      }
-      // Check file type
-      if ($_FILES['fileupload']['type'] == "image/gif" or 
-          $_FILES['fileupload']['type'] == "image/jpeg" or
-          $_FILES['fileupload']['type'] == "image/jpg" or
-          $_FILES['fileupload']['type'] == "image/png")
-      {
-        // All good, let's move the file
-        $uploaddir = "/home/ivanrsfr/www/upload/" . $_SESSION['user']['customer_id'] . "/";
-        $uploadfile = $uploaddir . basename($_FILES['fileupload']['name']);
-        if (!is_dir($uploaddir))
-        {
-          mkdir($uploaddir, 0777, true);
-        }
-        if (!move_uploaded_file($_FILES['fileupload']['tmp_name'], $uploadfile))
-        {
-          echo "Oops! Something went wrong. Try again.";
-          die();
-        }
-      }
-      else
-      {
-        header("Location: ../../place-an-order/?e=2");
-        die();
-      }
-    }
-    else if ($_FILES['fileupload']['error'] == 1 or $_FILES['fileupload']['error'] == 2)
-    {
-      header("Location: ../../place-an-order/?e=1");
-      die();
-    }
-    else if ($_FILES['fileupload']['error'] == 3 or
-             $_FILES['fileupload']['error'] == 6 or
-             $_FILES['fileupload']['error'] == 7 or
-             $_FILES['fileupload']['error'] == 8)
-    {
-      header("Location: ../../place-an-order/?e=3");
-      die();
-    }
-
     // Get the cake_id of the cake based on the cake_size and cake_type
     $query = "
       SELECT
@@ -150,7 +102,7 @@
         status,
         datetime,";
 
-    if (!empty($_FILES))
+    if (!empty($_POST['fileupload']))
     {
       $query .= "
           image,
@@ -172,7 +124,7 @@
         :status,
         :datetime,";
 
-    if (!empty($_FILES))
+    if (!empty($_POST['fileupload']))
     {
       $query .= "
         :image,
@@ -202,9 +154,9 @@
       ':base_price'         => $base_price
      );
 
-    if (!empty($_FILES))
+    if (!empty($_POST['fileupload']))
     {
-      $query_params[':image'] = str_replace("/var/www/ivanbrazza.biz/htdocs/", "../", $uploadfile);
+      $query_params[':image'] = $_POST['fileupload'];
     }
 
     $db->runQuery($query, $query_params);

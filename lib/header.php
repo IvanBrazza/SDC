@@ -22,10 +22,6 @@
   <?php if (strpos($_SERVER['REQUEST_URI'], "stats") !== false) : ?>
     <link href="../css/stats.css" rel="stylesheet">
   <?php endif; ?>
-  <?php if (strpos($_SERVER['REQUEST_URI'], "place-an-order") !== false or
-            strpos($_SERVER['REQUEST_URI'], "add-order") !== false) : ?>
-    <link href="../css/tabbed-order.css" rel="stylesheet">
-  <?php endif; ?>
 </head>
 <body>
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">

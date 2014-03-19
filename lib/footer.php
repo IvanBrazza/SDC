@@ -17,6 +17,7 @@
   </div>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="../js/bootstrap.js"></script>
+  <script src="../js/jquery/jquery-ui.js"></script>
   <script src="../js/table-pagination.js"></script>
   <?php if (strpos($_SERVER['REQUEST_URI'], "login") !== false or
             strpos($_SERVER['REQUEST_URI'], "register") !== false or
@@ -34,7 +35,6 @@
   <?php if (strpos($_SERVER['REQUEST_URI'], "gallery") !== false) : ?>
     <script src="../js/jquery/jquery.wookmark.min.js"></script>
     <script src="../js/jquery/imagesloaded.min.js"></script>
-    <script src="../js/jquery/jquery-ui.js"></script>
     <script src="../js/gallery.js"></script>
   <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "testimonials") !== false) : ?>

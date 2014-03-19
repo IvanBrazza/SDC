@@ -89,7 +89,7 @@ $(document).ready(function() {
               loader.Hide();
               $("#token").val(object.token);
             } else if (object.status === 'Incorrect password.') {
-              $("#password").removeClass("valid").addClass("invalid").effect("shake", {}, 500);
+              $("#password").removeClass("valid").addClass("invalid");
               $("#error_message").html(object.status);
               loader.Hide();
               $("#token").val(object.token);
@@ -132,7 +132,7 @@ $(document).ready(function() {
             loader.Hide();
           } else {
             if (object.status === 'Email doesn\'t exist.') {
-              $("#email").removeClass("valid").addClass("invalid").effect("shake", {}, 500);
+              $("#email").removeClass("valid").addClass("invalid");
               $("#error_message").html(object.status);
               loader.Hide();
               $("#token").val(object.token);

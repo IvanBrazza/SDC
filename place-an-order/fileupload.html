@@ -1,0 +1,132 @@
+<head>
+  <link href="../css/main.css" rel="stylesheet">
+  <link href="../css/bootstrap.css" rel="stylesheet">
+  <link href="../css/jquery-fileupload.css" rel="stylesheet">
+  <style type="text/css">
+    body {
+      padding-top: 0;
+      background-color: #ebf7f7;
+      }
+    .fileupload-buttonbar {
+      width: 100%;
+      }
+  </style>
+</head>
+<body>
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Please Read</h3>
+    </div>
+    <div class="panel-body">
+      If you wish for your cake to have a picture printed onto edible paper,
+      you can upload it by clicking the <span class="btn btn-success" id="upload-fake">
+      <i class="glyphicon glyphicon-plus"></i><span>Choose Image...</span></span> button below.<br>
+      The picture you choose must match the following criteria:
+      <ul>
+        <li>The maximum filesize is <b>5MB</b></li>
+        <li>Only image files (<b>.JPG, .JPEG, .PNG, .GIF)</b> may be uploaded</li>
+        <li>The image must be high quality</li>
+      </ul>
+      You may also drag and drop the image from your computer onto this page.
+    </div>
+  </div>
+  <br>
+  <form id="fileupload" action="../lib/form/fileupload.php" method="POST" enctype="multipart/form-data">
+    <div class="row fileupload-buttonbar">
+      <div class="col-lg-7">
+        <span class="btn btn-success fileinput-button">
+          <i class="glyphicon glyphicon-plus"></i>
+          <span>Choose Image...</span>
+          <input type="file" name="files[]" accept="image/*">
+        </span>
+        <input type="checkbox" class="toggle">
+        <span class="fileupload-process"></span>
+      </div>
+    </div>
+    <span id="uploadstatus"></span>
+    <div class="well well-sm">
+      <table role="presentation" class="uploaded-images">
+        <tbody class="files"></tbody>
+      </table>
+    </div>
+  </form>
+  <!-- The template to display files available for upload -->
+  <script id="template-upload" type="text/x-tmpl">
+  {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload fade">
+      <td>
+        <span class="preview"></span>
+      </td>
+      <td>
+        <p class="name">{%=file.name%}</p>
+        <strong class="error text-danger"></strong>
+      </td>
+      <td>
+        <p class="size">Processing...</p>
+        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+      </td>
+      <td>
+        {% if (!i && !o.options.autoUpload) { %}
+          <button class="btn btn-primary start" disabled>
+            <i class="glyphicon glyphicon-upload"></i>
+            <span>Start</span>
+          </button>
+        {% } %}
+        {% if (!i) { %}
+          <button class="btn btn-warning cancel pull-right">
+            <i class="glyphicon glyphicon-ban-circle"></i>
+            <span>Cancel</span>
+          </button>
+        {% } %}
+      </td>
+    </tr>
+  {% } %}
+  </script>
+  <!-- The template to display files available for download -->
+  <script id="template-download" type="text/x-tmpl">
+  {% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download fade">
+      <td>
+        <span class="preview">
+          {% if (file.thumbnailUrl) { %}
+            <img src="{%=file.thumbnailUrl%}">
+          {% } %}
+        </span>
+      </td>
+      <td>
+        <p class="name" id="filename">
+          <span>{%=file.name%}</span>
+        </p>
+        {% if (file.error) { %}
+          <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+        {% } %}
+      </td>
+      <td>
+        <span class="size">{%=o.formatFileSize(file.size)%}</span>
+      </td>
+      {% if (file.error) { %}
+        <td>
+          <button class="btn btn-warning cancel pull-right">
+            <i class="glyphicon glyphicon-ban-circle"></i>
+            <span>Cancel</span>
+          </button>
+        </td>
+      {% } %}
+    </tr>
+    {% $(window.parent.document.getElementById('fileuploadhidden')).val("../lib/form/files/" + file.name);  %}
+  {% } %}
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="../js/bootstrap.js"></script>
+  <script src="../js/jquery/fileupload/jquery.ui.widget.js"></script>
+  <script src="../js/jquery/fileupload/tmpl.min.js"></script>
+  <script src="../js/jquery/fileupload/load-image.min.js"></script>
+  <script src="../js/jquery/fileupload/canvas-to-blob.min.js"></script>
+  <script src="../js/jquery/fileupload/jquery.fileupload.js"></script>
+  <script src="../js/jquery/fileupload/jquery.fileupload-process.js"></script>
+  <script src="../js/jquery/fileupload/jquery.fileupload-image.js"></script>
+  <script src="../js/jquery/fileupload/jquery.fileupload-validate.js"></script>
+  <script src="../js/jquery/fileupload/jquery.fileupload-ui.js"></script>
+  <script src="../js/jquery/fileupload/main.js"></script>
+</body>

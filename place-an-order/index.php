@@ -169,16 +169,8 @@
               </div>
             </div>
             <div class="tab-pane fade in" id="uploadaphoto">
-              <label for="fileupload" id="fileupload-label">
-                If you wish for your cake to have a picture printed onto edible paper, you
-                can upload it clicking the "Choose File" or "Browse" button below. Please
-                make sure that the picture is high quality and note that you can only
-                upload .jpg, .jpeg, .png or .gif files, and the image must be less than
-                5 megabytes in size.
-              </label>
-              <br /><br /><br />
-              <input type="hidden" name="MAX_FILE_SIZE" value="5242880">
-              <input type="file" name="fileupload" id="fileupload" accept="image/*">
+              <iframe src="fileupload.html" id="ifileupload"></iframe>
+              <input type="hidden" name="fileupload" id="fileuploadhidden">
             </div>
             <div class="tab-pane fade in" id="delivery">
               <div class="form-group">
