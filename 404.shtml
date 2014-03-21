@@ -19,11 +19,8 @@
     </div>
   </div>
   <div class="container">
-    <h1>Oops!</h1>
-    <p>Something went wrong on our end. The owners have been notified and are looking into it.
-       In the meantime, you can try again and if the problem still occurs, wait 24 hours and the
-       issue will more than likely be resolved. In the unlikely event that it isn't, please send
-       an email to <a href="mailto:webmaster@ivanbrazza.biz">webmaster@ivanbrazza.biz</a>. Thank you.</p>
+    <h1>We Couldn't Find That!</h1>
+    <p>It looks like you visited a page that doesn't exist. Try going back and try again.</p>
   </div>
   <div id="footer">
     <hr class="fancy-line">
