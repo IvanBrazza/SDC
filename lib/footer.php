@@ -1,9 +1,9 @@
-    </div>
-  </div>
-  <div id="footer">
-    <hr class="fancy-line">
-    <div class="copyright">
-      <div>&copy; Star Dream Cakes 2014</div>
+    <div class="row footer">
+      <div id="col-md-12">
+        <div class="copyright">
+          <div>&copy; Star Dream Cakes 2014</div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="modal fade" id="loading-spinner-dialog">

@@ -1,7 +1,7 @@
 /* 1. General */
 body {
   margin:             0px;
-  background-color:   #ebf7f7;
+  background-color:   #beeeee;
   font-family:        'Open Sans', sans-serif;
   text-shadow:        rgba(0, 0, 0, .01) 0 0 1px;
   padding-top:        50px;
@@ -15,10 +15,18 @@ h2, h3, h4, h5, h6, th {
   color:              #21a2e6;
   }
 
-/*.container {
-  margin:             50px auto;
-  width:              75%;
-  }*/
+.container {
+  background-image:   url(../img/bg.png);
+  box-shadow:         0 1px 6px 1px rgba(0, 0, 0, 0.2);
+  }
+
+.container .row:nth-last-child(2) {
+  padding-bottom:     50px;
+  }
+
+.featurette {
+  padding-left:       20px;
+  }
 
 a {
   color:              #636363;
@@ -209,6 +217,11 @@ p.unapproved {
   margin-bottom:      0;
   padding:            10px 50px;
   border-radius:      5px;
+  min-height:         60px;
+  }
+
+.testimonial-col {
+  margin-bottom:      20px;
   }
 
 .testimonial:before,
@@ -340,19 +353,19 @@ tr.hover {
   }
 
 /* Copyright footer  */
-div#footer {
-  width:              75%;
-  margin:             0 auto 50px auto;
+.footer {
   padding-top:        20px;
+  background-image:   url('../img/footer.png');
+  min-height:         100px;
+  color:              #ffffff;
   }
 
 hr.fancy-line { 
   border:             0; 
-  height:             1px;
-  }
-
-hr.fancy-line {
-  background:         radial-gradient(ellipse at center, rgba(0,122,255,0.5) 0%,rgba(0,0,0,0) 75%);
+  height:             13px;
+  background-image:   url("../img/featurette-divider.png");
+  background-repeat:  repeat-x;
+  margin:             20px -15px;
   }
 
 div.copyright {

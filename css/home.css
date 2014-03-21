@@ -1,7 +1,7 @@
 /* Carousel base class */
 .carousel {
   height: 400px;
-  margin-bottom: 60px;
+  margin-bottom: 0;
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
@@ -14,28 +14,37 @@
   background-color: #777;
 }
 .carousel-inner > .item > img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-width: 100%;
-  height: 400px;
+  display: inline;
 }
+.wm-slide-tiles li {
+  list-style-type: none;
+  opacity: 0.4;
+  }
+#slide1-wm-tiles li {
+  display: none;
+  }
+.wm-slide-tiles {
+  height: 1px;
+  }
+.container > .row:nth-child(1) {
+  padding-top:        50px;
+  } 
 
 /* Pad the edges of the mobile views a bit */
-.marketing {
+.container {
   padding-right: 15px;
   padding-left: 15px;
 }
 
 /* Center align the text within the three columns below the carousel */
-.marketing .col-lg-4 {
+.container .col-lg-4 {
   margin-bottom: 20px;
   text-align: center;
 }
-.marketing h2 {
+.container h2 {
   font-weight: normal;
 }
-.marketing .col-lg-4 p {
+.container .col-lg-4 p {
   margin-right: 10px;
   margin-left: 10px;
 }
@@ -52,12 +61,6 @@
 }
 
 @media (min-width: 768px) {
-
-  /* Remove the edge padding needed for mobile */
-  .marketing {
-    padding-right: 0;
-    padding-left: 0;
-  }
 
   /* Navbar positioning foo */
   .navbar-wrapper {
@@ -86,6 +89,10 @@
 
   .featurette-heading {
     font-size: 50px;
+  }
+
+  .carousel {
+    margin-bottom: 60px;
   }
 }
 

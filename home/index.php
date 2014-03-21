@@ -79,17 +79,55 @@
     </ol>
     <div class="carousel-inner">
       <div class="item active">
-        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="First slide">
+        <div id="slide1-wm" class="wm-slide">
+          <ul id="slide1-wm-tiles" class="wm-slide-tiles">
+            <li><img src="../img/gallery/celebration/01.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/08.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/04.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/06.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/16.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/13.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/07.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/09.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/10.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/12.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/05.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/14.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/02.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/15.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/03.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/17.jpg" width="200px"></li>
+          </ul>
+        </div>
         <div class="container">
           <div class="carousel-caption">
-            <h1>Example headline.</h1>
-            <p>Note: If you're viewing this page via a <code>file://</code> URL, the "next" and "previous" Glyphicon buttons on the left and right might not load/display properly due to web browser security rules.</p>
-            <p><a class="btn btn-lg btn-primary" href="#" role="button">Sign up today</a></p>
+            <h1>Welcome to Star Dream Cakes.</h1>
+            <p>Something something we're awesome idk what to write.</p>
+            <p><a class="btn btn-lg btn-primary" href="../register" role="button">Sign up today</a></p>
           </div>
         </div>
       </div>
       <div class="item">
-        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAGZmZgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Second slide">
+        <div id="slide2-wm" class="wm-slide">
+          <ul id="slide2-wm-tiles" class="wm-slide-tiles">
+            <li><img src="../img/gallery/cupcake/01.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/08.jpg" width="200px"></li>
+            <li><img src="../img/gallery/cupcake/04.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/16.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/13.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/07.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/09.jpg" width="200px"></li>
+            <li><img src="../img/gallery/cupcake/06.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/10.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/12.jpg" width="200px"></li>
+            <li><img src="../img/gallery/cupcake/05.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/14.jpg" width="200px"></li>
+            <li><img src="../img/gallery/cupcake/02.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/15.jpg" width="200px"></li>
+            <li><img src="../img/gallery/cupcake/03.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/17.jpg" width="200px"></li>
+          </ul>
+        </div>
         <div class="container">
           <div class="carousel-caption">
             <h1>Your cake, your way.</h1>
@@ -99,7 +137,26 @@
         </div>
       </div>
       <div class="item">
-        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAFVVVQAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Third slide">
+        <div id="slide3-wm" class="wm-slide">
+          <ul id="slide3-wm-tiles" class="wm-slide-tiles">
+            <li><img src="../img/gallery/other/01.jpg" width="200px"></li>
+            <li><img src="../img/gallery/other/08.jpg" width="200px"></li>
+            <li><img src="../img/gallery/other/04.jpg" width="200px"></li>
+            <li><img src="../img/gallery/other/06.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/16.jpg" width="200px"></li>
+            <li><img src="../img/gallery/other/13.jpg" width="200px"></li>
+            <li><img src="../img/gallery/other/07.jpg" width="200px"></li>
+            <li><img src="../img/gallery/other/09.jpg" width="200px"></li>
+            <li><img src="../img/gallery/other/10.jpg" width="200px"></li>
+            <li><img src="../img/gallery/other/12.jpg" width="200px"></li>
+            <li><img src="../img/gallery/other/05.jpg" width="200px"></li>
+            <li><img src="../img/gallery/other/14.jpg" width="200px"></li>
+            <li><img src="../img/gallery/other/02.jpg" width="200px"></li>
+            <li><img src="../img/gallery/other/15.jpg" width="200px"></li>
+            <li><img src="../img/gallery/other/03.jpg" width="200px"></li>
+            <li><img src="../img/gallery/celebration/17.jpg" width="200px"></li>
+          </ul>
+        </div>
         <div class="container">
           <div class="carousel-caption">
             <h1>Delivered straight to your door.</h1>
@@ -112,7 +169,7 @@
     <a class="left carousel-control" href="#myCarousel" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
     <a class="right carousel-control" href="#myCarousel" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
   </div>
-  <div class="container marketing">
+  <div class="container">
     <div class="row">
       <div class="col-lg-4">
       </div>
@@ -126,7 +183,7 @@
       <div class="col-lg-4">
       </div>
     </div>
-    <hr class="fancy-line">
+    <hr class="fancy-line hidden-xs">
     <div class="row featurette">
       <div class="col-md-7">
         <h2 class="featurette-heading">Celebration cakes. <span class="text-muted">Party with style.</span></h2>
@@ -136,8 +193,17 @@
         <img class="featurette-image img-responsive" src="../img/gallery/celebration/17.jpg" alt="Generic placeholder image">
       </div>
     </div>
-    <hr class="fancy-line">
-    <div class="row featurette">
+    <hr class="fancy-line hidden-xs">
+    <div class="row featurette visible-xs visible-sm">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">Cupcakes. <span class="text-muted">They'll melt in your mouth.</span></h2>
+        <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+      </div>
+      <div class="col-md-5">
+        <img class="featurette-image img-responsive" src="../img/gallery/cupcake/03.jpg" alt="Generic placeholder image">
+      </div>
+    </div>
+    <div class="row featurette hidden-xs hidden-sm">
       <div class="col-md-5">
         <img class="featurette-image img-responsive" src="../img/gallery/cupcake/03.jpg" alt="Generic placeholder image">
       </div>
@@ -146,7 +212,7 @@
         <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
       </div>
     </div>
-    <hr class="fancy-line">
+    <hr class="fancy-line hidden-xs">
     <div class="row featurette">
       <div class="col-md-7">
         <h2 class="featurette-heading">Cakes for all occasions. <span class="text-muted">We can do it all.</span></h2>
@@ -156,11 +222,12 @@
         <img class="featurette-image img-responsive" src="../img/gallery/other/08.jpg" alt="Generic placeholder image">
       </div>
     </div>
-  </div>
-  <div id="footer">
-    <hr class="fancy-line">
-    <div class="copyright">
-      <div>&copy; Star Dream Cakes 2014</div>
+    <div class="row footer">
+      <div id="col-md-12">
+        <div class="copyright">
+          <div>&copy; Star Dream Cakes 2014</div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="modal fade" id="loading-spinner-dialog">
@@ -174,6 +241,88 @@
   </div>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="../js/bootstrap.js"></script>
+  <script src="../js/table-pagination.js"></script>
+  <script src="../js/jquery/jquery.wookmark.min.js"></script>
+  <script src="../js/jquery/imagesloaded.min.js"></script>
+  <script>
+    $(document).ready(function() {
+      var wmOptions = {
+            autoResize: true,
+            itemWidth: 200,
+            align: "center",
+            direction: "right",
+            flexibleWidth: true,
+            offset: 0,
+            verticalOffset: 0,
+            fillEmptySapce: false
+          },
+          $slide1 = $("#slide1-wm-tiles li"),
+          $slide2 = $("#slide2-wm-tiles li"),
+          $slide3 = $("#slide3-wm-tiles li"),
+          d = 0;
+      $slide1.imagesLoaded(function() {
+        $slide1.wookmark({
+            autoResize: true,
+            itemWidth: 200,
+            align: "center",
+            direction: "right",
+            flexibleWidth: true,
+            container: $("#slide1-wm"),
+            offset: 0,
+            verticalOffset: 0,
+            fillEmptySapce: false
+          }).hide().each(function() {
+          $(this).delay(d).fadeIn();
+          d += 100;
+        });
+        d = 0;
+      });
+      $slide2.imagesLoaded(function() {
+        $slide2.wookmark({
+            autoResize: true,
+            itemWidth: 200,
+            align: "center",
+            direction: "right",
+            flexibleWidth: true,
+            container: $("#slide2-wm"),
+            offset: 0,
+            verticalOffset: 0,
+            fillEmptySapce: false
+          }).hide();
+      });
+      $slide3.imagesLoaded(function() {
+        $slide3.wookmark({
+            autoResize: true,
+            itemWidth: 200,
+            align: "center",
+            direction: "right",
+            flexibleWidth: true,
+            container: $("#slide3-wm"),
+            offset: 0,
+            verticalOffset: 0,
+            fillEmptySapce: false
+          }).hide();
+      });
+      var slide = 1;
+      $("#myCarousel").on('slid.bs.carousel', function() {
+        if (slide < 3) {
+          slide++;
+          if (slide == 2) {
+            $slide2.trigger("refreshWookmark").each(function() {
+              $(this).delay(d).fadeIn();
+              d += 100;
+            });
+            d = 0;
+          } else if (slide == 3) {
+            $slide3.trigger("refreshWookmark").each(function() {
+              $(this).delay(d).fadeIn();
+              d += 100;
+            });
+          }
+        }
+      });
+    });
+  </script>
   <script src="../js/main.js"></script>
   <script src="../js/browser.js"></script>
 <body>
