@@ -1,0 +1,48 @@
+<head>
+  <html lang="en" xml:lang="en" xmlns= "http://www.w3.org/1999/xhtml">
+  <meta http-equiv="Content-Language" content="en" />
+  <meta name="google-site-verification" content="j7xff2YmYmFCUc5IuJslQ0hvOKaiaHKFqaQXYM-g_VE" />
+  <title>Oops | Star Dream Cakes</title>
+  <link rel="icon" href="../favicon.ico">
+  <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,400' rel='stylesheet' type='text/css'>
+  <link href="../css/main.css" rel="stylesheet">
+</head>
+<body>
+  <div class="navbar">
+    <div class="nav-container">
+      <ul>
+        <li><a href="../home">Home</a></li>
+        <li><a href="../about-us">About Us</a></li>
+        <li><a href="../testimonials">Testimonials</a></li>
+        <li><a href="../gallery">Gallery</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container">
+    <div class="header">
+      <div class="logo"></div>
+      <div class="user">
+        <span>Welcome to Star Dream Cakes</span><br />
+        <span class="links">
+          <a href="../login">Login</a> | <a href="../register">Register</a>
+        </span>
+      </div>
+    </div>
+    <h1>Oops!</h1>
+    <p>Something went wrong on our end. The owners have been notified and are looking into it.
+       In the meantime, you can try again and if the problem still occurs, wait 24 hours and the
+       issue will more than likely be resolved. In the unlikely event that it isn't, please send
+       an email to <a href="mailto:webmaster@ivanbrazza.biz">webmaster@ivanbrazza.biz</a>. Thank you.</p>
+  </div>
+  <div id="footer">
+    <hr class="fancy-line">
+    <div class="copyright">
+      <div>&copy; Star Dream Cakes 2014</div>
+    </div>
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  <script src="../js/table-pagination.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/browser.js"></script>
+<body>
