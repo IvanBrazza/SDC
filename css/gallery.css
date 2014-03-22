@@ -1,9 +1,6 @@
 #celebration-tiles li,
 #cupcakes-tiles li,
 #other-tiles li {
-  background:         #ffffff;
-  border-radius:      5px;
-  border:             1px solid gray;
   padding:            5px;
   list-style-type:    none;
   display:            none;

@@ -71,7 +71,7 @@
       </div>
     </div>
   </nav>
-  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel" data-wrap="false" data-interval="10000">
     <ol class="carousel-indicators">
       <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
       <li data-target="#myCarousel" data-slide-to="1"></li>
@@ -139,6 +139,7 @@
       <div class="item">
         <div id="slide3-wm" class="wm-slide">
           <ul id="slide3-wm-tiles" class="wm-slide-tiles">
+            <li><img src="../img/getstarted.png" width="200px"></li>
             <li><img src="../img/gallery/other/01.jpg" width="200px"></li>
             <li><img src="../img/gallery/other/08.jpg" width="200px"></li>
             <li><img src="../img/gallery/other/04.jpg" width="200px"></li>

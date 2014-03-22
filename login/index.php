@@ -40,10 +40,8 @@
 <div class="row">
   <div class="col-md-4"></div>
   <div class="col-md-4">
-    <div class="error">
-      <span class="error_message" id="error_message">
-        <?php echo $display_message; ?>
-      </span>
+    <div class="alert alert-danger" id="error_message">
+      <?php echo $display_message; ?>
     </div>
     <form action="index.php" method="post" id="login-form" role="form">
       <div class="form-group">

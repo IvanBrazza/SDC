@@ -85,18 +85,18 @@ $(document).ready(function() {
               $("#username").closest("div.form-group")
                             .removeClass("has-success")
                             .addClass("has-error");
-              $("#error_message").html(object.status);
+              $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.status).show();
               loader.Hide();
               $("#token").val(object.token);
             } else if (object.status === 'Incorrect password.') {
               $("#password").removeClass("valid").addClass("invalid");
-              $("#error_message").html(object.status);
+              $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.status).show();
               loader.Hide();
               $("#token").val(object.token);
             } else if (object.status  === 'redirect') {
               window.location.href = object.redirect;
             } else {
-              $("#error_message").html(object.status);
+              $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.status).show();
               loader.Hide();
               $("#token").val(object.token);
             }
