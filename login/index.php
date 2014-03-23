@@ -26,6 +26,10 @@
     {
       $display_message = "Please login/register to place an order";
     }
+    else if ($_GET['e'] === 'yo')
+    {
+      $display_message = "Please login/register to view your orders";
+    }
   }
 
   // Generate token
