@@ -1,0 +1,80 @@
+<head>
+  <html lang="en" xml:lang="en" xmlns= "http://www.w3.org/1999/xhtml">
+  <meta http-equiv="Content-Language" content="en" />
+  <meta name="google-site-verification" content="j7xff2YmYmFCUc5IuJslQ0hvOKaiaHKFqaQXYM-g_VE" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Oops! | Star Dream Cakes</title>
+  <link rel="icon" href="../favicon.ico">
+  <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,400' rel='stylesheet' type='text/css'>
+  <link href="../css/bootstrap.css" rel="stylesheet">
+  <link href="../css/jquery-ui.css" rel="stylesheet">
+  <link href="../css/main.css" rel="stylesheet">
+</head>
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="../home"><img src="../img/header-nav-logo.png"></a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="../home">Home</a></li>
+          <li><a href="../about-us">About Us</a></li>
+          <li><a href="../testimonials">Testimonials</a></li>
+          <li><a href="../gallery">Gallery</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"></a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Welcome to Star Dream Cakes!
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="../login">Login</a></li>
+              <li><a href="../register">Register</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1>Oops!</h1>
+        <p>Something went wrong on our end. The owners have been notified and are looking into it.
+           In the meantime, you can try again and if the problem still occurs, wait 24 hours and the
+           issue will more than likely be resolved. In the unlikely event that it isn't, please send
+           an email to <a href="mailto:webmaster@ivanbrazza.biz">webmaster@ivanbrazza.biz</a>. Thank you.</p>
+      </div>
+    </div>
+    <div class="row footer">
+      <div id="col-md-12">
+        <div class="copyright">
+          <div>&copy; Star Dream Cakes 2014</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="loading-spinner-dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="ajax-load"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="../js/bootstrap.js"></script>
+  <script src="../js/jquery/jquery-ui.js"></script>
+  <script src="../js/table-pagination.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/browser.js"></script>
+</body>

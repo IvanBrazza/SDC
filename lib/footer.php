@@ -46,4 +46,4 @@
   <?php endif; ?>
   <script src="../js/main.js"></script>
   <script src="../js/browser.js"></script>
-<body>
+</body>
