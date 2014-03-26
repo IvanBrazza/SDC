@@ -530,7 +530,7 @@ var validate = {
     var phone         = $("input[name=phone]").val(),
         $phone        = $("input[name=phone]"),
         $phone_error  = $("#phone_error"),
-        regex         = /0[ -]?[1-9](?:[ -]?\d){9}/;
+        regex         = /^0[ -]?[1-9](?:[ -]?\d){9}$/;
 
     if (phone === null) {
       $phone_error.html("Please enter your phone number");
