@@ -121,7 +121,10 @@
     if (!empty($query_params[':email_verification']))
     {
       include "../email.class.php";
-      emailVerification($_POST['email'], $_POST['first_name'], $query_params[':email_verification']);
+      $email = new Email;
+      $email->setFirstName($_POST['first_name']);
+      $email->setRecipient($_POST['email']);
+      $email->verification($query_params[':email_verification']);
       echo "email-verify";
     }
     else
