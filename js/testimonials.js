@@ -9,7 +9,6 @@ $(document).ready(function() {
         $("html, body").animate({ scrollTop: $(document).height() }, "slow");
       });
     }, 500);
-    console.log("skdjfh");
   }
 
   // Hide the submit testimonial form, set some CSS for it,
@@ -47,7 +46,8 @@ $(document).ready(function() {
             $("#submit-testimonial-form").slideUp();
             $("#error_message").hide();
             loader.Hide();
-            $("#testimonials").append("<div>" + 
+            $("#testimonials").append("<div class='row' id='pending'>" + 
+                                      "<div class='col-md-6 testimonial-col'>" +
                                       "<p class='testimonial unapproved'>" + $('textarea#testimonial').val()  + "</p>" + 
                                       "<div class='downarrow unapproved'></div>" +
                                       "<span class='testimonial-name'>" + 
@@ -55,19 +55,31 @@ $(document).ready(function() {
                                       $('#name').val() +
                                       "</small>" +
                                       "</span>" + 
+                                      "</div>" +
                                       "</div>");
             if ($("#location").val()) {
-              $("#testimonials div:last-child > span > small").append("<i>, " + $('#location').val()  + "</i>");
+              $("#pending small").append("<i>, " + $('#location').val()  + "</i>");
               $("#location").val("");
             }
-            $("#testimonials div:last-child > span > small").append("<span id='unapproved'><i> (unapproved)</i></span>");
-            $("#testimonials div:last-child").hide().slideDown(400, function() {
-                                                                $("#submit-testimonial-form").slideUp();
-                                                              });
-            $("#testimonials div:last-child").effect("highlight", {}, 1000);
-            $("<div>Thank you for submitting a testimonial. It has been sent for approval and will appear on this page once approved</div>").dialog({
-              position: "top",
-              title: "Thank you"
+            $("#pending small").append("<span id='unapproved'><i> (unapproved)</i></span>");
+            $('<div class="modal fade" id="testimonial-thanks-dialog">'
+              + '<div class="modal-dialog">'
+              + '<div class="modal-content">'
+              + '<div class="modal-header">'
+              + '<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>'
+              + '<h4 class="modal-title">Thanks!</h4>'
+              + '</div>'
+              + '<div class="modal-body">'
+              + 'Thank you for submitting a testimonial. It has been sent for approval and will appear on this page once approved.'
+              + '</div>'
+              + '<div class="modal-footer">'
+              + '<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>'
+              + '</div>'
+              + '</div>'
+              + '</div>'
+              + '</div>')
+            .modal({
+              backdrop: "static"
             });
             $("#name").val("").removeClass("valid");
             $("#email").val("").removeClass("valid");

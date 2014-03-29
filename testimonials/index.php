@@ -32,101 +32,168 @@
       <h1>Testimonials</h1>
     </div>
   </div>
-  <?php for ($i = 0; $i < count($rows); $i++) : ?>
-    <div class="row">
-      <div class="col-md-6 testimonial-col">
-        <p class="testimonial <?php if ($rows[$i]['approved'] == 0) : ?>unapproved<?php else : ?>approved<?php endif; ?>">
-          <?php echo htmlentities($rows[$i]['testimonial'], ENT_QUOTES, 'UTF-8'); ?>
-        </p>
-        <div class="downarrow <?php if ($rows[$i]['approved'] == 0) : ?>unapproved<?php else : ?>approved<?php endif; ?>"></div>
-        <span class="testimonial-name">
-          <small>- <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
-            <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
-              <?php if ($rows[$i]['approved'] == 0) : ?>
-                <span id="unapproved"><i> (unapproved)</i></span>
-                <a href="javascript:" data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="approve_testimonial">Approve</a>
-              <?php endif; ?>
-              <a href="javascript:" data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="delete_testimonial">Delete</a>
-            <?php endif; ?>
-          </small>
-        </span>
-      </div>
-      <?php $i++; ?>
-      <?php if ($rows[$i]) : ?>
-        <div class="col-md-6 testimonial-col">
-          <p class="testimonial <?php if ($rows[$i]['approved'] == 0) : ?>unapproved<?php else : ?>approved<?php endif; ?>"><?php echo htmlentities($rows[$i]['testimonial'], ENT_QUOTES, 'UTF-8'); ?></p>
-          <div class="downarrow <?php if ($rows[$i]['approved'] == 0) : ?>unapproved<?php else : ?>approved<?php endif; ?>"></div>
-          <span class="testimonial-name">
-            <small>- <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
-              <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
-                <?php if ($rows[$i]['approved'] == 0) : ?>
-                  <span id="unapproved"><i> (unapproved)</i></span>
-                  <a href="javascript:" data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="approve_testimonial">Approve</a>
+  <div id="testimonials">
+    <?php for ($i = 0; $i < count($rows); $i++) : ?>
+      <div class="row">
+        <?php if ($rows[$i]['approved'] == 1) : ?>
+          <div class="col-md-6 testimonial-col">
+            <p class="testimonial approved">
+              <?php echo htmlentities($rows[$i]['testimonial'], ENT_QUOTES, 'UTF-8'); ?>
+            </p>
+            <div class="downarrow approved"></div>
+            <span class="testimonial-name">
+              <small>- <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
+                <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
+                  <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><span class="glyphicon glyphicon-remove"></span>  Delete</button>
                 <?php endif; ?>
-                <a href="javascript:" data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="delete_testimonial">Delete</a>
-               <?php endif; ?>
-            </small>
-          </span>
-        </div>
-      <?php endif; ?>
-    </div>
-  <?php endfor; ?>
+              </small>
+            </span>
+          </div>
+        <?php elseif ($rows[$i]['approved'] == 0 and $_SESSION['user']['username'] === "admin") : ?>
+          <div class="col-md-6 testimonial-col">
+            <p class="testimonial unapproved">
+              <?php echo htmlentities($rows[$i]['testimonial'], ENT_QUOTES, 'UTF-8'); ?>
+            </p>
+            <div class="downarrow unapproved"></div>
+            <span class="testimonial-name">
+              <small>- <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
+                <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
+                  <span id="unapproved"><i> (unapproved)</i></span>
+                  <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-success btn-xs pull-right approve_testimonial"><span class="glyphicon glyphicon-ok"></span>  Approve</button>
+                  <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><span class="glyphicon glyphicon-remove"></span>  Delete</button>
+                <?php endif; ?>
+              </small>
+            </span>
+          </div>
+        <?php endif; ?>
+        <?php $i++; ?>
+        <?php if ($rows[$i]) : ?>
+          <?php if ($rows[$i]['approved'] == 1) : ?>
+            <div class="col-md-6 testimonial-col">
+              <p class="testimonial approved">
+                <?php echo htmlentities($rows[$i]['testimonial'], ENT_QUOTES, 'UTF-8'); ?>
+              </p>
+              <div class="downarrow approved"></div>
+              <span class="testimonial-name">
+                <small>- <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
+                  <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
+                    <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><span class="glyphicon glyphicon-remove"></span>  Delete</button>
+                  <?php endif; ?>
+                </small>
+              </span>
+            </div>
+          <?php elseif ($rows[$i]['approved'] == 0 and $_SESSION['user']['username'] === "admin") : ?>
+            <div class="col-md-6 testimonial-col">
+              <p class="testimonial unapproved">
+                <?php echo htmlentities($rows[$i]['testimonial'], ENT_QUOTES, 'UTF-8'); ?>
+              </p>
+              <div class="downarrow unapproved"></div>
+              <span class="testimonial-name">
+                <small>- <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
+                  <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
+                    <span id="unapproved"><i> (unapproved)</i></span>
+                    <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-success btn-xs pull-right approve_testimonial"><span class="glyphicon glyphicon-ok"></span>  Approve</button>
+                    <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><span class="glyphicon glyphicon-remove"></span>  Delete</button>
+                  <?php endif; ?>
+                </small>
+              </span>
+            </div>
+          <?php endif; ?>
+        <?php endif; ?>
+      </div>
+    <?php endfor; ?>
+  </div>
   <br /><br />
   <a href="javascript:" name="submit" id="submit-testimonial">Submit A Testimonial</a>
   <div class="error">
     <span class="error_message" id="error_message"></span>
   </div>
-  <div id="submit-testimonial-form" class="form">
-    <script type="text/javascript">
-      var RecaptchaOptions = {
-        theme : 'clean'
-      };
-    </script>
-    <div class="row">
-      <div class="col-md-6">
-        <form action="index.php" method="POST" id="testimonial-form" role="form">
-          <div class="form-group">
-            <label for="name" class="col-sm-4 control-label">Name</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" name="name" id="name" onchange="validate.input('#name', '#name_error')">
-              <div id="name_error" class="validate-error"></div>
+  <div id="submit-testimonial-form" class="row">
+    <div class="col-md-6">
+      <form action="index.php" method="POST" id="testimonial-form" role="form">
+        <div class="form-group">
+          <label for="name" class="col-sm-4 control-label">Name</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="name" id="name" onchange="validate.input('#name', '#name_error')">
+            <div id="name_error" class="validate-error"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email" class="col-sm-4 control-label">Email</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="email" id="email" onchange="validate.email()">
+            <div id="email-error" class="validate-error"></div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="location" class="col-sm-4 control-label">Location</label>
+          <div class="col-sm-8">
+            <input type="text" class="form-control" name="location" id="location">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="testimonial" class="col-sm-4 control-label">Testimonial</label>
+          <div class="col-sm-8">
+            <textarea class="form-control" name="testimonial" id="testimonial" rows="6" cols="40" onchange="validate.input('textarea#testimonial', '#testimonial_error')"></textarea>
+            <div id="testimonial_error" class="validate-error"></div>
+          </div>
+        </div>
+        <div class="error">
+          <span class="error_message">
+            <?php echo $display_message; ?>
+          </span>
+        </div>
+        <script type="text/javascript">
+          var RecaptchaOptions = {
+            theme : 'custom',
+            custom_theme_widget: 'recaptcha_widget'
+          };
+        </script>
+        <div class="form-group">
+          <label class="col-sm-4 control-label">reCAPTCHA</label>
+          <div id="recaptcha_widget" style="display:none;margin-left:15px;" class="recaptcha_widget col-sm-8">
+            <div id="recaptcha_image"></div>
+            <div class="recaptcha_only_if_incorrect_sol" style="color:red">Incorrect. Please try again.</div>
+            <div class="recaptcha_input">
+              <label class="recaptcha_only_if_image" for="recaptcha_response_field">Enter the words above:</label>
+              <label class="recaptcha_only_if_audio" for="recaptcha_response_field">Enter the numbers you hear:</label>
+              <input type="text" id="recaptcha_response_field" name="recaptcha_response_field">
             </div>
+            <ul class="recaptcha_options">
+              <li>
+                <a href="javascript:Recaptcha.reload()">
+                  <i class="glyphicon glyphicon-refresh"></i>
+                  <span class="captcha_hide">Get another CAPTCHA</span>
+                </a>
+              </li>
+              <li class="recaptcha_only_if_image">
+                <a href="javascript:Recaptcha.switch_type('audio')">
+                  <i class="glyphicon glyphicon-volume-up"></i><span class="captcha_hide"> Get an audio CAPTCHA</span>
+                </a>
+              </li>
+              <li class="recaptcha_only_if_audio">
+                <a href="javascript:Recaptcha.switch_type('image')">
+                  <i class="glyphicon glyphicon-picture"></i><span class="captcha_hide"> Get an image CAPTCHA</span>
+                </a>
+              </li>
+              <li>
+                <a href="javascript:Recaptcha.showhelp()">
+                  <i class="glyphicon glyphicon-question-sign"></i><span class="captcha_hide"> Help</span>
+                </a>
+              </li>
+            </ul>
           </div>
-          <div class="form-group">
-            <label for="email" class="col-sm-4 control-label">Email</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" name="email" id="email" onchange="validate.email()">
-              <div id="email-error" class="validate-error"></div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="location" class="col-sm-4 control-label">Location</label>
-            <div class="col-sm-8">
-              <input type="text" class="form-control" name="location" id="location">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="testimonial" class="col-sm-4 control-label">Testimonial</label>
-            <div class="col-sm-8">
-              <textarea class="form-control" name="testimonial" id="testimonial" rows="6" cols="40" onchange="validate.input('textarea#testimonial', '#testimonial_error')"></textarea>
-              <div id="testimonial_error" class="validate-error"></div>
-            </div>
-          </div>
-          <div class="error">
-            <span class="error_message">
-              <?php echo $display_message; ?>
-            </span>
-          </div>
-          <?php
-            require_once("../lib/recaptchalib.php");
-            $publickey = "6LePfucSAAAAAKlUO3GQKgfXCd7SvIhtFjBH5F9Z";
-            echo recaptcha_get_html($publickey, null, true);
-          ?>
-          <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token" id="token">
-          <input type="submit" id="submit-testimonial" value="Submit Testimonial" name="submit">
-        </form>
-      </div>
-      <div class="col-md-6"></div>
+        </div>
+        <script type="text/javascript" src="//www.google.com/recaptcha/api/challenge?k=6LePfucSAAAAAKlUO3GQKgfXCd7SvIhtFjBH5F9Z"></script>
+        <noscript>
+          <iframe src="//www.google.com/recaptcha/api/noscript?k=6LePfucSAAAAAKlUO3GQKgfXCd7SvIhtFjBH5F9Z" height="300" width="500" frameborder="0"></iframe><br>
+          <textarea name="recaptcha_challenge_field"></textarea>
+          <input type="hidden" name="recaptcha_response_field" value="manual_challenge">
+        </noscript>
+        <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token" id="token">
+        <button type="submit" class="btn btn-default">Submit Testimonial</button>
+      </form>
     </div>
+    <div class="col-md-6"></div>
   </div>
 <?php include("../lib/footer.php");

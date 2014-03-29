@@ -216,10 +216,6 @@ p.unapproved {
   background-image:   linear-gradient(#D6D6D6, #ADADAD);
   }
 
-#testimonials>div {
-  margin-top:         25px;
-  }
-
 .testimonial {
   position:           relative;
   margin-bottom:      0;
@@ -295,10 +291,6 @@ input.invalid, textarea.invalid {
 .delete_testimonial,
 .approve_testimonial {
   margin-left:        10px;
-  }
-
-.approve_testimonial {
-  color:              green;
   }
 
 #complete-order {

@@ -18,11 +18,6 @@
   <div class="col-md-3"></div>
   <div class="col-md-6">
     <h1>Register</h1>
-    <script type="text/javascript">
-      var RecaptchaOptions = {
-        theme : 'clean'
-      };
-    </script>
     <form action="index.php" method="post" id="register-form" class="form-horizontal" role="form">
       <div class="form-group">
         <label for="username" class="col-sm-4 control-label">Username</label>
@@ -61,11 +56,53 @@
           <?php echo $display_message; ?>
         </span>
       </div>
-      <?php
-        require_once("../lib/recaptchalib.php");
-        $publickey = "6LePfucSAAAAAKlUO3GQKgfXCd7SvIhtFjBH5F9Z";
-        echo recaptcha_get_html($publickey, null, true);
-      ?>
+      <script type="text/javascript">
+        var RecaptchaOptions = {
+          theme : 'custom',
+          custom_theme_widget: 'recaptcha_widget'
+        };
+      </script>
+      <div class="form-group">
+        <label class="col-sm-4 control-label">reCAPTCHA</label>
+        <div id="recaptcha_widget" style="display:none;margin-left:15px;" class="recaptcha_widget col-sm-8">
+          <div id="recaptcha_image"></div>
+          <div class="recaptcha_only_if_incorrect_sol" style="color:red">Incorrect. Please try again.</div>
+          <div class="recaptcha_input">
+            <label class="recaptcha_only_if_image" for="recaptcha_response_field">Enter the words above:</label>
+            <label class="recaptcha_only_if_audio" for="recaptcha_response_field">Enter the numbers you hear:</label>
+            <input type="text" id="recaptcha_response_field" name="recaptcha_response_field">
+          </div>
+          <ul class="recaptcha_options">
+            <li>
+              <a href="javascript:Recaptcha.reload()">
+                <i class="glyphicon glyphicon-refresh"></i>
+                <span class="captcha_hide">Get another CAPTCHA</span>
+              </a>
+            </li>
+            <li class="recaptcha_only_if_image">
+              <a href="javascript:Recaptcha.switch_type('audio')">
+                <i class="glyphicon glyphicon-volume-up"></i><span class="captcha_hide"> Get an audio CAPTCHA</span>
+              </a>
+            </li>
+            <li class="recaptcha_only_if_audio">
+              <a href="javascript:Recaptcha.switch_type('image')">
+                <i class="glyphicon glyphicon-picture"></i><span class="captcha_hide"> Get an image CAPTCHA</span>
+              </a>
+            </li>
+            <li>
+              <a href="javascript:Recaptcha.showhelp()">
+                <i class="glyphicon glyphicon-question-sign"></i><span class="captcha_hide"> Help</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <script type="text/javascript" src="//www.google.com/recaptcha/api/challenge?k=6LePfucSAAAAAKlUO3GQKgfXCd7SvIhtFjBH5F9Z"></script>
+      <noscript>
+        <iframe src="//www.google.com/recaptcha/api/noscript?k=6LePfucSAAAAAKlUO3GQKgfXCd7SvIhtFjBH5F9Z" height="300" width="500" frameborder="0"></iframe><br>
+        <textarea name="recaptcha_challenge_field"></textarea>
+        <input type="hidden" name="recaptcha_response_field" value="manual_challenge">
+      </noscript>
       <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
       <button type="submit" name="submit" class="btn btn-default">Register</button>
     </form>
