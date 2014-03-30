@@ -70,9 +70,11 @@ $.prototype.extend(
         function createPaginationElements() {
           var paginationHTML = "";
           paginationHTML += "<div id='tablePagination' style='text-align: center; margin-top: 15px; padding-bottom: 25px;'>";
-          paginationHTML += "<a id='tablePagination_prevPage' href='javascript:;' class='button right'>&lt;</a>";
+          paginationHTML += "<ul class='pager'>";
+          paginationHTML += "<li class='previous'><a id='tablePagination_prevPage' href='javascript:;' class='button right'>&larr; Newer</a></li>";
           paginationHTML += "Page <span id='tablePagination_currPage'>" + currPageNumber + "</span> of " + totalPages + "&nbsp;&nbsp;&nbsp;";
-          paginationHTML += "<a id='tablePagination_nextPage' href='javascript:;' class='button left'>&gt;</a>";
+          paginationHTML += "<li class='next'><a id='tablePagination_nextPage' href='javascript:;' class='button left'>Older &rarr;</a></li>";
+          paginationHTML += "</ul>";
           paginationHTML += "</div>";
           return paginationHTML;
         }
