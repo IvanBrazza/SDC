@@ -121,14 +121,14 @@
 ?>
 <?php include("../lib/header.php"); ?>
   <?php if (!empty($_GET['order'])) : ?>
-    <h1>Order <?php echo $row['order_number']; ?><?php if ($row['completed'] === "1") : ?> (completed)<?php else: ?> <a href="../edit-order/?order=<?php echo $row['order_number']; ?>" class="small-link">Edit</a><?php endif; ?></h1>
+    <h1>Order <?php echo $row['order_number']; ?><?php if ($row['completed'] === "1") : ?> (completed)<?php else: ?> <a href="../edit-order/?order=<?php echo $row['order_number']; ?>"><button class="btn btn-info btn-xs">Edit</button></a><?php endif; ?></h1>
     <?php if (!empty($row['image'])) : ?>
       <div class="image-view">
         <img src="<?php echo $row['image']; ?>" height="400px">
         <div class="close">X</div>
       </div>
     <?php endif; ?>
-    <table id="single_order">
+    <table id="single_order" class="table table-condensed">
       <tr>
         <th>Order Placed</th>
         <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
@@ -186,7 +186,7 @@
         <td>
           <?php echo htmlentities($row['delivery_type'], ENT_QUOTES, 'UTF-8'); ?>
           <?php if ($row['delivery_type'] === "Collection") : ?>
-            <a href="../get-directions/">Get Directions</a>
+            <a href="../get-directions/"><button class="btn btn-info btn-xs"><span class="glyphicon glyphicon-road"></span>   Get Directions to collection point</button></a>
           <?php endif; ?>
         </td>
       </tr>
@@ -205,14 +205,14 @@
     <?php if (empty($rows)) : ?>
       <h3>You have no outstanding orders</h3>
     <?php else : ?>
-      <table class="orders-table" id="orders-js">
+      <table class="table table-hover" id="orders-js">
         <caption>Outstanding Orders</caption>
         <thead>
           <tr>
-            <th>Order Number <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../your-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
-            <th>Order Placed <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_placed">&#9650;</a> <a href="../your-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
-            <th>Required Date <span class="arrow"><a href="../your-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../your-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
-            <th>Status <span class="arrow"><a href="../your-orders/?sort=DESC&col=status">&#9650;</a> <a href="../your-orders/?sort=ASC&col=status">&#9660;</a></span></th>
+            <th>Order Number <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_number"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../your-orders/?sort=ASC&col=order_number"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+            <th>Order Placed <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_placed"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../your-orders/?sort=ASC&col=order_placed"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+            <th>Required Date <span class="arrow"><a href="../your-orders/?sort=DESC&col=datetime"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../your-orders/?sort=ASC&col=datetime"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+            <th>Status <span class="arrow"><a href="../your-orders/?sort=DESC&col=status"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../your-orders/?sort=ASC&col=status"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
           </tr>
         </thead>
         <tbody>
@@ -229,14 +229,14 @@
         </tbody>
       </table>
     <?php endif; ?>
-    <table id="orders-js">
+    <table id="orders-js" class="table table-hover">
       <caption>Completed Orders</caption>
       <thead>
         <tr>
-          <th>Order Number <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../your-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
-          <th>Order Placed <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_placed">&#9650;</a> <a href="../your-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
-          <th>Required Date <span class="arrow"><a href="../your-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../your-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
-          <th>Status <span class="arrow"><a href="../your-orders/?sort=DESC&col=status">&#9650;</a> <a href="../your-orders/?sort=ASC&col=status">&#9660;</a></span></th>
+          <th>Order Number <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_number"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../your-orders/?sort=ASC&col=order_number"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+          <th>Order Placed <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_placed"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../your-orders/?sort=ASC&col=order_placed"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+          <th>Required Date <span class="arrow"><a href="../your-orders/?sort=DESC&col=datetime"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../your-orders/?sort=ASC&col=datetime"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+          <th>Status <span class="arrow"><a href="../your-orders/?sort=DESC&col=status"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../your-orders/?sort=ASC&col=status"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
         </tr>
       </thead>
       <tbody>

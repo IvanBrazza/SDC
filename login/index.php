@@ -50,12 +50,18 @@
     <form action="index.php" method="post" id="login-form" role="form">
       <div class="form-group">
         <label for="username">Username</label>
-        <input type="text" class="form-control" name="username" id="username" onchange="validate.username()" placeholder="Enter Username">
+        <div class="input-group">
+          <input type="text" class="form-control" name="username" id="username" onchange="validate.username()" placeholder="Enter Username">
+          <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+        </div>
       </div>
       <div id="username-error" class="validate-error"></div>
       <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" class="form-control" name="password" id="password" onchange="validate.password()" placeholder="Enter Password">
+        <div class="input-group">
+          <input type="password" class="form-control" name="password" id="password" onchange="validate.password()" placeholder="Enter Password">
+          <span class="input-group-addon">...</span>
+        </div>
       </div>
       <div id="password-error" class="validate-error"></div>
       <a href="../forgot-password" class="forgot-password">Forgot Password</a>

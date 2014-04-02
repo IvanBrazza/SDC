@@ -148,37 +148,16 @@ iframe#ifileupload {
   margin-bottom:      9px;
   }
 
-table, td, th {
-  border:             1px solid gray;
-  padding:            5px;
-  }
-
-th {
-  background-color:   #d0edeb;
-  }
-
-td, th {
-  word-wrap:          break-word;
-  }
-
-td > form {
-  display:            inline;
-  }
-
-table {
-  border-collapse:    collapse;
-  margin-left:        auto;
-  margin-right:       auto;
-  table-layout:       fixed;
-  width:              100%;
+table.table-hover {
+  cursor:             pointer;
   }
 
 table > caption {
-  text-align:         left;
+  font-weight:        bold;
   }
 
-#single_order > tbody > tr > th {
-  width:              180px;
+table span.arrow {
+  margin-left:        10px;
   }
 
 .error_message {
@@ -295,11 +274,6 @@ input.invalid, textarea.invalid {
   margin-top:         4px;
   }
 
-div[id*='AYAH'] {
-  text-align:         center;
-  margin:             30 0 20 0!important;
-  }
-
 .forgot-password {
   font-size:          small;
   }
@@ -314,11 +288,6 @@ div[id*='AYAH'] {
 
 span.arrow>a {
   text-decoration:    none;
-  }
-
-tr.hover {
-  cursor:             pointer;
-  background-color:   #CBEDFF;
   }
 
 .small-link {

@@ -32,8 +32,6 @@ $(document).ready(function() {
   // Enable clickable rows on order and customers tables
   $('table#orders-js>tbody>tr').click(function() {
     window.location.href = $(this).find("a").attr("href");
-  }).hover(function() {
-    $(this).toggleClass("hover");
   });
 
   // Float the userbox right

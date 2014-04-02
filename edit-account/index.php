@@ -91,56 +91,62 @@
       <div class="form-group">
         <label for="first_name" class="col-sm-3 control-label">First Name</label>
         <div class="col-sm-2"></div>
-        <div class="col-sm-7">
+        <div class="col-sm-7 input-group">
           <input type="text" class="form-control" name="first_name" id="first_name" value="<?php echo htmlentities($_SESSION['user']['first_name'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#first_name', '#first_name_error')"> 
+          <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
         </div>
       </div>
       <div id="first_name_error" class="validate-error"></div>
       <div class="form-group">
         <label for="last_name" class="col-sm-3 control-label">Last Name</label>
         <div class="col-sm-2"></div>
-        <div class="col-sm-7">
+        <div class="col-sm-7 input-group">
           <input type="text" class="form-control" name="last_name" id="last_name" value="<?php echo htmlentities($_SESSION['user']['last_name'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#last_name', '#last_name_error')"> 
+          <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
         </div>
       </div>
       <div id="last_name_error" class="validate-error"></div>
       <div class="form-group">
         <label for="email" class="col-sm-3 control-label">E-Mail Address</label>
         <div class="col-sm-2"></div>
-        <div class="col-sm-7">
+        <div class="col-sm-7 input-group">
           <input type="text" class="form-control" name="email" id="email" value="<?php echo htmlentities($_SESSION['user']['email'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.email()"> 
+          <span class="input-group-addon">@</span>
         </div>
       </div>
       <div id="email-error" class="validate-error"></div>
       <div class="form-group">
         <label for="password" class="col-sm-3 control-label">Password</label>
         <div class="col-sm-2"></div>
-        <div class="col-sm-7">
-          <input type="password" class="form-control" name="password" id="password" value="" /> 
-          <small><i>(leave blank if you do not want to change your password)</i></small>
+        <div class="col-sm-7 input-group">
+          <input type="password" class="form-control" name="password" id="password" placeholder="Leave blank to keep the same password" /> 
+          <span class="input-group-addon">...</span>
         </div>
       </div>
       <div class="form-group">
         <label for="address" class="col-sm-3 control-label">Address</label>
         <div class="col-sm-2"></div>
-        <div class="col-sm-7">
+        <div class="col-sm-7 input-group">
           <input type="text" class="form-control" name="address" id="address" value="<?php echo htmlentities($_SESSION['user']['address'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#address', '#address_error')">
+          <span class="input-group-addon"><span class="glyphicon glyphicon-home"></span></span>
         </div>
       </div>
       <div id="address_error" class="validate-error"></div>
       <div class="form-group">
         <label for="postcode" class="col-sm-3 control-label">Postcode</label>
         <div class="col-sm-2"></div>
-        <div class="col-sm-7">
+        <div class="col-sm-7 input-group">
           <input type="text" class="form-control" name="postcode" id="postcode" value="<?php echo htmlentities($_SESSION['user']['postcode'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.postcode()">
+          <span class="input-group-addon"><span class="glyphicon glyphicon-home"></span></span>
         </div>
       </div>
       <div id="postcode_error" class="validate-error"></div>
       <div class="form-group">
         <label for="phone" class="col-sm-3 control-label">Phone number</label>
         <div class="col-sm-2"></div>
-        <div class="col-sm-7">
+        <div class="col-sm-7 input-group">
           <input type="text" class="form-control" name="phone" id="phone" value="<?php echo $_SESSION['user']['phone'] ?>" onchange="validate.phone()">
+          <span class="input-group-addon"><span class="glyphicon glyphicon-earphone"></span></span>
         </div>
       </div>
       <div id="phone_error" class="validate-error"></div>

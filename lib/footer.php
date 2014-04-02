@@ -44,6 +44,10 @@
   <?php if (strpos($_SERVER['REQUEST_URI'], "all-orders") !== false) : ?>
     <script src="../js/all-orders.js"></script>
   <?php endif; ?>
+  <?php if (strpos($_SERVER['REQUEST_URI'], "customer-list") !== false) : ?>
+    <script src="../js/customer-list.js"></script>
+  <?php endif; ?>
   <script src="../js/main.js"></script>
   <script src="../js/browser.js"></script>
 </body>
+</html>

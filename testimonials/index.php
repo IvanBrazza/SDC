@@ -114,21 +114,30 @@
         <div class="form-group">
           <label for="name" class="col-sm-4 control-label">Name</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" name="name" id="name" onchange="validate.input('#name', '#name_error')">
+            <div class="input-group">
+              <input type="text" class="form-control" name="name" id="name" onchange="validate.input('#name', '#name_error')">
+              <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+            </div>
             <div id="name_error" class="validate-error"></div>
           </div>
         </div>
         <div class="form-group">
           <label for="email" class="col-sm-4 control-label">Email</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" name="email" id="email" onchange="validate.email()">
+            <div class="input-group">
+              <input type="text" class="form-control" name="email" id="email" onchange="validate.email()">
+              <span class="input-group-addon">@</span>
+            </div>
             <div id="email-error" class="validate-error"></div>
           </div>
         </div>
         <div class="form-group">
           <label for="location" class="col-sm-4 control-label">Location</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control" name="location" id="location">
+            <div class="input-group">
+              <input type="text" class="form-control" name="location" id="location">
+              <span class="input-group-addon"><span class="glyphicon glyphicon-home"></span></span>
+            </div>
           </div>
         </div>
         <div class="form-group">

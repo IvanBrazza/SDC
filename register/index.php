@@ -23,7 +23,10 @@
         <label for="username" class="col-sm-4 control-label">Username</label>
         <div class="col-sm-1"></div>
         <div class="col-sm-7">
-          <input type="text" class="form-control" name="username" id="username" onchange="validate.username()">
+          <div class="input-group">
+            <input type="text" class="form-control" name="username" id="username" onchange="validate.username()" placeholder="Must be at least 3 characters">
+            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+          </div>
           <div id="username-error" class="validate-error"></div>
         </div>
       </div>
@@ -31,7 +34,10 @@
         <label for="password" class="col-sm-4 control-label">Password</label>
         <div class="col-sm-1"></div>
         <div class="col-sm-7">
-          <input type="password" class="form-control" name="password" id="password" onchange="validate.password()">
+          <div class="input-group">
+            <input type="password" class="form-control" name="password" id="password" onchange="validate.password()" placeholder="Must be at least 5 characters">
+            <span class="input-group-addon">...</span>
+          </div>
           <div id="password-error" class="validate-error"></div>
         </div>
       </div>
@@ -39,15 +45,21 @@
         <label for="password2" class="col-sm-4 control-label">Reenter Password</label>
         <div class="col-sm-1"></div>
         <div class="col-sm-7">
-          <input type="password" class="form-control" name="password2" id="password2" onchange="validate.password2()">
+          <div class="input-group">
+            <input type="password" class="form-control" name="password2" id="password2" onchange="validate.password2()">
+            <span class="input-group-addon">...</span>
+          </div>
           <div id="password2-error" class="validate-error"></div>
         </div>
       </div>
       <div class="form-group">
-        <label for="email" class="col-sm-4 control-label">EMail</label>
+        <label for="email" class="col-sm-4 control-label">Email</label>
         <div class="col-sm-1"></div>
         <div class="col-sm-7">
-          <input type="text" class="form-control" name="email" id="email" onchange="validate.email()">
+          <div class="input-group">
+            <input type="text" class="form-control" name="email" id="email" onchange="validate.email()" placeholder="Enter a valid email">
+            <span class="input-group-addon">@</span>
+          </div>
           <div id="email-error" class="validate-error"></div>
         </div>
       </div>

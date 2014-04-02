@@ -239,7 +239,7 @@
     </div>
     <div class="row">
       <div class="col-md-8">
-        <table id="single_order">
+        <table id="single_order" class="table table-condensed">
           <tr>
             <th>Order Placed</th>
             <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
@@ -302,17 +302,17 @@
           <tr>
             <th>Base Price</th>
             <td>
-              &pound; 
               <?php if ($row['completed'] === "0") : ?>
                 <form action="../lib/update-order.php" method="POST" class="form-inline" role="form">
                   <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
                   <div class="form-group">
+                    <label>&pound;</label>
                     <input name="base_price" type="text" value="<?php echo $row['base_price']; ?>" class="form-control" style="width:45px;">
                   </div>
                   <button type="submit" class="btn btn-default btn-sm">Update</button>
                 </form>
               <?php else : ?>
-                <?php echo $row['base_price']; ?>
+                <?php echo "&pound;" . $row['base_price']; ?>
               <?php endif; ?>
             </td>
           </tr>
@@ -320,17 +320,17 @@
             <tr>
               <th>Delivery Charge</th>
               <td>
-                &pound; 
                 <?php if ($row['completed'] === "0") : ?>
                   <form action="../lib/update-order.php" method="POST" class="form-inline" role="form">
                     <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
                     <div class="form-group">
+                      <label>&pound;</label>
                       <input name="delivery_charge" type="text" value="<?php echo $row['delivery_charge']; ?>" style="width:45px;" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-default btn-sm">Update</button>
                   </form>
                 <?php else : ?>
-                  <?php echo $row['delivery_charge']; ?>
+                  <?php echo "&pound;" . $row['delivery_charge']; ?>
                 <?php endif; ?>
               </td>
             </tr>
@@ -352,7 +352,7 @@
         <?php echo htmlentities($row['address'], ENT_QUOTES, 'UTF-8'); ?><br />
         <?php echo htmlentities($row['postcode'], ENT_QUOTES, 'UTF-8'); ?><br />
         <i>(<?php echo $delivery->getDistance(); ?> miles away)</i><br/>
-        <a href="../get-directions?id=<?php echo $row['customer_id']; ?>">Get directions</a>
+        <a href="../get-directions?id=<?php echo $row['customer_id']; ?>"><button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-road"></span>   Get directions to this address</button></a>
         <br />
         <br />
         <span class="title">Phone: </span>
@@ -379,7 +379,7 @@
         <?php echo htmlentities($rows[0]['address'], ENT_QUOTES, 'UTF-8'); ?><br />
         <?php echo htmlentities($rows[0]['postcode'], ENT_QUOTES, 'UTF-8'); ?><br />
         <i>(<?php echo $delivery->getDistance(); ?> miles away)</i><br />
-        <a href="../get-directions?id=<?php echo $_GET['id']; ?>">Get directions</a>
+        <a href="../get-directions?id=<?php echo $_GET['id']; ?>"><button type="button" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-road"></span>   Get directions to this address</button></a>
         <br />
         <br />
         <span class="title">Phone: </span>
@@ -392,14 +392,14 @@
         <?php if (empty($rows)) : ?>
           <h3>There are no outstanding orders</h3>
         <?php else : ?>
-          <table class="orders-table" id="orders-js">
+          <table class="table table-hover" id="orders-js">
             <caption>Outstanding Orders</caption>
             <thead>
               <tr>
-                <th>Order Number <span class="arrows"><a href="../all-orders/?id=<?php echo $_GET['id']; ?>&sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
-                <th>Order Placed <span class="arrows"><a href="../all-orders/?id=<?php echo $_GET['id']; ?>&sort=DESC&col=order_placed">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
-                <th>Required Date <span class="arrows"><a href="../all-orders/?id=<?php echo $_GET['id']; ?>&sort=DESC&col=datetime">&#9650;</a> <a href="../all-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
-                <th>Status <span class="arrows"><a href="../all-orders/?id=<?php echo $_GET['id']; ?>&sort=DESC&col=status">&#9650;</a> <a href="../all-orders/?sort=ASC&col=status">&#9660;</a></span></th>
+                <th>Order Number <span class="arrows"><a href="../all-orders/?id=<?php echo $_GET['id']; ?>&sort=DESC&col=order_number"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../all-orders/?sort=ASC&col=order_number"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+                <th>Order Placed <span class="arrows"><a href="../all-orders/?id=<?php echo $_GET['id']; ?>&sort=DESC&col=order_placed"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../all-orders/?sort=ASC&col=order_placed"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+                <th>Required Date <span class="arrows"><a href="../all-orders/?id=<?php echo $_GET['id']; ?>&sort=DESC&col=datetime"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../all-orders/?sort=ASC&col=datetime"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+                <th>Status <span class="arrows"><a href="../all-orders/?id=<?php echo $_GET['id']; ?>&sort=DESC&col=status"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../all-orders/?sort=ASC&col=status"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
               </tr>
             </thead>
             <tbody>
@@ -420,14 +420,14 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <table id="orders-js">
+        <table id="orders-js" class="table table-hover">
           <caption>Completed Orders</caption>
           <thead>
             <tr>
-              <th>Order Number <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
-              <th>Order Placed <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=order_placed">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
-              <th>Required Date <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=datetime">&#9650;</a> <a href="../all-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
-              <th>Status <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=status">&#9650;</a> <a href="../all-orders/?sort=ASC&col=status">&#9660;</a></span></th>
+              <th>Order Number <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=order_number"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../all-orders/?sort=ASC&col=order_number"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+              <th>Order Placed <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=order_placed"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../all-orders/?sort=ASC&col=order_placed"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+              <th>Required Date <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=datetime"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../all-orders/?sort=ASC&col=datetime"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+              <th>Status <span class="arrow"><a href="../all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=status"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../all-orders/?sort=ASC&col=status"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
             </tr>
           </thead>
           <tbody>
@@ -453,12 +453,15 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-12">
-        <a href="../add-order">Add Order</a>
-        <form action="../all-orders" method="GET" id="order_search">
+      <div class="col-md-5">
+        <form action="../all-orders" method="GET" id="order_search" class="form-inline" role="form">
           <input type="hidden" id="token" name="token" value="<?php echo $_SESSION['token']; ?>" />
-          <input type="text" id="order_number" name="order" placeholder="Enter order number" />
-          <input type="submit" value="Search all orders" />
+          <div class="input-group">
+            <input type="text" id="order_number" name="order" class="form-control" placeholder="Enter order number" />
+            <span class="input-group-btn">
+              <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>   Search all orders</button>
+            </span>
+          </div>
         </form>
         <script>
           var orderNumbers = [
@@ -471,6 +474,12 @@
           ];
         </script>
       </div>
+      <div class="col-md-5">
+        <div class="alert alert-danger" id="error_message" style="max-height: 34px;padding-top: 6px;"></div>
+      </div>
+      <div class="col-md-2">
+        <a href="../add-order" class="pull-right"><button type="button" class="btn btn-primary btn-sm">Add Order</button></a>
+      </div>
     </div>
     <div class="row">
       <div class="col-md-12">
@@ -479,21 +488,17 @@
             <?php echo $display_message; ?>
           </span>
         </div>
-        <div class="error">
-          <span class="error_message" id="error_message">
-          </span>
-        </div>
         <?php if (empty($rows)) : ?>
           <h3>There are no outstanding orders</h3>
         <?php else : ?>
-          <table class="orders-table" id="orders-js">
+          <table class="table table-hover" id="orders-js">
             <caption>Outstanding Orders</caption>
             <thead>
               <tr>
-                <th>Order Number <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
-                <th>Order Placed <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_placed">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
-                <th>Required Date <span class="arrow"><a href="../all-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../all-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
-                <th>Status <span class="arrow"><a href="../all-orders/?sort=DESC&col=status">&#9650;</a> <a href="../all-orders/?sort=ASC&col=status">&#9660;</a></span></th>
+                <th>Order Number <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_number"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../all-orders/?sort=ASC&col=order_number"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+                <th>Order Placed <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_placed"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../all-orders/?sort=ASC&col=order_placed"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+                <th>Required Date <span class="arrow"><a href="../all-orders/?sort=DESC&col=datetime"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../all-orders/?sort=ASC&col=datetime"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+                <th>Status <span class="arrow"><a href="../all-orders/?sort=DESC&col=status"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../all-orders/?sort=ASC&col=status"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
               </tr>
             </thead>
             <tbody>
@@ -514,14 +519,14 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <table id="orders-js">
+        <table id="orders-js" class="table table-hover">
           <caption>Completed Orders</caption>
           <thead>
             <tr>
-              <th>Order Number <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_number">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_number">&#9660;</a></span></th>
-              <th>Order Placed <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_placed">&#9650;</a> <a href="../all-orders/?sort=ASC&col=order_placed">&#9660;</a></span></th>
-              <th>Required Date <span class="arrow"><a href="../all-orders/?sort=DESC&col=datetime">&#9650;</a> <a href="../all-orders/?sort=ASC&col=datetime">&#9660;</a></span></th>
-              <th>Status <span class="arrow"><a href="../all-orders/?sort=DESC&col=status">&#9650;</a> <a href="../all-orders/?sort=ASC&col=status">&#9660;</a></span></th>
+              <th>Order Number <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_number"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../all-orders/?sort=ASC&col=order_number"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+              <th>Order Placed <span class="arrow"><a href="../all-orders/?sort=DESC&col=order_placed"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../all-orders/?sort=ASC&col=order_placed"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+              <th>Required Date <span class="arrow"><a href="../all-orders/?sort=DESC&col=datetime"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../all-orders/?sort=ASC&col=datetime"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+              <th>Status <span class="arrow"><a href="../all-orders/?sort=DESC&col=status"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../all-orders/?sort=ASC&col=status"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
             </tr>
           </thead>
           <tbody>

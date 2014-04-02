@@ -1,5 +1,6 @@
+<!DOCTYPE html>
+<html lang="en" xml:lang="en" xmlns= "http://www.w3.org/1999/xhtml">
 <head>
-  <html lang="en" xml:lang="en" xmlns= "http://www.w3.org/1999/xhtml">
   <meta http-equiv="Content-Language" content="en" />
   <meta name="google-site-verification" content="j7xff2YmYmFCUc5IuJslQ0hvOKaiaHKFqaQXYM-g_VE" />
   <meta name="viewport" content="width=device-width, initial-scale=1">

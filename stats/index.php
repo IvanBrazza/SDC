@@ -56,7 +56,7 @@
 <div class="row">
   <div class="col-md-6">
     <h2>Order Stats</h2>
-    <table id="order-stats">
+    <table id="order-stats" class="table">
       <tr>
         <th>Total number of orders:</th>
         <td><?php echo $orders; ?></td>
