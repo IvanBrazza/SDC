@@ -62,18 +62,8 @@ $(document).ready(function() {
       verticalOffset: 10,
       fillEmptySpace: true
     });
-    $("#cupcakes-load").hide();
     $cupcakes.hide();
     $("#cupcakes-container .wookmark-placeholder").hide();
-    var d = 0;
-    $cupcakes.each(function() {
-      $(this).delay(d).fadeIn();
-      d += 100;
-    });
-    $("#cupcakes-container .wookmark-placeholder").each(function() {
-      $(this).delay(d).fadeIn();
-      d += 100;
-    });
   });
 
   // When the images for the other section are
@@ -89,17 +79,39 @@ $(document).ready(function() {
       verticalOffset: 10,
       fillEmptySpace: true
     });
-    $("#other-load").hide();
     $other.hide();
     $("#other-container .wookmark-placeholder").hide();
-    var d = 0;
-    $other.each(function() {
-      $(this).delay(d).fadeIn();
-      d += 100;
-    });
-    $("#other-container .wookmark-placeholder").each(function() {
-      $(this).delay(d).fadeIn();
-      d += 100;
-    });
+  });
+
+  $('.nav-tabs li:eq(1) a').click(function() {
+    setTimeout(function() {
+      $("#cupcakes-container").trigger("refreshWookmark");
+      $("#cupcakes-load").hide();
+      var d = 0;
+      $cupcakes.each(function() {
+        $(this).delay(d).fadeIn();
+        d += 100;
+      });
+      $("#cupcakes-container .wookmark-placeholder").each(function() {
+        $(this).delay(d).fadeIn();
+        d += 100;
+      });
+    }, 500);
+  });
+
+  $('.nav-tabs li:eq(2) a').click(function() {
+    setTimeout(function() {
+      $("#other-container").trigger("refreshWookmark");
+      $("#other-load").hide();
+      var d = 0;
+      $other.each(function() {
+        $(this).delay(d).fadeIn();
+        d += 100;
+      });
+      $("#other-container .wookmark-placeholder").each(function() {
+        $(this).delay(d).fadeIn();
+        d += 100;
+      });
+    }, 500);
   });
 });

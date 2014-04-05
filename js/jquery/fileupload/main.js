@@ -21,6 +21,11 @@ $(document).ready(function() {
     $("#uploadstatus").html("Uploaded image");
   });
 
+  window.parent.$("#accordion").on('hidden.bs.collapse', function(e) {
+    if (e.target.id == "theCake") {
+      resizeiframe();
+    }
+  });
   window.parent.$('a[href="#uploadaphoto"]').click(function() {
     resizeiframe();
   });
