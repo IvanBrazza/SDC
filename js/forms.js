@@ -6,6 +6,8 @@ var $password_check,
     $postcode_check,
     $phone_check,
     $price_check,
+    $date_check,
+    $datetime_check,
     $add_existing_check = false;
 
 $(document).ready(function() {
@@ -13,25 +15,6 @@ $(document).ready(function() {
     calculateOrderTotal();
   }
 
-//  if (window.location.pathname != "/testimonials/" &&
-//      window.location.pathname != "/login/" &&
-//      window.location.pathname != "/edit-account/") {
-//    $(".date").datepicker({
-//      minDate: 0,
-//      dateFormat: "yy-mm-dd"
-//    });
-//
-//    $(".previous-date").datepicker({
-//      dateFormat: "yy-mm-dd"
-//    });
-//
-//    $("#datetime").datetimepicker({
-//      dateFormat: "yy-mm-dd",
-//      timeFormat: "HH:mm",
-//      minDate: 0
-//    });
-//  }
-            
   $("#register-form").submit(function(e) {
     // Validate the fields
     validate.password();
@@ -223,6 +206,20 @@ $(document).ready(function() {
       calculateDeliveryCharge($("#delivery-charge-html"));
       $("#delivery-charge").show("fast");
     }
+  });
+
+  $("#date").find("select").change(function() {
+    $("#celebration-date-review").html($("select[name=date_year]").val() + "/" +
+                                       $("select[name=date_month]").val() + "/" +
+                                       $("select[name=date_day]").val());
+  });
+
+  $("#datetime_date, #datetime_time").find("select").change(function() {
+    $("#datetime-review").html($("select[name=datetime_year]").val() + "/" +
+                               $("select[name=datetime_month]").val() + "/" +
+                               $("select[name=datetime_day]").val() + " " +
+                               $("select[name=datetime_hour]").val() + ":" +
+                               $("select[name=datetime_minute]").val());
   });
 
   if ($("#delivery").val() === "Deliver To Address") {
@@ -540,6 +537,51 @@ var validate = {
       $phone.addClass("has-error");
       $phone_error.slideDown("fast");
       $phone_check = false;
+    }
+  },
+  date: function() {
+    var date_day     = $("select[name=date_day]").val(),
+        date_month   = $("select[name=date_month]").val(),
+        date_year    = $("select[name=date_year]").val(),
+        $group       = $("select[name=date_day]").closest("div.form-group"),
+        $date_error  = $("#date_error")
+
+    if (date_day === "Day" || date_month === "Month" || date_year === "Year") {
+      $date_error.html("Please select a date").slideDown("fast");
+      $group.removeClass("has-success");
+      $group.addClass("has-error");
+      $date_check = false;
+    } else {
+      $date_error.slideUp("fast");
+      $group.addClass("has-success");
+      $group.removeClass("has-error");
+      $date_check = true;
+    }
+  },
+  datetime: function() {
+    var datetime_day      = $("select[name=datetime_day]").val(),
+        datetime_month    = $("select[name=datetime_month]").val(),
+        datetime_year     = $("select[name=datetime_year]").val(),
+        datetime_hour     = $("select[name=datetime_hour]").val(),
+        datetime_minute   = $("select[name=datetime_minute]").val(),
+        $group            = $("select[name=datetime_day]").closest("div.form-group"),
+        $group2           = $("select[name=datetime_hour]").closest("div.form-group"),
+        $datetime_error       = $("#datetime_error")
+
+    if (datetime_day === "Day" || datetime_month === "Month" || datetime_year === "Year" || datetime_hour === "Hour" || datetime_minute === "Minute") {
+      $datetime_error.html("Please select a date and time").slideDown("fast");
+      $group.removeClass("has-success");
+      $group.addClass("has-error");
+      $group2.removeClass("has-success");
+      $group2.addClass("has-error");
+      $datetime_check = false;
+    } else {
+      $datetime_error.slideUp("fast");
+      $group.addClass("has-success");
+      $group.removeClass("has-error");
+      $group2.addClass("has-success");
+      $group2.removeClass("has-error");
+      $datetime_check = true;
     }
   }
 }
