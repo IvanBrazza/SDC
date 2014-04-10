@@ -9,6 +9,7 @@
   <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,400' rel='stylesheet' type='text/css'>
   <link href="../css/bootstrap.css" rel="stylesheet">
   <link href="../css/jquery-ui.css" rel="stylesheet">
+  <link href="../css/cookie.css" rel="stylesheet">
   <link href="../css/main.css" rel="stylesheet">
   <?php if (strpos($_SERVER['REQUEST_URI'], "add-order") !== false or
             strpos($_SERVER['REQUEST_URI'], "place-an-order") !== false) : ?>

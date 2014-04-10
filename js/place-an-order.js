@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  $(document).tooltip();
+
   $("#theCakeNext").click(function() {
     // If the link isn't disabled, go to the next tab
     validate.date();

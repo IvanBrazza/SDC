@@ -18,6 +18,7 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="../js/bootstrap.js"></script>
   <script src="../js/jquery/jquery-ui.js"></script>
+  <script src="../js/cookie.js"></script>
   <script src="../js/table-pagination.js"></script>
   <?php if (strpos($_SERVER['REQUEST_URI'], "login") !== false or
             strpos($_SERVER['REQUEST_URI'], "register") !== false or

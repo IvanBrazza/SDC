@@ -27,8 +27,6 @@ $(document).ready(function() {
     }
   });
 
-  $(document).tooltip();
-
   // Enable clickable rows on order and customers tables
   $('table#orders-js>tbody>tr').click(function() {
     window.location.href = $(this).find("a").attr("href");
@@ -52,6 +50,27 @@ $(document).ready(function() {
 
   // Run the init for the loader
   loader.Init();
+
+  // EU cookie stuffs
+  var cookieMessage = "We use cookies on this website in order to improve your experience. By continuing" +
+                      " to use this website you agree to our <a href='{{cookiePolicyLink}}'>cookie policy</a>.",
+      cookieAcceptButtonText = "Close this message";
+  if ($(window).width() < 768) {
+    $.cookieCuttr({
+      cookieAcceptButtonText: cookieAcceptButtonText,
+      cookieAnalytics: false,
+      cookieMessage: cookieMessage,
+      cookiePolicyLink: '/cookies/'
+    });
+  } else {
+    $.cookieCuttr({
+      cookieAcceptButtonText: cookieAcceptButtonText,
+      cookieAnalytics: false,
+      cookieMessage: cookieMessage,
+      cookiePolicyLink: '/cookies/',
+      cookieNotificationLocationBottom: true
+    });
+  }
 });
 
 var loader = {
