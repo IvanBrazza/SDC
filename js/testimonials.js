@@ -29,7 +29,6 @@ $(document).ready(function() {
     validate.input('#name', '#name_error');
     validate.input('textarea#testimonial', '#testimonial_error');
     // Show the loading spinner
-    loader.Show();
     // If the validation has passed, submit the form, otherwise
     // call the validation functions
     if ($input_check && $email_check) {
@@ -45,7 +44,6 @@ $(document).ready(function() {
           if (response.substring(0, 7) === 'success') {
             $("#submit-testimonial-form").slideUp();
             $("#error_message").hide();
-            loader.Hide();
             $("#testimonials").append("<div class='row' id='pending'>" + 
                                       "<div class='col-md-6 testimonial-col'>" +
                                       "<p class='testimonial unapproved'>" + $('textarea#testimonial').val()  + "</p>" + 
@@ -91,7 +89,6 @@ $(document).ready(function() {
               Recaptcha.reload();
             }
             $("#error_message").html(response);
-            loader.Hide();
           }
         }
       });
@@ -102,14 +99,12 @@ $(document).ready(function() {
       validate.email();
       validate.input('#name', '#name_error');
       validate.input('textarea#testimonial', '#testimonial_error');
-      loader.Hide();
     }
   });
 
   // When the admin clicks the button to delete a testimonial
   $(".delete_testimonial").click(function(e) {
     // Show the loader and set $button to the button clicked
-    loader.Show();
     var $button = $(this);
     // Make an AJAX call to lib/delete-testimonial.php to delete
     // the testimonial, sending the testimonial ID and token as
@@ -122,7 +117,6 @@ $(document).ready(function() {
       success: function(response) {
         object = JSON.parse(response);
         if (object.response === 'success') {
-          loader.Hide();
           $button.closest("div").slideUp(400, function() {
             $(this).remove();
           });
@@ -138,7 +132,6 @@ $(document).ready(function() {
   // When the admin clicks the button to approve a testimonial
   $(".approve_testimonial").click(function(e) {
     // Show the loader and set $button to the button clicked
-    loader.Show();
     var $button = $(this);
     // Make an AJAX call to lib/approve-testimonial.php to approve
     // the testimonial, sending the testimonial ID and token as
@@ -152,7 +145,6 @@ $(document).ready(function() {
       success: function(response) {
         object = JSON.parse(response);
         if (object.response === 'success') {
-          loader.Hide();
           $button.closest("div").find(".unapproved").removeClass("unapproved").addClass("approved");
           $button.siblings("#unapproved").remove();
           $button.remove();

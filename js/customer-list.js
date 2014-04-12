@@ -2,7 +2,6 @@ $(document).ready(function() {
   // When the customer search form is submitted
   $("#customer_search").submit(function(e) {
     // Show the loading spinner
-    loader.Show();
     // Make an AJAX call to lib/form/order-search.php
     // to see if the order exists. If it does, redirect
     // to that page, otherwise show an error message
@@ -15,7 +14,6 @@ $(document).ready(function() {
           window.location.href = response;
         } else {
           $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + response).show();
-          loader.Hide();
         }
       }
     });

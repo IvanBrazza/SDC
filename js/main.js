@@ -27,13 +27,17 @@ $(document).ready(function() {
     }
   });
 
-  // Enable clickable rows on order and customers tables
-  $('table#orders-js>tbody>tr').click(function() {
-    window.location.href = $(this).find("a").attr("href");
+  $(document).ajaxStart(function() {
+    NProgress.start();
+  }).ajaxStop(function() {
+    NProgress.done();
   });
 
-  // Float the userbox right
-  $(".header > .user").css("float", "right");
+  // Enable clickable rows on order and customers tables
+  $('table#orders-js>tbody>tr').click(function() {
+    NProgress.start().done();
+    window.location.href = $(this).find("a").attr("href");
+  });
 
   // Show the order image when the link is clicked
   $("#image-link").click(function() {
@@ -47,9 +51,6 @@ $(document).ready(function() {
 
   // Paginate all tables except for single order tables
   $("table:not(#single_order)").tablePagination();
-
-  // Run the init for the loader
-  loader.Init();
 
   // EU cookie stuffs
   var cookieMessage = "We use cookies on this website in order to improve your experience. By continuing" +
@@ -72,19 +73,3 @@ $(document).ready(function() {
     });
   }
 });
-
-var loader = {
-  Init: function() {
-    $("#loading-spinner-dialog").modal({
-      backdrop: 'static',
-      keyboard: false,
-      show: false,
-    });
-  },
-  Show: function() {
-    $("#loading-spinner-dialog").modal("show");
-  },
-  Hide: function() {
-    $("#loading-spinner-dialog").modal("hide");
-  }
-};

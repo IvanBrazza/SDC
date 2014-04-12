@@ -22,7 +22,6 @@ $(document).ready(function() {
     validate.password2();
     validate.email();
     if ($password_check && $password2_check && $username_check && $email_check) {
-      loader.Show();
       // Submit the form
       $.ajax({
         type: 'post',
@@ -34,7 +33,6 @@ $(document).ready(function() {
           } else {
             $("#error_message").html(response);
             Recaptcha.reload();
-            loader.Hide();
           }
         }
       });
@@ -53,7 +51,6 @@ $(document).ready(function() {
     validate.password();
     validate.username();
     if ($password_check && $username_check) {
-      loader.Show();
       // Submit the form
       $.ajax({
         type: 'post',
@@ -69,18 +66,15 @@ $(document).ready(function() {
                             .removeClass("has-success")
                             .addClass("has-error");
               $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.status).show();
-              loader.Hide();
               $("#token").val(object.token);
             } else if (object.status === 'Incorrect password.') {
               $("#password").removeClass("valid").addClass("invalid");
               $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.status).show();
-              loader.Hide();
               $("#token").val(object.token);
             } else if (object.status  === 'redirect') {
               window.location.href = object.redirect;
             } else {
               $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.status).show();
-              loader.Hide();
               $("#token").val(object.token);
             }
           }
@@ -99,7 +93,6 @@ $(document).ready(function() {
     // Validate the fields
     validate.email();
     if ($email_check) {
-      loader.Show();
       // Submit the form
       $.ajax({
         type: 'post',
@@ -112,16 +105,13 @@ $(document).ready(function() {
             $("#email").removeClass("valid").addClass("valid");
             $("#error_message").hide();
             $("#success_message").html("Password reset. Please check your emails for a new password.");
-            loader.Hide();
           } else {
             if (object.status === 'Email doesn\'t exist.') {
               $("#email").removeClass("valid").addClass("invalid");
               $("#error_message").html(object.status);
-              loader.Hide();
               $("#token").val(object.token);
             } else {
               $("#error_message").html(object.status);
-              loader.Hide();
               $("#token").val(object.token);
             }
           }
@@ -141,14 +131,14 @@ $(document).ready(function() {
     validate.input('#celebration_date', '#celebration_date_error');
     validate.input('textarea#order', '#order_error');
     validate.input('#datetime', '#datetime_error');
-    loader.Show();
     if (!$input_check) {
       e.preventDefault();
       validate.input('#design', '#design_error');
       validate.input('#celebration_date', '#celebration_date_error');
       validate.input('textarea#order', '#order_error');
       validate.input('#datetime', '#datetime_error');
-      loader.Hide();
+    } else {
+      NProgress.start();
     }
   });
 
@@ -161,7 +151,6 @@ $(document).ready(function() {
     validate.input('#last_name', '#last_name_error');
     validate.input('#address', '#address_error');
     if ($input_check && $phone_check && $postcode_check && $email_check) {
-      loader.Show();
       // Submit the form
       $.ajax({
         type: 'post',
@@ -170,12 +159,10 @@ $(document).ready(function() {
         success: function(response) {
           if (response === "success") {
             $("#success_message").html("Account updated.");
-            loader.Hide();
           } else if (response === "email-verify") {
             window.location.href = "../verify-email/?type=edit";
           } else {
             $("#error_message").html(response);
-            loader.Hide();
           }
         }
       });
@@ -189,7 +176,6 @@ $(document).ready(function() {
       validate.input('#first_name', '#first_name_error');
       validate.input('#last_name', '#last_name_error');
       validate.input('#address', '#address_error');
-      loader.Hide();
     }
   });
   
@@ -289,7 +275,6 @@ $(document).ready(function() {
   $("#add-order-form").submit(function(e) {
     if ($add_existing_check) {
       if ($input_check) {
-        loader.Show();
         $.ajax({
           type: 'post',
           url: '../lib/form/add-order.php',
@@ -298,7 +283,6 @@ $(document).ready(function() {
             if (response === "success") {
               window.location.href = "../all-orders/?new-order=added";
             } else {
-              loader.Hide();
             }
           }
         });
@@ -313,7 +297,6 @@ $(document).ready(function() {
       }
     } else {
       if ($input_check && $phone_check && $email_check && $postcode_check) {
-        loader.Show();
         $.ajax({
           type: 'post',
           url: '../lib/form/add-order.php',
@@ -322,7 +305,6 @@ $(document).ready(function() {
             if (response === "success") {
               window.location.href = "../all-orders/?new-order=added";
             } else {
-              loader.Hide();
             }
           }
         });

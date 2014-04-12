@@ -10,11 +10,8 @@
   <link href="../css/bootstrap.css" rel="stylesheet">
   <link href="../css/jquery-ui.css" rel="stylesheet">
   <link href="../css/cookie.css" rel="stylesheet">
+  <link href="../css/nprogress.css" rel="stylesheet">
   <link href="../css/main.css" rel="stylesheet">
-  <?php if (strpos($_SERVER['REQUEST_URI'], "add-order") !== false or
-            strpos($_SERVER['REQUEST_URI'], "place-an-order") !== false) : ?>
-    <link href="../css/timepicker.css" rel="stylesheet">
-  <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "gallery") !== false) : ?>
     <link href="../css/gallery.css" rel="stylesheet">
   <?php endif; ?>
