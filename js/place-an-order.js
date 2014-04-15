@@ -1,6 +1,8 @@
 $(document).ready(function() {
   $(document).tooltip();
 
+  calculateOrderTotal();
+
   $("#theCakeNext").click(function() {
     // If the link isn't disabled, go to the next tab
     var date_check = validate.date();

@@ -38,7 +38,7 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <form action="index.php" method="POST" id="add-order-form" class="form-horizontal" role="form">
+    <form action="../lib/form/add-order.php" method="POST" class="form-horizontal" role="form">
       <div class="panel-group" id="accordion">
         <div class="panel panel-default">
           <div class="panel-heading">
@@ -54,7 +54,7 @@
                   <label for="existing_id" class="col-sm-4 control-label">Select existing customer</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <select onchange="checkExisting()" id="existing_id" name="existing_id" class="form-control">
+                    <select name="existing_id" class="form-control">
                       <option value="null">Select a customer</option>
                       <?php foreach ($existing_rows as $row) : ?>
                         <option value="<?php echo $row['customer_id']; ?>"><?php echo $row['first_name'] . " " . $row['last_name']; ?></option>
@@ -68,49 +68,49 @@
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
                     <input type="text" class="form-control" name="first_name" id="first_name" onchange="validate.input('#first_name', '#first_name_error')">
+                    <div id="first_name_error" class="validate-error"></div>
                   </div>
                 </div>
-                <div id="first_name_error" class="validate-error"></div>
                 <div class="form-group">
                   <label for="last_name" class="col-sm-4 control-label">Last Name</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
                     <input type="text" class="form-control" name="last_name" id="last_name" onchange="validate.input('#last_name', '#last_name_error')">
+                    <div id="last_name_error" class="validate-error"></div>
                   </div>
                 </div>
-                <div id="last_name_error" class="validate-error"></div>
                 <div class="form-group">
                   <label for="address" class="col-sm-4 control-label">Address</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
                     <input type="text" class="form-control" name="address" id="address" onchange="validate.input('#address', '#address_error')">
+                    <div id="address_error" class="validate-error"></div>
                   </div>
                 </div>
-                <div id="address_error" class="validate-error"></div>
                 <div class="form-group">
                   <label for="postcode" class="col-sm-4 control-label">Postcode</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
                     <input type="text" class="form-control" name="postcode" id="postcode" onchange="validate.postcode()">
+                    <div id="postcode_error" class="validate-error"></div>
                   </div>
                 </div>
-                <div id="postcode_error" class="validate-error"></div>
                 <div class="form-group">
                   <label for="phone" class="col-sm-4 control-label">Phone Number</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
                     <input type="text" class="form-control" name="phone" id="phone" onchange="validate.phone()">
+                    <div id="phone_error" class="validate-error"></div>
                   </div>
                 </div>
-                <div id="phone_error" class="validate-error"></div>
                 <div class="form-group">
                   <label for="email" class="col-sm-4 control-label">Email</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
                     <input type="text" class="form-control" name="email" id="email" onchange="validate.email()">
+                    <div id="email-error" class="validate-error"></div>
                   </div>
                 </div>
-                <div id="email-error" class="validate-error"></div>
               </div>
               <div class="col-md-2">
                 <button type="button" id="theCustomerNext" class="btn btn-primary pull-right">
@@ -413,59 +413,65 @@
                 </script>
                 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKeZpb8doUO3DbEqT3t-uRJYsbEPbD3AE&sensor=false"></script>
                 <table class="table">
-                <tr>
-                  <th>Date of celebration:</th>
-                  <td>
-                    <span id="celebration-date-review"></span>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Filling:</th>
-                  <td>
-                    <span id="filling-review">None</span>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Decoration:</th>
-                  <td>
-                    <span id="decoration-review">None</span>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Size of cake:</th>
-                  <td>
-                    <span id="cake-size-review">6"</span>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Type of cake:</th>
-                  <td>
-                    <span id="cake-type-review">Sponge</span>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Comments:</th>
-                  <td>
-                    <span id="comments-review"></span>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Delivery type:</th>
-                  <td>
-                    <span id="delivery-review">Collection</span>
-                  </td>
-                </tr>
-                <tr>
-                  <th>
-                    <span id="datetime-label-review">Date/time for collection:</span>
-                  </th>
-                  <td>
-                    <span id="datetime-review"></span>
-                  </td>
-                </tr>
+                  <caption>The Order</caption>
+                  <tr>
+                    <th>Date of celebration</th>
+                    <td><span id="celebration-date-review"></span></td>
+                  </tr>
+                  <tr>
+                    <th>Filling</th>
+                    <td><span id="filling-review">None</span></td>
+                  </tr>
+                  <tr>
+                    <th>Decoration</th>
+                    <td><span id="decoration-review">None</span></td>
+                  </tr>
+                  <tr>
+                    <th>Size of cake</th>
+                    <td><span id="cake-size-review">6"</span></td>
+                  </tr>
+                  <tr>
+                    <th>Type of cake</th>
+                    <td><span id="cake-type-review">Sponge</span></td>
+                  </tr>
+                  <tr>
+                    <th>Comments</th>
+                    <td><span id="comments-review"></span></td>
+                  </tr>
+                  <tr>
+                    <th>Delivery type</th>
+                    <td><span id="delivery-review">Collection</span></td>
+                  </tr>
+                  <tr>
+                    <th><span id="datetime-label-review">Date/time for collection:</span></th>
+                    <td><span id="datetime-review"></span></td>
+                  </tr>
                 </table>
               </div>
               <div class="col-md-4">
+                <table class="table">
+                  <caption>The Customer</caption>
+                  <tr>
+                    <th>Name</th>
+                    <td><span id="name-review"></span></td>
+                  </tr>
+                  <tr>
+                    <th>Address</th>
+                    <td><span id="address-review"></span></td>
+                  </tr>
+                  <tr>
+                    <th>Postcode</th>
+                    <td><span id="postcode-review"></span></td>
+                  </tr>
+                  <tr>
+                    <th>Phone Number</th>
+                    <td><span id="phone-review"></span></td>
+                  </tr>
+                  <tr>
+                    <th>Email</th>
+                    <td><span id="email-review"></span></td>
+                  </tr>
+                </table>
                 <span id="delivery-charge"><b>Delivery: <div id="delivery-charge-html"></div></b></span>
                 <br />
                 <b>Base Price: &pound;<div id="base-price"></div></b>

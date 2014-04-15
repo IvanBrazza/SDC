@@ -266,6 +266,6 @@
       $db->runQuery($query, $query_params);
     }
     
-    echo "success";
+    header("Location: ../../all-orders/?new-order=added");
     die();
   }

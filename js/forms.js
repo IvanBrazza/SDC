@@ -1,8 +1,4 @@
 $(document).ready(function() {
-  if (window.location.pathname == "/place-an-order/") {
-    calculateOrderTotal();
-  }
-
   $("#register-form").submit(function(e) {
     // Validate the fields
     var pass_check = validate.password(),
@@ -183,12 +179,11 @@ $(document).ready(function() {
                                $("select[name=datetime_minute]").val());
   });
 
-  $("select[name=cake_size], select[name=cake_type]").change(function() {
+  $("select[name=cake_size],select[name=cake_type],select[name=filling],select[name=decoration]").change(function() {
     calculateOrderTotal();
   });
 
   $("select[name=filling]").change(function() {
-    calculateOrderTotal();
     if ($(this).val() == "3") {
       $("#comments").data("required", "true");
     } else if ($("#decoration").val() == "6") {
@@ -199,7 +194,6 @@ $(document).ready(function() {
   });
 
   $("select[name=decoration]").change(function() {
-    calculateOrderTotal();
     if ($(this).val() == "6") {
       $("#comments").data("required", "true");
     } else if ($("#filling").val() == "3") {
@@ -208,83 +202,7 @@ $(document).ready(function() {
       $("#comments").data("required", "false");
     }
   });
-
-  $("select[name=existing_id]").change(function() {
-    if ($(this).val() !== "null") {
-      $("input[name=first_name],input[name=last_name],input[name=address],input[name=postcode],input[name=phone],input[name=email]").closest(".form-group").removeClass("has-error");
-      $("#first_name_error,#last_name_error,#address_error,#postcode_error,#phone_error,#email-error").slideUp();
-    }
-  });
-
-  $("#add-order-form").submit(function(e) {
-    var plac_check = validate.placeddatetime(),
-        datt_check = validate.datetime(),
-        date_check = validate.date();
-    if (checkExisting()) {
-      if (plac_check && datt_check && date_check) {
-        $.ajax({
-          type: 'post',
-          url: '../lib/form/add-order.php',
-          data: $(this).serialize(),
-          success: function(response) {
-            if (response === "success") {
-              window.location.href = "../all-orders/?new-order=added";
-            } else {
-            }
-          }
-        });
-      }
-    } else {
-      var phon_check = validate.phone(),
-          emai_check = validate.email(),
-          post_check = validate.postcode(),
-          firs_check = validate.input('#first_name', '#first_name_error'),
-          last_check = validate.input('#last_name', '#last_name_error'),
-          addr_check = validate.input('#address', '#address_error');
-      if (phon_check && emai_check && post_check && firs_check && last_check && addr_check && plac_check && datt_check && date_check) {
-        $.ajax({
-          type: 'post',
-          url: '../lib/form/add-order.php',
-          data: $(this).serialize(),
-          success: function(response) {
-            if (response === "success") {
-              window.location.href = "../all-orders/?new-order=added";
-            } else {
-            }
-          }
-        });
-      }
-    }
-    e.preventDefault();
-  });
 });
-
-function checkExisting()
-{
-  if ($("#existing_id").val() !== "null"){
-    $("#first_name").prop("disabled", true);
-    $("#first_name").val("");
-    $("#last_name").prop("disabled", true);
-    $("#last_name").val("");
-    $("#address").prop("disabled", true);
-    $("#address").val("");
-    $("#postcode").prop("disabled", true);
-    $("#postcide").val("");
-    $("#phone").prop("disabled", true);
-    $("#phone").val("");
-    $("#email").prop("disabled", true);
-    $("#email").val("");
-    return true;
-  } else {
-    $("#first_name").prop("disabled", false);
-    $("#last_name").prop("disabled", false);
-    $("#address").prop("disabled", false);
-    $("#postcode").prop("disabled", false);
-    $("#phone").prop("disabled", false);
-    $("#email").prop("disabled", false);
-    return false;
-  }
-}
 
 var validate = {
   email: function() {
@@ -526,8 +444,7 @@ var validate = {
   }
 }
 
-function calculateOrderTotal()
-{
+function calculateOrderTotal() {
   var $total            = $("#total-html"),
       $cake_size        = $("#cake_size").val(),
       $cake_type        = $("#cake_type").val(),
@@ -584,12 +501,10 @@ function calculateOrderTotal()
   }, 1000);
 }
 
-function calculateDeliveryCharge()
-{
-  var delivery_charge,
-      original_html = $("#delivery-charge-html");
+function calculateDeliveryCharge() {
+  var delivery_charge;
 
-  if (original_html.html() === "" || original_html.html() === "0") {
+  if ($("select[name=delivery]").val() === "Deliver To Address") {
     var $delivery_charge = original_html;
   
     var service = new google.maps.DistanceMatrixService();
