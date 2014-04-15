@@ -39,5 +39,38 @@ $(document).ready(function() {
     });
   }
 
-  $("#single_order_details").height($("#single_order").height());
+  $("#complete-order").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: 'post',
+      url: '../lib/complete-order.php',
+      data: $(this).serialize(),
+      success: function(response) {
+        if (response === "success") {
+          window.location.href = "../all-orders/?completed=success";
+        } else {
+          $("#error_message").html(response).show();
+        }
+      }
+    });
+  });
+
+  $(".update").submit(function(e) {
+    e.preventDefault();
+    $.ajax({
+      type: 'post',
+      url: '../lib/update-order.php',
+      data: $(this).serialize(),
+      success: function(response) {
+        object = JSON.parse(response);
+        if (object.status === "success") {
+          $("#success_message").html(object.message).show();
+          $("input[name=token]").val(object.token);
+        } else {
+          $("#error_message").html(object.status).show();
+          $("#success_message").hide();
+        }
+      }
+    });
+  });
 });

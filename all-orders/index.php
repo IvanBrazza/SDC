@@ -220,21 +220,30 @@
       $title = $row['first_name'] . "'s Orders | Star Dream Cakes";
     }
   }
+  
+  // Generate token
+  $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 ?>
 <?php include("../lib/header.php"); ?>
   <!-- if user clicked on order number or searched for an order -->
   <?php if (!empty($_GET['order'])) : ?>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-6">
         <h1>Order <?php echo $row['order_number']; ?>
         <?php if ($row['completed'] === "0") : ?>
-          <form action="../lib/complete-order.php" method="POST" id="complete-order">
+          <form id="complete-order">
+            <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
             <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number" id="order_number">
             <button type="submit" class="btn btn-default">Complete Order</button>
           </form>
         <?php else : ?>
           (completed)
-        <?php endif; ?></h1>
+        <?php endif; ?>
+        </h1>
+      </div>
+      <div class="col-md-6">
+        <div class="alert alert-danger" id="error_message" style="margin-top:20px;"></div>
+        <div class="alert alert-success" id="success_message" style="margin-top:20px;"></div>
       </div>
     </div>
     <div class="row">
@@ -256,7 +265,7 @@
             <th>Status</th>
             <td>
               <?php if ($row['completed'] === "0") : ?>
-                <form action="../lib/update-order.php" method="POST" class="form-inline" role="form">
+                <form class="form-inline update" role="form">
                   <div class="form-group">
                     <select name="status" class="form-control">
                       <option <?php if ($row['status'] == "Processing") : ?>selected<?php endif; ?> value="Processing">Processing</option>
@@ -266,6 +275,7 @@
                   <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
                   <input type="hidden" value="<?php echo $row['first_name']; ?>" name="first_name">
                   <input type="hidden" value="<?php echo $row['email']; ?>" name="email">
+                  <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
                   <button type="submit" class="btn btn-default btn-sm">Update</button>
                 </form>
               <?php else : ?>
@@ -303,12 +313,13 @@
             <th>Base Price</th>
             <td>
               <?php if ($row['completed'] === "0") : ?>
-                <form action="../lib/update-order.php" method="POST" class="form-inline" role="form">
+                <form class="form-inline update" role="form">
                   <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
                   <div class="form-group">
                     <label>&pound;</label>
                     <input name="base_price" type="text" value="<?php echo $row['base_price']; ?>" class="form-control" style="width:45px;">
                   </div>
+                  <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
                   <button type="submit" class="btn btn-default btn-sm">Update</button>
                 </form>
               <?php else : ?>
@@ -321,12 +332,13 @@
               <th>Delivery Charge</th>
               <td>
                 <?php if ($row['completed'] === "0") : ?>
-                  <form action="../lib/update-order.php" method="POST" class="form-inline" role="form">
+                  <form class="form-inline update" role="form">
                     <input type="hidden" value="<?php echo $row['order_number']; ?>" name="order_number">
                     <div class="form-group">
                       <label>&pound;</label>
                       <input name="delivery_charge" type="text" value="<?php echo $row['delivery_charge']; ?>" style="width:45px;" class="form-control">
                     </div>
+                    <input type="hidden" name="token" value="<?php echo $_SESSION['token']; ?>">
                     <button type="submit" class="btn btn-default btn-sm">Update</button>
                   </form>
                 <?php else : ?>
@@ -476,18 +488,16 @@
       </div>
       <div class="col-md-5">
         <div class="alert alert-danger" id="error_message" style="max-height: 34px;padding-top: 6px;"></div>
+        <div class="alert alert-success" style="max-height:34px;padding-top:6px;<?php if ($display_message) : ?>display:block<?php endif; ?>">
+          <?php echo $display_message; ?>
+        </div>
       </div>
       <div class="col-md-2">
-        <a href="../add-order" class="pull-right"><button type="button" class="btn btn-primary btn-sm">Add Order</button></a>
+        <a href="../add-order" class="pull-right"><button type="button" class="btn btn-primary btn-sm"><span class="glyphicon glyphicon-plus"></span>   Add Order</button></a>
       </div>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <div class="success">
-          <span class="success_message">
-            <?php echo $display_message; ?>
-          </span>
-        </div>
         <?php if (empty($rows)) : ?>
           <h3>There are no outstanding orders</h3>
         <?php else : ?>

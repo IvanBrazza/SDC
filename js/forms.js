@@ -1,15 +1,3 @@
-var $password_check,
-    $password2_check,
-    $username_check,
-    $email_check,
-    $input_check,
-    $postcode_check,
-    $phone_check,
-    $price_check,
-    $date_check,
-    $datetime_check,
-    $add_existing_check = false;
-
 $(document).ready(function() {
   if (window.location.pathname == "/place-an-order/") {
     calculateOrderTotal();
@@ -17,11 +5,11 @@ $(document).ready(function() {
 
   $("#register-form").submit(function(e) {
     // Validate the fields
-    validate.password();
-    validate.username();
-    validate.password2();
-    validate.email();
-    if ($password_check && $password2_check && $username_check && $email_check) {
+    var pass_check = validate.password(),
+        user_check = validate.username(),
+        pas2_check = validate.password2(),
+        emai_check = validate.email();
+    if (pass_check && pas2_check && user_check && emai_check) {
       // Submit the form
       $.ajax({
         type: 'post',
@@ -37,20 +25,14 @@ $(document).ready(function() {
         }
       });
       e.preventDefault();
-    } else {
-      e.preventDefault();
-      validate.password();
-      validate.username();
-      validate.password2();
-      validate.email();
     }
   });
 
   $("#login-form").submit(function(e) {
     // Validate the fields
-    validate.password();
-    validate.username();
-    if ($password_check && $username_check) {
+    var user_check = validate.username(),
+        pass_check = validate.password();
+    if (user_check && pass_check) {
       // Submit the form
       $.ajax({
         type: 'post',
@@ -68,7 +50,9 @@ $(document).ready(function() {
               $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.status).show();
               $("#token").val(object.token);
             } else if (object.status === 'Incorrect password.') {
-              $("#password").removeClass("valid").addClass("invalid");
+              $("#password").closest(".form-group")
+                            .removeClass("has-success")
+                            .addClass("has-error");
               $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.status).show();
               $("#token").val(object.token);
             } else if (object.status  === 'redirect') {
@@ -80,19 +64,14 @@ $(document).ready(function() {
           }
         }
       });
-      e.preventDefault();
-    } else {
-      // Don't submit the form
-      e.preventDefault();
-      validate.password();
-      validate.username();
     }
+    e.preventDefault();
   });
 
   $("#forgot-password-form").submit(function(e) {
     // Validate the fields
-    validate.email();
-    if ($email_check) {
+    var emai_check = validate.email();
+    if (emai_check) {
       // Submit the form
       $.ajax({
         type: 'post',
@@ -102,12 +81,16 @@ $(document).ready(function() {
         console.log(response);
           object = JSON.parse(response);
           if (object.status === 'success') {
-            $("#email").removeClass("valid").addClass("valid");
+            $("#email").closest(".form-group")
+                       .removeClass("has-error")
+                       .addClass("has-success");
             $("#error_message").hide();
             $("#success_message").html("Password reset. Please check your emails for a new password.");
           } else {
             if (object.status === 'Email doesn\'t exist.') {
-              $("#email").removeClass("valid").addClass("invalid");
+              $("#email").closest(".form-group")
+                         .removeClass("has-success")
+                         .addClass("has-error");
               $("#error_message").html(object.status);
               $("#token").val(object.token);
             } else {
@@ -117,70 +100,62 @@ $(document).ready(function() {
           }
         }
       });
-      e.preventDefault();
-    } else {
-      // Don't submit the form
-      e.preventDefault();
-      validate.email();
     }
-  });
-
-  $("#order-form").submit(function(e) {
-    // Validate form fields
-    validate.input('#design', '#design_error');
-    validate.input('#celebration_date', '#celebration_date_error');
-    validate.input('textarea#order', '#order_error');
-    validate.input('#datetime', '#datetime_error');
-    if (!$input_check) {
-      e.preventDefault();
-      validate.input('#design', '#design_error');
-      validate.input('#celebration_date', '#celebration_date_error');
-      validate.input('textarea#order', '#order_error');
-      validate.input('#datetime', '#datetime_error');
-    } else {
-      NProgress.start();
-    }
+    e.preventDefault();
   });
 
   $("#edit-account-form").submit(function(e) {
     // Validate form inputs
-    validate.email();
-    validate.postcode();
-    validate.phone();
-    validate.input('#first_name', '#first_name_error');
-    validate.input('#last_name', '#last_name_error');
-    validate.input('#address', '#address_error');
-    if ($input_check && $phone_check && $postcode_check && $email_check) {
-      // Submit the form
-      $.ajax({
-        type: 'post',
-        url: '../lib/form/edit-account.php',
-        data: $(this).serialize(),
-        success: function(response) {
-          if (response === "success") {
-            $("#success_message").html("Account updated.");
-          } else if (response === "email-verify") {
-            window.location.href = "../verify-email/?type=edit";
-          } else {
-            $("#error_message").html(response);
+    var emai_check = validate.email(),
+        post_check = validate.postcode(),
+        phon_check = validate.phone(),
+        firs_check = validate.input('#first_name', '#first_name_error'),
+        last_check = validate.input('#last_name', '#last_name_error'),
+        addr_check = validate.input('#address', '#address_error');
+
+    if ($("#password").val() == "") {
+      if (firs_check && phon_check && post_check && emai_check && last_check && addr_check) {
+        // Submit the form
+        $.ajax({
+          type: 'post',
+          url: '../lib/form/edit-account.php',
+          data: $(this).serialize(),
+          success: function(response) {
+            if (response === "success") {
+              $("#success_message").html("Account updated.").show();
+            } else if (response === "email-verify") {
+              window.location.href = "../verify-email/?type=edit";
+            } else {
+              $("#error_message").html(response);
+            }
           }
-        }
-      });
-      e.preventDefault();
+        });
+      }
     } else {
-      // Don't submit the form
-      e.preventDefault();
-      validate.email();
-      validate.postcode();
-      validate.phone();
-      validate.input('#first_name', '#first_name_error');
-      validate.input('#last_name', '#last_name_error');
-      validate.input('#address', '#address_error');
+      var pass_check = validate.password();
+      if (firs_check && phon_check && post_check && emai_check && last_check && addr_check && pass_check) {
+        // Submit the form
+        $.ajax({
+          type: 'post',
+          url: '../lib/form/edit-account.php',
+          data: $(this).serialize(),
+          success: function(response) {
+            if (response === "success") {
+              $("#success_message").html("Account updated.").show();
+            } else if (response === "email-verify") {
+              window.location.href = "../verify-email/?type=edit";
+            } else {
+              $("#error_message").html(response);
+            }
+          }
+        });
+      }
     }
+    e.preventDefault();
   });
   
-  $("#delivery").change(function() {
-    if ($("#delivery").val() === "Collection") {
+  $("select[name=delivery]").change(function() {
+    if ($("select[name=delivery]").val() === "Collection") {
       $("#datetime-label").html("Date/Time For Collection");
       $("#datetime-label-review").html("Date/time for collection: ");
       $("#delivery-charge").hide("fast");
@@ -189,9 +164,9 @@ $(document).ready(function() {
     } else {
       $("#datetime-label").html("Date/Time For Delivery");
       $("#datetime-label-review").html("Date/time for delivery: ");
-      calculateDeliveryCharge($("#delivery-charge-html"));
       $("#delivery-charge").show("fast");
     }
+    $("#delivery-review").html($(this).val());
   });
 
   $("#date").find("select").change(function() {
@@ -208,19 +183,11 @@ $(document).ready(function() {
                                $("select[name=datetime_minute]").val());
   });
 
-  if ($("#delivery").val() === "Deliver To Address") {
-    $("#delivery-charge").show("fast");
-  }
-
-  $("#cake_size").change(function() {
+  $("select[name=cake_size], select[name=cake_type]").change(function() {
     calculateOrderTotal();
   });
 
-  $("#cake_type").change(function() {
-    calculateOrderTotal();
-  });
-
-  $("#filling").change(function() {
+  $("select[name=filling]").change(function() {
     calculateOrderTotal();
     if ($(this).val() == "3") {
       $("#comments").data("required", "true");
@@ -231,7 +198,7 @@ $(document).ready(function() {
     }
   });
 
-  $("#decoration").change(function() {
+  $("select[name=decoration]").change(function() {
     calculateOrderTotal();
     if ($(this).val() == "6") {
       $("#comments").data("required", "true");
@@ -242,39 +209,19 @@ $(document).ready(function() {
     }
   });
 
-  $("#existing_id").change(function() {
-    if ($("#existing_id").val() !== "null") {
-      var $first_name         = $("input[name=first_name]"),
-          $first_name_error   = $("#first_name_error"),
-          $last_name          = $("input[name=last_name]"),
-          $last_name_error    = $("#last_name_error"),
-          $address            = $("input[name=address]"),
-          $address_error      = $("#address_error"),
-          $postcode           = $("input[name=postcode]"),
-          $postcode_error     = $("#postcode_error"),
-          $phone              = $("input[name=phone]"),
-          $phone_error        = $("#phone_error"),
-          $email              = $("input[name=email]"),
-          $email_error        = $("#email-error");
-      
-      $first_name.removeClass("invalid");
-      $first_name_error.slideUp("fast");
-      $last_name.removeClass("invalid");
-      $last_name_error.slideUp("fast");
-      $address.removeClass("invalid");
-      $address_error.slideUp("fast");
-      $postcode.removeClass("invalid");
-      $postcode_error.slideUp("fast");
-      $phone.removeClass("invalid");
-      $phone_error.slideUp("fast");
-      $email.removeClass("invalid");
-      $email_error.slideUp("fast");
+  $("select[name=existing_id]").change(function() {
+    if ($(this).val() !== "null") {
+      $("input[name=first_name],input[name=last_name],input[name=address],input[name=postcode],input[name=phone],input[name=email]").closest(".form-group").removeClass("has-error");
+      $("#first_name_error,#last_name_error,#address_error,#postcode_error,#phone_error,#email-error").slideUp();
     }
   });
 
   $("#add-order-form").submit(function(e) {
-    if ($add_existing_check) {
-      if ($input_check) {
+    var plac_check = validate.placeddatetime(),
+        datt_check = validate.datetime(),
+        date_check = validate.date();
+    if (checkExisting()) {
+      if (plac_check && datt_check && date_check) {
         $.ajax({
           type: 'post',
           url: '../lib/form/add-order.php',
@@ -286,17 +233,15 @@ $(document).ready(function() {
             }
           }
         });
-        e.preventDefault();
-      } else {
-        e.preventDefault();
-        validate.input('#order_placed', '#order_placed_error');
-        validate.input('#datetime', '#datetime_error');
-        validate.input('#celebration_date', 'celebration_date_error');
-        validate.input('textarea#order', '#order_error');
-        validate.input('#design', '#design_error');
       }
     } else {
-      if ($input_check && $phone_check && $email_check && $postcode_check) {
+      var phon_check = validate.phone(),
+          emai_check = validate.email(),
+          post_check = validate.postcode(),
+          firs_check = validate.input('#first_name', '#first_name_error'),
+          last_check = validate.input('#last_name', '#last_name_error'),
+          addr_check = validate.input('#address', '#address_error');
+      if (phon_check && emai_check && post_check && firs_check && last_check && addr_check && plac_check && datt_check && date_check) {
         $.ajax({
           type: 'post',
           url: '../lib/form/add-order.php',
@@ -308,22 +253,9 @@ $(document).ready(function() {
             }
           }
         });
-        e.preventDefault();
-      } else {
-        e.preventDefault();
-        validate.phone();
-        validate.email();
-        validate.postcode();
-        validate.input('#first_name', '#first_name_error');
-        validate.input('#last_name', '#last_name_error');
-        validate.input('#address', '#address_error');
-        validate.input('#order_placed', '#order_placed_error');
-        validate.input('#datetime', '#datetime_error');
-        validate.input('#celebration_date', 'celebration_date_error');
-        validate.input('textarea#order', '#order_error');
-        validate.input('#design', '#design_error');
       }
     }
+    e.preventDefault();
   });
 });
 
@@ -342,7 +274,7 @@ function checkExisting()
     $("#phone").val("");
     $("#email").prop("disabled", true);
     $("#email").val("");
-    $add_existing_check = true;
+    return true;
   } else {
     $("#first_name").prop("disabled", false);
     $("#last_name").prop("disabled", false);
@@ -350,7 +282,7 @@ function checkExisting()
     $("#postcode").prop("disabled", false);
     $("#phone").prop("disabled", false);
     $("#email").prop("disabled", false);
-    $add_existing_check = false;
+    return false;
   }
 }
 
@@ -366,18 +298,18 @@ var validate = {
       $email.removeClass("has-success");
       $email.addClass("has-error");
       $email_error.slideUp("fast");
-      $email_check = false;
+      return false;
     } else if (regex.test(email)){
       $email.removeClass("has-error");
       $email.addClass("has-success");
       $email_error.slideUp("fast");
-      $email_check = true;
+      return true;
     } else {
       $email_error.html("Please enter a valid email");
       $email.removeClass("has-success");
       $email.addClass("has-error");
       $email_error.slideDown("fast");
-      $email_check = false;
+      return false;
     }
   },
   password: function() {
@@ -390,18 +322,18 @@ var validate = {
       $password.removeClass("has-success");
       $password.addClass("has-error");
       $password_error.slideDown("fast");
-      $password_check = false;
+      return false;
     } else if (password.length < 5) {
       $password_error.html("Password must be at least 5 characters");
       $password.removeClass("has-success");
       $password.addClass("has-error");
       $password_error.slideDown("fast");
-      $password_check = false;
+      return false;
     } else {
       $password.removeClass("has-error");
       $password.addClass("has-success");
       $password_error.slideUp("fast");
-      $password_check = true;
+      return true;
     }
   },
   password2: function() {
@@ -415,18 +347,18 @@ var validate = {
       $password2.removeClass("has-error");
       $password2.addClass("has-success");
       $password2_error.slideDown("fast");
-      $password2_check = false;
+      return false;
     } else if (password === password2) {
       $password2.removeClass("has-error");
       $password2.addClass("has-success");
       $password2_error.slideUp("fast");
-      $password2_check = true;
+      return true;
     } else {
       $password2_error.html("Passwords do not match");
       $password2.removeClass("has-success");
       $password2.addClass("has-error");
       $password2_error.slideDown("fast");
-      $password2_check = false;
+      return false;
     }
   },
   username: function() {
@@ -439,18 +371,18 @@ var validate = {
       $username.removeClass("has-success");
       $username.addClass("has-error");
       $username_error.slideDown("fast");
-      $username_check = false;
+      return false;
     } else if (username.length < 3) {
       $username_error.html("Username must be at least 3 characters");
       $username.removeClass("has-success");
       $username.addClass("has-error");
       $username_error.slideDown("fast");
-      $username_check = false;
+      return false;
     } else {
       $username.removeClass("has-error");
       $username.addClass("has-success");
       $username_error.slideUp("fast");
-      $username_check = true;
+      return true;
     }
   },
   input: function(inputParam, error) {
@@ -463,12 +395,12 @@ var validate = {
       input.removeClass("has-success");
       input.addClass("has-error");
       $error.slideDown("fast");
-      $input_check = false;
+      return false;
     } else {
       input.removeClass("has-error");
       input.addClass("has-success");
       $error.slideUp("fast");
-      $input_check = true;
+      return true;
     }
   },
   postcode: function() {
@@ -482,18 +414,18 @@ var validate = {
       $postcode.removeClass("has-success");
       $postcode.addClass("has-error");
       $postcode_error.slideDown("fast");
-      $postcode_check = false;
+      return false;
     } else if (regex.test(postcode)) {
       $postcode.removeClass("has-error");
       $postcode.addClass("has-success");
       $postcode_error.slideUp("fast");
-      $postcode_check = true;
+      return true;
     } else {
       $postcode_error.html("Please enter a valid postcode");
       $postcode.removeClass("has-success");
       $postcode.addClass("has-error");
       $postcode_error.slideDown("fast");
-      $postcode_check = false;
+      return false;
     }
   },
   phone: function() {
@@ -507,18 +439,18 @@ var validate = {
       $phone.removeClass("has-success");
       $phone.addClass("has-error");
       $phone_error.slideDown("fast");
-      $phone_check = false;
+      return false;
     } else if (regex.test(phone)) {
       $phone.removeClass("has-error");
       $phone.addClass("has-success");
       $phone_error.slideUp("fast");
-      $phone_check = true;
+      return true;
     } else {
       $phone_error.html("Please enter a valid phone number");
       $phone.removeClass("has-success");
       $phone.addClass("has-error");
       $phone_error.slideDown("fast");
-      $phone_check = false;
+      return false;
     }
   },
   date: function() {
@@ -532,12 +464,12 @@ var validate = {
       $date_error.html("Please select a date").slideDown("fast");
       $group.removeClass("has-success");
       $group.addClass("has-error");
-      $date_check = false;
+      return false;
     } else {
       $date_error.slideUp("fast");
       $group.addClass("has-success");
       $group.removeClass("has-error");
-      $date_check = true;
+      return true;
     }
   },
   datetime: function() {
@@ -548,7 +480,7 @@ var validate = {
         datetime_minute   = $("select[name=datetime_minute]").val(),
         $group            = $("select[name=datetime_day]").closest("div.form-group"),
         $group2           = $("select[name=datetime_hour]").closest("div.form-group"),
-        $datetime_error       = $("#datetime_error")
+        $datetime_error   = $("#datetime_error")
 
     if (datetime_day === "Day" || datetime_month === "Month" || datetime_year === "Year" || datetime_hour === "Hour" || datetime_minute === "Minute") {
       $datetime_error.html("Please select a date and time").slideDown("fast");
@@ -556,14 +488,40 @@ var validate = {
       $group.addClass("has-error");
       $group2.removeClass("has-success");
       $group2.addClass("has-error");
-      $datetime_check = false;
+      return false;
     } else {
       $datetime_error.slideUp("fast");
       $group.addClass("has-success");
       $group.removeClass("has-error");
       $group2.addClass("has-success");
       $group2.removeClass("has-error");
-      $datetime_check = true;
+      return true;
+    }
+  },
+  placeddatetime: function() {
+    var placed_day      = $("select[name=placed_day]").val(),
+        placed_month    = $("select[name=placed_month]").val(),
+        placed_year     = $("select[name=placed_year]").val(),
+        placed_hour     = $("select[name=placed_hour]").val(),
+        placed_minute   = $("select[name=placed_minute]").val(),
+        $group          = $("select[name=placed_day]").closest("div.form-group"),
+        $group2         = $("select[name=placed_hour]").closest("div.form-group"),
+        $placed_error   = $("#placed_error")
+
+    if (placed_day === "Day" || placed_month === "Month" || placed_year === "Year" || placed_hour === "Hour" || placed_minute === "Minute") {
+      $placed_error.html("Please select a date and time").slideDown("fast");
+      $group.removeClass("has-success");
+      $group.addClass("has-error");
+      $group2.removeClass("has-success");
+      $group2.addClass("has-error");
+      return false;
+    } else {
+      $placed_error.slideUp("fast");
+      $group.addClass("has-success");
+      $group.removeClass("has-error");
+      $group2.addClass("has-success");
+      $group2.removeClass("has-error");
+      return true;
     }
   }
 }
@@ -594,6 +552,8 @@ function calculateOrderTotal()
       if (object.status === "success") {
         $total.html(parseInt(object.price) + parseInt($delivery_charge));
         $base.html(parseInt(object.price));
+        $("#cake-size-review").html($cake_size);
+        $("#cake-type-review").html($cake_type);
       }
     }
   });
@@ -624,9 +584,10 @@ function calculateOrderTotal()
   }, 1000);
 }
 
-function calculateDeliveryCharge(original_html)
+function calculateDeliveryCharge()
 {
-  var delivery_charge;
+  var delivery_charge,
+      original_html = $("#delivery-charge-html");
 
   if (original_html.html() === "" || original_html.html() === "0") {
     var $delivery_charge = original_html;

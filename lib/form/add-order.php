@@ -157,8 +157,18 @@
 
     $db->runQuery($query, $query_params);
     $row = $db->fetch();
-
     $base_price = $row['cake_price'];
+
+    // String together the celebration date
+    $celebration_date = $_POST['date_year'] . '/' . $_POST['date_month'] . '/' . $_POST['date_day'];
+
+    // String together the datetime
+    $datetime = $_POST['datetime_year'] . '/' . $_POST['datetime_month'] . '/' . $_POST['datetime_day'] . ' ' .
+                $_POST['datetime_hour'] . ':' . $_POST['datetime_minute'] . ':00';
+
+    // String together the order placed
+    $order_placed = $_POST['placed_year'] . '/' . $_POST['placed_month'] . '/' . $_POST['placed_day'] . ' ' .
+                    $_POST['placed_hour'] . ':' . $_POST['placed_minute'] . ':00';
 
     // Insert the new order into the orders table
     $query = "
@@ -201,14 +211,13 @@
     {
       $customer_id = $_POST['existing_id'];
     }
-    $order_placed     = date('Y-m-d H:i:s');
     $status         = "Processing";
     $cake_id        = $cake_row['cake_id'];
 
     $query_params = array(
       ':customer_id'      => $customer_id,
       ':order_number'     => $order_number,
-      ':celebration_date' => $_POST['celebration_date'],
+      ':celebration_date' => $celebration_date,
       ':comments'         => $_POST['comments'],
       ':decoration'       => $_POST['decoration'],
       ':filling'          => $_POST['filling'],
@@ -217,7 +226,7 @@
       ':order_placed'     => $order_placed,
       ':delivery_type'    => $_POST['delivery'],
       ':status'           => $status,
-      ':datetime'         => $_POST['datetime']
+      ':datetime'         => $datetime
     );
 
     $db->runQuery($query, $query_params);
@@ -250,7 +259,7 @@
 
       $query_params = array(
         ':order_number'     => $order_number,
-        ':miles'            => $miles,
+        ':miles'            => $delivery->getDistance(),
         ':delivery_charge'  => $delivery->getDeliveryCharge()
       );
 

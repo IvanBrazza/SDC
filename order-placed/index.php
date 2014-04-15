@@ -145,76 +145,89 @@
 ?>
 <?php include("../lib/header.php"); ?>
   <?php if (!empty($_GET['failed']) and $_GET['failed'] == "true") : ?>
-    <h3>Your order has been cancelled.</h3>
-  <?php else : ?>
-    <h2>Thank You</h2>
-    <p>Here's what you ordered:</p>
-    <?php if (!empty($row['image'])) : ?>
-      <div class="image-view">
-        <img src="<?php echo str_replace("/home/ivanrsfr/www/", "../", $row['image']); ?>" height="400px">
-        <div class="close">X</div>
+    <div class="row">
+      <div class="col-md-12">
+        <h3>Your order has been cancelled.</h3>
       </div>
-    <?php endif; ?>
-    <table id="single_order">
-      <tr>
-        <th>Required Date</th>
-        <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?> </td>
-      </tr>
-      <tr>
-        <th>Date Of Celebration</th>
-        <td><?php echo $row['celebration_date']; ?></td>
-      </tr>
-      <tr>
-        <th>Comments</th>
-        <td><?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?></td>
-      </tr>
-      <tr>
-        <th>Filling</th>
-        <td><?php echo htmlentities($row['filling_name'], ENT_QUOTES, 'UTF-8')." - &pound;".htmlentities($row['filling_price'], ENT_QUOTES, 'UTF-8'); ?></td>
-      </tr>
-      <tr>
-        <th>Decoration</th>
-        <td><?php echo htmlentities($row['decor_name'], ENT_QUOTES, 'UTF-8')." - &pound;".htmlentities($row['decor_price'], ENT_QUOTES, 'UTF-8'); ?></td>
-      </tr>
-      <tr>
-        <th>Cake Size</th>
-        <td><?php echo htmlentities($row['cake_size'], ENT_QUOTES, 'UTF-8'); ?></td>
-      </tr>
-      <tr>
-        <th>Cake Type</th>
-        <td><?php echo htmlentities($row['cake_type'], ENT_QUOTES, 'UTF-8'); ?></td>
-      </tr>
-      <?php if (!empty($row['image'])) : ?>
-        <tr>
-          <th>Image</th>
-          <td><a href="javascript:" id="image-link">Click here to view image</a></td>
-        </tr>
-      <?php endif; ?>
-      <tr>
-        <th>Base Price</th>
-        <td>&pound;<?php echo $row['base_price']; ?></td>
-      </tr>
-      <?php if ($row['delivery_type'] == "Deliver To Address") : ?>
-        <tr>
-          <th>Delivery Charge</th>
-          <td>&pound;<?php echo $row['delivery_charge']; ?></td>
-        </tr>
-      <?php endif; ?>
-      <tr>
-        <th>Delivery Type</th>
-        <td>
-          <?php echo htmlentities($row['delivery_type'], ENT_QUOTES, 'UTF-8'); ?>
-          <?php if ($row['delivery_type'] === "Collection") : ?>
-            <a href="../get-directions/">Get Directions</a>
+    </div>
+  <?php else : ?>
+    <div class="row">
+      <div class="col-md-12">
+        <h2>Thank You</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <p>Here's what you ordered:</p>
+        <?php if (!empty($row['image'])) : ?>
+          <div class="image-view">
+            <img src="<?php echo str_replace("/home/ivanrsfr/www/", "../", $row['image']); ?>" height="400px">
+            <div class="close">X</div>
+          </div>
+        <?php endif; ?>
+        <table id="single_order" class="table table-condensed">
+          <tr>
+            <th>Required Date</th>
+            <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?> </td>
+          </tr>
+          <tr>
+            <th>Date Of Celebration</th>
+            <td><?php echo $row['celebration_date']; ?></td>
+          </tr>
+          <tr>
+            <th>Comments</th>
+            <td><?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?></td>
+          </tr>
+          <tr>
+            <th>Filling</th>
+            <td><?php echo htmlentities($row['filling_name'], ENT_QUOTES, 'UTF-8')." - &pound;".htmlentities($row['filling_price'], ENT_QUOTES, 'UTF-8'); ?></td>
+          </tr>
+          <tr>
+            <th>Decoration</th>
+            <td><?php echo htmlentities($row['decor_name'], ENT_QUOTES, 'UTF-8')." - &pound;".htmlentities($row['decor_price'], ENT_QUOTES, 'UTF-8'); ?></td>
+          </tr>
+          <tr>
+            <th>Cake Size</th>
+            <td><?php echo htmlentities($row['cake_size'], ENT_QUOTES, 'UTF-8'); ?></td>
+          </tr>
+          <tr>
+            <th>Cake Type</th>
+            <td><?php echo htmlentities($row['cake_type'], ENT_QUOTES, 'UTF-8'); ?></td>
+          </tr>
+          <?php if (!empty($row['image'])) : ?>
+            <tr>
+              <th>Image</th>
+              <td><a href="javascript:" id="image-link">Click here to view image</a></td>
+            </tr>
           <?php endif; ?>
-        </td>
-      </tr>
-      <tr>
-        <th>Grand Total</th>
-        <td>&pound;<?php echo $row['base_price']+$deliveryrow['delivery_charge']+$row['filling_price']+$row['decor_price']; ?></td>
-      </tr>
-    </table>
-    <p>A copy of your order has been emailed to you. Any further updates to your order will be sent to you by email</p>
-    <a href="../print/?order=<?php echo $_GET['order']; ?>" target="_blank">Click here to print your order</a>
+          <tr>
+            <th>Base Price</th>
+            <td>&pound;<?php echo $row['base_price']; ?></td>
+          </tr>
+          <?php if ($row['delivery_type'] == "Deliver To Address") : ?>
+            <tr>
+              <th>Delivery Charge</th>
+              <td>&pound;<?php echo $row['delivery_charge']; ?></td>
+            </tr>
+          <?php endif; ?>
+          <tr>
+            <th>Delivery Type</th>
+            <td>
+              <?php echo htmlentities($row['delivery_type'], ENT_QUOTES, 'UTF-8'); ?>
+              <?php if ($row['delivery_type'] === "Collection") : ?>
+                <a href="../get-directions/">Get Directions</a>
+              <?php endif; ?>
+            </td>
+          </tr>
+          <tr>
+            <th>Grand Total</th>
+            <td>&pound;<?php echo $row['base_price']+$deliveryrow['delivery_charge']+$row['filling_price']+$row['decor_price']; ?></td>
+          </tr>
+        </table>
+        <p>A copy of your order has been emailed to you. Any further updates to your order will be sent to you by email</p>
+        <a href="../print/?order=<?php echo $_GET['order']; ?>" target="_blank" class="btn btn-info"><span class="glyphicon glyphicon-print"></span>   Print your order</a>
+      </div>
+      <div class="col-md-6"></div>
+    </div>
   <?php endif; ?>
 <?php include("../lib/footer.php"); ?>

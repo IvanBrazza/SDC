@@ -43,6 +43,9 @@
   <?php if (strpos($_SERVER['REQUEST_URI'], "place-an-order") !== false) : ?>
     <script src="../js/place-an-order.js"></script>
   <?php endif; ?>
+  <?php if (strpos($_SERVER['REQUEST_URI'], "add-order") !== false) : ?>
+    <script src="../js/add-order.js"></script>
+  <?php endif; ?>
   <script src="../js/main.js"></script>
   <script src="../js/browser.js"></script>
 </body>

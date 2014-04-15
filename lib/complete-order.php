@@ -6,6 +6,12 @@
 
   if (!empty($_POST))
   {
+    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
+    {
+      echo "Invalid token.";
+      die();
+    }
+
     $query = "
       UPDATE
         orders
@@ -48,7 +54,7 @@
     $email->requestTestimonial($row['order_number']);
     $email->send();
 
-    header("Location: ../all-orders/?completed=success");
+    echo "success";
     die();
   }
   else

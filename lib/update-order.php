@@ -14,6 +14,15 @@
   // the delivery charge based on the form data
   if (!empty($_POST['status']))
   {
+    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
+    {
+      $response = array(
+        "status" => "Invalid token"
+      );
+      echo json_encode($response);
+      die();
+    }
+
     $query = "
       UPDATE
         orders
@@ -37,6 +46,15 @@
   }
   else if (!empty($_POST['base_price']))
   {
+    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
+    {
+      $response = array(
+        "status" => "Invalid token"
+      );
+      echo json_encode($response);
+      die();
+    }
+
     $query = "
       UPDATE
         orders
@@ -55,6 +73,15 @@
   }
   else if (!empty($_POST['delivery_charge']))
   {
+    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
+    {
+      $response = array(
+        "status" => "Invalid token"
+      );
+      echo json_encode($response);
+      die();
+    }
+
     $query = "
       UPDATE
         delivery
@@ -71,6 +98,28 @@
     
     $db->runQuery($query, $query_params);
   }
-  header("Location: ../all-orders/?order=" . $_POST['order_number']);
+
+  $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
+
+  $response = array(
+    "status"  => "success",
+    "token"   => $_SESSION['token'],
+    "message" => ""
+  );
+
+  if ($_POST['status'])
+  {
+    $response['message'] = "Order status updated to " . $_POST['status'];
+  }
+  else if ($_POST['base_price'])
+  {
+    $response['message'] = "Base price updated to &pound;" . $_POST['base_price'];
+  }
+  else if ($_POST['delivery_charge'])
+  {
+    $response['message'] = "Delivery charge updated to &pound;" . $_POST['delivery_charge'];
+  }
+
+  echo json_encode($response);
   die();
 ?>

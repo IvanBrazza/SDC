@@ -196,8 +196,7 @@ input.invalid, textarea.invalid {
   }
 
 .or {
-  margin-left:        auto;
-  margin-right:       auto;
+  margin:             10px auto;
   display:            table;
   font-weight:        bold;
   font-style:         italic;

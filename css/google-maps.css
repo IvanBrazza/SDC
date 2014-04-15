@@ -23,21 +23,20 @@
   border-bottom:      1px solid silver;
   }
 
+.adp table {
+  width:              100%;
+  }
+
 .adp-placemark {
   border:             1px solid silver!important;
   }
 
 #directions-panel {
   height:             400px;
-  float:              right;
-  width:              30%;
   overflow:           auto;
   padding-right:      4px;
-  margin-top:         14px;
   }
 
 #map-canvas {
   height:             400px;
-  margin-top:         30px;
-  margin-right:       32%;
   }
