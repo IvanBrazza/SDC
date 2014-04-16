@@ -64,7 +64,7 @@
         </div>
       </div>
       <div id="password-error" class="validate-error"></div>
-      <a href="../forgot-password" class="forgot-password">Forgot Password</a>
+      <a href="../forgot-password" class="btn btn-info btn-xs">Forgot Password?</a>
       <br /><br />
       <?php if (!empty($_GET['redirect'])) : ?>
         <input type="hidden" value="<?php echo $_GET['redirect']; ?>" name="redirect">

@@ -81,16 +81,16 @@ $(document).ready(function() {
                        .removeClass("has-error")
                        .addClass("has-success");
             $("#error_message").hide();
-            $("#success_message").html("Password reset. Please check your emails for a new password.");
+            $("#success_message").html("<span class='glyphicon glyphicon-ok'></span>   Password reset. Please check your emails for a new password.").show();
           } else {
             if (object.status === 'Email doesn\'t exist.') {
               $("#email").closest(".form-group")
                          .removeClass("has-success")
                          .addClass("has-error");
-              $("#error_message").html(object.status);
+              $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.status).show();
               $("#token").val(object.token);
             } else {
-              $("#error_message").html(object.status);
+              $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.status).show();
               $("#token").val(object.token);
             }
           }

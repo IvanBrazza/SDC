@@ -12,29 +12,31 @@
   $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 ?>
 <?php include("../lib/header.php"); ?>
-  <?php if ($_POST) : ?>
-    <p>We've sent you a new password to your email address <?php echo $_POST['email']; ?>.</p>
-  <?php else : ?>
-    <div class="form">
-      <h1>Forgot Password</h1>
-      <p>Enter the email you registered with below and we'll send you an email containing your new password.</p>
-      <div class="error">
-        <span class="error_message" id="error_message">
-          <?php echo $display_message; ?>
-        </span>
-      </div>
-      <div class="success">
-        <span class="success_message" id="success_message"></span>
-      </div>
-      <form action="index.php" method="POST" id="forgot-password-form">
-        <div>
-          <label for="email">EMail</label>
-          <input type="text" name="email" id="email" onchange="validate.email()">
+<div class="row">
+  <div class="col-md-12">
+    <h1>Forgot Password</h1>
+    <p>Enter the email you registered with below and we'll send you an email containing your new password.</p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div class="alert alert-danger" id="error_message"></div>
+    <div class="alert alert-success" id="success_message"></div>
+    <form id="forgot-password-form" class="form-horizontal" role="form">
+      <div class="form-group">
+        <label for="email" class="col-sm-2 control-label">EMail</label>
+        <div class="col-sm-3"></div>
+        <div class="col-md-7 input-group">
+          <input type="text" name="email" class="form-control" id="email" onchange="validate.email()">
+          <span class="input-group-addon">@</span>
         </div>
-        <div id="email-error" class="validate-error"></div>
-        <input type="hidden" value="<?php echo $_SESSION['token']; ?>" id="token" name="token">
-        <input type="submit" value="Reset Password" name="submit">
-      </form>
-    </div>
-  <?php endif; ?>
+      </div>
+      <div id="email-error" class="validate-error pull-right"></div>
+      <input type="hidden" value="<?php echo $_SESSION['token']; ?>" id="token" name="token">
+      <button type="submit" class="btn btn-default">Reset Password</button>
+    </form>
+  </div>
+  <div class="col-md-3"></div>
+</div>
 <?php include("../lib/footer.php"); ?>
