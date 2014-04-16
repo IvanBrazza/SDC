@@ -28,6 +28,7 @@
   <?php if (strpos($_SERVER['REQUEST_URI'], "gallery") !== false) : ?>
     <script src="../js/jquery/jquery.wookmark.min.js"></script>
     <script src="../js/jquery/imagesloaded.min.js"></script>
+    <script src="../js/lightbox.min.js"></script>
     <script src="../js/gallery.js"></script>
   <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "testimonials") !== false) : ?>

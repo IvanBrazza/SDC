@@ -14,6 +14,7 @@
   <link href="../css/main.css" rel="stylesheet">
   <?php if (strpos($_SERVER['REQUEST_URI'], "gallery") !== false) : ?>
     <link href="../css/gallery.css" rel="stylesheet">
+    <link href="../css/lightbox.css" rel="stylesheet">
   <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "get-directions") !== false) : ?>
     <link href="../css/google-maps.css" rel="stylesheet">

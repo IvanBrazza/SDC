@@ -7,20 +7,10 @@ $(document).ready(function() {
       $cupcakes    = $("#cupcakes-tiles li"),
       $other       = $("#other-tiles li")
 
-  // For each thumbnail, give it a tooltip containing
-  // the larger version of the img thumbnail and set
-  // the width of the tootltip to the width of the img
-  $(".thumb").tooltip({
-    open: function(event, ui) {
-      ui.tooltip.css("max-width", $(ui.tooltip).find("img").width()+21 + "px");
-    },
-    position: { my: "left+15 center", at: "right center" },
-    track: true
-  })
-  .each(function() {
-    $content = "<img src='" + $(this).attr("src") + "'>";
-    $(this).tooltip("option", "content", $content);
-  });
+  // Let the users know they can click an image
+  setTimeout(function() {
+    $(".alert").slideDown();
+  }, 5000);
 
   // When the images for the celebration section are
   // loaded, setup the masonry layout, hide the spinner,
