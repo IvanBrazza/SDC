@@ -18,56 +18,55 @@
   // order details (GET)
   if (!empty($_POST))
   {
+    // Calculate old price
     $query = "
       SELECT
-        cake_id
+        a.base_price, a.delivery_type, a.difference,
+        b.filling_price,
+        c.decor_price
       FROM
-        cakes
+        orders a, fillings b, decorations c
       WHERE
-        cake_type = :cake_type
+        a.order_number = :order_number
       AND
-        cake_size = :cake_size
+        b.filling_id = a.filling_id
+      AND
+        c.decor_id = a.decor_id
     ";
 
     $query_params = array(
-      ':cake_type' => $_POST['cake_type'],
-      ':cake_size' => $_POST['cake_size']
+      ':order_number' => $_POST['order_number']
     );
 
     $db->runQuery($query, $query_params);
+    $row = $db->fetch();
 
-    $row      = $db->fetch();
-    $cake_id  = $row['cake_id'];
+    if ($row['delivery_type'] == "Deliver To Address")
+    {
+      $query = "
+        SELECT
+          delivery_charge
+        FROM
+          delivery
+        WHERE
+          order_number = :order_number
+      ";
 
-    $query = "
-      UPDATE
-        orders
-      SET
-        datetime          = :datetime,
-        celebration_date  = :celebration_date,
-        comments          = :comments,
-        filling           = :filling,
-        decoration        = :decoration,
-        cake_id           = :cake_id,
-        delivery_type     = :delivery_type,
-        base_price        = :base_price
-      WHERE
-        order_number = :order_number
-    ";
+      $query_params = array(
+        ':order_number' => $_POST['order_number']
+      );
 
-    $query_params = array(
-      ':datetime'         => $_POST['datetime'],
-      ':celebration_date' => $_POST['celebration_date'],
-      ':comments'         => $_POST['comments'],
-      ':filling'          => $_POST['filling'],
-      ':decoration'       => $_POST['decoration'],
-      ':cake_id'          => $cake_id,
-      ':delivery_type'    => $_POST['delivery'],
-      ':order_number'     => $_POST['order_number'],
-      ':base_price'       => $_POST['base-hidden']
-    );
+      $db->runQuery($query, $query_params);
+      $deliveryrow            = $db->fetch();
+      $row['delivery_charge'] = $deliveryrow['delivery_charge'];
+    }
+    else
+    {
+      $row['delivery_charge'] = 0;
+    }
 
-    $db->runQuery($query, $query_params);
+    $old_price      = $row['base_price'] + $row['filling_price'] + $row['decor_price'] + $row['delivery_charge'];
+    $old_difference = $row['difference'];
 
     // If the delivery type is deliver rather than collection,
     // check if there is already a row in the delivery table
@@ -97,6 +96,7 @@
       $delivery->setPostcode($_SESSION['user']['postcode']);
       $delivery->calculateDistance();
       $delivery->calculateDeliveryCharge();
+      $delivery_charge = $delivery->getDeliveryCharge();
 
       if ($row)
       {
@@ -112,7 +112,7 @@
 
         $query_params = array(
           ':miles'            => $miles,
-          ':delivery_charge'  => $delivery->getDeliveryCharge(),
+          ':delivery_charge'  => $delivery_charge,
           ':order_number'     => $_POST['order_number']
         );
       }
@@ -139,6 +139,87 @@
       
       $db->runQuery($query, $query_params);
     }
+    else
+    {
+      $delivery_charge = 0;
+    }
+
+    // Calculate base price and get cake id
+    $query = "
+      SELECT
+        a.cake_id, a.cake_price,
+        b.filling_price,
+        c.decor_price
+      FROM
+        cakes a, fillings b, decorations c
+      WHERE
+        a.cake_type = :cake_type
+      AND
+        a.cake_size = :cake_size
+      AND
+        b.filling_id = :filling_id
+      AND
+        c.decor_id = :decor_id
+    ";
+
+    $query_params = array(
+      ':cake_type'  => $_POST['cake_type'],
+      ':cake_size'  => $_POST['cake_size'],
+      ':filling_id' => $_POST['filling'],
+      ':decor_id'   => $_POST['decoration']
+    );
+
+    $db->runQuery($query, $query_params);
+
+    $row           = $db->fetch();
+    $cake_id       = $row['cake_id'];
+    $base_price    = $row['cake_price'];
+    $filling_price = $row['filling_price'];
+    $decor_price   = $row['decor_price'];
+
+    // String together the celebration date
+    $celebration_date = $_POST['date_year'] . '/' . $_POST['date_month'] . '/' . $_POST['date_day'];
+
+    // String together the datetime
+    $datetime = $_POST['datetime_year'] . '/' . $_POST['datetime_month'] . '/' . $_POST['datetime_day'] . ' ' .
+                $_POST['datetime_hour'] . ':' . $_POST['datetime_minute'] . ':00';
+
+    // Calculate new price and the difference
+    $new_price      = $base_price + $filling_price + $decor_price + $delivery_charge;
+    $new_difference = $old_price - $new_price;
+    $difference     = $old_difference + $new_difference;
+
+    $query = "
+      UPDATE
+        orders
+      SET
+        datetime          = :datetime,
+        celebration_date  = :celebration_date,
+        comments          = :comments,
+        filling_id        = :filling_id,
+        decor_id          = :decor_id,
+        cake_id           = :cake_id,
+        delivery_type     = :delivery_type,
+        base_price        = :base_price,
+        difference        = :difference
+      WHERE
+        order_number = :order_number
+    ";
+
+    $query_params = array(
+      ':datetime'         => $datetime,
+      ':celebration_date' => $celebration_date,
+      ':comments'         => $_POST['comments'],
+      ':filling_id'       => $_POST['filling'],
+      ':decor_id'         => $_POST['decoration'],
+      ':cake_id'          => $cake_id,
+      ':delivery_type'    => $_POST['delivery'],
+      ':order_number'     => $_POST['order_number'],
+      ':base_price'       => $base_price,
+      ':difference'       => $difference
+    );
+
+    $db->runQuery($query, $query_params);
 
     // Return back to order details after the update
     header("Location: ../your-orders/?order=" . $_POST['order_number']);
@@ -166,41 +247,22 @@
   
     $row = $db->fetch();
     
-    // If the order is not from the logged in customer, die
-    if ($row['customer_id'] != $_SESSION['user']['customer_id'])
+    // If the order is not from the logged in customer,
+    // or the order is completed, die.
+    if ($row['customer_id'] != $_SESSION['user']['customer_id'] or $row['completed'] === "1")
     {
       header("Location: ../home");
       die();
     }
 
-    // If the order is completed, die. You can't edit a completed
-    // order (is that not obvious?)
-    if ($row['completed'] === "1")
-    {
-      header("Location: ../home");
-      die();
-    }
-
-    // Check if we need to pull up delivery details
-    if ($row['delivery_type'] === "Deliver To Address")
-    {
-      $query = "
-        SELECT
-          *
-        FROM
-          delivery
-        WHERE
-          order_number = :order_number
-      ";
-
-      $query_params = array(
-        ':order_number' => $_GET['order']
-      );
-
-      $db->runQuery($query, $query_params);
-
-      $deliveryrow = $db->fetch();
-    }
+    $date_year       = substr($row['celebration_date'], 0, 4);
+    $date_month      = substr($row['celebration_date'], 5, 2);
+    $date_day        = substr($row['celebration_date'], 8, 9);
+    $datetime_year   = substr($row['datetime'], 0, 4);
+    $datetime_month  = substr($row['datetime'], 5, 2);
+    $datetime_day    = substr($row['datetime'], 8, 2);
+    $datetime_hour   = substr($row['datetime'], 11, 2);
+    $datetime_minute = substr($row['datetime'], 14, 2);
   }
   else
   {
@@ -210,105 +272,345 @@
 ?>
 
 <?php include("../lib/header.php"); ?>
-  <script>
-    var $origins = <?php echo json_encode(str_replace(" ", "+", $_SESSION['user']['address']) . "," . str_replace(" ", "+", $_SESSION['user']['postcode'])); ?>,
-        $destination = "95+Hoe+Lane,EN35SW";
-  </script>
-  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKeZpb8doUO3DbEqT3t-uRJYsbEPbD3AE&sensor=false"></script>
-  <h1>Editing Order <?php echo $row['order_number']; ?><?php if ($row['completed'] === "1") : ?> (completed)<?php endif; ?></h1>
-  <form action="index.php" method="POST">
-    <input type="hidden" name="order_number" value="<?php echo $row['order_number']; ?>" />
-    <table id="single_order">
-      <tr>
-        <th>Order Placed</th>
-        <td><?php echo $row['order_placed']; ?></td>
-      </tr>
-      <tr>
-        <th id="datetime-label">Date/Time For <?php if ($row['delivery_type'] === "Collection") : ?>Collection<?php else : ?>Delivery<?php endif; ?></th>
-        <td><input type="text" name="datetime" class="datetime" value="<?php echo $row['datetime']; ?>" id="datetime" onchange="validate.input('#datetime', '#datetime_error')"></td>
-      </tr>
-      <tr>
-        <th>Date Of Celebration</th>
-        <td><input type="text" name="celebration_date" value="<?php echo $row['celebration_date']; ?>" class="date" id="celebration_date" onchange="validate.input('#celebration_date', '#celebration_date_error')"></td>
-      </tr>
-      <tr>
-        <th>Status</th>
-        <td><?php echo $row['status']; ?></td>
-      </tr>
-      <tr>
-        <th>Comments</th>
-        <td><input type="text" name="comments" value="<?php echo htmlentities($row['comments'], ENT_QUOTES, 'UTF-8'); ?>" id="comments" onchange="validate.input('#comments', '#comments_error')"</td>
-      </tr>
-      <tr>
-        <th>Filling</th>
-        <td>
-          <select name="filling" id="filling">
-            <option value="None" <?php if ($row['filling'] === "None") : ?>selected="selected"<?php endif; ?>>None</option>
-            <option value="Butter Cream" <?php if ($row['filling'] === "Butter Cream") : ?>selected="selected"<?php endif; ?>>Butter Cream</option>
-            <option value="Chocolate" <?php if ($row['filling'] === "Chocolate") : ?>selected="selected"<?php endif; ?>>Chocolate</option>
-            <option value="Other" <?php if ($row['filling'] === "Other") : ?>selected="selected"<?php endif; ?>>Other (specify in comments)</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <th>Decoration</th>
-        <td>
-          <select name="decoration" id="decoration">
-            <option value="None" <?php if ($row['decoration'] === "None") : ?>selected="selected"<?php endif; ?>>None</option>
-            <option value="Royal Icing" <?php if ($row['decoration'] === "Royal Icing") : ?>selected="selected"<?php endif; ?>>Royal Icing</option>
-            <option value="Regal Icing" <?php if ($row['decoration'] === "Regal Icing") : ?>selected="selected"<?php endif; ?>>Regal Icing</option>
-            <option value="Butter Cream" <?php if ($row['decoration'] === "Butter Cream") : ?>selected="selected"<?php endif; ?>>Butter Cream</option>
-            <option value="Chocolate" <?php if ($row['decoration'] === "Chocolate") : ?>selected="selected"<?php endif; ?>>Chocolate</option>
-            <option value="Coconut" <?php if ($row['decoration'] === "Coconut") : ?>selected="selected"<?php endif; ?>>Coconut</option>
-            <option value="Other" <?php if ($row['decoration'] === "Other") : ?>selected="selected"<?php endif; ?>>Other (specify in comments)</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <th>Cake Size</th>
-        <td>
-          <select name="cake_size" id="cake_size">
-            <option value='6"' <?php if ($row['cake_size'] === '6"') : ?>selected="selected"<?php endif; ?>>6"</option>
-            <option value='8"' <?php if ($row['cake_size'] === '8"') : ?>selected="selected"<?php endif; ?>>8"</option>
-            <option value='10"' <?php if ($row['cake_size'] === '10"') : ?>selected="selected"<?php endif; ?>>10"</option>
-            <option value='12"' <?php if ($row['cake_size'] === '12"') : ?>selected="selected"<?php endif; ?>>12"</option>
-            <option value='14"' <?php if ($row['cake_size'] === '14"') : ?>selected="selected"<?php endif; ?>>14"</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <th>Cake Type</th>
-        <td>
-          <select name="cake_type" id="cake_type">
-            <option value="Sponge" <?php if ($row['cake_type'] === "Sponge") : ?>selected="selected"<?php endif; ?>>Sponge</option>
-            <option value="Marble" <?php if ($row['cake_type'] === "Marble") : ?>selected="selected"<?php endif; ?>>Marble</option>
-            <option value="Chocolate" <?php if ($row['cake_type'] === "Chocolate") : ?>selected="selected"<?php endif; ?>>Chocolate</option>
-            <option value="Fruit" <?php if ($row['cake_type'] === "Fruit") : ?>selected="selected"<?php endif; ?>>Fruit</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <th>Base Price</th>
-        <td>&pound;<span id="base-price"><?php echo $row['base_price']; ?></span><input type="hidden" name="base-hidden" id="base-hidden" value="<?php echo $row['base_price']; ?>" /></td>
-      </tr>
-      <tr id="delivery-charge">
-        <th>Delivery Charge</th>
-        <td><span id="delivery-charge-html"><?php echo "&pound;" .  $deliveryrow['delivery_charge']; ?></span><input type="hidden" name="delivery_charge" id="delivery_charge" value="<?php echo $deliveryrow['delivery_charge']; ?>" />
-      </tr>
-      <tr>
-        <th>Delivery Type</th>
-        <td>
-          <select name="delivery" id="delivery">
-            <option value="Collection" <?php if ($row['delivery_type'] === "Collection") : ?>selected="selected"<?php endif; ?>>Collection</option>
-            <option value="Deliver To Address" <?php if ($row['delivery_type'] === "Deliver To Address") : ?>selected="selected"<?php endif; ?>>Delivery</option>
-          </select>
-        </td>
-      </tr>
-      <tr>
-        <th>Grand Total</th>
-        <td><span id="total-html"><?php echo "&pound;"; echo $row['base_price']+$row['delivery_charge']; ?></span></td>
-      </tr>
-    </table>
-    <input type="submit" value="Update Order" />
-  </form>
+<div class="row">
+  <div class="col-md-12">
+    <h1>Editing Order <?php echo $row['order_number']; ?></h1>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <form action="index.php" method="POST" class="form-horizontal" id="edit-order-form" role="form">
+      <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              The Cake
+            </h4>
+          </div>
+          <div id="theCake" class="panel-collapse collapse in">
+            <div class="panel-body">
+              <div class="col-md-2"></div>
+              <div class="col-md-8">
+                <div class="form-group" id="date">
+                  <label for="celebration_date" class="col-sm-4 control-label">Date of celebration <a href="javascript:" class="help" title="The date of the event you are ordering a cake for.">?</a></label>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-2">
+                    <select name="date_year" class="form-control">
+                      <option>Year</option>
+                      <option value="<?php echo date("Y"); ?>" <?php if ($date_year == date("Y")) : ?>selected<?php endif; ?>><?php echo date("Y"); ?></option>
+                      <option value="<?php echo date("Y") + 1; ?>" <?php if ($date_year == date("Y") + 1) : ?>selected<?php endif; ?>><?php echo date("Y") + 1; ?></option>
+                    </select>
+                  </div>
+                  <div class="col-sm-3">
+                    <select name="date_month" class="form-control">
+                      <option>Month</option>
+                      <?php
+                        $months = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+                        for ($i = 00, $j = 1; $i < 12; $i++, $j++)
+                        {
+                          echo '<option value="' . sprintf("%02s", $j) . '" ';
+                          if (sprintf("%02s", $j) == $date_month)
+                          {
+                            echo "selected";
+                          }
+                          echo'>' . $months[$i] . '</option>';
+                        }
+                      ?>
+                    </select>
+                    <div id="date_error" class="validate-error"></div>
+                  </div>
+                  <div class="col-sm-2">
+                    <select name="date_day" class="form-control">
+                      <option>Day</option>
+                      <?php
+                        for ($i = 1; $i < 32; $i++)
+                        {
+                          echo '<option value="' . sprintf("%02s", $i) . '" ';
+                          if (sprintf("%02s", $i) == $date_day)
+                          {
+                            echo "selected";
+                          }
+                          echo '>' . sprintf("%02s", $i) . '</option>';
+                        }
+                      ?>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="filling" class="col-sm-4 control-label">Filling <a href="javascript:" class="help" title="The filling you want your cake to have. If you choose 'Other' please specify the filling in the comments box.">?</a></label>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-7">
+                    <select name="filling" id="filling" class="form-control">
+                      <option value="0" <?php if ($row['filling_id'] == 0) {echo "selected";} ?>>None</option>
+                      <option value="1" <?php if ($row['filling_id'] == 1) {echo "selected";} ?>>Butter Cream</option>
+                      <option value="2" <?php if ($row['filling_id'] == 2) {echo "selected";} ?>>Chocolate</option>
+                      <option value="3" <?php if ($row['filling_id'] == 3) {echo "selected";} ?>>Other (specify in comments)</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="decoration" class="col-sm-4 control-label">Decoration <a href="javascript:" class="help" title="What you want your cake to be decorated in. If you choose 'Other' please specify the decoration in the comments box.">?</a></label>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-7">
+                    <select name="decoration" id="decoration" class="form-control">
+                      <option value="0" <?php if ($row['decor_id'] == 0) {echo "selected";} ?>>None</option>
+                      <option value="1" <?php if ($row['decor_id'] == 1) {echo "selected";} ?>>Royal Icing</option>
+                      <option value="2" <?php if ($row['decor_id'] == 2) {echo "selected";} ?>>Regal Icing</option>
+                      <option value="3" <?php if ($row['decor_id'] == 3) {echo "selected";} ?>>Butter Cream</option>
+                      <option value="4" <?php if ($row['decor_id'] == 4) {echo "selected";} ?>>Chocolate</option>
+                      <option value="5" <?php if ($row['decor_id'] == 5) {echo "selected";} ?>>Coconut</option>
+                      <option value="6" <?php if ($row['decor_id'] == 6) {echo "selected";} ?>>Other (specify in comments)</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="cake_size" class="col-sm-4 control-label">Size of cake <a href="javascript:" class="help" title="The size you want the cake to be in inches.">?</a></label>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-7">
+                    <select name="cake_size" id="cake_size" class="form-control">
+                      <option value='6"' <?php if ($row['cake_size'] == '6"') {echo "selected";} ?>>6"</option>
+                      <option value='8"' <?php if ($row['cake_size'] == '8"') {echo "selected";} ?>>8"</option>
+                      <option value='10"' <?php if ($row['cake_size'] == '10"') {echo "selected";} ?>>10"</option>
+                      <option value='12"' <?php if ($row['cake_size'] == '12"') {echo "selected";} ?>>12"</option>
+                      <option value='14"' <?php if ($row['cake_size'] == '14"') {echo "selected";} ?>>14"</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="cake_type" class="col-sm-4 control-label">Type of cake</label>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-7">
+                    <select name="cake_type" id="cake_type" class="form-control">
+                      <option value="Sponge" <?php if ($row['cake_type'] == 'Sponge') {echo "selected";} ?>>Sponge</option>
+                      <option value="Marble" <?php if ($row['cake_type'] == 'Marble') {echo "selected";} ?>>Marble</option>
+                      <option value="Chocolate" <?php if ($row['cake_type'] == 'Chocolate') {echo "selected";} ?>>Chocolate</option>
+                      <option value="Fruit" <?php if ($row['cake_type'] == 'Fruit') {echo "selected";} ?>>Fruit</option>
+                    </select>
+                  </div>
+                </div>
+                <div id="comments" class="form-group">
+                  <label for="comments" class="col-sm-4 control-label">Comments <a href="javascript:" class="help" title="Any additional comments you may have to make or if you chose filling/decoration as 'Other'.">?</a></label>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-7">
+                    <textarea name="comments" id="comments" rows="6" cols="30" class="form-control" onchange="validate.input('textarea#comments', '#comments_error')"><?php echo $row['comments']; ?></textarea>
+                    <div id="comments_error" class="validate-error"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <button type="button" id="theCakeNext" class="btn btn-primary pull-right">
+                  Next   <span class="glyphicon glyphicon-arrow-right"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              Delivery
+            </h4>
+          </div>
+          <div id="deliveryPanel" class="panel-collapse collapse">
+            <div class="panel-body">
+              <div class="col-md-2">
+                <button type="button" id="deliveryPrevious" class="btn btn-primary">
+                  <span class="glyphicon glyphicon-arrow-left"></span>   Previous
+                </button>
+              </div>
+              <div class="col-md-8">
+                <div class="form-group">
+                  <label for="delivery" class="col-sm-4 control-label">Delivery options</label>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-7">
+                    <select name="delivery" id="delivery" class="form-control">
+                      <option value="Collection" <?php if ($row['delivery_type'] == 'Collection') {echo "selected";} ?>>Collection</option>
+                      <option value="Deliver To Address" <?php if ($row['delivery_type'] == 'Deliver To Address') {echo "selected";} ?>>Delivery</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group" id="datetime_date">
+                  <label for="datetime" id="datetime-label" class="col-sm-4 control-label">Date/time for collection</label>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-2">
+                    <select name="datetime_year" class="form-control">
+                      <option>Year</option>
+                      <option value="<?php echo date("Y"); ?>" <?php if ($datetime_year == date("Y")) {echo "selected";} ?>><?php echo date("Y"); ?></option>
+                      <option value="<?php echo date("Y") + 1; ?>" <?php if ($datetime_year == date("Y") + 1) {echo "selected";} ?>><?php echo date("Y") + 1; ?></option>
+                    </select>
+                  </div>
+                  <div class="col-sm-3">
+                    <select name="datetime_month" class="form-control">
+                      <option>Month</option>
+                      <?php
+                        $months = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+                        for ($i = 00, $j = 1; $i < 12; $i++, $j++)
+                        {
+                          echo '<option value="' . sprintf("%02s", $j) . '" ';
+                          if (sprintf("%02s", $j) == $datetime_month)
+                          {
+                            echo "selected";
+                          }
+                          echo'>' . $months[$i] . '</option>';
+                        }
+                      ?>
+                    </select>
+                  </div>
+                  <div class="col-sm-2">
+                    <select name="datetime_day" class="form-control">
+                      <option>Day</option>
+                      <?php
+                        for ($i = 1; $i < 32; $i++)
+                        {
+                          echo '<option value="' . sprintf("%02s", $i) . '" ';
+                          if (sprintf("%02s", $i) == $datetime_day)
+                          {
+                            echo "selected";
+                          }
+                          echo '>' . sprintf("%02s", $i) . '</option>';
+                        }
+                      ?>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group" id="datetime_time">
+                  <label class="col-sm-4 control-label"></label>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-3">
+                    <select name="datetime_hour" class="form-control">
+                      <option>Hour</option>
+                      <?php
+                        for ($i = 9; $i < 18; $i++)
+                        {
+                          echo '<option value="' . sprintf("%02s", $i) . '" ';
+                          if (sprintf("%02s", $i) == $datetime_hour)
+                          {
+                            echo "selected";
+                          }
+                          echo '>' . sprintf("%02s", $i) . '</option>';
+                        }
+                      ?>
+                    </select>
+                    <div id="datetime_error" class="validate-error"></div>
+                  </div>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-3">
+                    <select name="datetime_minute" class="form-control">
+                      <option>Minute</option>
+                      <?php
+                        for ($i = 0; $i < 60; $i++)
+                        {
+                          echo '<option value="' . sprintf("%02s", $i) . '" ';
+                          if (sprintf("%02s", $i) == $datetime_minute)
+                          {
+                            echo "selected";
+                          }
+                          echo '>' . sprintf("%02s", $i) . '</option>';
+                        }
+                      ?>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <button type="button" id="deliveryNext" class="btn btn-primary pull-right">
+                  Next   <span class="glyphicon glyphicon-arrow-right"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              Review
+            </h4>
+          </div>
+          <div id="review" class="panel-collapse collapse">
+            <div class="panel-body">
+              <div class="col-md-5">
+                <script>
+                  var $origins = <?php echo json_encode(str_replace(" ", "+", $_SESSION['user']['address']) . "," . str_replace(" ", "+", $_SESSION['user']['postcode'])); ?>,
+                      $destination = "95+Hoe+Lane,EN35SW";
+                </script>
+                <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKeZpb8doUO3DbEqT3t-uRJYsbEPbD3AE&sensor=false"></script>
+                <table class="table">
+                <tr>
+                  <th>Date of celebration:</th>
+                  <td>
+                    <span id="celebration-date-review"><?php echo $row['celebration_date']; ?></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Filling:</th>
+                  <td>
+                    <span id="filling-review"><?php echo $row['filling_name']; ?></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Decoration:</th>
+                  <td>
+                    <span id="decoration-review"><?php echo $row['decor_name']; ?></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Size of cake:</th>
+                  <td>
+                    <span id="cake-size-review"><?php echo $row['cake_size']; ?></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Type of cake:</th>
+                  <td>
+                    <span id="cake-type-review"><?php echo $row['cake_type']; ?></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Comments:</th>
+                  <td>
+                    <span id="comments-review"><?php echo $row['comments']; ?></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Delivery type:</th>
+                  <td>
+                    <span id="delivery-review"><?php echo $row['delivery_type']; ?></span>
+                  </td>
+                </tr>
+                <tr>
+                  <th>
+                    <span id="datetime-label-review">Date/time for collection:</span>
+                  </th>
+                  <td>
+                    <span id="datetime-review"><?php echo $row['datetime']; ?></span>
+                  </td>
+                </tr>
+                </table>
+              </div>
+              <div class="col-md-4">
+                <span id="delivery-charge"><b>Delivery: <div id="delivery-charge-html"></div></b></span>
+                <br />
+                <b>Base Price: &pound;<div id="base-price"></div></b>
+                <br />
+                <b>Grand Total: &pound;<div id="total-html"></div></b>
+                <br>
+                <b>Difference: &pound;<span id="difference-html"></span></b>
+                <br /><br />
+                <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
+                <input type="hidden" value="<?php echo $_GET['order']; ?>" name="order_number">
+                <input type="image" src="../img/paywithpp.gif" <?php if ($details_correct === false) : ?>disabled<?php endif; ?> />
+              </div>
+              <div class="col-md-3">
+                Something wrong? Want to make any changes?
+                <button type="button" id="reviewPrevious" class="btn btn-primary">
+                  <span class="glyphicon glyphicon-arrow-left"></span>   Go back
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 <?php include("../lib/footer.php"); ?>

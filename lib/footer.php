@@ -46,6 +46,11 @@
   <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "add-order") !== false) : ?>
     <script src="../js/add-order.js"></script>
+    <script src="../js/forms.js"></script>
+  <?php endif; ?>
+  <?php if (strpos($_SERVER['REQUEST_URI'], "edit-order") !== false) : ?>
+    <script src="../js/edit-order.js"></script>
+    <script src="../js/forms.js"></script>
   <?php endif; ?>
   <script src="../js/main.js"></script>
   <script src="../js/browser.js"></script>

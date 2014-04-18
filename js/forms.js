@@ -503,10 +503,8 @@ function calculateOrderTotal() {
 
 function calculateDeliveryCharge() {
   var delivery_charge;
-
-  if ($("select[name=delivery]").val() === "Deliver To Address") {
-    var $delivery_charge = original_html;
   
+  if ($("select[name=delivery]").val() === "Deliver To Address") {
     var service = new google.maps.DistanceMatrixService();
     service.getDistanceMatrix(
       {
@@ -539,7 +537,8 @@ function calculateDeliveryCharge() {
         recursiveDelivery(remaining_miles, 0, 0);
       }
 
-      $delivery_charge.html("&pound;" + delivery_charge);
+      $("#delivery-charge-html").html("&pound;" + delivery_charge);
+      $("#delivery-charge").show();
       calculateOrderTotal();
     }
   } else {

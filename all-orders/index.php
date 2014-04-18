@@ -370,6 +370,20 @@
         <span class="title">Phone: </span>
         <?php echo $row['phone']; ?><br />
         <br /><br />
+        <?php if ($row['difference'] != 0) : ?>
+          <div class="alert alert-danger" style="display:block;">
+            <span class="glyphicon glyphicon-warning-sign"></span>
+            There is a difference on this order of <strong>&pound;<?php echo $row['difference']; ?></strong>.
+            <?php if ($row['difference'] > 0) : ?>
+              This means that Star Dream Cakes owes <?php echo htmlentities($row['first_name'], ENT_QUOTES, 'UTF-8'); echo " "; echo htmlentities($row['last_name'], ENT_QUOTES, 'UTF-8'); ?> <b>&pound;<?php echo abs($row['difference']); ?></b>.
+            <?php elseif ($row['difference'] < 0) : ?>
+              This mean that <?php echo htmlentities($row['first_name'], ENT_QUOTES, 'UTF-8'); echo " "; echo htmlentities($row['last_name'], ENT_QUOTES, 'UTF-8'); ?> owes Star Dream Cakes <b>&pound;<?php echo abs($row['difference']); ?></b>.
+            <?php endif; ?>
+            <br>
+            A difference occurs if the customer has edited their order after it has been placed, and the total between the original
+            and the edited order has changed.
+          </div>
+        <?php endif; ?>
         <?php if (!empty($row['image'])) : ?>
           <div class="image-view">
             <img src="<?php echo $row['image']; ?>" height="400px">
