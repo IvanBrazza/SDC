@@ -87,12 +87,8 @@
 
     $base_price = $row['cake_price'];
 
-    // String together the celebration date
-    $celebration_date = $_POST['date_year'] . '/' . $_POST['date_month'] . '/' . $_POST['date_day'];
-
     // String together the datetime
-    $datetime = $_POST['datetime_year'] . '/' . $_POST['datetime_month'] . '/' . $_POST['datetime_day'] . ' ' .
-                $_POST['datetime_hour'] . ':' . $_POST['datetime_minute'] . ':00';
+    $datetime = $_POST['datetime_date'] . ' ' . $_POST['datetime_time'];
 
     // Insert the order into the DB
     $query = "
@@ -149,7 +145,7 @@
     $query_params = array(
       ':customer_id'        => $_SESSION['user']['customer_id'],
       ':order_number'       => $order_number,
-      ':celebration_date'   => $celebration_date,
+      ':celebration_date'   => $_POST['celebration_date'],
       ':comments'           => $_POST['comments'],
       ':decor_id'           => $_POST['decoration'],
       ':filling_id'         => $_POST['filling'],

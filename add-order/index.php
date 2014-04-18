@@ -137,66 +137,21 @@
                 <div class="form-group">
                   <label class="col-sm-4 control-label">Date/time order was placed</label>
                   <div class="col-sm-1"></div>
-                  <div class="col-sm-2">
-                    <select name="placed_year" class="form-control">
-                      <option>Year</option>
-                      <option value="<?php echo date("Y") - 1; ?>"><?php echo date("Y") - 1; ?></option>
-                      <option value="<?php echo date("Y"); ?>"><?php echo date("Y"); ?></option>
-                    </select>
-                  </div>
-                  <div class="col-sm-3">
-                    <select name="placed_month" class="form-control">
-                      <option>Month</option>
-                      <?php
-                        $months = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-                        for ($i = 00, $j = 1; $i < 12; $i++, $j++)
-                        {
-                          echo '<option value="' . sprintf("%02s", $j) . '">' . $months[$i] . '</option>';
-                        }
-                      ?>
-                    </select>
-                  </div>
-                  <div class="col-sm-2">
-                    <select name="placed_day" class="form-control">
-                      <option>Day</option>
-                      <?php
-                        for ($i = 1; $i < 32; $i++)
-                        {
-                          echo '<option value="' . sprintf("%02s", $i) . '">' . sprintf("%02s", $i) . '</option>';
-                        }
-                      ?>
-                    </select>
+                  <div class="col-sm-7">
+                    <input name="placed_date" class="form-control datepicker" placeholder="Date">
+                    <div id="placed_date_error" class="validate-error"></div>
+                    <input name="placed_time" class="form-control timepicker" placeholder="Time">
+                    <div id="placed_time_error" class="validate-error"></div>
                   </div>
                 </div>
-                <div class="form-group" id="datetime_time">
-                  <label class="col-sm-4 control-label"></label>
+                <div class="form-group">
+                  <label for="celebration_date" class="col-sm-4 control-label">Date of celebration</label>
                   <div class="col-sm-1"></div>
-                  <div class="col-sm-3">
-                    <select name="placed_hour" class="form-control">
-                      <option>Hour</option>
-                      <?php
-                        for ($i = 0; $i < 24; $i++)
-                        {
-                          echo '<option value="' . sprintf("%02s", $i) . '">' . sprintf("%02s", $i) . '</option>';
-                        }
-                      ?>
-                    </select>
-                    <div id="placed_error" class="validate-error"></div>
-                  </div>
-                  <div class="col-sm-1"></div>
-                  <div class="col-sm-3">
-                    <select name="placed_minute" class="form-control">
-                      <option>Minute</option>
-                      <?php
-                        for ($i = 0; $i < 60; $i++)
-                        {
-                          echo '<option value="' . sprintf("%02s", $i) . '">' . sprintf("%02s", $i) . '</option>';
-                        }
-                      ?>
-                    </select>
+                  <div class="col-sm-7">
+                    <input name="celebration_date" class="form-control datepicker" placeholder="Celebration Date">
+                    <div id="celebration_date_error" class="validate-error"></div>
                   </div>
                 </div>
-                <div id="order_placed_error" class="validate-error"></div>
                 <div class="form-group">
                   <label for="filling" class="col-sm-4 control-label">Filling</label>
                   <div class="col-sm-1"></div>
@@ -249,42 +204,6 @@
                     </select>
                   </div>
                 </div>
-                <div class="form-group" id="date">
-                  <label for="celebration_date" class="col-sm-4 control-label">Date of celebration</label>
-                  <div class="col-sm-1"></div>
-                  <div class="col-sm-2">
-                    <select name="date_year" class="form-control">
-                      <option>Year</option>
-                      <option value="<?php echo date("Y"); ?>"><?php echo date("Y"); ?></option>
-                      <option value="<?php echo date("Y") + 1; ?>"><?php echo date("Y") + 1; ?></option>
-                    </select>
-                  </div>
-                  <div class="col-sm-3">
-                    <select name="date_month" class="form-control">
-                      <option>Month</option>
-                      <?php
-                        $months = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-                        for ($i = 00, $j = 1; $i < 12; $i++, $j++)
-                        {
-                          echo '<option value="' . sprintf("%02s", $j) . '">' . $months[$i] . '</option>';
-                        }
-                      ?>
-                    </select>
-                    <div id="date_error" class="validate-error"></div>
-                  </div>
-                  <div class="col-sm-2">
-                    <select name="date_day" class="form-control">
-                      <option>Day</option>
-                      <?php
-                        for ($i = 1; $i < 32; $i++)
-                        {
-                          echo '<option value="' . sprintf("%02s", $i) . '">' . sprintf("%02s", $i) . '</option>';
-                        }
-                      ?>
-                    </select>
-                  </div>
-                </div>
-                <div id="celebration_date_error" class="validate-error"></div>
                 <div id="comments" class="form-group">
                   <label for="comments" class="col-sm-4 control-label">Comments</label>
                   <div class="col-sm-1"></div>
@@ -329,63 +248,11 @@
                 <div class="form-group" id="datetime_date">
                   <label for="datetime" id="datetime-label" class="col-sm-4 control-label">Date/time for collection</label>
                   <div class="col-sm-1"></div>
-                  <div class="col-sm-2">
-                    <select name="datetime_year" class="form-control">
-                      <option>Year</option>
-                      <option value="<?php echo date("Y"); ?>"><?php echo date("Y"); ?></option>
-                      <option value="<?php echo date("Y") + 1; ?>"><?php echo date("Y") + 1; ?></option>
-                    </select>
-                  </div>
-                  <div class="col-sm-3">
-                    <select name="datetime_month" class="form-control">
-                      <option>Month</option>
-                      <?php
-                        $months = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-                        for ($i = 00, $j = 1; $i < 12; $i++, $j++)
-                        {
-                          echo '<option value="' . sprintf("%02s", $j) . '">' . $months[$i] . '</option>';
-                        }
-                      ?>
-                    </select>
-                  </div>
-                  <div class="col-sm-2">
-                    <select name="datetime_day" class="form-control">
-                      <option>Day</option>
-                      <?php
-                        for ($i = 1; $i < 32; $i++)
-                        {
-                          echo '<option value="' . sprintf("%02s", $i) . '">' . sprintf("%02s", $i) . '</option>';
-                        }
-                      ?>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group" id="datetime_time">
-                  <label class="col-sm-4 control-label"></label>
-                  <div class="col-sm-1"></div>
-                  <div class="col-sm-3">
-                    <select name="datetime_hour" class="form-control">
-                      <option>Hour</option>
-                      <?php
-                        for ($i = 9; $i < 18; $i++)
-                        {
-                          echo '<option value="' . sprintf("%02s", $i) . '">' . sprintf("%02s", $i) . '</option>';
-                        }
-                      ?>
-                    </select>
-                    <div id="datetime_error" class="validate-error"></div>
-                  </div>
-                  <div class="col-sm-1"></div>
-                  <div class="col-sm-3">
-                    <select name="datetime_minute" class="form-control">
-                      <option>Minute</option>
-                      <?php
-                        for ($i = 0; $i < 60; $i++)
-                        {
-                          echo '<option value="' . sprintf("%02s", $i) . '">' . sprintf("%02s", $i) . '</option>';
-                        }
-                      ?>
-                    </select>
+                  <div class="col-sm-7">
+                    <input name="datetime_date" class="form-control datepicker" placeholder="Date">
+                    <div id="datetime_date_error" class="validate-error"></div>
+                    <input name="datetime_time" class="form-control timepicker" placeholder="Time">
+                    <div id="datetime_time_error" class="validate-error"></div>
                   </div>
                 </div>
                 <div id="datetime_error" class="validate-error"></div>
@@ -414,6 +281,10 @@
                 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKeZpb8doUO3DbEqT3t-uRJYsbEPbD3AE&sensor=false"></script>
                 <table class="table">
                   <caption>The Order</caption>
+                  <tr>
+                    <th>Date order placed</th>
+                    <td><span id="order-placed-review"></span></td>
+                  </tr>
                   <tr>
                     <th>Date of celebration</th>
                     <td><span id="celebration-date-review"></span></td>

@@ -63,6 +63,11 @@ iframe#ifileupload {
 .alert > .glyphicon {
   padding-right:      10px;
   }
+
+.datepicker, .timepicker {
+  cursor:             auto!important;
+  background-color:   #ffffff!important;
+  }
 /* End General */
 
 .orders {
@@ -181,7 +186,6 @@ input.invalid, textarea.invalid {
 
 .validate-error {
   font-size:          8pt;
-  margin-bottom:      8px;
   color:              red;
   display:            none;
   }

@@ -177,12 +177,8 @@
     $filling_price = $row['filling_price'];
     $decor_price   = $row['decor_price'];
 
-    // String together the celebration date
-    $celebration_date = $_POST['date_year'] . '/' . $_POST['date_month'] . '/' . $_POST['date_day'];
-
     // String together the datetime
-    $datetime = $_POST['datetime_year'] . '/' . $_POST['datetime_month'] . '/' . $_POST['datetime_day'] . ' ' .
-                $_POST['datetime_hour'] . ':' . $_POST['datetime_minute'] . ':00';
+    $datetime = $_POST['datetime_date'] . ' ' . $_POST['datetime_time'];
 
     // Calculate new price and the difference
     $new_price      = $base_price + $filling_price + $decor_price + $delivery_charge;
@@ -208,7 +204,7 @@
 
     $query_params = array(
       ':datetime'         => $datetime,
-      ':celebration_date' => $celebration_date,
+      ':celebration_date' => $_POST['celebration_date'],
       ':comments'         => $_POST['comments'],
       ':filling_id'       => $_POST['filling'],
       ':decor_id'         => $_POST['decoration'],
@@ -255,14 +251,8 @@
       die();
     }
 
-    $date_year       = substr($row['celebration_date'], 0, 4);
-    $date_month      = substr($row['celebration_date'], 5, 2);
-    $date_day        = substr($row['celebration_date'], 8, 9);
-    $datetime_year   = substr($row['datetime'], 0, 4);
-    $datetime_month  = substr($row['datetime'], 5, 2);
-    $datetime_day    = substr($row['datetime'], 8, 2);
-    $datetime_hour   = substr($row['datetime'], 11, 2);
-    $datetime_minute = substr($row['datetime'], 14, 2);
+    $datetime_date = substr($row['datetime'], 0, 10);
+    $datetime_time = substr($row['datetime'], 11);
   }
   else
   {
@@ -294,46 +284,9 @@
                 <div class="form-group" id="date">
                   <label for="celebration_date" class="col-sm-4 control-label">Date of celebration <a href="javascript:" class="help" title="The date of the event you are ordering a cake for.">?</a></label>
                   <div class="col-sm-1"></div>
-                  <div class="col-sm-2">
-                    <select name="date_year" class="form-control">
-                      <option>Year</option>
-                      <option value="<?php echo date("Y"); ?>" <?php if ($date_year == date("Y")) : ?>selected<?php endif; ?>><?php echo date("Y"); ?></option>
-                      <option value="<?php echo date("Y") + 1; ?>" <?php if ($date_year == date("Y") + 1) : ?>selected<?php endif; ?>><?php echo date("Y") + 1; ?></option>
-                    </select>
-                  </div>
-                  <div class="col-sm-3">
-                    <select name="date_month" class="form-control">
-                      <option>Month</option>
-                      <?php
-                        $months = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-                        for ($i = 00, $j = 1; $i < 12; $i++, $j++)
-                        {
-                          echo '<option value="' . sprintf("%02s", $j) . '" ';
-                          if (sprintf("%02s", $j) == $date_month)
-                          {
-                            echo "selected";
-                          }
-                          echo'>' . $months[$i] . '</option>';
-                        }
-                      ?>
-                    </select>
-                    <div id="date_error" class="validate-error"></div>
-                  </div>
-                  <div class="col-sm-2">
-                    <select name="date_day" class="form-control">
-                      <option>Day</option>
-                      <?php
-                        for ($i = 1; $i < 32; $i++)
-                        {
-                          echo '<option value="' . sprintf("%02s", $i) . '" ';
-                          if (sprintf("%02s", $i) == $date_day)
-                          {
-                            echo "selected";
-                          }
-                          echo '>' . sprintf("%02s", $i) . '</option>';
-                        }
-                      ?>
-                    </select>
+                  <div class="col-sm-7">
+                    <input name="celebration_date" class="form-control datepicker" placeholder="Date" data-value="<?php echo $row['celebration_date']; ?>">
+                    <div id="celebration_date_error" class="validate-error"></div>
                   </div>
                 </div>
                 <div class="form-group">
@@ -432,83 +385,11 @@
                 <div class="form-group" id="datetime_date">
                   <label for="datetime" id="datetime-label" class="col-sm-4 control-label">Date/time for collection</label>
                   <div class="col-sm-1"></div>
-                  <div class="col-sm-2">
-                    <select name="datetime_year" class="form-control">
-                      <option>Year</option>
-                      <option value="<?php echo date("Y"); ?>" <?php if ($datetime_year == date("Y")) {echo "selected";} ?>><?php echo date("Y"); ?></option>
-                      <option value="<?php echo date("Y") + 1; ?>" <?php if ($datetime_year == date("Y") + 1) {echo "selected";} ?>><?php echo date("Y") + 1; ?></option>
-                    </select>
-                  </div>
-                  <div class="col-sm-3">
-                    <select name="datetime_month" class="form-control">
-                      <option>Month</option>
-                      <?php
-                        $months = array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
-                        for ($i = 00, $j = 1; $i < 12; $i++, $j++)
-                        {
-                          echo '<option value="' . sprintf("%02s", $j) . '" ';
-                          if (sprintf("%02s", $j) == $datetime_month)
-                          {
-                            echo "selected";
-                          }
-                          echo'>' . $months[$i] . '</option>';
-                        }
-                      ?>
-                    </select>
-                  </div>
-                  <div class="col-sm-2">
-                    <select name="datetime_day" class="form-control">
-                      <option>Day</option>
-                      <?php
-                        for ($i = 1; $i < 32; $i++)
-                        {
-                          echo '<option value="' . sprintf("%02s", $i) . '" ';
-                          if (sprintf("%02s", $i) == $datetime_day)
-                          {
-                            echo "selected";
-                          }
-                          echo '>' . sprintf("%02s", $i) . '</option>';
-                        }
-                      ?>
-                    </select>
-                  </div>
-                </div>
-                <div class="form-group" id="datetime_time">
-                  <label class="col-sm-4 control-label"></label>
-                  <div class="col-sm-1"></div>
-                  <div class="col-sm-3">
-                    <select name="datetime_hour" class="form-control">
-                      <option>Hour</option>
-                      <?php
-                        for ($i = 9; $i < 18; $i++)
-                        {
-                          echo '<option value="' . sprintf("%02s", $i) . '" ';
-                          if (sprintf("%02s", $i) == $datetime_hour)
-                          {
-                            echo "selected";
-                          }
-                          echo '>' . sprintf("%02s", $i) . '</option>';
-                        }
-                      ?>
-                    </select>
-                    <div id="datetime_error" class="validate-error"></div>
-                  </div>
-                  <div class="col-sm-1"></div>
-                  <div class="col-sm-3">
-                    <select name="datetime_minute" class="form-control">
-                      <option>Minute</option>
-                      <?php
-                        for ($i = 0; $i < 60; $i++)
-                        {
-                          echo '<option value="' . sprintf("%02s", $i) . '" ';
-                          if (sprintf("%02s", $i) == $datetime_minute)
-                          {
-                            echo "selected";
-                          }
-                          echo '>' . sprintf("%02s", $i) . '</option>';
-                        }
-                      ?>
-                    </select>
+                  <div class="col-sm-7">
+                    <input name="datetime_date" class="form-control datepicker" placeholder="Date" data-value="<?php echo $datetime_date; ?>">
+                    <div id="datetime_date_error" class="validate-error"></div>
+                    <input name="datetime_time" class="form-control timepicker" placeholder="Time" data-value="<?php echo $datetime_time; ?>">
+                    <div id="datetime_time_error" class="validate-error"></div>
                   </div>
                 </div>
               </div>
@@ -598,7 +479,7 @@
                 <br /><br />
                 <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
                 <input type="hidden" value="<?php echo $_GET['order']; ?>" name="order_number">
-                <input type="image" src="../img/paywithpp.gif" <?php if ($details_correct === false) : ?>disabled<?php endif; ?> />
+                <button type="submit" class="btn btn-success">Edit Order</button>
               </div>
               <div class="col-md-3">
                 Something wrong? Want to make any changes?

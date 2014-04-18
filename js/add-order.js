@@ -1,6 +1,115 @@
 $(document).ready(function() {
   calculateOrderTotal();
 
+  var deliveryPanelHeight = $("#delivery").height(),
+      $placed_date = $("input[name=placed_date]").pickadate({
+        clear: '',
+        formatSubmit: 'yyyy-mm-dd',
+        hiddenName: true,
+        format: 'mmmm dd, yyyy',
+        min: true,
+        onClose: function() {
+          if ($placed_date.pickadate("get") == "") {
+            $placed_date.closest(".form-group").removeClass("has-success").addClass("has-error");
+            $("#placed_date_error").html("Please select a date").slideDown("fast");
+          } else {
+            $placed_date.closest(".form-group").removeClass("has-error").addClass("has-success");
+            $("#placed_date_error").slideUp("fast");
+          }
+        },
+        onSet: function(context) {
+          $("#order-placed-review").html($placed_date.pickadate("get") + " " + $placed_time.pickatime("get"));
+        }
+      }),
+      $placed_time = $("input[name=placed_time]").pickatime({
+        clear: '',
+        hiddenName: true,
+        format: 'h:i A',
+        formatSubmit: 'HH:i:00',
+        interval: 15,
+        max: [18,0],
+        min: [8,0],
+        onClose: function() {
+          if ($placed_time.pickatime("get") == "") {
+            $placed_time.closest(".form-group").removeClass("has-success").addClass("has-error");
+            $("#placed_time_error").html("Please select a time").slideDown("fast");
+          } else {
+            $placed_time.closest(".form-group").removeClass("has-error").addClass("has-success");
+            $("#placed_time_error").slideUp("fast");
+          }
+        },
+        onSet: function(context) {
+          $("#order-placed-review").html($placed_date.pickadate("get") + " " + $placed_time.pickatime("get"));
+        }
+      }),
+      $celeb_date = $("input[name=celebration_date]").pickadate({
+        clear: '',
+        formatSubmit: 'yyyy-mm-dd',
+        hiddenName: true,
+        format: 'mmmm dd, yyyy',
+        min: true,
+        onClose: function() {
+          if ($celeb_date.pickadate("get") == "") {
+            $celeb_date.closest(".form-group").removeClass("has-success").addClass("has-error");
+            $("#celebration_date_error").html("Please select a date").slideDown("fast");
+          } else {
+            $celeb_date.closest(".form-group").removeClass("has-error").addClass("has-success");
+            $("#celebration_date_error").slideUp("fast");
+          }
+        },
+        onSet: function(context) {
+          $("#celebration-date-review").html($celeb_date.pickadate("get"));
+        }
+      }),
+      $dt_date = $("input[name=datetime_date]").pickadate({
+        clear: '',
+        formatSubmit: 'yyyy-mm-dd',
+        hiddenName: true,
+        format: 'mmmm dd, yyyy',
+        min: true,
+        onOpen: function() {
+          $("#delivery").stop().animate({height: "500px"});
+        },
+        onClose: function() {
+          $("#delivery").stop().animate({height: deliveryPanelHeight});
+          if ($dt_date.pickadate("get") == "") {
+            $dt_date.closest(".form-group").removeClass("has-success").addClass("has-error");
+            $("#datetime_date_error").html("Please select a date").slideDown("fast");
+          } else {
+            $dt_date.closest(".form-group").removeClass("has-error").addClass("has-success");
+            $("#datetime_date_error").slideUp("fast");
+          }
+        },
+        onSet: function(context) {
+          $("#datetime-review").html($dt_date.pickadate("get") + " " + $dt_time.pickatime("get"));
+        }
+      }),
+      $dt_time = $("input[name=datetime_time]").pickatime({
+        clear: '',
+        hiddenName: true,
+        format: 'h:i A',
+        formatSubmit: 'hh:i:00',
+        interval: 15,
+        max: [18,0],
+        min: [8,0],
+        onOpen: function() {
+          $("#delivery").stop().animate({height: "640px"});
+        },
+        onClose: function() {
+          $("#delivery").stop().animate({height: deliveryPanelHeight});
+          if ($dt_time.pickadate("get") == "") {
+            $dt_time.closest(".form-group").removeClass("has-success").addClass("has-error");
+            $("#datetime_time_error").html("Please select a date").slideDown("fast");
+          } else {
+            $dt_time.closest(".form-group").removeClass("has-error").addClass("has-success");
+            $("#datetime_time_error").slideUp("fast");
+          }
+        },
+        onSet: function(context) {
+          $("#datetime-review").html($dt_date.pickadate("get") + " " + $dt_time.pickatime("get"));
+        }
+      });
+
   $("#theCustomerNext").click(function() {
     if ($("select[name=existing_id]").val() !== "null") {
       $origins = $("input[name=address]").val().replace(/\ /g, "+") + "," + $("input[name=postcode]").val().replace(/\ /g, "");
@@ -29,9 +138,10 @@ $(document).ready(function() {
   });
 
   $("#theCakeNext").click(function() {
-    var plac_check = validate.placeddatetime(),
-        date_check = validate.date();
-    if (plac_check && date_check) {
+    var $plac_date  = $("#placed_date_hidden"),
+        $plac_time  = $("#placed_time_hidden"),
+        $celeb_date = $("#celebration_date_hidden");
+    if ($plac_date.val() != "" && $plac_time.val() != "" && $celeb_date.val() != "") {
       if ($("#comments").data("required") == "true") {
         console.log("required");
         var comm_check = validate.input("textarea#comments", "#comments_error");
@@ -44,6 +154,18 @@ $(document).ready(function() {
         $("#delivery").collapse("show");
       }
     }
+    if ($plac_date.val() == "") {
+      $plac_date.closest(".form-group").removeClass("has-success").addClass("has-error");
+      $("#placed_date_error").html("Please select a date").slideDown("fast");
+    }
+    if ($plac_time.val() == "") {
+      $plac_time.closest(".form-group").removeClass("has-success").addClass("has-error");
+      $("#placed_time_error").html("Please select a time").slideDown("fast");
+    }
+    if ($celeb_date.val() == "") {
+      $celeb_date.closest(".form-group").removeClass("has-success").addClass("has-error");
+      $("#celebration_date_error").html("Please select a date").slideDown("fast");
+    }
   });
 
   $("#deliveryPrevious").click(function() {
@@ -52,12 +174,22 @@ $(document).ready(function() {
   });
 
   $("#deliveryNext").click(function() {
-    var datt_check = validate.datetime();
-    if (datt_check) {
+    var $datetime_date = $("#datetime_date_hidden"),
+        $datetime_time = $("#datetime_time_hidden");
+    if ($datetime_date.val() != "" && $datetime_time.val() != "") {
       calculateDeliveryCharge();
       calculateOrderTotal();
       $("#delivery").collapse("hide");
       $("#review").collapse("show");
+    } else {
+      if ($datetime_date.val() == "") {
+        $datetime_date.closest(".form-group").removeClass("has-success").addClass("has-error");
+        $("#datetime_date_error").html("Please select a date").slideDown("fast");
+      }
+      if ($datetime_time.val() == "") {
+        $datetime_time.closest(".form-group").removeClass("has-success").addClass("has-error");
+        $("#datetime_time_error").html("Please select a time").slideDown("fast");
+      }
     }
   });
 
