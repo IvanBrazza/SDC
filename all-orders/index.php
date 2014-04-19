@@ -224,6 +224,21 @@
 <?php include("../lib/header.php"); ?>
   <!-- if user clicked on order number or searched for an order -->
   <?php if (!empty($_GET['order'])) : ?>
+    <?php if (!empty($row['image'])) : ?>
+      <div class="modal fade" id="image-modal" role="modal" aria-hidden="true" aria-labelledby="myModalLabel">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title" id="myModalLabel">Order Image</h4>
+            </div>
+            <div class="modal-body">
+              <img src="<?php echo $row['image']; ?>" height="400px" class="modal-image">
+            </div>
+          </div>
+        </div>
+      </div>
+    <?php endif; ?>
     <div class="row">
       <div class="col-md-6">
         <h1>Order <?php echo $row['order_number']; ?>
@@ -303,7 +318,7 @@
           <?php if (!empty($row['image'])) : ?>
             <tr>
               <th>Image</th>
-              <td><a href="javascript:" id="image-link">Click here to view image</a></td>
+              <td><button class="btn btn-xs btn-link" data-toggle="modal" data-target="#image-modal">Click here to view image</button></td>
             </tr>
           <?php endif; ?>
           <tr>
@@ -379,12 +394,6 @@
             <br>
             A difference occurs if the customer has edited their order after it has been placed, and the total between the original
             and the edited order has changed.
-          </div>
-        <?php endif; ?>
-        <?php if (!empty($row['image'])) : ?>
-          <div class="image-view">
-            <img src="<?php echo $row['image']; ?>" height="400px">
-            <div class="close">X</div>
           </div>
         <?php endif; ?>
       </div>

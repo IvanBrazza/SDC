@@ -246,6 +246,10 @@ span.arrow>a {
   margin:             0 auto;
   }
 
+.modal-image {
+  display:            block;
+  margin:             0 auto;
+  }
 /* Copyright footer  */
 .footer {
   padding-top:        20px;
@@ -275,25 +279,6 @@ div.copyright>div {
 progress {
   float:              right;
   display:            none;
-  }
-
-div.image-view {
-  position:           absolute;
-  top:                116px;
-  border:             1px solid #000;
-  left:               546px;
-  display:            none;
-  }
-div.image-view > div.close {
-  position:           absolute;
-  right:              5px;
-  top:                0px;
-  font-size:          20px;
-  font-weight:        bold;
-  }
-
-div.image-view > div.close:hover {
-  cursor:             pointer;
   }
 
 .help {

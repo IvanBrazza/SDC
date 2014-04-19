@@ -122,9 +122,18 @@
       <div class="col-md-12">
         <h1>Order <?php echo $row['order_number']; ?><?php if ($row['completed'] === "1") : ?> (completed)<?php else: ?> <a href="../edit-order/?order=<?php echo $row['order_number']; ?>" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span>   Edit Order</a><?php endif; ?></h1>
         <?php if (!empty($row['image'])) : ?>
-          <div class="image-view">
-            <img src="<?php echo $row['image']; ?>" height="400px">
-            <div class="close">X</div>
+          <div class="modal fade" id="image-modal" role="modal" aria-hidden="true" aria-labelledby="myModalLabel">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                  <h4 class="modal-title" id="myModalLabel">Order Image</h4>
+                </div>
+                <div class="modal-body">
+                  <img src="<?php echo $row['image']; ?>" height="400px" class="modal-image">
+                </div>
+              </div>
+            </div>
           </div>
         <?php endif; ?>
       </div>
@@ -171,7 +180,7 @@
           <?php if (!empty($row['image'])) : ?>
             <tr>
               <th>Image</th>
-              <td><a href="javascript:" id="image-link">Click here to view image</a></td>
+              <td><button class="btn btn-link" data-toggle="modal" data-target="#image-modal">Click here to view image</button></td>
             </tr>
           <?php endif; ?>
           <tr>

@@ -39,16 +39,6 @@ $(document).ready(function() {
     window.location.href = $(this).find("a").attr("href");
   });
 
-  // Show the order image when the link is clicked
-  $("#image-link").click(function() {
-    $("div.image-view").effect("slide");
-  });
-
-  // Hide the order image when the close button is clicked
-  $("div.image-view>.close").click(function() {
-    $("div.image-view").slideUp();
-  });
-
   // Paginate all tables except for single order tables
   $("table:not(#single_order)").tablePagination();
 
