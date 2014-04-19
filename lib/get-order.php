@@ -1,6 +1,12 @@
 <?php
   require("common.php");
 
+  if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
+  {
+    echo "Invalid token.";
+    die();
+  }
+
   // Get order details based on the order number
   $query = "
     SELECT
@@ -51,6 +57,10 @@
   {
     $row['delivery_charge'] = 0;
   }
+
+  // Generate a new token
+  $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
+  $row['token'] = $_SESSION['token'];
 
   echo json_encode($row);
   die();

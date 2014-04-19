@@ -203,6 +203,12 @@
         </table>
       </div>
       <div class="col-md-6">
+        <?php if (!empty($_GET['edit']) and $_GET['edit'] == "success") : ?>
+          <div class="alert alert-success" style="display:block;">
+            <span class="glyphicon glyphicon-ok"></span>
+            Order successfully updated.
+          </div>
+        <?php endif; ?>
         <?php if ($row['difference'] != 0) : ?>
           <div class="alert alert-info" style="display:block;">
             <span class="glyphicon glyphicon-warning-sign"></span>

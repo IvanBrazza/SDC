@@ -18,6 +18,12 @@
   // order details (GET)
   if (!empty($_POST))
   {
+    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
+    {
+      echo "Invalid token.";
+      die();
+    }
+
     // Calculate old price
     $query = "
       SELECT
@@ -218,7 +224,7 @@
     $db->runQuery($query, $query_params);
 
     // Return back to order details after the update
-    header("Location: ../your-orders/?order=" . $_POST['order_number']);
+    header("Location: ../your-orders/?order=" . $_POST['order_number'] . "&edit=success");
     die();
   }
   else if (!empty($_GET))
@@ -259,6 +265,9 @@
     header("Location: ../home");
     die();
   }
+
+  // Generate token
+  $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 ?>
 
 <?php include("../lib/header.php"); ?>
@@ -494,4 +503,7 @@
     </form>
   </div>
 </div>
+<script>
+  var $token = "<?php echo $_SESSION['token']; ?>";
+</script>
 <?php include("../lib/footer.php"); ?>

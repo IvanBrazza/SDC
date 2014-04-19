@@ -100,7 +100,7 @@ $(document).ready(function() {
       $.ajax({
         type: 'post',
         url: '../lib/get-order.php',
-        data: {order: QueryString.order},
+        data: {token: $token, order: QueryString.order},
         success: function(response) {
           var object         = JSON.parse(response),
               old_total      = parseInt(object.base_price) +
@@ -111,6 +111,8 @@ $(document).ready(function() {
               new_total      = parseInt($("#total-html").html()),
               new_difference = old_total - new_total;
           $("#difference-html").html(old_difference + new_difference);
+          $token = object.token;
+          $("input[name=token]").val(object.token);
         }
       });
       $("#deliveryPanel").collapse("hide");
