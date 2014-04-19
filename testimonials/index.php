@@ -111,7 +111,7 @@
           <label for="name" class="col-sm-4 control-label">Name</label>
           <div class="col-sm-8">
             <div class="input-group">
-              <input type="text" class="form-control" name="name" id="name" onchange="validate.input('#name', '#name_error')">
+              <input type="text" class="form-control" name="name" id="name" onchange="validate.input('#name', '#name_error', 'Please enter your name')">
               <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
             </div>
             <div id="name_error" class="validate-error"></div>
@@ -139,7 +139,7 @@
         <div class="form-group">
           <label for="testimonial" class="col-sm-4 control-label">Testimonial</label>
           <div class="col-sm-8">
-            <textarea class="form-control" name="testimonial" id="testimonial" rows="6" cols="40" onchange="validate.input('textarea#testimonial', '#testimonial_error')"></textarea>
+            <textarea class="form-control" name="testimonial" id="testimonial" rows="6" cols="40" onchange="validate.input('textarea#testimonial', '#testimonial_error', 'Please enter your testimonial')"></textarea>
             <div id="testimonial_error" class="validate-error"></div>
           </div>
         </div>

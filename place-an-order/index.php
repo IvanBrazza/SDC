@@ -83,7 +83,7 @@
                   <label for="celebration_date" class="col-sm-4 control-label">Date of celebration <a href="javascript:" class="help" title="The date of the event you are ordering a cake for.">?</a></label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <input name="celebration_date" class="form-control datepicker" placeholder="Date">
+                    <input name="celebration_date" class="form-control datepicker" placeholder="--Select A Date--">
                     <div id="celebration_date_error" class="validate-error"></div>
                   </div>
                 </div>
@@ -91,19 +91,22 @@
                   <label for="filling" class="col-sm-4 control-label">Filling <a href="javascript:" class="help" title="The filling you want your cake to have. If you choose 'Other' please specify the filling in the comments box.">?</a></label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <select name="filling" id="filling" class="form-control">
+                    <select name="filling" id="filling" class="form-control" onchange="validate.input('select[name=filling]', '#filling_error', 'Please choose a filling')">
+                      <option value="null">--Select A Filling--</option>
                       <option value="0">None</option>
                       <option value="1">Butter Cream</option>
                       <option value="2">Chocolate</option>
                       <option value="3">Other (specify in comments)</option>
                     </select>
+                    <div id="filling_error" class="validate-error"></div>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="decoration" class="col-sm-4 control-label">Decoration <a href="javascript:" class="help" title="What you want your cake to be decorated in. If you choose 'Other' please specify the decoration in the comments box.">?</a></label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <select name="decoration" id="decoration" class="form-control">
+                    <select name="decoration" id="decoration" class="form-control" onchange="validate.input('select[name=decoration]', '#decoration_error', 'Please choose a decoration')">
+                      <option value="null">--Select A Decoration--</option>
                       <option value="0">None</option>
                       <option value="1">Royal Icing</option>
                       <option value="2">Regal Icing</option>
@@ -112,38 +115,43 @@
                       <option value="5">Coconut</option>
                       <option value="6">Other (specify in comments)</option>
                     </select>
+                    <div id="decoration_error" class="validate-error"></div>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="cake_size" class="col-sm-4 control-label">Size of cake <a href="javascript:" class="help" title="The size you want the cake to be in inches.">?</a></label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <select name="cake_size" id="cake_size" class="form-control">
+                    <select name="cake_size" id="cake_size" class="form-control" onchange="validate.input('select[name=cake_size]', '#cake_size_error', 'Please choose a cake size')">
+                      <option value="null">--Select A Cake Size--</option>
                       <option value='6"'>6"</option>
                       <option value='8"'>8"</option>
                       <option value='10"'>10"</option>
                       <option value='12"'>12"</option>
                       <option value='14"'>14"</option>
                     </select>
+                    <div id="cake_size_error" class="validate-error"></div>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="cake_type" class="col-sm-4 control-label">Type of cake</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <select name="cake_type" id="cake_type" class="form-control">
+                    <select name="cake_type" id="cake_type" class="form-control" onchange="validate.input('select[name=cake_type]', '#cake_type_error', 'Please choose a cake type')">
+                      <option value="null">--Select A Cake Type--</option>
                       <option value="Sponge">Sponge</option>
                       <option value="Marble">Marble</option>
                       <option value="Chocolate">Chocolate</option>
                       <option value="Fruit">Fruit</option>
                     </select>
+                    <div id="cake_type_error" class="validate-error"></div>
                   </div>
                 </div>
                 <div id="comments" class="form-group">
                   <label for="comments" class="col-sm-4 control-label">Comments <a href="javascript:" class="help" title="Any additional comments you may have to make or if you chose filling/decoration as 'Other'.">?</a></label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <textarea name="comments" id="comments" rows="6" cols="30" class="form-control" onchange="validate.input('textarea#comments', '#comments_error')"></textarea>
+                    <textarea name="comments" id="comments" rows="6" cols="30" class="form-control" onchange="validate.input('textarea#comments', '#comments_error', 'Please enter a comment')"></textarea>
                     <div id="comments_error" class="validate-error"></div>
                   </div>
                 </div>
@@ -199,10 +207,12 @@
                   <label for="delivery" class="col-sm-4 control-label">Delivery options</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <select name="delivery" id="delivery" class="form-control">
+                    <select name="delivery" id="delivery" class="form-control" onchange="validate.input('select[name=delivery]', '#delivery_error', 'Please choose a delivery option')">
+                      <option value="null">--Select A Delivery Option--</option>
                       <option value="Collection">Collection</option>
                       <option value="Deliver To Address">Delivery</option>
                     </select>
+                    <div id="delivery_error" class="validate-error"></div>
                   </div>
                 </div>
                 <div class="form-group">

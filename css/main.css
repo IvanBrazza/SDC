@@ -75,6 +75,10 @@ iframe#ifileupload {
   cursor:             auto!important;
   background-color:   #ffffff!important;
   }
+
+.timepicker {
+  margin-top:         5px;
+  }
 /* End General */
 
 .orders {

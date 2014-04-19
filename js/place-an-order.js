@@ -73,21 +73,26 @@ $(document).ready(function() {
       });
 
   $("#theCakeNext").click(function() {
-    var $celeb_date = $("#celebration_date_hidden");
+    var $celeb_date = $("#celebration_date_hidden"),
+        $fill_check = validate.input('select[name=filling]', '#filling_error', 'Please choose a filling'),
+        $deco_check = validate.input('select[name=decoration]', '#decoration_error', 'Please choose a decoration'),
+        $size_check = validate.input('select[name=cake_size]', '#cake_size_error', 'Please choose a cake size'),
+        $type_check = validate.input('select[name=cake_type]', '#cake_type_error', 'Please choose a cake type');
     if ($("#comments").data("required") == "true") {
-      var comm_check = validate.input("textarea#comments", "#comments_error");
-      if (comm_check && $celeb_date.val() != "") {
+      var comm_check = validate.input("textarea#comments", "#comments_error", 'Please enter a comment');
+      if (comm_check && $fill_check && $deco_check && $size_check && $type_check && $celeb_date.val() != "") {
         $("#theCake").collapse("hide");
         $("#uploadAPhoto").collapse("show");
-      } else if ($celeb_date == "") {
+      } else if ($celeb_date.val() == "") {
         $celeb_date.closest(".form-group").removeClass("has-success").addClass("has-error");
         $("#celebration-date-error").html("Please select a celebration date").slideDown("fast");
       }
     } else {
-      if ($celeb_date.val() != "") {
+      if ($fill_check && $deco_check && $size_check && $type_check && $celeb_date.val() != "") {
         $("#theCake").collapse("hide");
         $("#uploadAPhoto").collapse("show");
-      } else {
+      }
+      if ($celeb_date.val() == "") {
         $celeb_date.closest(".form-group").removeClass("has-success").addClass("has-error");
         $("#celebration_date_error").html("Please select a celebration date").slideDown("fast");
       }
@@ -105,20 +110,20 @@ $(document).ready(function() {
   });
 
   $("#deliveryNext").click(function() {
-    var $datetime_date = $("#datetime_date_hidden"),
-        $datetime_time = $("#datetime_time_hidden");
-    if ($datetime_date.val() != "" && $datetime_time.val() != "") {
+    var $datetime_date  = $("#datetime_date_hidden"),
+        $datetime_time  = $("#datetime_time_hidden"),
+        $delivery_check = validate.input('select[name=delivery]', '#delivery_error', 'Please choose a delivery option');
+    if ($datetime_date.val() != "" && $datetime_time.val() != "" && $delivery_check) {
       $("#deliveryPanel").collapse("hide");
       $("#review").collapse("show");
-    } else {
-      if ($datetime_date.val() == "") {
-        $datetime_date.closest(".form-group").removeClass("has-success").addClass("has-error");
-        $("#datetime_date_error").html("Please select a date").slideDown("fast");
-      }
-      if ($datetime_time.val() == "") {
-        $datetime_time.closest(".form-group").removeClass("has-success").addClass("has-error");
-        $("#datetime_time_error").html("Please select a time").slideDown("fast");
-      }
+    }
+    if ($datetime_date.val() == "") {
+      $datetime_date.closest(".form-group").removeClass("has-success").addClass("has-error");
+      $("#datetime_date_error").html("Please select a date").slideDown("fast");
+    }
+    if ($datetime_time.val() == "") {
+      $datetime_time.closest(".form-group").removeClass("has-success").addClass("has-error");
+      $("#datetime_time_error").html("Please select a time").slideDown("fast");
     }
   });
 

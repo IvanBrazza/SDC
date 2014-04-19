@@ -120,9 +120,9 @@ $(document).ready(function() {
       var phon_check = validate.phone(),
           emai_check = validate.email(),
           post_check = validate.postcode(),
-          firs_check = validate.input('#first_name', '#first_name_error'),
-          last_check = validate.input('#last_name', '#last_name_error'),
-          addr_check = validate.input('#address', '#address_error');
+          firs_check = validate.input('#first_name', '#first_name_error', 'Please enter a first name'),
+          last_check = validate.input('#last_name', '#last_name_error', 'Please enter a last name'),
+          addr_check = validate.input('#address', '#address_error', 'Please enter an address');
       if (phon_check && emai_check && post_check && firs_check && last_check && addr_check) { 
         $origins = $("input[name=address]").val().replace(/\ /g, "+") + "," + $("input[name=postcode]").val().replace(/\ /g, "");
         $destination = "95+Hoe+Lane,EN35SW";
@@ -140,11 +140,15 @@ $(document).ready(function() {
   $("#theCakeNext").click(function() {
     var $plac_date  = $("#placed_date_hidden"),
         $plac_time  = $("#placed_time_hidden"),
-        $celeb_date = $("#celebration_date_hidden");
-    if ($plac_date.val() != "" && $plac_time.val() != "" && $celeb_date.val() != "") {
+        $celeb_date = $("#celebration_date_hidden")
+        $fill_check = validate.input('select[name=filling]', '#filling_error', 'Please choose a filling'),
+        $deco_check = validate.input('select[name=decoration]', '#decoration_error', 'Please choose a decoration'),
+        $size_check = validate.input('select[name=cake_size]', '#cake_size_error', 'Please choose a cake size'),
+        $type_check = validate.input('select[name=cake_type]', '#cake_type_error', 'Please choose a cake type');
+    if ($plac_date.val() != "" && $plac_time.val() != "" && $celeb_date.val() != "" && $fill_check && $deco_check && $size_check && $type_check) {
       if ($("#comments").data("required") == "true") {
         console.log("required");
-        var comm_check = validate.input("textarea#comments", "#comments_error");
+        var comm_check = validate.input("textarea#comments", "#comments_error", "Please enter a comment");
         if (comm_check) {
           $("#theCake").collapse("hide");
           $("#delivery").collapse("show");
@@ -174,9 +178,10 @@ $(document).ready(function() {
   });
 
   $("#deliveryNext").click(function() {
-    var $datetime_date = $("#datetime_date_hidden"),
-        $datetime_time = $("#datetime_time_hidden");
-    if ($datetime_date.val() != "" && $datetime_time.val() != "") {
+    var $datetime_date  = $("#datetime_date_hidden"),
+        $datetime_time  = $("#datetime_time_hidden"),
+        $delivery_check = validate.input('select[name=delivery]', '#delivery_error', 'Please choose a delivery option');
+    if ($datetime_date.val() != "" && $datetime_time.val() != "" && $delivery_check) {
       calculateDeliveryCharge();
       calculateOrderTotal();
       $("#delivery").collapse("hide");

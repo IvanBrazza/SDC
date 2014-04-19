@@ -55,7 +55,7 @@
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
                     <select name="existing_id" class="form-control">
-                      <option value="null">Select a customer</option>
+                      <option value="null">--Select A Customer--</option>
                       <?php foreach ($existing_rows as $row) : ?>
                         <option value="<?php echo $row['customer_id']; ?>"><?php echo $row['first_name'] . " " . $row['last_name']; ?></option>
                       <?php endforeach; ?>
@@ -67,7 +67,7 @@
                   <label for="first_name" class="col-sm-4 control-label">First Name</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control" name="first_name" id="first_name" onchange="validate.input('#first_name', '#first_name_error')">
+                    <input type="text" class="form-control" name="first_name" id="first_name" onchange="validate.input('#first_name', '#first_name_error', 'Please enter a first name')">
                     <div id="first_name_error" class="validate-error"></div>
                   </div>
                 </div>
@@ -75,7 +75,7 @@
                   <label for="last_name" class="col-sm-4 control-label">Last Name</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control" name="last_name" id="last_name" onchange="validate.input('#last_name', '#last_name_error')">
+                    <input type="text" class="form-control" name="last_name" id="last_name" onchange="validate.input('#last_name', '#last_name_error', 'Please enter a last name')">
                     <div id="last_name_error" class="validate-error"></div>
                   </div>
                 </div>
@@ -83,7 +83,7 @@
                   <label for="address" class="col-sm-4 control-label">Address</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control" name="address" id="address" onchange="validate.input('#address', '#address_error')">
+                    <input type="text" class="form-control" name="address" id="address" onchange="validate.input('#address', '#address_error', 'Please enter an address')">
                     <div id="address_error" class="validate-error"></div>
                   </div>
                 </div>
@@ -156,19 +156,22 @@
                   <label for="filling" class="col-sm-4 control-label">Filling</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <select name="filling" id="filling" class="form-control">
+                    <select name="filling" id="filling" class="form-control" onchange="validate.input('select[name=filling]', '#filling_error', 'Please choose a filling')">
+                      <option value="null">--Select A Filling--</option>
                       <option value="0">None</option>
                       <option value="1">Butter Cream</option>
                       <option value="2">Chocolate</option>
                       <option value="3">Other (specify in comments)</option>
                     </select>
+                    <div id="filling_error" class="validate-error"></div>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="decoration" class="col-sm-4 control-label">Decoration</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <select name="decoration" id="decoration" class="form-control">
+                    <select name="decoration" id="decoration" class="form-control" onchange="validate.input('select[name=decoration]', '#decoration_error', 'Please choose a decoration')">
+                      <option value="null">--Select A Decoration--</option>
                       <option value="0">None</option>
                       <option value="1">Royal Icing</option>
                       <option value="2">Regal Icing</option>
@@ -177,38 +180,43 @@
                       <option value="5">Coconut</option>
                       <option value="6">Other (specify in comments)</option>
                     </select>
+                    <div id="decoration_error" class="validate-error"></div>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="cake_size" class="col-sm-4 control-label">Size of Cake</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <select name="cake_size" id="cake_size" class="form-control">
+                    <select name="cake_size" id="cake_size" class="form-control" onchange="validate.input('select[name=cake_size]', '#cake_size_error', 'Please choose a cake size')">
+                      <option value="null">--Select A Cake Size--</option>
                       <option value='6"'>6"</option>
                       <option value='8"'>8"</option>
                       <option value='10"'>10"</option>
                       <option value='12"'>12"</option>
                       <option value='14"'>14"</option>
                     </select>
+                    <div id="cake_size_error" class="validate-error"></div>
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="cake_type" class="col-sm-4 control-label">Type of Cake</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <select name="cake_type" id="cake_type" class="form-control">
+                    <select name="cake_type" id="cake_type" class="form-control" onchange="validate.input('select[name=cake_type]', '#cake_type_error', 'Please choose a cake type')">
+                      <option value="null">--Select A Cake Type--</option>
                       <option value="Sponge">Sponge</option>
                       <option value="Marble">Marble</option>
                       <option value="Chocolate">Chocolate</option>
                       <option value="Fruit">Fruit</option>
                     </select>
+                    <div id="cake_type_error" class="validate-error"></div>
                   </div>
                 </div>
                 <div id="comments" class="form-group">
                   <label for="comments" class="col-sm-4 control-label">Comments</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <textarea id="comments" cols="30" rows="6" name="comments" class="form-control" onchange="validate.input('textarea#comments', '#comments_error')"></textarea>
+                    <textarea id="comments" cols="30" rows="6" name="comments" class="form-control" onchange="validate.input('textarea#comments', '#comments_error', 'Please enter a comment')"></textarea>
                   </div>
                 </div>
                 <div id="comments_error" class="validate-error"></div>
@@ -239,10 +247,12 @@
                   <label for="delivery" class="col-sm-4 control-label">Delivery options</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <select name="delivery" class="form-control">
+                    <select name="delivery" class="form-control" onchange="validate.input('select[name=delivery]', '#delivery_error', 'Please choose a delivery option')">
+                      <option value="null">--Select A Delivery Option--</option>
                       <option value="Collection">Collection</option>
                       <option value="Deliver To Address">Delivery</option>
                     </select>
+                    <div id="delivery_error" class="validate-error"></div>
                   </div>
                 </div>
                 <div class="form-group" id="datetime_date">

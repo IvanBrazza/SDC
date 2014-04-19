@@ -25,13 +25,12 @@ $(document).ready(function() {
   // When the submit testimonial form is submitted
   $("#testimonial-form").submit(function(e) {
     // Validate the fields
-    validate.email();
-    validate.input('#name', '#name_error');
-    validate.input('textarea#testimonial', '#testimonial_error');
-    // Show the loading spinner
+    var $emai_check = validate.email(),
+        $name_check = validate.input('#name', '#name_error', 'Please enter your name')
+        $test_check = validate.input('textarea#testimonial', '#testimonial_error', 'Please enter your testimonial');
     // If the validation has passed, submit the form, otherwise
     // call the validation functions
-    if ($input_check && $email_check) {
+    if ($name_check && $emai_check && $test_check) {
       // Submit the form via AJAX to lib/form/submit-testimonial.php.
       // If the testimonial was successfully added, hide the form
       // and add the testimonial to the page. Otherwise, show the
@@ -93,12 +92,6 @@ $(document).ready(function() {
         }
       });
       e.preventDefault();
-    } else {
-      // Don't submit the form
-      e.preventDefault();
-      validate.email();
-      validate.input('#name', '#name_error');
-      validate.input('textarea#testimonial', '#testimonial_error');
     }
   });
 

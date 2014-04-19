@@ -354,7 +354,7 @@
                   <label for="comments" class="col-sm-4 control-label">Comments <a href="javascript:" class="help" title="Any additional comments you may have to make or if you chose filling/decoration as 'Other'.">?</a></label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <textarea name="comments" id="comments" rows="6" cols="30" class="form-control" onchange="validate.input('textarea#comments', '#comments_error')"><?php echo $row['comments']; ?></textarea>
+                    <textarea name="comments" id="comments" rows="6" cols="30" class="form-control" onchange="validate.input('textarea#comments', '#comments_error', 'Please enter a comment')"><?php echo $row['comments']; ?></textarea>
                     <div id="comments_error" class="validate-error"></div>
                   </div>
                 </div>

@@ -74,7 +74,7 @@ $(document).ready(function() {
   $("#theCakeNext").click(function() {
     var $celeb_date = $("#celebration_date_hidden");
     if ($("#comments").data("required") == "true") {
-      var comm_check = validate.input("textarea#comments", "#comments_error");
+      var comm_check = validate.input("textarea#comments", "#comments_error", "Please enter a comment");
       if (comm_check && $celeb_date.val() != "") {
         $("#theCake").collapse("hide");
         $("#uploadAPhoto").collapse("show");

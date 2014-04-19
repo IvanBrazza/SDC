@@ -89,7 +89,7 @@
         <label for="first_name" class="col-sm-3 control-label">First Name</label>
         <div class="col-sm-2"></div>
         <div class="col-sm-7 input-group">
-          <input type="text" class="form-control" name="first_name" id="first_name" value="<?php echo htmlentities($_SESSION['user']['first_name'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#first_name', '#first_name_error')"> 
+          <input type="text" class="form-control" name="first_name" id="first_name" value="<?php echo htmlentities($_SESSION['user']['first_name'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#first_name', '#first_name_error', 'Please enter your first name')"> 
           <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
         </div>
       </div>
@@ -98,7 +98,7 @@
         <label for="last_name" class="col-sm-3 control-label">Last Name</label>
         <div class="col-sm-2"></div>
         <div class="col-sm-7 input-group">
-          <input type="text" class="form-control" name="last_name" id="last_name" value="<?php echo htmlentities($_SESSION['user']['last_name'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#last_name', '#last_name_error')"> 
+          <input type="text" class="form-control" name="last_name" id="last_name" value="<?php echo htmlentities($_SESSION['user']['last_name'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#last_name', '#last_name_error', 'Please enter your last name')"> 
           <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
         </div>
       </div>
@@ -124,7 +124,7 @@
         <label for="address" class="col-sm-3 control-label">Address</label>
         <div class="col-sm-2"></div>
         <div class="col-sm-7 input-group">
-          <input type="text" class="form-control" name="address" id="address" value="<?php echo htmlentities($_SESSION['user']['address'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#address', '#address_error')">
+          <input type="text" class="form-control" name="address" id="address" value="<?php echo htmlentities($_SESSION['user']['address'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#address', '#address_error', 'Please enter your address')">
           <span class="input-group-addon"><span class="glyphicon glyphicon-home"></span></span>
         </div>
       </div>

@@ -113,9 +113,9 @@ $(document).ready(function() {
     var emai_check = validate.email(),
         post_check = validate.postcode(),
         phon_check = validate.phone(),
-        firs_check = validate.input('#first_name', '#first_name_error'),
-        last_check = validate.input('#last_name', '#last_name_error'),
-        addr_check = validate.input('#address', '#address_error');
+        firs_check = validate.input('#first_name', '#first_name_error', 'Please enter your first name'),
+        last_check = validate.input('#last_name', '#last_name_error', 'Please enter your last name'),
+        addr_check = validate.input('#address', '#address_error', 'Please enter your address');
 
     if ($("#password").val() == "") {
       if (firs_check && phon_check && post_check && emai_check && last_check && addr_check) {
@@ -220,7 +220,7 @@ var validate = {
         regex             = /^(\w+\.?\w*)@(.+){2,}\.(.+){2,}[^\.]$/;
 
     if (email == "") {
-      $email_error.html("Please enter your email")
+      $email_error.html("Please enter an email")
                   .slideDown("fast");
       $email.removeClass("has-success")
             .addClass("has-error")
@@ -310,7 +310,7 @@ var validate = {
         $username         = $("input[name=username]").closest("div.form-group"),
         $username_error   = $("#username-error");
 
-    if (username === null) {
+    if (username == "") {
       $username_error.html("Please enter a username")
                      .slideDown("fast");
       $username.removeClass("has-success")
@@ -335,13 +335,13 @@ var validate = {
       return true;
     }
   },
-  input: function(inputParam, error) {
+  input: function(inputParam, error, errorMessage) {
     var input  = $(inputParam).closest("div.form-group"),
         $input = $(inputParam).val(),
         $error = $(error);
 
-    if ($input === "") {
-      $error.html("This field cannot be blank")
+    if ($input === "" || $input == "null") {
+      $error.html(errorMessage)
             .slideDown("fast");
       input.removeClass("has-success")
            .addClass("has-error")
@@ -364,7 +364,7 @@ var validate = {
         regex             = /^[A-Za-z]{1,2}[0-9]{1,2}[A-Za-z]? ?[0-9][A-Za-z]{2}$/;
 
     if (postcode == "") {
-      $postcode_error.html("Please enter your postcode")
+      $postcode_error.html("Please enter a postcode")
                      .slideDown("fast");
       $postcode.removeClass("has-success")
                .addClass("has-error")
@@ -394,8 +394,8 @@ var validate = {
         $phone_error  = $("#phone_error"),
         regex         = /^0[ -]?[1-9](?:[ -]?\d){9}$/;
 
-    if (phone === null) {
-      $phone_error.html("Please enter your phone number")
+    if (phone == "") {
+      $phone_error.html("Please enter a phone number")
                   .slideDown("fast");
       $phone.removeClass("has-success")
             .addClass("has-error")
