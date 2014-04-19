@@ -42,7 +42,7 @@ $(document).ready(function() {
           }
         },
         onSet: function(context) {
-          $("#datetime-review").html($dt_date.pickadate("get") + " " + $dt_time.pickatime("get"));
+          $("#datetime-review").html($dt_date.pickadate("get") + " @ " + $dt_time.pickatime("get"));
         }
       }),
       $dt_time = $("input[name=datetime_time]").pickatime({
@@ -67,7 +67,7 @@ $(document).ready(function() {
           }
         },
         onSet: function(context) {
-          $("#datetime-review").html($dt_date.pickadate("get") + " " + $dt_time.pickatime("get"));
+          $("#datetime-review").html($dt_date.pickadate("get") + " @ " + $dt_time.pickatime("get"));
         }
       });
 

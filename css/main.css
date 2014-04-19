@@ -226,14 +226,6 @@ input.invalid, textarea.invalid {
   font-size:          small;
   }
 
-#total-html, #delivery-charge-html, #base-price {
-  display:            inline;
-  }
-
-#delivery-charge {
-  display:            none;
-  }
-
 span.arrow>a {
   text-decoration:    none;
   }

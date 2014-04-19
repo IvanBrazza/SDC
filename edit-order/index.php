@@ -418,13 +418,14 @@
           </div>
           <div id="review" class="panel-collapse collapse">
             <div class="panel-body">
-              <div class="col-md-5">
+              <div class="col-md-4">
                 <script>
                   var $origins = <?php echo json_encode(str_replace(" ", "+", $_SESSION['user']['address']) . "," . str_replace(" ", "+", $_SESSION['user']['postcode'])); ?>,
                       $destination = "95+Hoe+Lane,EN35SW";
                 </script>
                 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKeZpb8doUO3DbEqT3t-uRJYsbEPbD3AE&sensor=false"></script>
                 <table class="table">
+                <caption>Your Order</caption>
                 <tr>
                   <th>Date of celebration:</th>
                   <td>
@@ -478,22 +479,48 @@
                 </table>
               </div>
               <div class="col-md-4">
-                <span id="delivery-charge"><b>Delivery: <div id="delivery-charge-html"></div></b></span>
-                <br />
-                <b>Base Price: &pound;<div id="base-price"></div></b>
-                <br />
-                <b>Grand Total: &pound;<div id="total-html"></div></b>
-                <br>
-                <b>Difference: &pound;<span id="difference-html"></span></b>
-                <br /><br />
+                <table class="table">
+                  <caption>Summary</caption>
+                  <tr>
+                    <th>Base Price</th>
+                    <td>
+                      &pound;<span id="base-price"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Filling</th>
+                    <td>
+                      &pound;<span id="filling-html"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Decoration</th>
+                    <td>
+                      &pound;<span id="decoration-html"></span>
+                    </td>
+                  </tr>
+                  <tr id="delivery-charge">
+                    <th>Delivery</th>
+                    <td>
+                      <span id="delivery-charge-html"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Grand Total</th>
+                    <td>
+                      &pound;<span id="total-html"></span>
+                    </td>
+                  </tr>
+                </table>
                 <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
                 <input type="hidden" value="<?php echo $_GET['order']; ?>" name="order_number">
-                <button type="submit" class="btn btn-success">Edit Order</button>
               </div>
-              <div class="col-md-3">
-                Something wrong? Want to make any changes?
-                <button type="button" id="reviewPrevious" class="btn btn-primary">
+              <div class="col-md-4">
+                <button type="button" id="reviewPrevious" class="btn btn-primary pull-left">
                   <span class="glyphicon glyphicon-arrow-left"></span>   Go back
+                </button>
+                <button type="submit" class="btn btn-success pull-right">
+                  <span class="glyphicon glyphicon-pencil"></span>   Edit Order
                 </button>
               </div>
             </div>

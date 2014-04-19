@@ -459,7 +459,8 @@ function calculateOrderTotal() {
     success: function(response) {
       object = JSON.parse(response);
       fillingPrice = parseInt(object.price);
-      $("#filling-review").html(object.name + " - &pound;" + object.price);
+      $("#filling-review").html(object.name);
+      $("#filling-html").html(object.price);
     }
   });
 
@@ -470,7 +471,8 @@ function calculateOrderTotal() {
     success: function(response) {
       object = JSON.parse(response);
       decorationPrice = parseInt(object.price);
-      $("#decoration-review").html(object.name + " - &pound;" + object.price);
+      $("#decoration-review").html(object.name);
+      $("#decoration-html").html(object.price);
     }
   });
   setTimeout(function() {
