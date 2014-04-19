@@ -42,13 +42,17 @@ $(document).ready(function() {
             if (object.status === 'Incorrect username.') {
               $("#username").closest("div.form-group")
                             .removeClass("has-success")
-                            .addClass("has-error");
+                            .addClass("has-error")
+                            .find(".input-group-addon")
+                            .html("<span class='glyphicon glyphicon-remove'></span>");
               $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.status).show();
               $("#token").val(object.token);
             } else if (object.status === 'Incorrect password.') {
               $("#password").closest(".form-group")
                             .removeClass("has-success")
-                            .addClass("has-error");
+                            .addClass("has-error")
+                            .find(".input-group-addon")
+                            .html("<span class='glyphicon glyphicon-remove'></span>");
               $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.status).show();
               $("#token").val(object.token);
             } else if (object.status  === 'redirect') {
@@ -79,14 +83,18 @@ $(document).ready(function() {
           if (object.status === 'success') {
             $("#email").closest(".form-group")
                        .removeClass("has-error")
-                       .addClass("has-success");
+                       .addClass("has-success")
+                       .find(".input-group-addon")
+                       .html("<span class='glyphicon glyphicon-ok'></span>");
             $("#error_message").hide();
             $("#success_message").html("<span class='glyphicon glyphicon-ok'></span>   Password reset. Please check your emails for a new password.").show();
           } else {
             if (object.status === 'Email doesn\'t exist.') {
               $("#email").closest(".form-group")
                          .removeClass("has-success")
-                         .addClass("has-error");
+                         .addClass("has-error")
+                         .find(".input-group-addon")
+                         .html("<span class='glyphicon glyphicon-remove'></span>");
               $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.status).show();
               $("#token").val(object.token);
             } else {
@@ -211,22 +219,28 @@ var validate = {
         $email_error      = $("#email-error"),
         regex             = /^(\w+\.?\w*)@(.+){2,}\.(.+){2,}[^\.]$/;
 
-    if (email === null) {
-      $email_error.html("Please enter your email");
-      $email.removeClass("has-success");
-      $email.addClass("has-error");
-      $email_error.slideUp("fast");
+    if (email == "") {
+      $email_error.html("Please enter your email")
+                  .slideDown("fast");
+      $email.removeClass("has-success")
+            .addClass("has-error")
+            .find(".input-group-addon")
+            .html("<span class='glyphicon glyphicon-remove'></span>");
       return false;
     } else if (regex.test(email)){
-      $email.removeClass("has-error");
-      $email.addClass("has-success");
       $email_error.slideUp("fast");
+      $email.removeClass("has-error")
+            .addClass("has-success")
+            .find(".input-group-addon")
+            .html("<span class='glyphicon glyphicon-ok'></span>");
       return true;
     } else {
-      $email_error.html("Please enter a valid email");
-      $email.removeClass("has-success");
-      $email.addClass("has-error");
-      $email_error.slideDown("fast");
+      $email_error.html("Please enter a valid email")
+                  .slideDown("fast");
+      $email.removeClass("has-success")
+            .addClass("has-error")
+            .find(".input-group-addon")
+            .html("<span class='glyphicon glyphicon-remove'></span>");
       return false;
     }
   },
@@ -235,22 +249,28 @@ var validate = {
         $password         = $("input[name=password]").closest("div.form-group"),
         $password_error   = $("#password-error");
 
-    if (password === null) {
-      $password_error.html("Please enter a password");
-      $password.removeClass("has-success");
-      $password.addClass("has-error");
-      $password_error.slideDown("fast");
+    if (password == "") {
+      $password_error.html("Please enter a password")
+                     .slideDown("fast");
+      $password.removeClass("has-success")
+               .addClass("has-error")
+               .find(".input-group-addon")
+               .html("<span class='glyphicon glyphicon-remove'></span>");
       return false;
     } else if (password.length < 5) {
-      $password_error.html("Password must be at least 5 characters");
-      $password.removeClass("has-success");
-      $password.addClass("has-error");
-      $password_error.slideDown("fast");
+      $password_error.html("Password must be at least 5 characters")
+                     .slideDown("fast");
+      $password.removeClass("has-success")
+               .addClass("has-error")
+               .find(".input-group-addon")
+               .html("<span class='glyphicon glyphicon-remove'></span>");
       return false;
     } else {
-      $password.removeClass("has-error");
-      $password.addClass("has-success");
       $password_error.slideUp("fast");
+      $password.removeClass("has-error")
+               .addClass("has-success")
+               .find(".input-group-addon")
+               .html("<span class='glyphicon glyphicon-ok'></span>");
       return true;
     }
   },
@@ -260,22 +280,28 @@ var validate = {
         $password2        = $("input[name=password2]").closest("div.form-group"),
         $password2_error  = $("#password2-error");
 
-    if (password2 === null) {
-      $password2_error.html("Please reenter your password");
-      $password2.removeClass("has-error");
-      $password2.addClass("has-success");
-      $password2_error.slideDown("fast");
+    if (password2 == "") {
+      $password2_error.html("Please reenter your password")
+                      .slideDown("fast");
+      $password2.removeClass("has-success")
+                .addClass("has-error")
+                .find(".input-group-addon")
+                .html("<span class='glyphicon glyphicon-remove'></span>");
       return false;
     } else if (password === password2) {
-      $password2.removeClass("has-error");
-      $password2.addClass("has-success");
       $password2_error.slideUp("fast");
+      $password2.removeClass("has-error")
+                .addClass("has-success")
+                .find(".input-group-addon")
+                .html("<span class='glyphicon glyphicon-ok'></span>");
       return true;
     } else {
-      $password2_error.html("Passwords do not match");
-      $password2.removeClass("has-success");
-      $password2.addClass("has-error");
-      $password2_error.slideDown("fast");
+      $password2_error.html("Passwords do not match")
+                      slideDown("fast");
+      $password2.removeClass("has-success")
+                .addClass("has-error")
+                .find(".input-group-addon")
+                .html("<span class='glyphicon glyphicon-remove'></span>");
       return false;
     }
   },
@@ -285,21 +311,27 @@ var validate = {
         $username_error   = $("#username-error");
 
     if (username === null) {
-      $username_error.html("Please enter a username");
-      $username.removeClass("has-success");
-      $username.addClass("has-error");
-      $username_error.slideDown("fast");
+      $username_error.html("Please enter a username")
+                     .slideDown("fast");
+      $username.removeClass("has-success")
+               .addClass("has-error")
+               .find(".input-group-addon")
+               .html("<span class='glyphicon glyphicon-remove'></span>");
       return false;
     } else if (username.length < 3) {
-      $username_error.html("Username must be at least 3 characters");
-      $username.removeClass("has-success");
-      $username.addClass("has-error");
-      $username_error.slideDown("fast");
+      $username_error.html("Username must be at least 3 characters")
+                     .slideDown("fast");
+      $username.removeClass("has-success")
+               .addClass("has-error")
+               .find(".input-group-addon")
+               .html("<span class='glyphicon glyphicon-remove'></span>");
       return false;
     } else {
-      $username.removeClass("has-error");
-      $username.addClass("has-success");
       $username_error.slideUp("fast");
+      $username.removeClass("has-error")
+               .addClass("has-success")
+               .find(".input-group-addon")
+               .html("<span class='glyphicon glyphicon-ok'></span>");
       return true;
     }
   },
@@ -309,15 +341,19 @@ var validate = {
         $error = $(error);
 
     if ($input === "") {
-      $error.html("This field cannot be blank");
-      input.removeClass("has-success");
-      input.addClass("has-error");
-      $error.slideDown("fast");
+      $error.html("This field cannot be blank")
+            .slideDown("fast");
+      input.removeClass("has-success")
+           .addClass("has-error")
+           .find(".input-group-addon")
+           .html("<span class='glyphicon glyphicon-remove'></span>");
       return false;
     } else {
-      input.removeClass("has-error");
-      input.addClass("has-success");
       $error.slideUp("fast");
+      input.removeClass("has-error")
+           .addClass("has-success")
+           .find(".input-group-addon")
+           .html("<span class='glyphicon glyphicon-ok'></span>");
       return true;
     }
   },
@@ -327,22 +363,28 @@ var validate = {
         $postcode_error   = $("#postcode_error"),
         regex             = /^[A-Za-z]{1,2}[0-9]{1,2}[A-Za-z]? ?[0-9][A-Za-z]{2}$/;
 
-    if (postcode === null) {
-      $postcode_error.html("Please enter your postcode");
-      $postcode.removeClass("has-success");
-      $postcode.addClass("has-error");
-      $postcode_error.slideDown("fast");
+    if (postcode == "") {
+      $postcode_error.html("Please enter your postcode")
+                     .slideDown("fast");
+      $postcode.removeClass("has-success")
+               .addClass("has-error")
+               .find(".input-group-addon")
+               .html("<span class='glyphicon glyphicon-remove'></span>");
       return false;
     } else if (regex.test(postcode)) {
-      $postcode.removeClass("has-error");
-      $postcode.addClass("has-success");
       $postcode_error.slideUp("fast");
+      $postcode.removeClass("has-error")
+               .addClass("has-success")
+               .find(".input-group-addon")
+               .html("<span class='glyphicon glyphicon-ok'></span>");
       return true;
     } else {
-      $postcode_error.html("Please enter a valid postcode");
-      $postcode.removeClass("has-success");
-      $postcode.addClass("has-error");
-      $postcode_error.slideDown("fast");
+      $postcode_error.html("Please enter a valid postcode")
+                     .slideDown("fast");
+      $postcode.removeClass("has-success")
+               .addClass("has-error")
+               .find(".input-group-addon")
+               .html("<span class='glyphicon glyphicon-remove'></span>");
       return false;
     }
   },
@@ -353,21 +395,27 @@ var validate = {
         regex         = /^0[ -]?[1-9](?:[ -]?\d){9}$/;
 
     if (phone === null) {
-      $phone_error.html("Please enter your phone number");
-      $phone.removeClass("has-success");
-      $phone.addClass("has-error");
-      $phone_error.slideDown("fast");
+      $phone_error.html("Please enter your phone number")
+                  .slideDown("fast");
+      $phone.removeClass("has-success")
+            .addClass("has-error")
+            .find(".input-group-addon")
+            .html("<span class='glyphicon glyphicon-remove'></span>");
       return false;
     } else if (regex.test(phone)) {
-      $phone.removeClass("has-error");
-      $phone.addClass("has-success");
       $phone_error.slideUp("fast");
+      $phone.removeClass("has-error")
+            .addClass("has-success")
+            .find(".input-group-addon")
+            .html("<span class='glyphicon glyphicon-ok'></span>");
       return true;
     } else {
-      $phone_error.html("Please enter a valid phone number");
-      $phone.removeClass("has-success");
-      $phone.addClass("has-error");
-      $phone_error.slideDown("fast");
+      $phone_error.html("Please enter a valid phone number")
+                  .slideDown("fast");
+      $phone.removeClass("has-success")
+            .addClass("has-error")
+            .find(".input-group-addon")
+            .html("<span class='glyphicon glyphicon-remove'></span>");
       return false;
     }
   }
