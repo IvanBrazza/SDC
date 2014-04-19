@@ -13,9 +13,6 @@
     die();
   }
 
-  // Use HTTPS since secure content is being transferred
-  forceHTTPS();
-
   // Display messages based on GET
   if (!empty($_GET['completed']))
   {

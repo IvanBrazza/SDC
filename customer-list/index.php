@@ -15,9 +15,6 @@
     die();
   }
 
-  // Use HTTPS since secure data is being displayed
-  forceHTTPS();
-
   // Get customer details
   $query = "
     SELECT

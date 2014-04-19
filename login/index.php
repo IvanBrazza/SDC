@@ -15,9 +15,6 @@
     die();
   }
 
-  // Use HTTPS since secure data is being transferred
-  forceHTTPS();
-
   // Set the error text if the page has been redirected due
   // to an error
   if(!empty($_GET['e']))

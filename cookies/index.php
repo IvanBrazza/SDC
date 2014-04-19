@@ -1,8 +1,6 @@
 <?php
   require("../lib/common.php");
   $title = "Cookies";
-
-  forceHTTP();
 ?>
 <?php include("../lib/header.php"); ?>
 <div class="row">

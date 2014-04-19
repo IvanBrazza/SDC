@@ -5,8 +5,6 @@
   **/
   require("../lib/common.php");
 
-  forceHTTPS();
-
   if ($_GET)
   {
     $query = "

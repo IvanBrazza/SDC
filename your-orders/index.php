@@ -21,9 +21,6 @@
     die();
   }
 
-  // Use HTTPS since secure data is being transferred
-  forceHTTPS();
-
   // If the user clicked on an order
   if (!empty($_GET['order']))
   {

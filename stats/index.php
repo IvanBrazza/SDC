@@ -13,9 +13,6 @@
     die();
   }
 
-  // Use HTTPS since secure data is being transferred
-  forceHTTPS();
-
   // Get all order details
   $query = "
     SELECT

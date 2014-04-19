@@ -2,9 +2,6 @@
   require("../lib/common.php");
   $title = "Home";
   $page = "home";
-
-  // Use HTTP since no secure data is being displayed
-  forceHTTP();
 ?>
 <head>
   <html lang="en" xml:lang="en" xmlns= "http://www.w3.org/1999/xhtml">

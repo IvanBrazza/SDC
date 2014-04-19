@@ -7,10 +7,6 @@
   $title = "Testimonials";
   $page = "testimonials";
 
-  // Use HTTPS since the form to submit a testimonial
-  // is on this page
-  forceHTTPS();
-
   // Generate a token
   $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 
