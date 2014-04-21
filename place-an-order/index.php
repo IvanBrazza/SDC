@@ -19,7 +19,7 @@
   // Get user details to make sure they have been entered
   $query = "
     SELECT
-      *
+      address, postcode, phone, first_name, last_name
     FROM
       users
     WHERE
@@ -31,9 +31,30 @@
   );
 
   $db->runQuery($query, $query_params);
-
   $row = $db->fetch();
-  
+
+  // Get all fillings to be displayed
+  $query = "
+    SELECT
+      *
+    FROM
+      fillings
+  ";
+
+  $db->runQuery($query, null);
+  $fillings = $db->fetchAll();
+
+  // Get all decorations to be displayed
+  $query = "
+    SELECT
+      *
+    FROM
+      decorations
+  ";
+
+  $db->runQuery($query, null);
+  $decorations = $db->fetchAll();
+
   // Don't let the users place an order until their details are entered
   if (empty($row['address']) or empty($row['postcode']) or empty($row['phone']) or empty($row['first_name']) or empty($row['last_name']))
   {
@@ -93,10 +114,9 @@
                   <div class="col-sm-7">
                     <select name="filling" id="filling" class="form-control" onchange="validate.input('select[name=filling]', '#filling_error', 'Please choose a filling')">
                       <option value="null">--Select A Filling--</option>
-                      <option value="0">None</option>
-                      <option value="1">Butter Cream</option>
-                      <option value="2">Chocolate</option>
-                      <option value="3">Other (specify in comments)</option>
+                      <?php foreach ($fillings as $filling) : ?>
+                        <option value="<?php echo $filling['filling_id']; ?>"><?php echo $filling['filling_name']; ?></option>
+                      <?php endforeach; ?>
                     </select>
                     <div id="filling_error" class="validate-error"></div>
                   </div>
@@ -107,13 +127,9 @@
                   <div class="col-sm-7">
                     <select name="decoration" id="decoration" class="form-control" onchange="validate.input('select[name=decoration]', '#decoration_error', 'Please choose a decoration')">
                       <option value="null">--Select A Decoration--</option>
-                      <option value="0">None</option>
-                      <option value="1">Royal Icing</option>
-                      <option value="2">Regal Icing</option>
-                      <option value="3">Butter Cream</option>
-                      <option value="4">Chocolate</option>
-                      <option value="5">Coconut</option>
-                      <option value="6">Other (specify in comments)</option>
+                      <?php foreach ($decorations as $decoration) : ?>
+                        <option value="<?php echo $decoration['decor_id']; ?>"><?php echo $decoration['decor_name']; ?></option>
+                      <?php endforeach; ?>
                     </select>
                     <div id="decoration_error" class="validate-error"></div>
                   </div>

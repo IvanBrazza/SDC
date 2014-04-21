@@ -284,3 +284,26 @@ progress {
 .help {
   font-size:          0.8em;
   }
+
+.scrollspy {
+  width:              180px;
+  margin-top:         20px;
+  }
+
+.scrollspy > .nav > li.active > a {
+  border-left:        2px solid #21a2e6;
+  }
+
+.nested-scrollspy > .nav > li.active > a {
+  border-left:        1px solid #21a2e6;
+  }
+
+.nested-scrollspy > .nav > li > a {
+  font-size:          0.8em;
+  padding:            5px 5px 5px 25px;
+  }
+@media (min-width: 992px) {
+  #fillings, #decorations {
+    table-layout:       fixed;
+    }
+  }

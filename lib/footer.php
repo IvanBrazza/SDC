@@ -20,11 +20,6 @@
             strpos($_SERVER['REQUEST_URI'], "edit-account") !== false) : ?>
     <script src="../js/forms.js"></script>
   <?php endif; ?>
-  <?php if (strpos($_SERVER['REQUEST_URI'], "stats") !== false) :?>
-    <script src="../js/chart.min.js"></script>
-    <script src="../js/stats.js"></script>
-    <script src="../js/modernizr.js"></script>
-  <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "gallery") !== false) : ?>
     <script src="../js/jquery/jquery.wookmark.min.js"></script>
     <script src="../js/jquery/imagesloaded.min.js"></script>
@@ -37,9 +32,6 @@
   <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "all-orders") !== false) : ?>
     <script src="../js/all-orders.js"></script>
-  <?php endif; ?>
-  <?php if (strpos($_SERVER['REQUEST_URI'], "customer-list") !== false) : ?>
-    <script src="../js/customer-list.js"></script>
   <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "place-an-order") !== false) : ?>
     <script src="../js/place-an-order.js"></script>
@@ -54,6 +46,12 @@
     <script src="../js/edit-order.js"></script>
     <script src="../js/forms.js"></script>
     <script src="../js/picker.js"></script>
+  <?php endif; ?>
+  <?php if (strpos($_SERVER['REQUEST_URI'], "admin") !== false) : ?>
+    <script src="../js/chart.min.js"></script>
+    <script src="../js/modernizr.js"></script>
+    <script src="../js/stats.js"></script>
+    <script src="../js/admin.js"></script>
   <?php endif; ?>
   <script src="../js/main.js"></script>
   <script src="../js/browser.js"></script>

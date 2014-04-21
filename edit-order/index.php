@@ -259,6 +259,28 @@
 
     $datetime_date = substr($row['datetime'], 0, 10);
     $datetime_time = substr($row['datetime'], 11);
+
+    // Get all fillings to be displayed
+    $query = "
+      SELECT
+        *
+      FROM
+        fillings
+    ";
+
+    $db->runQuery($query, null);
+    $fillings = $db->fetchAll();
+
+    // Get all decorations to be displayed
+    $query = "
+      SELECT
+        *
+      FROM
+        decorations
+    ";
+
+    $db->runQuery($query, null);
+    $decorations = $db->fetchAll();
   }
   else
   {
@@ -303,10 +325,9 @@
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
                     <select name="filling" id="filling" class="form-control">
-                      <option value="0" <?php if ($row['filling_id'] == 0) {echo "selected";} ?>>None</option>
-                      <option value="1" <?php if ($row['filling_id'] == 1) {echo "selected";} ?>>Butter Cream</option>
-                      <option value="2" <?php if ($row['filling_id'] == 2) {echo "selected";} ?>>Chocolate</option>
-                      <option value="3" <?php if ($row['filling_id'] == 3) {echo "selected";} ?>>Other (specify in comments)</option>
+                      <?php foreach ($fillings as $filling) : ?>
+                        <option value="<?php echo $filling['filling_id']; ?>" <?php if ($row['filling_id'] == $filling['filling_id']) {echo "selected";} ?>><?php echo $filling['filling_name']; ?></option>
+                      <?php endforeach; ?>
                     </select>
                   </div>
                 </div>
@@ -315,13 +336,9 @@
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
                     <select name="decoration" id="decoration" class="form-control">
-                      <option value="0" <?php if ($row['decor_id'] == 0) {echo "selected";} ?>>None</option>
-                      <option value="1" <?php if ($row['decor_id'] == 1) {echo "selected";} ?>>Royal Icing</option>
-                      <option value="2" <?php if ($row['decor_id'] == 2) {echo "selected";} ?>>Regal Icing</option>
-                      <option value="3" <?php if ($row['decor_id'] == 3) {echo "selected";} ?>>Butter Cream</option>
-                      <option value="4" <?php if ($row['decor_id'] == 4) {echo "selected";} ?>>Chocolate</option>
-                      <option value="5" <?php if ($row['decor_id'] == 5) {echo "selected";} ?>>Coconut</option>
-                      <option value="6" <?php if ($row['decor_id'] == 6) {echo "selected";} ?>>Other (specify in comments)</option>
+                      <?php foreach ($decorations as $decoration) : ?>
+                        <option value="<?php echo $decoration['decor_id']; ?>" <?php if ($row['decor_id'] == $decoration['decor_id']) {echo "selected";} ?>><?php echo $decoration['decor_name']; ?></option>
+                      <?php endforeach; ?>
                     </select>
                   </div>
                 </div>

@@ -5,7 +5,77 @@
     JSON format
   **/
   require("common.php");
-  
+
+  // Start building the response. Orders contains X and Y values for each month for the line graph,
+  // cakes contains values for each cake type and size (default 0), fillings contains values for each filling (default
+  // 0) and decorations contains values for each decoration (default 0)
+  $fillColor = "#d0edeb";
+  $strokeColor = "#21a2e6";
+  $response = array(
+    'orders'      => array(
+      'labels' => array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"),
+      'datasets' => array(
+        0 => array (
+          "fillColor" => $fillColor,
+          "strokeColor" => $strokeColor,
+          "pointColor" => $strokeColor,
+          "pointStrokeColor" => "#fff",
+          "data" => array(0,0,0,0,0,0,0,0,0,0,0,0)
+        )
+      )
+    ),
+    'cakes'       => array(
+      'labels' => array("6\"", "8\"", "10\"", "12\"", "14\"", "Sponge", "Marble", "Chocolate", "Fruit"),
+      'datasets' => array(
+        0 => array(
+          "fillColor" => $fillColor,
+          "strokeColor" => $strokeColor,
+          "data" => array(0,0,0,0,0,0,0,0,0)
+        )
+      )
+    ),
+    'fillings'    => array(
+      'labels' => array(),
+      'datasets' => array(
+        0 => array(
+          "fillColor" => $fillColor,
+          "strokeColor" => $strokeColor,
+          "data" => array()
+        )
+      )
+    ),
+    'decorations' => array(
+      'labels' => array(),
+      'datasets' => array(
+        0 => array(
+          "fillColor" => $fillColor,
+          "strokeColor" => $strokeColor,
+          "data" => array()
+        )
+      )
+    )
+  );
+
+  // Initiate fillings & decorations
+  $query = "
+    SELECT
+      a.*, b.*
+    FROM
+      fillings a, decorations b
+  ";
+
+  $db->runQuery($query, null);
+  $rows = $db->fetchAll();
+  foreach ($rows as $row)
+  {
+    $fillings[$row['filling_id']]['filling_name'] = $row['filling_name'];
+    $fillings[$row['filling_id']]['filling_id'] = $row['filling_id'];
+    $fillings[$row['filling_id']]['value'] = 0;
+    $decorations[$row['decor_id']]['decor_name'] = $row['decor_name'];
+    $decorations[$row['decor_id']]['decor_id'] = $row['decor_id'];
+    $decorations[$row['decor_id']]['value'] = 0;
+  }
+
   // Get all order details
   $query = "
     SELECT
@@ -26,11 +96,9 @@
     $cakes[$row['cake_id']]['value']++;
 
     // +1 each filling
-    $fillings[$row['filling_id']]['filling_id'] = $row['filling_id'];
     $fillings[$row['filling_id']]['value']++;
 
     // +1 each decoration
-    $decorations[$row['decor_id']]['decor_id'] = $row['decor_id'];
     $decorations[$row['decor_id']]['value']++;
   }
   
@@ -56,152 +124,21 @@
     }
   }
 
-  // Start building the response. Orders contains X and Y values for
-  // each month for the line graph, cakes contains values for each cake type
-  // and size (default 0), fillings contains values for each filling (default
-  // 0) and decorations contains values for each decoration (default 0)
-  $fillColor = "#d0edeb";
-  $strokeColor = "#21a2e6";
-  $response = array(
-    'orders'      => array(
-                       'labels' => array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"),
-                       'datasets' => array(
-                         0 => array (
-                           "fillColor" => $fillColor,
-                           "strokeColor" => $strokeColor,
-                           "pointColor" => $strokeColor,
-                           "pointStrokeColor" => "#fff",
-                           "data" => array(0,0,0,0,0,0,0,0,0,0,0,0)
-                         )
-                       )
-                     ),
-    'cakes'       => array(
-                       'labels' => array("6\"", "8\"", "10\"", "12\"", "14\"", "Sponge", "Marble", "Chocolate", "Fruit"),
-                       'datasets' => array(
-                         0 => array(
-                           "fillColor" => $fillColor,
-                           "strokeColor" => $strokeColor,
-                           "data" => array(0,0,0,0,0,0,0,0,0)
-                         )
-                       )
-                     ),
-    'fillings'    => array(
-                       'labels' => array("None", "Butter Cream", "Chocolate", "Other"),
-                       'datasets' => array(
-                         0 => array(
-                           "fillColor" => $fillColor,
-                           "strokeColor" => $strokeColor,
-                           "data" => array(0,0,0,0)
-                         )
-                       )
-                     ),
-    'decorations' => array(
-                       'labels' => array("None", "Royal Icing", "Regal Icing", "Butter Cream", "Chocolate", "Coconut", "Other"),
-                       'datasets' => array(
-                         0 => array(
-                           "fillColor" => $fillColor,
-                           "strokeColor" => $strokeColor,
-                           "data" => array(0,0,0,0,0,0,0)
-                         )
-                       )
-                     )
-  );
-
-  // For each filling ID, get the filling details
-  // from the database and add its popularity to
-  // the response
+  // Add each filling name and value to their respective arrays in the response
   foreach ($fillings as $filling)
   {
-    $query = "
-      SELECT
-        *
-      FROM
-        fillings
-      WHERE
-        filling_id = :filling_id
-    ";
-
-    $query_params = array(
-      ':filling_id' => $filling['filling_id']
-    );
-
-    $db->runQuery($query, $query_params);
-
-    $row = $db->fetch();
-
-    if ($row['filling_name'] == "None")
-    {
-      $response['fillings']['datasets'][0]['data'][0] += $filling['value'];
-    }
-    else if ($row['filling_name'] == "Butter Cream")
-    {
-      $response['fillings']['datasets'][0]['data'][1] += $filling['value'];
-    }
-    else if ($row['filling_name'] == "Chocoalte")
-    {
-      $response['fillings']['datasets'][0]['data'][2] += $filling['value'];
-    }
-    else if ($row['filling_name'] == "Other")
-    {
-      $response['fillings']['datasets'][0]['data'][3] += $filling['value'];
-    }
+    array_push($response['fillings']['labels'], $filling['filling_name']);
+    array_push($response['fillings']['datasets'][0]['data'], $filling['value']);
   }
 
-  // For each decoration ID, get the decoration details
-  // from the database and add its popularity to
-  // the response
+  // Add each decoration name and value to their respective arrays in the response
   foreach ($decorations as $decoration)
   {
-    $query = "
-      SELECT
-        *
-      FROM
-        decorations
-      WHERE
-        decor_id = :decor_id
-    ";
-
-    $query_params = array(
-      ':decor_id' => $decoration['decor_id']
-    );
-
-    $db->runQuery($query, $query_params);
-
-    $row = $db->fetch();
-
-    if ($row['decor_name'] == "Royal Icing")
-    {
-      $response['decorations']['datasets'][0]['data'][1] += $decoration['value'];
-    }
-    else if ($row['decor_name'] == "Regal Icing")
-    {
-      $response['decorations']['datasets'][0]['data'][2] += $decoration['value'];
-    }
-    else if ($row['decor_name'] == "Butter Cream")
-    {
-      $response['decorations']['datasets'][0]['data'][3] += $decoration['value'];
-    }
-    else if ($row['decor_name'] == "Chocolate")
-    {
-      $response['decorations']['datasets'][0]['data'][4] += $decoration['value'];
-    }
-    else if ($row['decor_name'] == "Coconut")
-    {
-      $response['decorations']['datasets'][0]['data'][5] += $decoration['value'];
-    }
-    else if ($row['decor_name'] == "Other")
-    {
-      $response['decorations']['datasets'][0]['data'][6] += $decoration['value'];
-    }
-    else if ($row['decor_name'] == "None")
-    {
-      $response['decorations']['datasets'][0]['data'][0] += $decoration['value'];
-    }
+    array_push($response['decorations']['labels'], $decoration['decor_name']);
+    array_push($response['decorations']['datasets'][0]['data'], $decoration['value']);
   }
 
-  // For each cake ID, get the cake details
-  // from the database and add its popularity to
-  // the response
+  // For each cake ID, get the cake details from the database and add its popularity to the response
   foreach ($cakes as $cake)
   {
     $query = "

@@ -40,8 +40,7 @@
           <?php endif; ?>
           <?php if (!empty($_SESSION['user']) and $_SESSION['user']['username'] === "admin") : ?>
             <li <?php if ($page === "all-orders") : ?>class="active"<?php endif; ?>><a href="../all-orders">All Orders</a></li>
-            <li <?php if ($page === "customer-list") : ?>class="active"<?php endif; ?>><a href="../customer-list">Customer List</a></li>
-            <li <?php if ($page === "stats") : ?>class="active"<?php endif;?>><a href="../stats">Stats</a></li>
+            <li <?php if ($page === "admin") : ?>class="active"<?php endif;?>><a href="../admin">Admin</a></li>
           <?php endif; ?>
         </ul>
         <ul class="nav navbar-nav navbar-right">
