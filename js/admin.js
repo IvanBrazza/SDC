@@ -32,7 +32,7 @@ $(document).ready(function() {
         if (response.slice(0,13) === "../all-orders") {
           window.location.href = response;
         } else {
-          $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + response).show();
+          $("#search_error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + response).show();
         }
       }
     });

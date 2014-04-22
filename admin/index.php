@@ -202,7 +202,7 @@
           </span>
         </div>
       </form>
-      <div class="alert alert-danger col-md-6" id="error_message" style="max-height: 34px;padding-top: 6px;"></div>
+      <div class="alert alert-danger col-md-6" id="search_error_message" style="max-height: 34px;padding-top: 6px;"></div>
       <script>
         var customerNames = [
           <?php
