@@ -303,7 +303,7 @@
     <form action="index.php" method="POST" class="form-horizontal" id="edit-order-form" role="form">
       <div class="panel-group" id="accordion">
         <div class="panel panel-default">
-          <div class="panel-heading">
+          <div class="panel-heading" id="the-cake-heading" style="background-color:#d9edf7;">
             <h4 class="panel-title">
               The Cake
             </h4>
@@ -385,7 +385,7 @@
           </div>
         </div>
         <div class="panel panel-default">
-          <div class="panel-heading">
+          <div class="panel-heading" id="delivery-heading" style="background-color:#fcf8e3;">
             <h4 class="panel-title">
               Delivery
             </h4>
@@ -428,7 +428,7 @@
           </div>
         </div>
         <div class="panel panel-default">
-          <div class="panel-heading">
+          <div class="panel-heading" id="review-heading" style="background-color:#fcf8e3;">
             <h4 class="panel-title">
               Review
             </h4>
@@ -526,6 +526,12 @@
                     <th>Grand Total</th>
                     <td>
                       &pound;<span id="total-html"></span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Difference</th>
+                    <td>
+                      &pound;<span id="difference-html"></span>
                     </td>
                   </tr>
                 </table>

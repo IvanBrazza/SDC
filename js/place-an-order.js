@@ -70,7 +70,11 @@ $(document).ready(function() {
         onSet: function(context) {
           $("#datetime-review").html($dt_date.pickadate("get") + " @ " + $dt_time.pickatime("get"));
         }
-      });
+      }),
+      completeColour   = "#dff0d8",
+      incompleteColour = "#fcf8e3",
+      progressColour   = "#d9edf7",
+      errorColour      = "#f2dede";
 
   $("#theCakeNext").click(function() {
     var $celeb_date = $("#celebration_date_hidden"),
@@ -83,18 +87,27 @@ $(document).ready(function() {
       if (comm_check && $fill_check && $deco_check && $size_check && $type_check && $celeb_date.val() != "") {
         $("#theCake").collapse("hide");
         $("#uploadAPhoto").collapse("show");
-      } else if ($celeb_date.val() == "") {
-        $celeb_date.closest(".form-group").removeClass("has-success").addClass("has-error");
-        $("#celebration-date-error").html("Please select a celebration date").slideDown("fast");
+        $("#the-cake-heading").animate({backgroundColor: completeColour});
+        $("#upload-a-photo-heading").animate({backgroundColor: progressColour});
+      } else { 
+        $("#the-cake-heading").animate({backgroundColor: errorColour});
+        if ($celeb_date.val() == "") {
+          $celeb_date.closest(".form-group").removeClass("has-success").addClass("has-error");
+          $("#celebration-date-error").html("Please select a celebration date").slideDown("fast");
+        }
       }
     } else {
       if ($fill_check && $deco_check && $size_check && $type_check && $celeb_date.val() != "") {
         $("#theCake").collapse("hide");
         $("#uploadAPhoto").collapse("show");
-      }
-      if ($celeb_date.val() == "") {
-        $celeb_date.closest(".form-group").removeClass("has-success").addClass("has-error");
-        $("#celebration_date_error").html("Please select a celebration date").slideDown("fast");
+        $("#the-cake-heading").animate({backgroundColor: completeColour});
+        $("#upload-a-photo-heading").animate({backgroundColor: progressColour});
+      } else {
+        $("#the-cake-heading").animate({backgroundColor: errorColour});
+        if ($celeb_date.val() == "") {
+          $celeb_date.closest(".form-group").removeClass("has-success").addClass("has-error");
+          $("#celebration_date_error").html("Please select a celebration date").slideDown("fast");
+        }
       }
     }
   });
@@ -102,11 +115,15 @@ $(document).ready(function() {
   $("#uploadAPhotoNext").click(function() {
     $("#deliveryPanel").collapse("show");
     $("#uploadAPhoto").collapse("hide");
+    $("#upload-a-photo-heading").animate({backgroundColor: completeColour});
+    $("#delivery-heading").animate({backgroundColor: progressColour});
   });
 
   $("#uploadAPhotoPrevious").click(function() {
     $("#theCake").collapse("show");
     $("#uploadAPhoto").collapse("hide");
+    $("#upload-a-photo-heading").animate({backgroundColor: incompleteColour});
+    $("#the-cake-heading").animate({backgroundColor: progressColour});
   });
 
   $("#deliveryNext").click(function() {
@@ -116,28 +133,37 @@ $(document).ready(function() {
     if ($datetime_date.val() != "" && $datetime_time.val() != "" && $delivery_check) {
       $("#deliveryPanel").collapse("hide");
       $("#review").collapse("show");
-    }
-    if ($datetime_date.val() == "") {
-      $datetime_date.closest(".form-group").removeClass("has-success").addClass("has-error");
-      $("#datetime_date_error").html("Please select a date").slideDown("fast");
-    }
-    if ($datetime_time.val() == "") {
-      $datetime_time.closest(".form-group").removeClass("has-success").addClass("has-error");
-      $("#datetime_time_error").html("Please select a time").slideDown("fast");
+      $("#delivery-heading").animate({backgroundColor: completeColour});
+      $("#review-heading").animate({backgroundColor: progressColour});
+    } else {
+      $("#delivery-heading").animate({backgroundColor: errorColour});
+      if ($datetime_date.val() == "") {
+        $datetime_date.closest(".form-group").removeClass("has-success").addClass("has-error");
+        $("#datetime_date_error").html("Please select a date").slideDown("fast");
+      }
+      if ($datetime_time.val() == "") {
+        $datetime_time.closest(".form-group").removeClass("has-success").addClass("has-error");
+        $("#datetime_time_error").html("Please select a time").slideDown("fast");
+      }
     }
   });
 
   $("#deliveryPrevious").click(function() {
     $("#uploadAPhoto").collapse("show");
     $("#deliveryPanel").collapse("hide");
+    $("#delivery-heading").animate({backgroundColor: incompleteColour});
+    $("#upload-a-photo-heading").animate({backgroundColor: progressColour});
   });
 
   $("#reviewPrevious").click(function() {
     $("#deliveryPanel").collapse("show");
     $("#review").collapse("hide");
+    $("#review-heading").animate({backgroundColor: incompleteColour});
+    $("#delivery-heading").animate({backgroundColor: progressColour});
   });
 
   $("#order-form").submit(function() {
+    $("#review-heading").animate({backgroundColor: completeColour});
     NProgress.configure({
       trickleRate:  0.1,
       trickleSpeed: 500

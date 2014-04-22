@@ -108,7 +108,11 @@ $(document).ready(function() {
         onSet: function(context) {
           $("#datetime-review").html($dt_date.pickadate("get") + " @ " + $dt_time.pickatime("get"));
         }
-      });
+      }),
+      completeColour   = "#dff0d8",
+      incompleteColour = "#fcf8e3",
+      progressColour   = "#d9edf7",
+      errorColour      = "#f2dede";
 
   $("#theCustomerNext").click(function() {
     if ($("select[name=existing_id]").val() !== "null") {
@@ -116,6 +120,8 @@ $(document).ready(function() {
       $destination = "95+Hoe+Lane,EN35SW";
       $("#theCustomer").collapse("hide");
       $("#theCake").collapse("show");
+      $("#the-customer-heading").animate({backgroundColor: completeColour});
+      $("#the-cake-heading").animate({backgroundColor: progressColour});
     } else {
       var phon_check = validate.phone(),
           emai_check = validate.email(),
@@ -128,6 +134,10 @@ $(document).ready(function() {
         $destination = "95+Hoe+Lane,EN35SW";
         $("#theCustomer").collapse("hide");
         $("#theCake").collapse("show");
+        $("#the-customer-heading").animate({backgroundColor: completeColour});
+        $("#the-cake-heading").animate({backgroundColor: progressColour});
+      } else {
+        $("#the-customer-heading").animate({backgroundColor: errorColour});
       }
     }
   });
@@ -135,6 +145,8 @@ $(document).ready(function() {
   $("#theCakePrevious").click(function() {
     $("#theCake").collapse("hide");
     $("#theCustomer").collapse("show");
+    $("#the-cake-heading").animate({backgroundColor: incompleteColour});
+    $("#the-customer-heading").animate({backgroundColor: progressColour});
   });
 
   $("#theCakeNext").click(function() {
@@ -152,29 +164,37 @@ $(document).ready(function() {
         if (comm_check) {
           $("#theCake").collapse("hide");
           $("#delivery").collapse("show");
+          $("#the-cake-heading").animate({backgroundColor: completeColour});
+          $("#upload-a-photo-heading").animate({backgroundColor: progressColour});
         }
       } else {
         $("#theCake").collapse("hide");
         $("#delivery").collapse("show");
+        $("#the-cake-heading").animate({backgroundColor: completeColour});
+        $("#upload-a-photo-heading").animate({backgroundColor: progressColour});
       }
-    }
-    if ($plac_date.val() == "") {
-      $plac_date.closest(".form-group").removeClass("has-success").addClass("has-error");
-      $("#placed_date_error").html("Please select a date").slideDown("fast");
-    }
-    if ($plac_time.val() == "") {
-      $plac_time.closest(".form-group").removeClass("has-success").addClass("has-error");
-      $("#placed_time_error").html("Please select a time").slideDown("fast");
-    }
-    if ($celeb_date.val() == "") {
-      $celeb_date.closest(".form-group").removeClass("has-success").addClass("has-error");
-      $("#celebration_date_error").html("Please select a date").slideDown("fast");
+    } else {
+      $("#the-cake-heading").animate({backgroundColor: errorColour});
+      if ($plac_date.val() == "") {
+        $plac_date.closest(".form-group").removeClass("has-success").addClass("has-error");
+        $("#placed_date_error").html("Please select a date").slideDown("fast");
+      }
+      if ($plac_time.val() == "") {
+        $plac_time.closest(".form-group").removeClass("has-success").addClass("has-error");
+        $("#placed_time_error").html("Please select a time").slideDown("fast");
+      }
+      if ($celeb_date.val() == "") {
+        $celeb_date.closest(".form-group").removeClass("has-success").addClass("has-error");
+        $("#celebration_date_error").html("Please select a date").slideDown("fast");
+      }
     }
   });
 
   $("#deliveryPrevious").click(function() {
     $("#delivery").collapse("hide");
     $("#theCake").collapse("show");
+    $("#delivery-heading").animate({backgroundColor: incompleteColour});
+    $("#the-cake-heading").animate({backgroundColor: progressColour});
   });
 
   $("#deliveryNext").click(function() {
@@ -186,7 +206,10 @@ $(document).ready(function() {
       calculateOrderTotal();
       $("#delivery").collapse("hide");
       $("#review").collapse("show");
+      $("#delivery-heading").animate({backgroundColor: completeColour});
+      $("#review-heading").animate({backgroundColor: progressColour});
     } else {
+      $("#delivery-heading").animate({backgroundColor: errorColour});
       if ($datetime_date.val() == "") {
         $datetime_date.closest(".form-group").removeClass("has-success").addClass("has-error");
         $("#datetime_date_error").html("Please select a date").slideDown("fast");
@@ -201,6 +224,8 @@ $(document).ready(function() {
   $("#reviewPrevious").click(function() {
     $("#review").collapse("hide");
     $("#delivery").collapse("show");
+    $("#review-heading").animate({backgroundColor: incompleteColour});
+    $("#delivery-heading").animate({backgroundColor: progressColour});
   });
 
   $("select[name=existing_id]").change(function() {
@@ -242,5 +267,14 @@ $(document).ready(function() {
     $("#postcode-review").html($("input[name=postcode]").val());
     $("#phone-review").html($("input[name=phone]").val());
     $("#email-review").html($("input[name=email]").val());
+  });
+
+  $("#add-order-form").submit(function() {
+    $("#review-heading").animate({backgroundColor: completeColour});
+    NProgress.configure({
+      trickleRate:  0.1,
+      trickleSpeed: 500
+    });
+    NProgress.start();
   });
 });

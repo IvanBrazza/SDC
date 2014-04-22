@@ -60,10 +60,10 @@
 </div>
 <div class="row">
   <div class="col-md-12">
-    <form action="../lib/form/add-order.php" method="POST" class="form-horizontal" role="form">
+    <form action="../lib/form/add-order.php" method="POST" class="form-horizontal" role="form" id="add-order-form">
       <div class="panel-group" id="accordion">
         <div class="panel panel-default">
-          <div class="panel-heading">
+          <div class="panel-heading" id="the-customer-heading" style="background-color:#d9edf7;">
             <h4 class="panel-title">
               The Customer
             </h4>
@@ -143,7 +143,7 @@
           </div>
         </div>
         <div class="panel panel-default">
-          <div class="panel-heading">
+          <div class="panel-heading" id="the-cake-heading" style="background-color:#fcf8e3;">
             <h4 class="panel-title">
               The Cake
             </h4>
@@ -247,7 +247,7 @@
           </div>
         </div>
         <div class="panel panel-default">
-          <div class="panel-heading">
+          <div class="panel-heading" id="delivery-heading" style="background-color:#fcf8e3;">
             <h4 class="panel-title">
               Delivery
             </h4>
@@ -293,7 +293,7 @@
           </div>
         </div>
         <div class="panel panel-default">
-          <div class="panel-heading">
+          <div class="panel-heading" id="review-heading" style="background-color:#fcf8e3;">
             <h4 class="panel-title">
               Review
             </h4>

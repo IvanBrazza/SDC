@@ -69,26 +69,44 @@ $(document).ready(function() {
         onSet: function(context) {
           $("#datetime-review").html($dt_date.pickadate("get") + " @ " + $dt_time.pickatime("get"));
         }
-      });
+      }),
+      completeColour   = "#dff0d8",
+      incompleteColour = "#fcf8e3",
+      progressColour   = "#d9edf7",
+      errorColour      = "#f2dede";
 
   $("#theCakeNext").click(function() {
-    var $celeb_date = $("#celebration_date_hidden");
+    var $celeb_date = $("#celebration_date_hidden"),
+        $fill_check = validate.input('select[name=filling]', '#filling_error', 'Please choose a filling'),
+        $deco_check = validate.input('select[name=decoration]', '#decoration_error', 'Please choose a decoration'),
+        $size_check = validate.input('select[name=cake_size]', '#cake_size_error', 'Please choose a cake size'),
+        $type_check = validate.input('select[name=cake_type]', '#cake_type_error', 'Please choose a cake type');
     if ($("#comments").data("required") == "true") {
       var comm_check = validate.input("textarea#comments", "#comments_error", "Please enter a comment");
-      if (comm_check && $celeb_date.val() != "") {
-        $("#theCake").collapse("hide");
-        $("#uploadAPhoto").collapse("show");
-      } else if ($celeb_date == "") {
-        $celeb_date.closest(".form-group").removeClass("has-success").addClass("has-error");
-        $("#celebration-date-error").html("Please select a celebration date").slideDown("fast");
-      }
-    } else {
-      if ($celeb_date.val() != "") {
+      if (comm_check && $fill_check && $deco_check && $size_check && $type_check && $celeb_date.val() != "") {
         $("#theCake").collapse("hide");
         $("#deliveryPanel").collapse("show");
+        $("#the-cake-heading").animate({backgroundColor: completeColour});
+        $("#delivery-heading").animate({backgroundColor: progressColour});
+      } else { 
+        $("#the-cake-heading").animate({backgroundColor: errorColour});
+        if ($celeb_date.val() == "") {
+          $celeb_date.closest(".form-group").removeClass("has-success").addClass("has-error");
+          $("#celebration-date-error").html("Please select a celebration date").slideDown("fast");
+        }
+      }
+    } else {
+      if ($fill_check && $deco_check && $size_check && $type_check && $celeb_date.val() != "") {
+        $("#theCake").collapse("hide");
+        $("#deliveryPanel").collapse("show");
+        $("#the-cake-heading").animate({backgroundColor: completeColour});
+        $("#delivery-heading").animate({backgroundColor: progressColour});
       } else {
-        $celeb_date.closest(".form-group").removeClass("has-success").addClass("has-error");
-        $("#celebration_date_error").html("Please select a celebration date").slideDown("fast");
+        $("#the-cake-heading").animate({backgroundColor: errorColour});
+        if ($celeb_date.val() == "") {
+          $celeb_date.closest(".form-group").removeClass("has-success").addClass("has-error");
+          $("#celebration_date_error").html("Please select a celebration date").slideDown("fast");
+        }
       }
     }
   });
@@ -109,15 +127,23 @@ $(document).ready(function() {
                                parseInt(object.delivery_charge),
               old_difference = parseInt(object.difference),
               new_total      = parseInt($("#total-html").html()),
-              new_difference = old_total - new_total;
-          $("#difference-html").html(old_difference + new_difference);
+              new_difference = old_total - new_total,
+              end_difference = old_difference + new_difference;
+          if (end_difference == 0) {
+            $("#difference-html").html(0);
+          } else {
+            $("#difference-html").html(end_difference);
+          }
           $token = object.token;
           $("input[name=token]").val(object.token);
         }
       });
       $("#deliveryPanel").collapse("hide");
       $("#review").collapse("show");
+      $("#delivery-heading").animate({backgroundColor: completeColour});
+      $("#review-heading").animate({backgroundColor: progressColour});
     } else {
+      $("#delivery-heading").animate({backgroundColor: errorColour});
       if ($datetime_date.val() == "") {
         $datetime_date.closest(".form-group").removeClass("has-success").addClass("has-error");
         $("#datetime_date_error").html("Please select a date").slideDown("fast");
@@ -132,11 +158,15 @@ $(document).ready(function() {
   $("#deliveryPrevious").click(function() {
     $("#theCake").collapse("show");
     $("#deliveryPanel").collapse("hide");
+    $("#delivery-heading").animate({backgroundColor: incompleteColour});
+    $("#the-cake-heading").animate({backgroundColor: progressColour});
   });
 
   $("#reviewPrevious").click(function() {
     $("#deliveryPanel").collapse("show");
     $("#review").collapse("hide");
+    $("#review-heading").animate({backgroundColor: incompleteColour});
+    $("#delivery-heading").animate({backgroundColor: progressColour});
   });
 
   $("#edit-order-form").submit(function(e) {
@@ -193,6 +223,7 @@ var QueryString = function () {
 
 function continueEdit() {
   $("#edit-order-form").unbind("submit").submit();
+  $("#review-heading").animate({backgroundColor: completeColour});
   NProgress.configure({
     trickleRate:  0.1,
     trickleSpeed: 500
