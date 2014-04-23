@@ -55,29 +55,26 @@
     }
     else
     {
-      $salt = dechex(mt_rand(0, 2147483647)) . dechex(mt_rand(0, 2147483647)); // Generate a new salt
       $plainpassword = uniqid(); // Generate a new password using PHP's uniqid() function
-      $password = hash('sha256', $plainpassword . $salt); // Hash the new password with the new salt
+      $password = hash('sha256', $plainpassword . $row['email']); // Hash the new password
       // Hash the password another 65536 times
       for ($i = 0; $i < 65536; $i++)
       {
-        $password = hash('sha256', $password . $salt);
+        $password = hash('sha256', $password . $row['email']);
       }
 
-      // Store the new password and salt in the DB
+      // Store the new password
       $query = "
         UPDATE
           users
         SET
-          password = :password,
-          salt     = :salt
+          password = :password
         WHERE
           email    = :email
       ";
 
       $query_params = array(
         ':password' => $password,
-        ':salt'     => $salt,
         ':email'    => $row['email']
       );
 

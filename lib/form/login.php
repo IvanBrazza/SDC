@@ -35,10 +35,10 @@
     // if it matches the one stored in the DB.
     if ($row)
     {
-      $check_password = hash('sha256', $_POST['password'] . $row['salt']);
+      $check_password = hash('sha256', $_POST['password'] . $row['email']);
       for ($i = 0; $i < 65536; $i++)
       {
-        $check_password = hash('sha256', $check_password . $row['salt']);
+        $check_password = hash('sha256', $check_password . $row['email']);
       }
       if ($check_password === $row['password'])
       {
@@ -62,13 +62,12 @@
     // Generate a new token
     $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 
-    // If the $logged_in var is true, unset the salt and password vars
+    // If the $logged_in var is true, unset the password var
     // for security reasons, then set the sessions details and redirect
     // the user to the homepage. Else, display an error message depending
     // on the combination of vars.
     if ($logged_in)
     {
-      unset($row['salt']);
       unset($row['password']);
 
       $_SESSION['user'] = $row;

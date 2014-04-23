@@ -12,25 +12,26 @@
     // Unset token
     unset($_SESSION['token']);
 
+    $query = "
+      SELECT
+        *
+      FROM
+        users
+      WHERE
+        email = :email
+    ";
+
+    $query_params = array(
+      ':email' => $_POST['email']
+    );
+
+    $db->runQuery($query, $query_params);
+
+    $row = $db->fetch();
+
     // Check if updated email is already in use
     if ($_POST['email'] != $_SESSION['user']['email'])
     {
-      $query = "
-        SELECT
-          *
-        FROM
-          users
-        WHERE
-          email = :email
-      ";
-
-      $query_params = array(
-        ':email' => $_POST['email']
-      );
-
-      $db->runQuery($query, $query_params);
-
-      $row = $db->fetch();
       if ($row)
       {
         echo "That email address is already in use.";
@@ -41,17 +42,15 @@
     // Update password
     if (!empty($_POST['password']))
     {
-      $salt       = dechex(mt_rand(0, 2147483647)) . dechex(mt_rand(0, 2147483647));
-      $password   = hash('sha256', $_POST['password'] . $salt);
+      $password   = hash('sha256', $_POST['password'] . $row['email']);
       for ( $i = 0; $i < 65536; $i++ )
       {
-        $password = hash('sha256', $password . $salt);
+        $password = hash('sha256', $password . $row['email']);
       }
     }
     else
     {
       $password   = null;
-      $salt       = null;
     }
 
     $query = "
@@ -70,7 +69,6 @@
     {
       $query .= "
         , password  = :password
-        , salt      = :salt
       ";
     }
     if ($_POST['email'] != $_SESSION['user']['email'])
@@ -99,7 +97,6 @@
     if ($password !== null)
     {
       $query_params[':password'] = $password;
-      $query_params[':salt']     = $salt;
     }
 
     if ($_POST['email'] != $_SESSION['user']['email'])
