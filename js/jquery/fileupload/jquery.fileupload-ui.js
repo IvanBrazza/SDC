@@ -526,14 +526,14 @@
             }
         },
 
-        _deleteHandler: function (e) {
-            e.preventDefault();
-            var button = $(e.currentTarget);
-            this._trigger('destroy', e, $.extend({
-                context: button.closest('.template-download'),
-                type: 'DELETE'
-            }, button.data()));
-        },
+        //_deleteHandler: function (e) {
+        //    e.preventDefault();
+        //    var button = $(e.currentTarget);
+        //    this._trigger('destroy', e, $.extend({
+        //        context: button.closest('.template-download'),
+        //        type: 'DELETE'
+        //    }, button.data()));
+        //},
 
         _forceReflow: function (node) {
             return $.support.transition && node.length &&
@@ -576,16 +576,16 @@
                     filesList.find('.cancel').click();
                 }
             });
-            this._on(fileUploadButtonBar.find('.delete'), {
-                click: function (e) {
-                    e.preventDefault();
-                    filesList.find('.toggle:checked')
-                        .closest('.template-download')
-                        .find('.delete').click();
-                    fileUploadButtonBar.find('.toggle')
-                        .prop('checked', false);
-                }
-            });
+            //this._on(fileUploadButtonBar.find('.delete'), {
+            //    click: function (e) {
+            //        e.preventDefault();
+            //        filesList.find('.toggle:checked')
+            //            .closest('.template-download')
+            //            .find('.delete').click();
+            //        fileUploadButtonBar.find('.toggle')
+            //            .prop('checked', false);
+            //    }
+            //});
             this._on(fileUploadButtonBar.find('.toggle'), {
                 change: function (e) {
                     filesList.find('.toggle').prop(
@@ -599,7 +599,8 @@
         _destroyButtonBarEventHandlers: function () {
             this._off(
                 this.element.find('.fileupload-buttonbar')
-                    .find('.start, .cancel, .delete'),
+                    //.find('.start, .cancel, .delete'),
+                    .find('.start, .cancel'),
                 'click'
             );
             this._off(
@@ -612,8 +613,9 @@
             this._super();
             this._on(this.options.filesContainer, {
                 'click .start': this._startHandler,
-                'click .cancel': this._cancelHandler,
-                'click .delete': this._deleteHandler
+                'click .cancel': this._cancelHandler
+                //'click .cancel': this._cancelHandler,
+                //'click .delete': this._deleteHandler
             });
             this._initButtonBarEventHandlers();
         },

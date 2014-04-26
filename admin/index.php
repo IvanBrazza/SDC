@@ -146,25 +146,26 @@
         " . $gallery['table_name']
     ;
     $db->runQuery($query, null);
-    $row = $db->fetchAll();
+    $rows = $db->fetchAll();
   ?>
   <div class="modal fade" role="dialog" aria-hidden="true" id="gallery_modal_<?php echo $gallery['gallery_id']; ?>" data-backdrop="static" data-keyboard="false">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
           <h4 class="modal-title">Edit Images In "<?php echo $gallery['gallery_name']; ?>"</h4>
         </div>
         <div class="modal-body">
-          <?php if (empty($row)) : ?>
+          <?php if (empty($rows)) : ?>
             <p>There aren't any images in this gallery.</p>
           <?php endif; ?>
-          <form class="fileupload" action="../lib/form/fileupload.php" method="POST" enctype="multipart/form-data">
+          <form class="fileupload" action="../lib/form/fileuploads3.php" method="POST" enctype="multipart/form-data">
+            <input type="hidden" name="upload_dir" value="<?php echo $gallery['gallery_id']; ?>">
             <div class="row fileupload-buttonbar">
               <div class="col-lg-7">
                 <span class="btn btn-success fileinput-button">
                   <i class="glyphicon glyphicon-plus"></i>
-                  <span>Choose Image...</span>
+                  <span>Add Image...</span>
                   <input type="file" name="files[]" accept="image/*">
                 </span>
                 <span class="fileupload-process"></span>
@@ -173,7 +174,30 @@
             <span id="uploadstatus"></span>
             <div class="well well-sm">
               <table role="presentation" class="uploaded-images table">
-                <tbody class="files"></tbody>
+                <tbody class="files">
+                  <?php if (!empty($rows)) : ?>
+                    <?php foreach ($rows as $row) : ?>
+                      <tr class="template-download fade in">
+                        <td>
+                          <span class="preview">
+                            <img src="https://s3.amazonaws.com/SDC-images/<?php echo $gallery['gallery_id']."/".$row['images']; ?>" width="100px">
+                          </span>
+                        </td>
+                        <td>
+                          <p class="name" id="filename">
+                            <span><?php echo $row['images']; ?></span>
+                          </p>
+                        </td>
+                        <td>
+                          <button class="btn btn-danger pull-right" data-image="<?php echo $row['images']; ?>" data-gallery="<?php echo $gallery['gallery_id']; ?>">
+                            <i class="glyphicon glyphicon-trash"></i>
+                            <span>Delete</span>
+                          </button>
+                        </td>
+                      </tr>
+                    <?php endforeach; ?>
+                  <?php endif; ?>
+                </tbody>
               </table>
             </div>
           </form>
@@ -215,9 +239,7 @@
             <tr class="template-download fade">
               <td>
                 <span class="preview">
-                  {% if (file.thumbnailUrl) { %}
-                    <img src="{%=file.thumbnailUrl%}">
-                  {% } %}
+                  <img src="https://s3.amazonaws.com/SDC-images/<?php echo $gallery['gallery_id']; ?>/{%=file.name%}" width="100px">
                 </span>
               </td>
               <td>
@@ -229,18 +251,12 @@
                 {% } %}
               </td>
               <td>
-                <span class="size">{%=o.formatFileSize(file.size)%}</span>
+                <button class="btn btn-danger delete-image pull-right" data-image="{%=file.name%}" data-gallery="<?php echo $gallery['gallery_id']; ?>">
+                    <i class="glyphicon glyphicon-trash"></i>
+                    <span>Delete</span>
+                </button>
               </td>
-              {% if (file.error) { %}
-                <td>
-                  <button class="btn btn-warning cancel pull-right">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
-                    <span>Cancel</span>
-                  </button>
-                </td>
-              {% } %}
             </tr>
-            {% $(window.parent.document.getElementById('fileuploadhidden')).val("../lib/form/files/" + file.name);  %}
           {% } %}
           </script>
         </div>

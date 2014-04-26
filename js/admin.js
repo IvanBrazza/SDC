@@ -482,13 +482,19 @@ $(document).ready(function() {
 
     $("#gallery_modal_" + $gallery_id).modal("show");
   });
+  
+  $("body").on('click', '.delete-image', function() {
+    var $gallery_id = $(this).data("gallery"),
+        $image_name = $(this).data("image");
+    console.log($gallery_id);
+    console.log($image_name);
+  });
 
   $('.fileupload').fileupload({
     autoUpload: true,
-    url: '../lib/form/fileupload.php',
+    url: '../lib/form/fileuploads3.php',
     maxFileSize: 5000000,
     acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-    maxNumberOfFiles: 1,
     previewMaxWidth: 150,
     previewMaxHeight: 150,
     previewMinWidth: 150
@@ -502,6 +508,25 @@ $(document).ready(function() {
   })
   .bind('fileuploaddone', function (e, data) {
     $("#uploadstatus").html("Uploaded image");
+    var $gallery_id = $(this).find("input[name=upload_dir]").val(),
+        $image      = data.files[0].name;
+    $.ajax({
+      type: 'post',
+      url: '../lib/edit-gallery.php',
+      data: {
+        token: $token,
+        command: 'add-image',
+        id: $gallery_id,
+        image: $image
+      },
+      success: function(response) {
+        var object = JSON.parse(response);
+        if (object.status == "success") {
+          $token = object.token;
+          console.log("added to db");
+        }
+      }
+    });
   });
 
   $(".edit-cake-type").click(function() {

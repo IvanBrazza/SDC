@@ -64,6 +64,46 @@
       echo json_encode($response);
       die();
     }
+    else if ($_POST['command'] == "add-image")
+    {
+      $query = "
+        SELECT
+          table_name
+        FROM
+          gallery
+        WHERE
+          gallery_id = :gallery_id
+      ";
+      $query_params = array(
+        ':gallery_id' => $_POST['id']
+      );
+      $db->runQuery($query, $query_params);
+      $row = $db->fetch();
+      $tblname = $row['table_name'];
+
+      $query = "
+        INSERT INTO " . $tblname . " (
+          images
+        ) VALUES (
+          :image
+        )
+      ";
+      $query_params = array(
+        ':image' => $_POST['image']
+      );
+      $db->runQuery($query, $query_params);
+
+      // Generate new token
+      $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
+
+      $response = array(
+        'status' => 'success',
+        'token'  => $_SESSION['token']
+      );
+
+      echo json_encode($response);
+      die();
+    }
     else if ($_POST['command'] == "delete")
     {
       $query = "
