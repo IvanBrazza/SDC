@@ -28,6 +28,9 @@
             strpos($_SERVER['REQUEST_URI'], "edit-order") !== false) : ?>
     <link href="../css/picker.css" rel="stylesheet">
   <?php endif; ?>
+  <?php if (strpos($_SERVER['REQUEST_URI'], "admin") !== false) : ?>
+    <link href="../css/jquery-fileupload.css" rel="stylesheet">
+  <?php endif; ?>
 </head>
 <body>
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">

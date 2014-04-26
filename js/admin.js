@@ -13,6 +13,8 @@ $(document).ready(function() {
     } else if (current == "Edit Products") {
       $(this).find(".nested-scrollspy").hide();
       $("#edit-scrollspy").show();
+    } else if (current == "Galleries") {
+      $(this).find(".nested-scrollspy").hide();
     } else if (current == "Backup") {
       $(this).find(".nested-scrollspy").hide();
       $("#backup-scrollspy").show();
@@ -390,6 +392,116 @@ $(document).ready(function() {
         $row.find(".price-error").html("Please enter a valid decoration price").slideDown("fast");
       }
     }
+  });
+
+  $("#add-gallery").click(function() {
+    var $row        = $(this).closest("tr"),
+        $gallery_id = $("#gallery tbody tr:last").data("galleryid") + 1;
+    $("#gallery tbody").append("<tr data-galleryid='" + $gallery_id + "'>" +
+                               "<td>" + $gallery_id + "</td>" +
+                               "<td><input name='gallery_name' class='form-control new-input' placeholder='Gallery name'><span class='validate-error name-error'></span></td>" +
+                               "<td><button class='btn btn-success btn-sm add-new-gallery'><span class='glyphicon glyphicon-ok'></span>   Add</button></td>" +
+                               "<td><button class='btn btn-danger btn-sm remove-new-gallery'><span class='glyphicon glyphicon-remove'></span>   Cancel</button></td>" +
+                               "</tr>");
+    $(".remove-new-gallery").click(function() {
+      $(this).closest("tr").remove();
+    });
+  });
+
+  $("body").on('click', '.add-new-gallery', function() {
+    var $row           = $(this).closest("tr");
+        $gallery_name  = $row.find("input[name=gallery_name]").val(),
+        name_regex     = /^[A-Za-z ]+$/;
+    if (name_regex.test($gallery_name)) {
+      $row.find(".name-error").slideUp("fast");
+      $.ajax({
+        type: 'post',
+        url: '../lib/edit-gallery.php',
+        data: {
+          token: $token,
+          command: 'add',
+          gallery_name: $gallery_name
+        },
+        success: function(response) {
+          var object = JSON.parse(response);
+          $token = object.token;
+          if (object.status == "success") {
+            $("#success_message .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully added gallery");
+            $("#success_message").modal("show");
+            $row.find("td:eq(1)").html($gallery_name);
+            $row.find("td:eq(2)").html("<button class='btn btn-primary btn-sm edit-gallery'><span class='glyphicon glyphicon-pencil'></span></button>");
+            $row.find("td:eq(3)").html("<button class='btn btn-danger btn-sm delete-gallery'><span class='glyphicon glyphicon-trash'></span></button>");
+            setTimeout(function() {
+              $("#success_message").modal("hide");
+            }, 1500);
+          } else {
+            $("#error_message .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+            $("#error_message").modal("show");
+          }
+        }
+      });
+    } else {
+      if ($gallery_name == "") {
+        $row.find(".name-error").html("Please enter a decoration name").slideDown("fast");
+      } else if (!name_regex.test($gallery_name)) {
+        $row.find(".name-error").html("Gallery names are letters only").slideDown("fast");
+      }
+    }
+  });
+
+  $("body").on('click', '.delete-gallery', function() {
+    var $row        = $(this).closest("tr"),
+        $gallery_id = $row.data("galleryid");
+    $.ajax({
+      type: 'post',
+      url: '../lib/edit-gallery.php',
+      data: {token: $token,
+             command: 'delete',
+             id: $gallery_id},
+      success: function(response) {
+        object = JSON.parse(response);
+        if (object.status == "success") {
+          $row.remove();
+          $token = object.token;
+          $("#success_message .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully deleted gallery");
+          $("#success_message").modal("show");
+          setTimeout(function() {
+            $("#success_message").modal("hide");
+          }, 1500);
+        } else {
+          $("#error_message .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+          $("#error_message").modal("show");
+        }
+      }
+    });
+  });
+
+  $("body").on('click', '.edit-gallery', function() {
+    var $row        = $(this).closest("tr"),
+        $gallery_id = $row.data("galleryid");
+
+    $("#gallery_modal_" + $gallery_id).modal("show");
+  });
+
+  $('.fileupload').fileupload({
+    autoUpload: true,
+    url: '../lib/form/fileupload.php',
+    maxFileSize: 5000000,
+    acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+    maxNumberOfFiles: 1,
+    previewMaxWidth: 150,
+    previewMaxHeight: 150,
+    previewMinWidth: 150
+  })
+  .bind('fileuploadadd', function (e, data) {
+    $("#uploadstatus").html("Uploading image...");
+    if (data.files[0].size > 5000000) {
+    } else {
+    //  $(".fileupload-buttonbar").hide();
+    }
+  })
+  .bind('fileuploaddone', function (e, data) {
+    $("#uploadstatus").html("Uploaded image");
   });
 
   $(".edit-cake-type").click(function() {

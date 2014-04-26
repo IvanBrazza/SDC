@@ -82,6 +82,16 @@
   $db->runQuery($query, null);
   $cakes = $db->fetchAll();
 
+  // Get galleries
+  $query = "
+    SELECT
+      *
+    FROM
+      gallery
+  ";
+  $db->runQuery($query, null);
+  $galleries = $db->fetchAll();
+
   // Generate token
   $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 ?>
@@ -127,6 +137,119 @@
     </div>
   </div>
 </div>
+<?php foreach ($galleries as $gallery) : ?>
+  <?php
+    $query = "
+      SELECT
+        *
+      FROM
+        " . $gallery['table_name']
+    ;
+    $db->runQuery($query, null);
+    $row = $db->fetchAll();
+  ?>
+  <div class="modal fade" role="dialog" aria-hidden="true" id="gallery_modal_<?php echo $gallery['gallery_id']; ?>" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Edit Images In "<?php echo $gallery['gallery_name']; ?>"</h4>
+        </div>
+        <div class="modal-body">
+          <?php if (empty($row)) : ?>
+            <p>There aren't any images in this gallery.</p>
+          <?php endif; ?>
+          <form class="fileupload" action="../lib/form/fileupload.php" method="POST" enctype="multipart/form-data">
+            <div class="row fileupload-buttonbar">
+              <div class="col-lg-7">
+                <span class="btn btn-success fileinput-button">
+                  <i class="glyphicon glyphicon-plus"></i>
+                  <span>Choose Image...</span>
+                  <input type="file" name="files[]" accept="image/*">
+                </span>
+                <span class="fileupload-process"></span>
+              </div>
+            </div>
+            <span id="uploadstatus"></span>
+            <div class="well well-sm">
+              <table role="presentation" class="uploaded-images table">
+                <tbody class="files"></tbody>
+              </table>
+            </div>
+          </form>
+          <!-- The template to display files available for upload -->
+          <script id="template-upload" type="text/x-tmpl">
+          {% for (var i=0, file; file=o.files[i]; i++) { %}
+            <tr class="template-upload fade">
+              <td>
+                <span class="preview"></span>
+              </td>
+              <td>
+                <p class="name">{%=file.name%}</p>
+                <strong class="error text-danger"></strong>
+              </td>
+              <td>
+                <p class="size">Processing...</p>
+                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+              </td>
+              <td>
+                {% if (!i && !o.options.autoUpload) { %}
+                  <button class="btn btn-primary start" disabled>
+                    <i class="glyphicon glyphicon-upload"></i>
+                    <span>Start</span>
+                  </button>
+                {% } %}
+                {% if (!i) { %}
+                  <button class="btn btn-warning cancel pull-right">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span>Cancel</span>
+                  </button>
+                {% } %}
+              </td>
+            </tr>
+          {% } %}
+          </script>
+          <!-- The template to display files available for download -->
+          <script id="template-download" type="text/x-tmpl">
+          {% for (var i=0, file; file=o.files[i]; i++) { %}
+            <tr class="template-download fade">
+              <td>
+                <span class="preview">
+                  {% if (file.thumbnailUrl) { %}
+                    <img src="{%=file.thumbnailUrl%}">
+                  {% } %}
+                </span>
+              </td>
+              <td>
+                <p class="name" id="filename">
+                  <span>{%=file.name%}</span>
+                </p>
+                {% if (file.error) { %}
+                  <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+                {% } %}
+              </td>
+              <td>
+                <span class="size">{%=o.formatFileSize(file.size)%}</span>
+              </td>
+              {% if (file.error) { %}
+                <td>
+                  <button class="btn btn-warning cancel pull-right">
+                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <span>Cancel</span>
+                  </button>
+                </td>
+              {% } %}
+            </tr>
+            {% $(window.parent.document.getElementById('fileuploadhidden')).val("../lib/form/files/" + file.name);  %}
+          {% } %}
+          </script>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+<?php endforeach; ?>
 <div class="row">
   <div class="col-md-2">
     <div class="scrollspy affix hidden-sm hidden-xs">
@@ -171,6 +294,9 @@
               </li>
             </ul>
           </div>
+        </li>
+        <li>
+          <a href="#galleries">Galleries</a>
         </li>
         <li>
           <a href="#backup">Backup</a>
@@ -297,8 +423,8 @@
                 <td><?php echo $filling['filling_id']; ?></td>
                 <td><?php echo $filling['filling_name']; ?></td>
                 <td>&pound;<?php echo $filling['filling_price']; ?></td>
-                <td><button class="btn btn-primary btn-sm edit-filling"><span class="glyphicon glyphicon-pencil"></span></button>
-                <td><button class="btn btn-danger btn-sm delete-filling"><span class="glyphicon glyphicon-trash"></span></button>
+                <td><button class="btn btn-primary btn-sm edit-filling"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                <td><button class="btn btn-danger btn-sm delete-filling"><span class="glyphicon glyphicon-trash"></span></button></td>
               </tr>
             <?php endforeach; ?>
           </tbody>
@@ -325,8 +451,8 @@
                 <td><?php echo $decoration['decor_id']; ?></td>
                 <td><?php echo $decoration['decor_name']; ?></td>
                 <td>&pound;<?php echo $decoration['decor_price']; ?></td>
-                <td><button class="btn btn-primary btn-sm edit-decor"><span class="glyphicon glyphicon-pencil"></span></button>
-                <td><button class="btn btn-danger btn-sm delete-decor"><span class="glyphicon glyphicon-trash"></span></button>
+                <td><button class="btn btn-primary btn-sm edit-decor"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                <td><button class="btn btn-danger btn-sm delete-decor"><span class="glyphicon glyphicon-trash"></span></button></td>
               </tr>
             <?php endforeach; ?>
           </tbody>
@@ -353,12 +479,40 @@
                 <td><?php echo $cake['cake_id']; ?></td>
                 <td><?php echo $cake['cake_size'] . " " . $cake['cake_type']; ?></td>
                 <td>&pound;<?php echo $cake['cake_price']; ?></td>
-                <td><button class="btn btn-primary btn-sm edit-cake-type"><span class="glyphicon glyphicon-pencil"></span></button>
-                <td><button class="btn btn-danger btn-sm delete-cake-type"><span class="glyphicon glyphicon-trash"></span></button>
+                <td><button class="btn btn-primary btn-sm edit-cake-type"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                <td><button class="btn btn-danger btn-sm delete-cake-type"><span class="glyphicon glyphicon-trash"></span></button></td>
               </tr>
             <?php endforeach; ?>
           </tbody>
         </table>
+      </div>
+      <div id="galleries">
+        <div class="page-header">
+          <h1>
+            Galleries
+            <button class="btn btn-primary btn-sm pull-right" id="add-gallery"><span class="glyphicon glyphicon-plus"></span>   Add Gallery</button>
+          </h1>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped" id="gallery">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Gallery Name</th>
+                <th>Edit Images</th>
+                <th>Delete Gallery</th>
+              </tr>
+            </thead>
+            <?php foreach ($galleries as $gallery) : ?>
+              <tr data-galleryid="<?php echo $gallery['gallery_id']; ?>">
+                <td><?php echo $gallery['gallery_id']; ?></td>
+                <td><?php echo $gallery['gallery_name']; ?></td>
+                <td><button class="btn btn-primary btn-sm edit-gallery"><span class="glyphicon glyphicon-pencil"></span></button></td>
+                <td><button class="btn btn-danger btn-sm delete-gallery"><span class="glyphicon glyphicon-trash"></span></button></td>
+              </tr>
+            <?php endforeach; ?>
+          </table>
+        </div>
       </div>
       <div id="backup">
         <div class="page-header">
