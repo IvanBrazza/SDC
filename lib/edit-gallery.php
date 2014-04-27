@@ -46,9 +46,7 @@
 
       $query = "
         CREATE TABLE " . $tblname . "(
-          images VARCHAR(255) NOT NULL,
-          PRIMARY KEY(gallery_id),
-          FOREIGN KEY(gallery_id) REFERENCES gallery(gallery_id)
+          images VARCHAR(255) NOT NULL
         ) ENGINE=InnoDB
       ";
       $db->runQuery($query, null);
