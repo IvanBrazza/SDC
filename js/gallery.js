@@ -2,103 +2,57 @@
   js/gallery.js - code specific to the gallery page
 **/
 $(document).ready(function() {
-  // Define jQuery selector vars
-  var $celebration = $("#celebration-tiles li"),
-      $cupcakes    = $("#cupcakes-tiles li"),
-      $other       = $("#other-tiles li")
+
+  $(".tab-pane").each(function() {
+    var $li = $(this).find("li"),
+        $load = $(this).find(".load"),
+        $container = $(this).find(".gallery_container"),
+        $placeholder = $(this).find(".gallery_container .wookmark-placeholder");
+    $li.imagesLoaded(function() {
+      $li.wookmark({
+        autoResize: true,
+        container: $container,
+        itemWidth: 200,
+        align: "center",
+        offset: 3,
+        verticalOffset: 10,
+        fillEmptySpace: true
+      });
+      $load.hide();
+      $li.hide();
+      $placeholder.hide();
+      var d = 0;
+      $li.each(function() {
+        $(this).delay(d).fadeIn();
+        d += 100;
+      });
+      $placeholder.each(function() {
+        $(this).delay(d).fadeIn();
+        d += 100;
+      });
+    });
+  });
 
   // Let the users know they can click an image
   setTimeout(function() {
     $(".alert").slideDown();
   }, 5000);
 
-  // When the images for the celebration section are
-  // loaded, setup the masonry layout, hide the spinner,
-  // and show the images once loaded
-  $celebration.imagesLoaded(function() {
-    $celebration.wookmark({
-      autoResize: true,
-      container: $("#celebration-container"),
-      itemWidth: 200,
-      align: "center",
-      offset: 3,
-      verticalOffset: 10,
-      fillEmptySpace: true
-    });
-    $("#celebration-load").hide();
-    $celebration.hide();
-    $("#celebration-container .wookmark-placeholder").hide();
-    var d = 0;
-    $celebration.each(function() {
-      $(this).delay(d).fadeIn();
-      d += 100;
-    });
-    $("#celebration-container .wookmark-placeholder").each(function() {
-      $(this).delay(d).fadeIn();
-      d += 100;
-    });
-  });
-
-  // When the images for the cupcakes section are
-  // loaded, setup the masonry layout, hide the spinner,
-  // and show the images once loaded
-  $cupcakes.imagesLoaded(function() {
-    $cupcakes.wookmark({
-      autoResize: true,
-      container: $("#cupcakes-container"),
-      itemWidth: 200,
-      align: "center",
-      offset: 3,
-      verticalOffset: 10,
-      fillEmptySpace: true
-    });
-    $cupcakes.hide();
-    $("#cupcakes-container .wookmark-placeholder").hide();
-  });
-
-  // When the images for the other section are
-  // loaded, setup the masonry layout, hide the spinner,
-  // and show the images once loaded
-  $other.imagesLoaded(function() {
-    $other.wookmark({
-      autoResize: true,
-      container: $("#other-container"),
-      itemWidth: 200,
-      align: "center",
-      offset: 3,
-      verticalOffset: 10,
-      fillEmptySpace: true
-    });
-    $other.hide();
-    $("#other-container .wookmark-placeholder").hide();
-  });
-
-  $('.nav-tabs li:eq(1) a').click(function() {
+  $(".nav-tabs li a ").click(function() {
+    var $gallery = $(this).attr("href"),
+        $li = $($gallery).find("li"),
+        $container = $($gallery).find(".gallery_container"),
+        $load = $($gallery).find(".load"),
+        $placeholder = $container.find(".wookmark-placeholder");
     setTimeout(function() {
-      $("#cupcakes-container").trigger("refreshWookmark");
-      $("#cupcakes-load").hide();
+      $container.trigger("refreshWookmark");
+      $load.hide();
       var d = 0;
-      $cupcakes.each(function() {
+      $li.each(function() {
         $(this).delay(d).fadeIn();
         d += 100;
       });
-      $("#cupcakes-container .wookmark-placeholder").each(function() {
-        $(this).delay(d).fadeIn();
-        d += 100;
-      });
-    }, 500);
-  });
-
-  $('.nav-tabs li:eq(2) a').click(function() {
-    setTimeout(function() {
-      $("#other-container").trigger("refreshWookmark");
-      $("#other-load").hide();
-      var d = 0;
-      $other.each(function() {
-        $(this).delay(d).fadeIn();
-        d += 100;
-      });
-      $("#other-container .wookmark-placeholder").each(function() {
+      $placeholder.each(function() {
         $(this).delay(d).fadeIn();
         d += 100;
       });

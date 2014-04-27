@@ -177,10 +177,10 @@
                 <tbody class="files">
                   <?php if (!empty($rows)) : ?>
                     <?php foreach ($rows as $row) : ?>
-                      <tr class="template-download fade in">
+                      <tr class="fade in">
                         <td>
                           <span class="preview">
-                            <img src="https://s3.amazonaws.com/SDC-images/<?php echo $gallery['gallery_id']."/".$row['images']; ?>" width="100px">
+                            <img src="../img/spinner.gif" data-src="https://s3.amazonaws.com/SDC-images/<?php echo $gallery['gallery_id']."/".$row['images']; ?>" width="100px" class="lazy">
                           </span>
                         </td>
                         <td>
@@ -239,7 +239,7 @@
             <tr class="template-download fade">
               <td>
                 <span class="preview">
-                  <img src="https://s3.amazonaws.com/SDC-images/<?php echo $gallery['gallery_id']; ?>/{%=file.name%}" width="100px">
+                  <img src="../img/spinner.gif" data-src="https://s3.amazonaws.com/SDC-images/<?php echo $gallery['gallery_id']; ?>/{%=file.name%}" width="100px" class="new_lazy">
                 </span>
               </td>
               <td>

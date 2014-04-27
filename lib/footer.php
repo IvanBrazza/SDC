@@ -59,6 +59,7 @@
     <script src="../js/jquery/fileupload/jquery.fileupload-ui.js"></script>
     <script src="../js/chart.min.js"></script>
     <script src="../js/modernizr.js"></script>
+    <script src="../js/jquery/jquery.unveil.min.js"></script>
     <script src="../js/stats.js"></script>
     <script src="../js/admin.js"></script>
   <?php endif; ?>

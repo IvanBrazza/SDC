@@ -480,7 +480,9 @@ $(document).ready(function() {
     var $row        = $(this).closest("tr"),
         $gallery_id = $row.data("galleryid");
 
-    $("#gallery_modal_" + $gallery_id).modal("show");
+    $("#gallery_modal_" + $gallery_id).modal("show").on('shown.bs.modal', function(e) {
+      $(this).find("img.lazy").unveil().trigger("unveil");
+    });
   });
   
   $("body").on('click', '.delete-image', function() {
@@ -523,7 +525,7 @@ $(document).ready(function() {
         var object = JSON.parse(response);
         if (object.status == "success") {
           $token = object.token;
-          console.log("added to db");
+          $("img.new_lazy").unveil().trigger("unveil");
         }
       }
     });

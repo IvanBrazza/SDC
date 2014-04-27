@@ -1,15 +1,11 @@
-#celebration-tiles li,
-#cupcakes-tiles li,
-#other-tiles li {
+.gallery_container li {
   padding:            5px;
   list-style-type:    none;
   display:            none;
   cursor:             pointer;
   }
 
-#celebration-container,
-#cupcakes-container,
-#other-container {
+.gallery_container {
   position:           relative;
   }
 
