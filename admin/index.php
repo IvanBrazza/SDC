@@ -159,14 +159,14 @@
           <?php if (empty($rows)) : ?>
             <p>There aren't any images in this gallery.</p>
           <?php endif; ?>
-          <form class="fileupload" action="../lib/form/fileuploads3.php" method="POST" enctype="multipart/form-data">
+          <form class="fileupload" action="../lib/form/fileuploads3.php" method="POST" enctype="multipart/form-data" data-upload-template-id="template-upload-<?php echo $gallery['gallery_id']; ?>" data-download-template-id="template-download-<?php echo $gallery['gallery_id']; ?>">
             <input type="hidden" name="upload_dir" value="<?php echo $gallery['gallery_id']; ?>">
             <div class="row fileupload-buttonbar">
               <div class="col-lg-7">
                 <span class="btn btn-success fileinput-button">
                   <i class="glyphicon glyphicon-plus"></i>
                   <span>Add Image...</span>
-                  <input type="file" name="files[]" accept="image/*">
+                  <input type="file" name="files[]" accept="image/*" multiple>
                 </span>
                 <span class="fileupload-process"></span>
               </div>
@@ -189,10 +189,10 @@
                           </p>
                         </td>
                         <td>
-                          <button class="btn btn-danger pull-right" data-image="<?php echo $row['images']; ?>" data-gallery="<?php echo $gallery['gallery_id']; ?>">
+                          <a class="btn btn-danger pull-right delete-image" data-image="<?php echo $row['images']; ?>" data-gallery="<?php echo $gallery['gallery_id']; ?>">
                             <i class="glyphicon glyphicon-trash"></i>
                             <span>Delete</span>
-                          </button>
+                          </a>
                         </td>
                       </tr>
                     <?php endforeach; ?>
@@ -202,7 +202,7 @@
             </div>
           </form>
           <!-- The template to display files available for upload -->
-          <script id="template-upload" type="text/x-tmpl">
+          <script id="template-upload-<?php echo $gallery['gallery_id']; ?>" type="text/x-tmpl">
           {% for (var i=0, file; file=o.files[i]; i++) { %}
             <tr class="template-upload fade">
               <td>
@@ -234,7 +234,7 @@
           {% } %}
           </script>
           <!-- The template to display files available for download -->
-          <script id="template-download" type="text/x-tmpl">
+          <script id="template-download-<?php echo $gallery['gallery_id']; ?>" type="text/x-tmpl">
           {% for (var i=0, file; file=o.files[i]; i++) { %}
             <tr class="template-download fade">
               <td>
@@ -251,10 +251,10 @@
                 {% } %}
               </td>
               <td>
-                <button class="btn btn-danger delete-image pull-right" data-image="{%=file.name%}" data-gallery="<?php echo $gallery['gallery_id']; ?>">
+                <a class="btn btn-danger delete-image pull-right" data-image="{%=file.name%}" data-gallery="<?php echo $gallery['gallery_id']; ?>">
                     <i class="glyphicon glyphicon-trash"></i>
                     <span>Delete</span>
-                </button>
+                </a>
               </td>
             </tr>
           {% } %}

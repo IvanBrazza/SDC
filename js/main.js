@@ -40,7 +40,7 @@ $(document).ready(function() {
   });
 
   // Paginate all tables except for single order tables
-  $("table:not(#single_order)").tablePagination();
+  $("table:not(#single_order, .uploaded-images)").tablePagination();
 
   // EU cookie stuffs
   var cookieMessage = "We use cookies on this website in order to improve your experience. By continuing" +

@@ -460,6 +460,7 @@ $(document).ready(function() {
              id: $gallery_id},
       success: function(response) {
         object = JSON.parse(response);
+        $token = object.token;
         if (object.status == "success") {
           $row.remove();
           $token = object.token;
@@ -487,47 +488,64 @@ $(document).ready(function() {
   
   $("body").on('click', '.delete-image', function() {
     var $gallery_id = $(this).data("gallery"),
-        $image_name = $(this).data("image");
-    console.log($gallery_id);
-    console.log($image_name);
-  });
-
-  $('.fileupload').fileupload({
-    autoUpload: true,
-    url: '../lib/form/fileuploads3.php',
-    maxFileSize: 5000000,
-    acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
-    previewMaxWidth: 150,
-    previewMaxHeight: 150,
-    previewMinWidth: 150
-  })
-  .bind('fileuploadadd', function (e, data) {
-    $("#uploadstatus").html("Uploading image...");
-    if (data.files[0].size > 5000000) {
-    } else {
-    //  $(".fileupload-buttonbar").hide();
-    }
-  })
-  .bind('fileuploaddone', function (e, data) {
-    $("#uploadstatus").html("Uploaded image");
-    var $gallery_id = $(this).find("input[name=upload_dir]").val(),
-        $image      = data.files[0].name;
+        $image_name = $(this).data("image"),
+        $row        = $(this).closest("tr");
     $.ajax({
       type: 'post',
       url: '../lib/edit-gallery.php',
       data: {
         token: $token,
-        command: 'add-image',
-        id: $gallery_id,
-        image: $image
+        command: 'delete-image',
+        gallery_id: $gallery_id,
+        image: $image_name
       },
       success: function(response) {
-        var object = JSON.parse(response);
+        object = JSON.parse(response);
+        $token = object.token;
         if (object.status == "success") {
-          $token = object.token;
-          $("img.new_lazy").unveil().trigger("unveil");
+          $row.fadeOut().remove();
+        } else {
+          $("#error_message .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+          $("#error_message").modal("show");
         }
       }
+    });
+  });
+
+  $(".fileupload").each(function() {
+    $(this).fileupload({
+      autoUpload: true,
+      dropZone: $(this),
+      url: '../lib/form/fileuploads3.php',
+      maxFileSize: 5000000,
+      acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+      previewMaxWidth: 150,
+      previewMaxHeight: 150,
+      previewMinWidth: 150,
+      sequentialUploads: true
+    })
+    .bind('fileuploaddone', function (e, data) {
+      var $gallery_id = $(this).find("input[name=upload_dir]").val(),
+          $image      = data.result.files[0].name;
+      $.ajax({
+        type: 'post',
+        url: '../lib/edit-gallery.php',
+        data: {
+          token: $token,
+          command: 'add-image',
+          id: $gallery_id,
+          image: $image
+        },
+        success: function(response) {
+          var object = JSON.parse(response);
+          if (object.status == "success") {
+            $token = object.token;
+            setTimeout(function() {
+              $("img.new_lazy").unveil().trigger("unveil");
+            }, 500);
+          }
+        }
+      });
     });
   });
 
