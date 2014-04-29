@@ -194,7 +194,106 @@
                 </button>
               </div>
               <div class="col-md-8">
-                <iframe src="fileupload.html" id="ifileupload"></iframe>
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Please Read</h3>
+                  </div>
+                  <div class="panel-body">
+                    If you wish for your cake to have a picture printed onto edible paper,
+                    you can upload it by clicking the <span class="btn btn-success" id="upload-fake">
+                    <i class="glyphicon glyphicon-plus"></i><span>Choose Image...</span></span> button below.<br>
+                    The picture you choose must match the following criteria:
+                    <ul>
+                      <li>The maximum filesize is <b>5MB</b></li>
+                      <li>Only image files (<b>.JPG, .JPEG, .PNG, .GIF)</b> may be uploaded</li>
+                      <li>The image must be high quality</li>
+                    </ul>
+                    You may also drag and drop the image from your computer onto this page.
+                  </div>
+                </div>
+                <br>
+                <div id="fileupload">
+                  <div class="row fileupload-buttonbar">
+                    <div class="col-lg-7">
+                      <span class="btn btn-success fileinput-button">
+                        <i class="glyphicon glyphicon-plus"></i>
+                        <span>Choose Image...</span>
+                        <input type="file" name="files[]" accept="image/*" id="fileid">
+                        <input type="hidden" name="upload_dir" value="gallery/<?php echo $_SESSION['user']['customer_id']; ?>">
+                      </span>
+                      <span class="fileupload-process"></span>
+                    </div>
+                  </div>
+                  <span id="uploadstatus"></span>
+                  <div class="well well-sm">
+                    <table role="presentation" class="uploaded-images table">
+                      <tbody class="files"></tbody>
+                    </table>
+                  </div>
+                </div>
+                <!-- The template to display files available for upload -->
+                <script id="template-upload" type="text/x-tmpl">
+                {% for (var i=0, file; file=o.files[i]; i++) { %}
+                  <tr class="template-upload fade">
+                    <td>
+                      <span class="preview"></span>
+                    </td>
+                    <td>
+                      <p class="name">{%=file.name%}</p>
+                      <strong class="error text-danger"></strong>
+                    </td>
+                    <td>
+                      <p class="size">Processing...</p>
+                      <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
+                    </td>
+                    <td>
+                      {% if (!i && !o.options.autoUpload) { %}
+                        <button class="btn btn-primary start" disabled>
+                          <i class="glyphicon glyphicon-upload"></i>
+                          <span>Start</span>
+                        </button>
+                      {% } %}
+                      {% if (!i) { %}
+                        <button class="btn btn-warning cancel pull-right">
+                          <i class="glyphicon glyphicon-ban-circle"></i>
+                          <span>Cancel</span>
+                        </button>
+                      {% } %}
+                    </td>
+                  </tr>
+                {% } %}
+                </script>
+                <!-- The template to display files available for download -->
+                <script id="template-download" type="text/x-tmpl">
+                {% for (var i=0, file; file=o.files[i]; i++) { %}
+                  <tr class="template-download fade">
+                    <td>
+                      <span class="preview">
+                        <img src="https://s3.amazonaws.com/SDC-images/gallery/<?php echo $_SESSION['user']['customer_id']; ?>/{%=file.name%}" width="100px">
+                      </span>
+                    </td>
+                    <td>
+                      <p class="name" id="filename">
+                        <span>{%=file.name%}</span>
+                      </p>
+                      {% if (file.error) { %}
+                        <div><span class="label label-danger">Error</span> {%=file.error%}</div>
+                      {% } %}
+                    </td>
+                    <td>
+                      <span class="size">{%=o.formatFileSize(file.size)%}</span>
+                    </td>
+                    {% if (file.error) { %}
+                      <td>
+                        <button class="btn btn-warning cancel pull-right">
+                          <i class="glyphicon glyphicon-ban-circle"></i>
+                          <span>Cancel</span>
+                        </button>
+                      </td>
+                    {% } %}
+                  </tr>
+                {% } %}
+                </script>
                 <input type="hidden" name="fileupload" id="fileuploadhidden">
               </div>
               <div class="col-md-2">

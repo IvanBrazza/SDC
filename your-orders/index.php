@@ -123,14 +123,14 @@
         <h1>Order <?php echo $row['order_number']; ?><?php if ($row['completed'] === "1") : ?> (completed)<?php else: ?> <a href="../edit-order/?order=<?php echo $row['order_number']; ?>" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span>   Edit Order</a><?php endif; ?></h1>
         <?php if (!empty($row['image'])) : ?>
           <div class="modal fade" id="image-modal" role="modal" aria-hidden="true" aria-labelledby="myModalLabel">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
               <div class="modal-content">
                 <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                   <h4 class="modal-title" id="myModalLabel">Order Image</h4>
                 </div>
                 <div class="modal-body">
-                  <img src="<?php echo $row['image']; ?>" height="400px" class="modal-image">
+                  <img src="https://s3.amazonaws.com/SDC-images/gallery/<?php echo $_SESSION['user']['customer_id'] . "/" . $row['image']; ?>" class="modal-image">
                 </div>
               </div>
             </div>

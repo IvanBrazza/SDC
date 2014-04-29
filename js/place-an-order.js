@@ -76,6 +76,30 @@ $(document).ready(function() {
       progressColour   = "#d9edf7",
       errorColour      = "#f2dede";
 
+  $('#fileupload').fileupload({
+    autoUpload: true,
+    url: '../lib/form/fileuploads3.php',
+    paramName: 'files[]',
+    formData: {upload_dir: $("input[name=upload_dir]").val()},
+    maxFileSize: 5000000,
+    acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i,
+    maxNumberOfFiles: 1,
+    previewMaxWidth: 150,
+    previewMaxHeight: 150,
+    previewMinWidth: 150
+  })
+  .bind('fileuploadadd', function (e, data) {
+    $("#uploadstatus").html("Uploading image...");
+    if (data.files[0].size < 5000000) {
+      $(".fileupload-buttonbar").hide();
+    }
+  })
+  .bind('fileuploaddone', function (e, data) {
+    $("#uploadstatus").html("Uploaded image");
+    $("#fileupload-review").html(data.files[0].name);
+    $("#fileuploadhidden").val(data.result.files[0].name);
+  });
+
   $("#theCakeNext").click(function() {
     var $celeb_date = $("#celebration_date_hidden"),
         $fill_check = validate.input('select[name=filling]', '#filling_error', 'Please choose a filling'),

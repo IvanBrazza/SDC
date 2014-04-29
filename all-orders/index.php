@@ -226,14 +226,14 @@
   <?php if (!empty($_GET['order'])) : ?>
     <?php if (!empty($row['image'])) : ?>
       <div class="modal fade" id="image-modal" role="modal" aria-hidden="true" aria-labelledby="myModalLabel">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
           <div class="modal-content">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
               <h4 class="modal-title" id="myModalLabel">Order Image</h4>
             </div>
             <div class="modal-body">
-              <img src="<?php echo $row['image']; ?>" height="400px" class="modal-image">
+              <img src="https://s3.amazonaws.com/SDC-images/gallery/<?php echo $row['customer_id'] . "/" . $row['image']; ?>" class="modal-image">
             </div>
           </div>
         </div>
@@ -318,7 +318,7 @@
           <?php if (!empty($row['image'])) : ?>
             <tr>
               <th>Image</th>
-              <td><button class="btn btn-xs btn-link" data-toggle="modal" data-target="#image-modal">Click here to view image</button></td>
+              <td><button class="btn btn-link" data-toggle="modal" data-target="#image-modal">Click here to view image</button></td>
             </tr>
           <?php endif; ?>
           <tr>
