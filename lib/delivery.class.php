@@ -33,13 +33,7 @@ class Delivery {
     $i += 5;
     $j += 3;
 
-    if ($i == 50)
-    {
-      $this->deliveryCharge = 0;
-      return;
-    }
-
-    if ($miles == $i)
+    if ($miles <= $i)
     {
       $this->deliveryCharge = $j;
       return;
@@ -53,14 +47,17 @@ class Delivery {
   // A function that uses a recursive function
   // to calculate the delivery charge
   public function calculateDeliveryCharge() {
-    $remaining_miles = $this->distance - 5;
-    $remaining_miles = round($remaining_miles / 5) * 5;
-    if ($remaining_miles <= 0)
+    if ($this->distance <= 5)
+    {
+      $this->deliveryCharge = 0;
+    }
+    else if ($this->distance >= 50)
     {
       $this->deliveryCharge = 0;
     }
     else
     {
+      $remaining_miles = $this->distance - 5;
       $this->recursiveDelivery($remaining_miles, 0, 0);
     }
   }

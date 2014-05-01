@@ -481,44 +481,57 @@ function calculateOrderTotal() {
 }
 
 function calculateDeliveryCharge() {
-  var delivery_charge;
-  
   if ($("select[name=delivery]").val() === "Deliver To Address") {
     var service = new google.maps.DistanceMatrixService();
-    service.getDistanceMatrix(
-      {
-        origins: [$origins],
-        destinations: [$destination],
-        travelMode: google.maps.TravelMode.DRIVING,
-        unitSystem: google.maps.UnitSystem.IMPERIAL
-      }, callback);
+    service.getDistanceMatrix({
+      origins: [$origins],
+      destinations: [$destination],
+      travelMode: google.maps.TravelMode.DRIVING,
+      unitSystem: google.maps.UnitSystem.IMPERIAL
+    }, callback);
 
-      function callback(response, status) {
-        var origins = response.originAddresses;
-        var destinations = response.destinationAddresses;
+    function callback(response, status) {
+      var origins = response.originAddresses,
+          destinations = response.destinationAddresses;
 
-        for (var i = 0; i < origins.length; i++) {
-          var results = response.rows[i].elements;
-          for (var j = 0; j < results.length; j++) {
-          var element = results[j];
-          var distance = element.distance.value;
+      for (var i = 0; i < origins.length; i++) {
+        var results = response.rows[i].elements;
+        for (var j = 0; j < results.length; j++) {
+          var element = results[j],
+              distance = element.distance.value;
         }
       }
-    
-      var miles = distance*0.000621371;
-      miles = Math.round(miles);
-      var remaining_miles = miles - 5;
-      remaining_miles = Math.round(remaining_miles / 5) * 5;
 
-      if (remaining_miles <= 0) {
-        delivery_charge = 0;
+      var miles = distance*0.000621371;
+      if (miles <= 5) {
+        var delivery_charge = 0;
+      } else if (miles >= 50) {
+        var delivery_charge = "Collection only";
       } else {
-        recursiveDelivery(remaining_miles, 0, 0);
+        miles = Math.round(miles);
+        var remaining_miles = miles - 5;
+        var delivery_charge = recursiveDelivery(remaining_miles, 0, 0);
       }
 
-      $("#delivery-charge-html").html("&pound;" + delivery_charge);
-      $("#delivery-charge").show();
-      calculateOrderTotal();
+      if (delivery_charge == "Collection only") {
+        $("select[name=delivery] option[value=Collection]").attr("selected", "true");
+        $("#delivery-charge-html").html("");
+        $("#delivery-review").html("Collection");
+        $("#datetime-label").html("Date/Time For Collection");
+        $("#delivery-charge").hide();
+        calculateOrderTotal();
+        $('<div class="modal fade" style="overflow-y:auto;"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h4 class="modal-title">You live too far away!</h4>'+
+          '</div><div class="modal-body"><p>You chose to have your order delivered to you, however you live over 50 miles away, which is outside of our delivery radius.</p>' +
+          '<p>Because of this, you can only collect your order from our collection point.</p>' +
+          '</div><div class="modal-footer"><button type="button" class="btn btn-default pull-right" data-dismiss="modal">Okay</button></div></div></div></div>').modal({
+          backdrop: 'static',
+          keyboard: 'false'
+        });
+      } else {
+        $("#delivery-charge-html").html("&pound;" + delivery_charge);
+        $("#delivery-charge").show();
+        calculateOrderTotal();
+      }
     }
   } else {
     return null;
@@ -528,16 +541,10 @@ function calculateDeliveryCharge() {
     i += 5;
     j += 3;
 
-    if (i == 50) {
-      delivery_charge = "Collection only";
-      return;
-    }
-
-    if (miles == i) {
-      delivery_charge = j;
-      return;
+    if (miles <= i) {
+      return j;
     } else {
-      recursiveDelivery(miles, i, j);
+      return recursiveDelivery(miles, i, j);
     }
   }
 }
