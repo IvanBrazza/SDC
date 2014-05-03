@@ -1,7 +1,5 @@
 $(document).ready(function() {
-  calculateOrderTotal();
-
-  var deliveryPanelHeight = $("#delivery").height(),
+  var deliveryPanelHeight = $("#deliveryPanel").height(),
       $placed_date = $("input[name=placed_date]").pickadate({
         clear: '',
         formatSubmit: 'yyyy-mm-dd',
@@ -68,10 +66,10 @@ $(document).ready(function() {
         format: 'mmmm dd, yyyy',
         min: true,
         onOpen: function() {
-          $("#delivery").stop().animate({height: "500px"});
+          $("#deliveryPanel").stop().animate({height: "500px"});
         },
         onClose: function() {
-          $("#delivery").stop().animate({height: deliveryPanelHeight});
+          $("#deliveryPanel").stop().animate({height: deliveryPanelHeight});
           if ($dt_date.pickadate("get") == "") {
             $dt_date.closest(".form-group").removeClass("has-success").addClass("has-error");
             $("#datetime_date_error").html("Please select a date").slideDown("fast");
@@ -93,10 +91,10 @@ $(document).ready(function() {
         max: [18,0],
         min: [8,0],
         onOpen: function() {
-          $("#delivery").stop().animate({height: "640px"});
+          $("#deliveryPanel").stop().animate({height: "640px"});
         },
         onClose: function() {
-          $("#delivery").stop().animate({height: deliveryPanelHeight});
+          $("#deliveryPanel").stop().animate({height: deliveryPanelHeight});
           if ($dt_time.pickadate("get") == "") {
             $dt_time.closest(".form-group").removeClass("has-success").addClass("has-error");
             $("#datetime_time_error").html("Please select a date").slideDown("fast");
@@ -163,15 +161,15 @@ $(document).ready(function() {
         var comm_check = validate.input("textarea#comments", "#comments_error", "Please enter a comment");
         if (comm_check) {
           $("#theCake").collapse("hide");
-          $("#delivery").collapse("show");
+          $("#deliveryPanel").collapse("show");
           $("#the-cake-heading").animate({backgroundColor: completeColour});
-          $("#upload-a-photo-heading").animate({backgroundColor: progressColour});
+          $("#delivery-heading").animate({backgroundColor: progressColour});
         }
       } else {
         $("#theCake").collapse("hide");
-        $("#delivery").collapse("show");
+        $("#deliveryPanel").collapse("show");
         $("#the-cake-heading").animate({backgroundColor: completeColour});
-        $("#upload-a-photo-heading").animate({backgroundColor: progressColour});
+        $("#delivery-heading").animate({backgroundColor: progressColour});
       }
     } else {
       $("#the-cake-heading").animate({backgroundColor: errorColour});
@@ -191,7 +189,7 @@ $(document).ready(function() {
   });
 
   $("#deliveryPrevious").click(function() {
-    $("#delivery").collapse("hide");
+    $("#deliveryPanel").collapse("hide");
     $("#theCake").collapse("show");
     $("#delivery-heading").animate({backgroundColor: incompleteColour});
     $("#the-cake-heading").animate({backgroundColor: progressColour});
@@ -202,12 +200,7 @@ $(document).ready(function() {
         $datetime_time  = $("#datetime_time_hidden"),
         $delivery_check = validate.input('select[name=delivery]', '#delivery_error', 'Please choose a delivery option');
     if ($datetime_date.val() != "" && $datetime_time.val() != "" && $delivery_check) {
-      calculateDeliveryCharge();
       calculateOrderTotal();
-      $("#delivery").collapse("hide");
-      $("#review").collapse("show");
-      $("#delivery-heading").animate({backgroundColor: completeColour});
-      $("#review-heading").animate({backgroundColor: progressColour});
     } else {
       $("#delivery-heading").animate({backgroundColor: errorColour});
       if ($datetime_date.val() == "") {
@@ -223,7 +216,7 @@ $(document).ready(function() {
 
   $("#reviewPrevious").click(function() {
     $("#review").collapse("hide");
-    $("#delivery").collapse("show");
+    $("#deliveryPanel").collapse("show");
     $("#review-heading").animate({backgroundColor: incompleteColour});
     $("#delivery-heading").animate({backgroundColor: progressColour});
   });

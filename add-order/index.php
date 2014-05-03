@@ -252,7 +252,7 @@
               Delivery
             </h4>
           </div>
-          <div id="delivery" class="panel-collapse collapse">
+          <div id="deliveryPanel" class="panel-collapse collapse">
             <div class="panel-body">
               <div class="col-md-2">
                 <button type="button" id="deliveryPrevious" class="btn btn-primary">

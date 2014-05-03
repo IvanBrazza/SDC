@@ -1,9 +1,6 @@
 $(document).ready(function() {
   $(document).tooltip();
 
-  calculateDeliveryCharge();
-  calculateOrderTotal();
-
   var deliveryPanelHeight = $("#deliveryPanel").height(),
       $celeb_date = $("input[name=celebration_date]").pickadate({
         clear: '',
@@ -138,10 +135,7 @@ $(document).ready(function() {
           $("input[name=token]").val(object.token);
         }
       });
-      $("#deliveryPanel").collapse("hide");
-      $("#review").collapse("show");
-      $("#delivery-heading").animate({backgroundColor: completeColour});
-      $("#review-heading").animate({backgroundColor: progressColour});
+      calculateOrderTotal();
     } else {
       $("#delivery-heading").animate({backgroundColor: errorColour});
       if ($datetime_date.val() == "") {
@@ -193,12 +187,6 @@ $(document).ready(function() {
         trickleSpeed: 500
       });
       NProgress.start();
-    }
-  });
-
-  $("select[name=delivery]").change(function() {
-    if ($(this).val() === "Deliver To Address") {
-      calculateDeliveryCharge();
     }
   });
 });

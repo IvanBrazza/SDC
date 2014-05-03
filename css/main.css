@@ -47,11 +47,6 @@ a {
   padding:            0;
   }
 
-iframe#ifileupload {
-  border:             none;
-  width:              100%;
-  }
-
 #upload-fake {
   cursor:             default;
   }
@@ -79,25 +74,13 @@ iframe#ifileupload {
 .timepicker {
   margin-top:         5px;
   }
+
+.help {
+  font-size:          0.8em;
+  }
 /* End General */
 
-.orders {
-  width:              80%;
-  margin-left:        auto;
-  margin-right:       auto;
-  }
-
-.memberlist {
-  width:              60%;
-  margin-left:        auto;
-  margin-right:       auto;
-  }
-
-.form>form>div,
-.tabslider>ul>li>div {
-  margin-bottom:      9px;
-  }
-
+/* Tables */
 table.table-hover {
   cursor:             pointer;
   }
@@ -109,7 +92,9 @@ table > caption {
 table span.arrow {
   margin-left:        10px;
   }
+/* End Tables */
 
+/* Alerts And Messages */
 .error_message {
   color:              red;
   }
@@ -122,6 +107,14 @@ table span.arrow {
   text-align:         center;
   }
 
+.validate-error {
+  font-size:          8pt;
+  color:              red;
+  display:            none;
+  }
+/* End Alerts And Messages */
+
+/* Testimonials */
 p.approved {
   background-image:   linear-gradient(#E4F8FF, #CBF2FF);
   }
@@ -183,79 +176,12 @@ div.unapproved {
   font-weight:        bold;
   }
 
-input.valid, textarea.valid {
-  color:              #468847 !important;
-  background-color:   #DFF0D8 !important;
-  border: 1px solid   #D6E9C6 !important;
-  }
-
-input.invalid, textarea.invalid {
-  color:              #B94A48 !important;
-  background-color:   #F2DEDE !important;
-  border: 1px solid   #EED3D7 !important;
-  }
-
-.validate-error {
-  font-size:          8pt;
-  color:              red;
-  display:            none;
-  }
-
 .delete_testimonial,
 .approve_testimonial {
   margin-left:        10px;
   }
+/* End Testimonials */
 
-#complete-order {
-  display:            inline;
-  }
-
-.or {
-  margin:             10px auto;
-  display:            table;
-  font-weight:        bold;
-  font-style:         italic;
-  }
-
-.pound {
-  float:              right;
-  margin-top:         4px;
-  }
-
-.forgot-password {
-  font-size:          small;
-  }
-
-span.arrow>a {
-  text-decoration:    none;
-  }
-
-.small-link {
-  font-size:          0.5em;
-  }
-
-#delivery-edit-row {
-  display:            none;
-  }
-
-.ajax-load {
-  background-image:   url('../img/spinner.gif');
-  background-repeat:  no-repeat;
-  height:             80px;
-  width:              80px;
-  margin:             0 auto;
-  }
-
-.modal-image {
-  display:            block;
-  max-width:          850px;
-  max-height:         400px;
-  margin:             0 auto;
-  }
-
-.btn-link {
-  padding:            0;
-  }
 /* Copyright footer  */
 .footer {
   padding-top:        20px;
@@ -264,33 +190,13 @@ span.arrow>a {
   color:              #ffffff;
   }
 
-hr.fancy-line { 
-  border:             0; 
-  height:             13px;
-  background-image:   url("../img/featurette-divider.png");
-  background-repeat:  repeat-x;
-  margin:             20px -15px;
-  }
-
-div.copyright {
-    width:            100%;
-  }
-
 div.copyright>div {
   text-align:         center;
   font-size:          0.7em;
   }
 /* End Copyright Footer */
 
-progress {
-  float:              right;
-  display:            none;
-  }
-
-.help {
-  font-size:          0.8em;
-  }
-
+/* Scrollspy (admin page) */
 .scrollspy {
   width:              180px;
   margin-top:         20px;
@@ -308,8 +214,38 @@ progress {
   font-size:          0.8em;
   padding:            5px 5px 5px 25px;
   }
+/* End Scrollspy (admin page) */
+
+/* Orders */
 @media (min-width: 992px) {
   #fillings, #decorations, #gallery {
     table-layout:     fixed;
     }
   }
+
+.btn-link {
+  padding:            0;
+  }
+
+#complete-order {
+  display:            inline;
+  }
+
+.or {
+  margin:             10px auto;
+  display:            table;
+  font-weight:        bold;
+  font-style:         italic;
+  }
+
+span.arrow>a {
+  text-decoration:    none;
+  }
+
+.modal-image {
+  display:            block;
+  max-width:          850px;
+  max-height:         400px;
+  margin:             0 auto;
+  }
+/* End Orders */

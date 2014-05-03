@@ -1,8 +1,6 @@
 $(document).ready(function() {
   $(document).tooltip();
 
-  calculateOrderTotal();
-
   var deliveryPanelHeight = $("#deliveryPanel").height(),
       $celeb_date = $("input[name=celebration_date]").pickadate({
         clear: '',
@@ -155,10 +153,7 @@ $(document).ready(function() {
         $datetime_time  = $("#datetime_time_hidden"),
         $delivery_check = validate.input('select[name=delivery]', '#delivery_error', 'Please choose a delivery option');
     if ($datetime_date.val() != "" && $datetime_time.val() != "" && $delivery_check) {
-      $("#deliveryPanel").collapse("hide");
-      $("#review").collapse("show");
-      $("#delivery-heading").animate({backgroundColor: completeColour});
-      $("#review-heading").animate({backgroundColor: progressColour});
+      calculateOrderTotal();
     } else {
       $("#delivery-heading").animate({backgroundColor: errorColour});
       if ($datetime_date.val() == "") {
@@ -193,11 +188,5 @@ $(document).ready(function() {
       trickleSpeed: 500
     });
     NProgress.start();
-  });
-
-  $("select[name=delivery]").change(function() {
-    if ($(this).val() === "Deliver To Address") {
-      calculateDeliveryCharge();
-    }
   });
 });
