@@ -58,6 +58,20 @@
   $row = $db->fetch();
 ?>
 <?php include("../lib/header.php"); ?>
+<div class="modal fade" id="address-modal" role="modal" aria-hidden="true" aria-labelledby="myModalLabel">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Invalid Address!</h4>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary pull-right" data-dismiss="modal">Okay</button>
+      </div>
+    </div>
+  </div>
+</div>
 <div class="row">
   <div class="col-md-12">
     <h1>Edit Account</h1>
@@ -152,5 +166,6 @@
     </form>
   </div>
   <div class="col-md-3"></div>
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKeZpb8doUO3DbEqT3t-uRJYsbEPbD3AE&sensor=false"></script>
 </div>
 <?php include("../lib/footer.php"); ?>

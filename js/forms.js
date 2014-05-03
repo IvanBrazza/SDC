@@ -113,46 +113,69 @@ $(document).ready(function() {
     var emai_check = validate.email(),
         post_check = validate.postcode(),
         phon_check = validate.phone(),
-        firs_check = validate.input('#first_name', '#first_name_error', 'Please enter your first name'),
-        last_check = validate.input('#last_name', '#last_name_error', 'Please enter your last name'),
-        addr_check = validate.input('#address', '#address_error', 'Please enter your address');
+        firs_check = validate.input('input[name=first_name]', '#first_name_error', 'Please enter your first name'),
+        last_check = validate.input('input[name=last_name]', '#last_name_error', 'Please enter your last name'),
+        addr_check = validate.input('input[name=address]', '#address_error', 'Please enter your address');
 
-    if ($("#password").val() == "") {
-      if (firs_check && phon_check && post_check && emai_check && last_check && addr_check) {
-        // Submit the form
-        $.ajax({
-          type: 'post',
-          url: '../lib/form/edit-account.php',
-          data: $(this).serialize(),
-          success: function(response) {
-            if (response === "success") {
-              $("#success_message").html("Account updated.").show();
-            } else if (response === "email-verify") {
-              window.location.href = "../verify-email/?type=edit";
-            } else {
-              $("#error_message").html(response);
+    if (firs_check && phon_check && post_check && emai_check && last_check && addr_check) {
+      var geocoder = new google.maps.Geocoder();;
+      geocoder.geocode({
+        'address': $("input[name=address]").val().replace(" ", ",") + "," + $("input[name=postcode]").val().replace(" ", ","),
+      }, callback);
+
+      function callback(response, status) {
+        var address = response[0].formatted_address,
+            numCommas = address.match(/,/g).length;
+        if (numCommas < 3){
+          $("input[name=address], input[name=postcode]").closest("div.form-group")
+            .removeClass("has-success")
+            .addClass("has-error")
+            .find(".input-group-addon")
+            .html("<span class='glyphicon glyphicon-remove'></span>");
+          var address_modal = $("#address-modal");
+          address_modal.find(".modal-body").html("It seems that the address you inputted - <b>" + $("input[name=address]").val() + ", " + $("input[name=postcode]").val() + "</b> - isn't a real address. Please check the address you entered and try again.");
+          address_modal.modal({
+            backdrop: "static",
+            keyboard: false
+          });
+        } else {
+          if ($("input[name=password]").val() == "") {
+            // Submit the form
+            $.ajax({
+              type: 'post',
+              url: '../lib/form/edit-account.php',
+              data: $("#edit-account-form").serialize(),
+              success: function(response) {
+                if (response === "success") {
+                  $("#success_message").html("<span class='glyphicon glyphicon-ok-circle'></span>   Account updated").show();
+                } else if (response === "email-verify") {
+                  window.location.href = "../verify-email/?type=edit";
+                } else {
+                  $("#error_message").html(response);
+                }
+              }
+            });
+          } else {
+            var pass_check = validate.password();
+            if (pass_check) {
+              // Submit the form
+              $.ajax({
+                type: 'post',
+                url: '../lib/form/edit-account.php',
+                data: $("#edit-account-form").serialize(),
+                success: function(response) {
+                  if (response === "success") {
+                    $("#success_message").html("<span class='glyphicon glyphicon-ok-circle'></span>   Account updated").show();
+                  } else if (response === "email-verify") {
+                    window.location.href = "../verify-email/?type=edit";
+                  } else {
+                    $("#error_message").html(response);
+                  }
+                }
+              });
             }
           }
-        });
-      }
-    } else {
-      var pass_check = validate.password();
-      if (firs_check && phon_check && post_check && emai_check && last_check && addr_check && pass_check) {
-        // Submit the form
-        $.ajax({
-          type: 'post',
-          url: '../lib/form/edit-account.php',
-          data: $(this).serialize(),
-          success: function(response) {
-            if (response === "success") {
-              $("#success_message").html("Account updated.").show();
-            } else if (response === "email-verify") {
-              window.location.href = "../verify-email/?type=edit";
-            } else {
-              $("#error_message").html(response);
-            }
-          }
-        });
+        }
       }
     }
     e.preventDefault();
