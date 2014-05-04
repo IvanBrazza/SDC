@@ -1,5 +1,6 @@
 $(document).ready(function() {
   $("#register-form").submit(function(e) {
+    e.preventDefault();
     // Validate the fields
     var pass_check = validate.password(),
         user_check = validate.username(),
@@ -12,19 +13,38 @@ $(document).ready(function() {
         url: '../lib/form/register.php',
         data: $(this).serialize(),
         success: function(response) {
-          if (response === "registered") {
+          object = JSON.parse(response);
+          if (object.status == "success") {
             window.location.href = "../verify-email/?type=register";
-          } else {
-            $("#error_message").html(response);
-            Recaptcha.reload();
+          } else if (object.status == "error") {
+            switch (object.code) {
+              case "002":
+                Recaptcha.reload();
+                break;
+              case "003":
+                $("input[name=username]").closest(".input-group")
+                                         .removeClass("has-success")
+                                         .addClass("has-error")
+                                         .find(".input-group-addon")
+                                         .html("<span class='glyphicon glyphicon-remove'></span>");
+                break;
+              case "004":
+                $("input[name=email]").closest(".input-group")
+                                      .removeClass("has-success")
+                                      .addClass("has-error")
+                                      .find(".input-group-addon")
+                                      .html("<span class='glyphicon glyphicon-remove'></span>");
+            }
+            if (object.code != "001") $("input[name=token]").val(object.token);
+            $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.error).show();
           }
         }
       });
-      e.preventDefault();
     }
   });
 
   $("#login-form").submit(function(e) {
+    e.preventDefault();
     // Validate the fields
     var user_check = validate.username(),
         pass_check = validate.password();
@@ -36,39 +56,37 @@ $(document).ready(function() {
         data: $(this).serialize(),
         success: function(response) {
           object = JSON.parse(response);
-          if (object.status === 'success') {
+          if (object.status == 'success') {
             window.location.href = "../home/";
-          } else {
-            if (object.status === 'Incorrect username.') {
-              $("#username").closest("div.form-group")
-                            .removeClass("has-success")
-                            .addClass("has-error")
-                            .find(".input-group-addon")
-                            .html("<span class='glyphicon glyphicon-remove'></span>");
-              $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.status).show();
-              $("#token").val(object.token);
-            } else if (object.status === 'Incorrect password.') {
-              $("#password").closest(".form-group")
-                            .removeClass("has-success")
-                            .addClass("has-error")
-                            .find(".input-group-addon")
-                            .html("<span class='glyphicon glyphicon-remove'></span>");
-              $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.status).show();
-              $("#token").val(object.token);
-            } else if (object.status  === 'redirect') {
-              window.location.href = object.redirect;
-            } else {
-              $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.status).show();
-              $("#token").val(object.token);
+          } else if (object.status == 'redirect') {
+            window.location.href = object.redirect;
+          } else if (object.status == 'error') {
+            switch (object.code) {
+              case "002":
+                $("#username").closest("div.form-group")
+                              .removeClass("has-success")
+                              .addClass("has-error")
+                              .find(".input-group-addon")
+                              .html("<span class='glyphicon glyphicon-remove'></span>");
+                break;
+              case "003":
+                $("#password").closest(".form-group")
+                              .removeClass("has-success")
+                              .addClass("has-error")
+                              .find(".input-group-addon")
+                              .html("<span class='glyphicon glyphicon-remove'></span>");
+                break;
             }
+            if (object.code != "001") $("input[name=token]").val(object.token);
+            $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.error).show();
           }
         }
       });
     }
-    e.preventDefault();
   });
 
   $("#forgot-password-form").submit(function(e) {
+    e.preventDefault();
     // Validate the fields
     var emai_check = validate.email();
     if (emai_check) {
@@ -78,9 +96,8 @@ $(document).ready(function() {
         url: '../lib/form/forgot-password.php',
         data: $(this).serialize(),
         success: function(response) {
-        console.log(response);
           object = JSON.parse(response);
-          if (object.status === 'success') {
+          if (object.status == 'success') {
             $("#email").closest(".form-group")
                        .removeClass("has-error")
                        .addClass("has-success")
@@ -88,24 +105,22 @@ $(document).ready(function() {
                        .html("<span class='glyphicon glyphicon-ok'></span>");
             $("#error_message").hide();
             $("#success_message").html("<span class='glyphicon glyphicon-ok'></span>   Password reset. Please check your emails for a new password.").show();
-          } else {
-            if (object.status === 'Email doesn\'t exist.') {
-              $("#email").closest(".form-group")
-                         .removeClass("has-success")
-                         .addClass("has-error")
-                         .find(".input-group-addon")
-                         .html("<span class='glyphicon glyphicon-remove'></span>");
-              $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.status).show();
-              $("#token").val(object.token);
-            } else {
-              $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.status).show();
-              $("#token").val(object.token);
+          } else if (object.status == 'error') {
+            switch (object.code) {
+              case "002":
+                $("#email").closest(".form-group")
+                           .removeClass("has-success")
+                           .addClass("has-error")
+                           .find(".input-group-addon")
+                           .html("<span class='glyphicon glyphicon-remove'></span>");
+                break;
             }
+            $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error).show();
+            $("#token").val(object.token);
           }
         }
       });
     }
-    e.preventDefault();
   });
 
   $("#edit-account-form").submit(function(e) {
@@ -146,12 +161,15 @@ $(document).ready(function() {
               url: '../lib/form/edit-account.php',
               data: $("#edit-account-form").serialize(),
               success: function(response) {
-                if (response === "success") {
+                object = JSON.parse(response);
+                if (object.status == "success") {
+                  $("input[name=token]").val(object.token);
                   $("#success_message").html("<span class='glyphicon glyphicon-ok-circle'></span>   Account updated").show();
-                } else if (response === "email-verify") {
+                } else if (object.status == "verify-email") {
                   window.location.href = "../verify-email/?type=edit";
                 } else {
-                  $("#error_message").html(response);
+                  $("#success_message").hide();
+                  $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error).show();
                 }
               }
             });
@@ -164,12 +182,15 @@ $(document).ready(function() {
                 url: '../lib/form/edit-account.php',
                 data: $("#edit-account-form").serialize(),
                 success: function(response) {
-                  if (response === "success") {
+                  object = JSON.parse(response);
+                  if (object.status == "success") {
+                    $("input[name=token]").val(object.token);
                     $("#success_message").html("<span class='glyphicon glyphicon-ok-circle'></span>   Account updated").show();
-                  } else if (response === "email-verify") {
+                  } else if (object.status == "verify-email") {
                     window.location.href = "../verify-email/?type=edit";
                   } else {
-                    $("#error_message").html(response);
+                    $("#success_message").hide();
+                    $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error).show();
                   }
                 }
               });
@@ -315,7 +336,7 @@ var validate = {
       return true;
     } else {
       $password2_error.html("Passwords do not match")
-                      slideDown("fast");
+                      .slideDown("fast");
       $password2.removeClass("has-success")
                 .addClass("has-error")
                 .find(".input-group-addon")

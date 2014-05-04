@@ -43,7 +43,7 @@
         <div class="col-sm-1"></div>
         <div class="col-sm-7">
           <div class="input-group">
-            <input type="password" class="form-control" name="password2" id="password2" onchange="validate.password2()">
+            <input type="password" class="form-control" name="password2" id="password2" onchange="validate.password2()" placeholder="Repeat password">
             <span class="input-group-addon">...</span>
           </div>
           <div id="password2-error" class="validate-error"></div>

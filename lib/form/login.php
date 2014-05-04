@@ -6,9 +6,18 @@
   {
     if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
     {
-      echo "Invalid token.";
+      $response = array(
+        "status" => "error",
+        "error"  => "Invalid token (try refreshing the page)",
+        "code"   => "001"
+      );
+
+      echo json_encode($response);
       die();
     }
+
+    // Unset token
+    unset($_SESSION['token']);
 
     // Let's pull up the user's details from the username provided
     $query = "
@@ -44,9 +53,6 @@
       {
         $logged_in = true;
         $password_correct = true;
-
-        // Unset token
-        unset($_SESSION['token']);
       }
       else
       {
@@ -114,7 +120,9 @@
     else if (!$row)
     {
       $response = array(
-        "status" => "Incorrect username.",
+        "status" => "error",
+        "error"  => "Username <b>" . $_POST['username'] . "</b> not found",
+        "code"   => "002",
         "token"  => $_SESSION['token']
       );
       echo json_encode($response);
@@ -123,7 +131,9 @@
     else if ($row and !$password_correct)
     {
       $response = array(
-        "status" => "Incorrect password.",
+        "status" => "error",
+        "error"  => "Incorrect password",
+        "code"   => "003",
         "token"  => $_SESSION['token']
       );
       echo json_encode($response);
@@ -132,7 +142,8 @@
     else if (!$email_verified and !$logged_in)
     {
       $response = array(
-        "status" => "Your email isn't verified, please check your emails to verify your account.",
+        "status" => "error",
+        "error"  => "Your email isn't verified, please check your emails to verify your account",
         "token"  => $_SESSION['token']
       );
       echo json_encode($response);
@@ -141,7 +152,8 @@
     else
     {
       $response = array (
-        "status" => "Oops! Something went wrong. Try again.",
+        "status" => "error",
+        "error"  => "Oops! Something went wrong. Try again.",
         "token"  => $_SESSION['token']
       );
       echo json_encode($response);

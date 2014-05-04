@@ -13,7 +13,9 @@
     if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
     {
       $response = array(
-        'status' => "Invalid token.",
+        'status' => "error",
+        'error'  => "Invalid token.",
+        'code'   => "001",
         'token'  => $_SESSION['token']
       );
       echo json_encode($response);
@@ -47,7 +49,9 @@
     {
       
       $response = array(
-        'status' => 'Email doesn\'t exist.',
+        'status' => 'error',
+        'error'  => 'Email <b>' . $_POST['email'] . '</b> wasn\'t found',
+        'code'   => '002',
         'token'  => $_SESSION['token']
       );
       echo json_encode($response);

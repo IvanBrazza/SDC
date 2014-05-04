@@ -5,7 +5,12 @@
   {
     if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
     {
-      echo "Invalid token.";
+      $response = array(
+        "status" => "error",
+        "error" => "Invalid token (try refreshing the page)"
+      );
+
+      echo json_encode($response);
       die();
     }
 
@@ -34,7 +39,16 @@
     {
       if ($row)
       {
-        echo "That email address is already in use.";
+        // Generate new token
+        $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
+
+        $response = array(
+          'status' => 'error',
+          'error'  => 'That email address is already in use',
+          'token'  => $_SESSION['token']
+        );
+
+        echo json_encode($response);
         die();
       }
     }
@@ -122,12 +136,21 @@
       $email->setFirstName($_POST['first_name']);
       $email->setRecipient($_POST['email']);
       $email->verification($query_params[':email_verification']);
-      echo "email-verify";
+      $response = array(
+        'status' => 'verify-email',
+      );
     }
     else
     {
-      echo "success";
+      // Generate new token
+      $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
+
+      $response = array(
+        'status' => 'success',
+        'token'  => $_SESSION['token']
+      );
     }
 
+    echo json_encode($response);
     die();
   }

@@ -12,12 +12,28 @@
     // Check reCAPTCHA
     if (!$resp->is_valid)
     {
-      echo "reCAPTCHA incorrect.";
+      // Generate new token
+      $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
+
+      $response = array(
+        "status" => "error",
+        "error"  => "Incorrect reCAPTCHA - please try again",
+        "code"   => "002",
+        "token"  => $_SESSION['token']
+      );
+
+      echo json_encode($response);
       die();
     }
     else if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
     {
-      echo "Invalid token.";
+      $response = array(
+        "status" => "error",
+        "error"  => "Invalid token (try refreshing the page)",
+        "code"   => "001"
+      );
+
+      echo json_encode($response);
       die();
     }
     else
@@ -44,7 +60,17 @@
     
       if ($row)
       {
-        echo "Username already taken.";
+        // Generate new token
+        $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
+
+        $response = array(
+          'status' => 'error',
+          'error'  => 'That username is already in use - try a different one',
+          'code'   => '003',
+          'token'  => $_SESSION['token']
+        );
+
+        echo json_encode($response);
         die();
       }
         
@@ -68,7 +94,17 @@
      
       if ($row)
       {
-        echo "Email already in use.";
+        // Generate new token
+        $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
+
+        $response = array(
+          'status' => 'error',
+          'error'  => 'That email address is already in use',
+          'code'   => '004',
+          'token'  => $_SESSION['token']
+        );
+
+        echo json_encode($response);
         die();
       }
     
@@ -117,7 +153,15 @@
       $email->verification($email_verification);
       $email->send();
 
-      echo "registered";
+      // Generate new token
+      $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
+
+      $response = array(
+        'status' => 'success',
+        'token'  => $_SESSION['token']
+      );
+
+      echo json_encode($response);
       die();
     }
   }
