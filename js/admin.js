@@ -31,10 +31,29 @@ $(document).ready(function() {
       url: '../lib/form/customer-search.php',
       data: $(this).serialize(),
       success: function(response) {
-        if (response.slice(0,13) === "../all-orders") {
-          window.location.href = response;
-        } else {
-          $("#search_error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + response).show();
+        try {
+          var object = JSON.parse(response);
+          if (object.status == "success") {
+            window.location.href = object.redirect;
+          } else if (object.status == "error") {
+            switch (object.code) {
+              case "002":
+                $("input[customer_name]").closest(".form-group").removeClass("has-success").addClass("has-error");
+                break;
+            }
+            $("#search_error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.error).show();
+            if (object.code != "001") {
+              $("input[name=token]").val(object.token);
+              $token = object.token;
+            }
+          }
+        } catch(error) {
+          $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+            "<b>Error: " + error.message + "</b>");
+          $("#error_modal").modal("show");
+          setTimeout(function() {
+            $("#error_modal").modal("hide");
+          }, 1500);
         }
       }
     });
@@ -86,21 +105,30 @@ $(document).ready(function() {
           filling_price: $filling_price
         },
         success: function(response) {
-          var object = JSON.parse(response);
-          $token = object.token;
-          if (object.status == "success") {
-            $("#success_message .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully edited filling");
-            $("#success_message").modal("show");
-            $row.find("td:eq(1)").html($filling_name);
-            $row.find("td:eq(2)").html("&pound;" + $filling_price);
-            $row.find("td:eq(3)").html("<button class='btn btn-primary btn-sm edit-filling'><span class='glyphicon glyphicon-pencil'></span></button>");
-            $row.find("td:eq(4)").html("<button class='btn btn-danger btn-sm delete-filling'><span class='glyphicon glyphicon-trash'></span></button>");
+          try {
+            var object = JSON.parse(response);
+            $token = object.token;
+            if (object.status == "success") {
+              $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully edited filling");
+              $("#success_modal").modal("show");
+              $row.find("td:eq(1)").html($filling_name);
+              $row.find("td:eq(2)").html("&pound;" + $filling_price);
+              $row.find("td:eq(3)").html("<button class='btn btn-primary btn-sm edit-filling'><span class='glyphicon glyphicon-pencil'></span></button>");
+              $row.find("td:eq(4)").html("<button class='btn btn-danger btn-sm delete-filling'><span class='glyphicon glyphicon-trash'></span></button>");
+              setTimeout(function() {
+                $("#success_modal").modal("hide");
+              }, 1500);
+            } else {
+              $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+              $("#error_modal").modal("show");
+            }
+          } catch(error) {
+            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+              "<b>Error: " + error.message + "</b>");
+            $("#error_modal").modal("show");
             setTimeout(function() {
-              $("#success_message").modal("hide");
+              $("#error_modal").modal("hide");
             }, 1500);
-          } else {
-            $("#error_message .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
-            $("#error_message").modal("show");
           }
         }
       });
@@ -139,18 +167,27 @@ $(document).ready(function() {
              command: 'delete',
              id: $filling_id},
       success: function(response) {
-        object = JSON.parse(response);
-        $token = object.token;
-        if (object.status == "success") {
-          $row.remove();
-          $("#success_message .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully deleted filling");
-          $("#success_message").modal("show");
+        try {
+          object = JSON.parse(response);
+          $token = object.token;
+          if (object.status == "success") {
+            $row.remove();
+            $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully deleted filling");
+            $("#success_modal").modal("show");
+            setTimeout(function() {
+              $("#success_modal").modal("hide");
+            }, 1500);
+          } else {
+            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+            $("#error_modal").modal("show");
+          }
+        } catch(error) {
+          $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+            "<b>Error: " + error.message + "</b>");
+          $("#error_modal").modal("show");
           setTimeout(function() {
-            $("#success_message").modal("hide");
+            $("#error_modal").modal("hide");
           }, 1500);
-        } else {
-          $("#error_message .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
-          $("#error_message").modal("show");
         }
       }
     });
@@ -176,21 +213,30 @@ $(document).ready(function() {
           filling_price: $filling_price
         },
         success: function(response) {
-          var object = JSON.parse(response);
-          $token = object.token;
-          if (object.status == "success") {
-            $("#success_message .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully added filling");
-            $("#success_message").modal("show");
-            $row.find("td:eq(1)").html($filling_name);
-            $row.find("td:eq(2)").html("&pound;" + $filling_price);
-            $row.find("td:eq(3)").html("<button class='btn btn-primary btn-sm edit-filling'><span class='glyphicon glyphicon-pencil'></span></button>");
-            $row.find("td:eq(4)").html("<button class='btn btn-danger btn-sm delete-filling'><span class='glyphicon glyphicon-trash'></span></button>");
+          try {
+            var object = JSON.parse(response);
+            $token = object.token;
+            if (object.status == "success") {
+              $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully added filling");
+              $("#success_modal").modal("show");
+              $row.find("td:eq(1)").html($filling_name);
+              $row.find("td:eq(2)").html("&pound;" + $filling_price);
+              $row.find("td:eq(3)").html("<button class='btn btn-primary btn-sm edit-filling'><span class='glyphicon glyphicon-pencil'></span></button>");
+              $row.find("td:eq(4)").html("<button class='btn btn-danger btn-sm delete-filling'><span class='glyphicon glyphicon-trash'></span></button>");
+              setTimeout(function() {
+                $("#success_modal").modal("hide");
+              }, 1500);
+            } else {
+              $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+              $("#error_modal").modal("show");
+            }
+          } catch(error) {
+            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+              "<b>Error: " + error.message + "</b>");
+            $("#error_modal").modal("show");
             setTimeout(function() {
-              $("#success_message").modal("hide");
+              $("#error_modal").modal("hide");
             }, 1500);
-          } else {
-            $("#error_message .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
-            $("#error_message").modal("show");
           }
         }
       });
@@ -257,21 +303,30 @@ $(document).ready(function() {
           decor_price: $decor_price
         },
         success: function(response) {
-          var object = JSON.parse(response);
-          $token = object.token;
-          if (object.status == "success") {
-            $("#success_message .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully edited decoration");
-            $("#success_message").modal("show");
-            $row.find("td:eq(1)").html($decor_name);
-            $row.find("td:eq(2)").html("&pound;" + $decor_price);
-            $row.find("td:eq(3)").html("<button class='btn btn-primary btn-sm edit-decor'><span class='glyphicon glyphicon-pencil'></span></button>");
-            $row.find("td:eq(4)").html("<button class='btn btn-danger btn-sm delete-decor'><span class='glyphicon glyphicon-trash'></span></button>");
+          try {
+            var object = JSON.parse(response);
+            $token = object.token;
+            if (object.status == "success") {
+              $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully edited decoration");
+              $("#success_modal").modal("show");
+              $row.find("td:eq(1)").html($decor_name);
+              $row.find("td:eq(2)").html("&pound;" + $decor_price);
+              $row.find("td:eq(3)").html("<button class='btn btn-primary btn-sm edit-decor'><span class='glyphicon glyphicon-pencil'></span></button>");
+              $row.find("td:eq(4)").html("<button class='btn btn-danger btn-sm delete-decor'><span class='glyphicon glyphicon-trash'></span></button>");
+              setTimeout(function() {
+                $("#success_modal").modal("hide");
+              }, 1500);
+            } else {
+              $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+              $("#error_modal").modal("show");
+            }
+          } catch(error) {
+            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+              "<b>Error: " + error.message + "</b>");
+            $("#error_modal").modal("show");
             setTimeout(function() {
-              $("#success_message").modal("hide");
+              $("#error_modal").modal("hide");
             }, 1500);
-          } else {
-            $("#error_message .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
-            $("#error_message").modal("show");
           }
         }
       });
@@ -310,18 +365,27 @@ $(document).ready(function() {
              command: 'delete',
              id: $decor_id},
       success: function(response) {
-        object = JSON.parse(response);
-        if (object.status == "success") {
-          $row.remove();
-          $token = object.token;
-          $("#success_message .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully deleted decoration");
-          $("#success_message").modal("show");
+        try {
+          object = JSON.parse(response);
+          if (object.status == "success") {
+            $row.remove();
+            $token = object.token;
+            $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully deleted decoration");
+            $("#success_modal").modal("show");
+            setTimeout(function() {
+              $("#success_modal").modal("hide");
+            }, 1500);
+          } else {
+            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+            $("#error_modal").modal("show");
+          }
+        } catch(error) {
+          $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+            "<b>Error: " + error.message + "</b>");
+          $("#error_modal").modal("show");
           setTimeout(function() {
-            $("#success_message").modal("hide");
+            $("#error_modal").modal("hide");
           }, 1500);
-        } else {
-          $("#error_message .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
-          $("#error_message").modal("show");
         }
       }
     });
@@ -362,21 +426,30 @@ $(document).ready(function() {
           decor_price: $decor_price
         },
         success: function(response) {
-          var object = JSON.parse(response);
-          $token = object.token;
-          if (object.status == "success") {
-            $("#success_message .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully added decoration");
-            $("#success_message").modal("show");
-            $row.find("td:eq(1)").html($decor_name);
-            $row.find("td:eq(2)").html("&pound;" + $decor_price);
-            $row.find("td:eq(3)").html("<button class='btn btn-primary btn-sm edit-decor'><span class='glyphicon glyphicon-pencil'></span></button>");
-            $row.find("td:eq(4)").html("<button class='btn btn-danger btn-sm delete-decor'><span class='glyphicon glyphicon-trash'></span></button>");
+          try {
+            var object = JSON.parse(response);
+            $token = object.token;
+            if (object.status == "success") {
+              $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully added decoration");
+              $("#success_modal").modal("show");
+              $row.find("td:eq(1)").html($decor_name);
+              $row.find("td:eq(2)").html("&pound;" + $decor_price);
+              $row.find("td:eq(3)").html("<button class='btn btn-primary btn-sm edit-decor'><span class='glyphicon glyphicon-pencil'></span></button>");
+              $row.find("td:eq(4)").html("<button class='btn btn-danger btn-sm delete-decor'><span class='glyphicon glyphicon-trash'></span></button>");
+              setTimeout(function() {
+                $("#success_modal").modal("hide");
+              }, 1500);
+            } else {
+              $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+              $("#error_modal").modal("show");
+            }
+          } catch(error) {
+            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+              "<b>Error: " + error.message + "</b>");
+            $("#error_modal").modal("show");
             setTimeout(function() {
-              $("#success_message").modal("hide");
+              $("#error_modal").modal("hide");
             }, 1500);
-          } else {
-            $("#error_message .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
-            $("#error_message").modal("show");
           }
         }
       });
@@ -423,20 +496,29 @@ $(document).ready(function() {
           gallery_name: $gallery_name
         },
         success: function(response) {
-          var object = JSON.parse(response);
-          $token = object.token;
-          if (object.status == "success") {
-            $("#success_message .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully added gallery");
-            $("#success_message").modal("show");
-            $row.find("td:eq(1)").html($gallery_name);
-            $row.find("td:eq(2)").html("<button class='btn btn-primary btn-sm edit-gallery'><span class='glyphicon glyphicon-pencil'></span></button>");
-            $row.find("td:eq(3)").html("<button class='btn btn-danger btn-sm delete-gallery'><span class='glyphicon glyphicon-trash'></span></button>");
+          try {
+            var object = JSON.parse(response);
+            $token = object.token;
+            if (object.status == "success") {
+              $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully added gallery");
+              $("#success_modal").modal("show");
+              $row.find("td:eq(1)").html($gallery_name);
+              $row.find("td:eq(2)").html("<button class='btn btn-primary btn-sm edit-gallery'><span class='glyphicon glyphicon-pencil'></span></button>");
+              $row.find("td:eq(3)").html("<button class='btn btn-danger btn-sm delete-gallery'><span class='glyphicon glyphicon-trash'></span></button>");
+              setTimeout(function() {
+                $("#success_modal").modal("hide");
+              }, 1500);
+            } else {
+              $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+              $("#error_modal").modal("show");
+            }
+          } catch(error) {
+            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+              "<b>Error: " + error.message + "</b>");
+            $("#error_modal").modal("show");
             setTimeout(function() {
-              $("#success_message").modal("hide");
+              $("#error_modal").modal("hide");
             }, 1500);
-          } else {
-            $("#error_message .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
-            $("#error_message").modal("show");
           }
         }
       });
@@ -459,19 +541,28 @@ $(document).ready(function() {
              command: 'delete',
              id: $gallery_id},
       success: function(response) {
-        object = JSON.parse(response);
-        $token = object.token;
-        if (object.status == "success") {
-          $row.remove();
+        try {
+          object = JSON.parse(response);
           $token = object.token;
-          $("#success_message .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully deleted gallery");
-          $("#success_message").modal("show");
+          if (object.status == "success") {
+            $row.remove();
+            $token = object.token;
+            $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully deleted gallery");
+            $("#success_modal").modal("show");
+            setTimeout(function() {
+              $("#success_modal").modal("hide");
+            }, 1500);
+          } else {
+            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+            $("#error_modal").modal("show");
+          }
+        } catch(error) {
+          $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+            "<b>Error: " + error.message + "</b>");
+          $("#error_modal").modal("show");
           setTimeout(function() {
-            $("#success_message").modal("hide");
+            $("#error_modal").modal("hide");
           }, 1500);
-        } else {
-          $("#error_message .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
-          $("#error_message").modal("show");
         }
       }
     });
@@ -500,13 +591,22 @@ $(document).ready(function() {
         image: $image_name
       },
       success: function(response) {
-        object = JSON.parse(response);
-        $token = object.token;
-        if (object.status == "success") {
-          $row.fadeOut().remove();
-        } else {
-          $("#error_message .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
-          $("#error_message").modal("show");
+        try {
+          object = JSON.parse(response);
+          $token = object.token;
+          if (object.status == "success") {
+            $row.fadeOut().remove();
+          } else {
+            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+            $("#error_modal").modal("show");
+          }
+        } catch(error) {
+          $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+            "<b>Error: " + error.message + "</b>");
+          $("#error_modal").modal("show");
+          setTimeout(function() {
+            $("#error_modal").modal("hide");
+          }, 1500);
         }
       }
     });
@@ -537,12 +637,21 @@ $(document).ready(function() {
           image: $image
         },
         success: function(response) {
-          var object = JSON.parse(response);
-          if (object.status == "success") {
-            $token = object.token;
+          try {
+            var object = JSON.parse(response);
+            if (object.status == "success") {
+              $token = object.token;
+              setTimeout(function() {
+                $("img.new_lazy").unveil().trigger("unveil");
+              }, 500);
+            }
+          } catch(error) {
+            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+              "<b>Error: " + error.message + "</b>");
+            $("#error_modal").modal("show");
             setTimeout(function() {
-              $("img.new_lazy").unveil().trigger("unveil");
-            }, 500);
+              $("#error_modal").modal("hide");
+            }, 1500);
           }
         }
       });

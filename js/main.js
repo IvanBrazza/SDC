@@ -31,6 +31,22 @@ $(document).ready(function() {
     NProgress.start();
   }).ajaxStop(function() {
     NProgress.done();
+  }).ajaxError(function(event, jqxhr, settings, exception) {
+    $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+      "<b>Error: " + jqxhr.status + " (" + jqxhr.statusText + ")</b>");
+    $("#error_modal").modal("show");
+    setTimeout(function() {
+      $("#error_modal").modal("hide");
+    }, 1500);
+  }).ajaxComplete(function(event, xhr, settings) {
+    if (xhr.responseText == "") {
+      $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+        "<b>Error: No response returned</b>");
+      $("#error_modal").modal("show");
+      setTimeout(function() {
+        $("#error_modal").modal("hide");
+      }, 1500);
+    }
   });
 
   // Enable clickable rows on order and customers tables

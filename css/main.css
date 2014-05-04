@@ -43,6 +43,10 @@ a {
   width:              140px;
   }
 
+.modal {
+  overflow:           hidden;
+  }
+
 .navbar-brand {
   padding:            0;
   }

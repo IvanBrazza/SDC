@@ -72,14 +72,16 @@
         UPDATE
           users
         SET
-          password = :password
+          password   = :password,
+          last_login = :last_login
         WHERE
           email    = :email
       ";
 
       $query_params = array(
-        ':password' => $password,
-        ':email'    => $row['email']
+        ':password'   => $password,
+        ':last_login' => "0000-00-00 00:00:00",
+        ':email'      => $row['email']
       );
 
       $db->runQuery($query, $query_params);

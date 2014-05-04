@@ -13,30 +13,39 @@ $(document).ready(function() {
         url: '../lib/form/register.php',
         data: $(this).serialize(),
         success: function(response) {
-          object = JSON.parse(response);
-          if (object.status == "success") {
-            window.location.href = "../verify-email/?type=register";
-          } else if (object.status == "error") {
-            switch (object.code) {
-              case "002":
-                Recaptcha.reload();
-                break;
-              case "003":
-                $("input[name=username]").closest(".input-group")
-                                         .removeClass("has-success")
-                                         .addClass("has-error")
-                                         .find(".input-group-addon")
-                                         .html("<span class='glyphicon glyphicon-remove'></span>");
-                break;
-              case "004":
-                $("input[name=email]").closest(".input-group")
-                                      .removeClass("has-success")
-                                      .addClass("has-error")
-                                      .find(".input-group-addon")
-                                      .html("<span class='glyphicon glyphicon-remove'></span>");
+          try {
+            object = JSON.parse(response);
+            if (object.status == "success") {
+              window.location.href = "../verify-email/?type=register";
+            } else if (object.status == "error") {
+              switch (object.code) {
+                case "002":
+                  Recaptcha.reload();
+                  break;
+                case "003":
+                  $("input[name=username]").closest(".input-group")
+                                           .removeClass("has-success")
+                                           .addClass("has-error")
+                                           .find(".input-group-addon")
+                                           .html("<span class='glyphicon glyphicon-remove'></span>");
+                  break;
+                case "004":
+                  $("input[name=email]").closest(".input-group")
+                                        .removeClass("has-success")
+                                        .addClass("has-error")
+                                        .find(".input-group-addon")
+                                        .html("<span class='glyphicon glyphicon-remove'></span>");
+              }
+              if (object.code != "001") $("input[name=token]").val(object.token);
+              $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.error).show();
             }
-            if (object.code != "001") $("input[name=token]").val(object.token);
-            $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.error).show();
+          } catch(error) {
+            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+              "<b>Error: " + error.message + "</b>");
+            $("#error_modal").modal("show");
+            setTimeout(function() {
+              $("#error_modal").modal("hide");
+            }, 1500);
           }
         }
       });
@@ -55,30 +64,39 @@ $(document).ready(function() {
         url: '../lib/form/login.php',
         data: $(this).serialize(),
         success: function(response) {
-          object = JSON.parse(response);
-          if (object.status == 'success') {
-            window.location.href = "../home/";
-          } else if (object.status == 'redirect') {
-            window.location.href = object.redirect;
-          } else if (object.status == 'error') {
-            switch (object.code) {
-              case "002":
-                $("#username").closest("div.form-group")
-                              .removeClass("has-success")
-                              .addClass("has-error")
-                              .find(".input-group-addon")
-                              .html("<span class='glyphicon glyphicon-remove'></span>");
-                break;
-              case "003":
-                $("#password").closest(".form-group")
-                              .removeClass("has-success")
-                              .addClass("has-error")
-                              .find(".input-group-addon")
-                              .html("<span class='glyphicon glyphicon-remove'></span>");
-                break;
+          try {
+            object = JSON.parse(response);
+            if (object.status == 'success') {
+              window.location.href = "../home/";
+            } else if (object.status == 'redirect') {
+              window.location.href = object.redirect;
+            } else if (object.status == 'error') {
+              switch (object.code) {
+                case "002":
+                  $("#username").closest("div.form-group")
+                                .removeClass("has-success")
+                                .addClass("has-error")
+                                .find(".input-group-addon")
+                                .html("<span class='glyphicon glyphicon-remove'></span>");
+                  break;
+                case "003":
+                  $("#password").closest(".form-group")
+                                .removeClass("has-success")
+                                .addClass("has-error")
+                                .find(".input-group-addon")
+                                .html("<span class='glyphicon glyphicon-remove'></span>");
+                  break;
+              }
+              if (object.code != "001") $("input[name=token]").val(object.token);
+              $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.error).show();
             }
-            if (object.code != "001") $("input[name=token]").val(object.token);
-            $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.error).show();
+          } catch(error) {
+            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+              "<b>Error: " + error.message + "</b>");
+            $("#error_modal").modal("show");
+            setTimeout(function() {
+              $("#error_modal").modal("hide");
+            }, 1500);
           }
         }
       });
@@ -96,27 +114,36 @@ $(document).ready(function() {
         url: '../lib/form/forgot-password.php',
         data: $(this).serialize(),
         success: function(response) {
-          object = JSON.parse(response);
-          if (object.status == 'success') {
-            $("#email").closest(".form-group")
-                       .removeClass("has-error")
-                       .addClass("has-success")
-                       .find(".input-group-addon")
-                       .html("<span class='glyphicon glyphicon-ok'></span>");
-            $("#error_message").hide();
-            $("#success_message").html("<span class='glyphicon glyphicon-ok'></span>   Password reset. Please check your emails for a new password.").show();
-          } else if (object.status == 'error') {
-            switch (object.code) {
-              case "002":
-                $("#email").closest(".form-group")
-                           .removeClass("has-success")
-                           .addClass("has-error")
-                           .find(".input-group-addon")
-                           .html("<span class='glyphicon glyphicon-remove'></span>");
-                break;
+          try {
+            object = JSON.parse(response);
+            if (object.status == 'success') {
+              $("#email").closest(".form-group")
+                         .removeClass("has-error")
+                         .addClass("has-success")
+                         .find(".input-group-addon")
+                         .html("<span class='glyphicon glyphicon-ok'></span>");
+              $("#error_message").hide();
+              $("#success_message").html("<span class='glyphicon glyphicon-ok'></span>   Password reset. Please check your emails for a new password.").show();
+            } else if (object.status == 'error') {
+              switch (object.code) {
+                case "002":
+                  $("#email").closest(".form-group")
+                             .removeClass("has-success")
+                             .addClass("has-error")
+                             .find(".input-group-addon")
+                             .html("<span class='glyphicon glyphicon-remove'></span>");
+                  break;
+              }
+              $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error).show();
+              $("#token").val(object.token);
             }
-            $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error).show();
-            $("#token").val(object.token);
+          } catch(error) {
+            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+              "<b>Error: " + error.message + "</b>");
+            $("#error_modal").modal("show");
+            setTimeout(function() {
+              $("#error_modal").modal("hide");
+            }, 1500);
           }
         }
       });
@@ -161,15 +188,24 @@ $(document).ready(function() {
               url: '../lib/form/edit-account.php',
               data: $("#edit-account-form").serialize(),
               success: function(response) {
-                object = JSON.parse(response);
-                if (object.status == "success") {
-                  $("input[name=token]").val(object.token);
-                  $("#success_message").html("<span class='glyphicon glyphicon-ok-circle'></span>   Account updated").show();
-                } else if (object.status == "verify-email") {
-                  window.location.href = "../verify-email/?type=edit";
-                } else {
-                  $("#success_message").hide();
-                  $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error).show();
+                try {
+                  object = JSON.parse(response);
+                  if (object.status == "success") {
+                    $("input[name=token]").val(object.token);
+                    $("#success_message").html("<span class='glyphicon glyphicon-ok-circle'></span>   Account updated").show();
+                  } else if (object.status == "verify-email") {
+                    window.location.href = "../verify-email/?type=edit";
+                  } else {
+                    $("#success_message").hide();
+                    $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error).show();
+                  }
+                } catch(error) {
+                  $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+                    "<b>Error: " + error.message + "</b>");
+                  $("#error_modal").modal("show");
+                  setTimeout(function() {
+                    $("#error_modal").modal("hide");
+                  }, 1500);
                 }
               }
             });
@@ -182,15 +218,24 @@ $(document).ready(function() {
                 url: '../lib/form/edit-account.php',
                 data: $("#edit-account-form").serialize(),
                 success: function(response) {
-                  object = JSON.parse(response);
-                  if (object.status == "success") {
-                    $("input[name=token]").val(object.token);
-                    $("#success_message").html("<span class='glyphicon glyphicon-ok-circle'></span>   Account updated").show();
-                  } else if (object.status == "verify-email") {
-                    window.location.href = "../verify-email/?type=edit";
-                  } else {
-                    $("#success_message").hide();
-                    $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error).show();
+                  try {
+                    object = JSON.parse(response);
+                    if (object.status == "success") {
+                      $("input[name=token]").val(object.token);
+                      $("#success_message").html("<span class='glyphicon glyphicon-ok-circle'></span>   Account updated").show();
+                    } else if (object.status == "verify-email") {
+                      window.location.href = "../verify-email/?type=edit";
+                    } else {
+                      $("#success_message").hide();
+                      $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error).show();
+                    }
+                  } catch(error) {
+                    $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+                      "<b>Error: " + error.message + "</b>");
+                    $("#error_modal").modal("show");
+                    setTimeout(function() {
+                      $("#error_modal").modal("hide");
+                    }, 1500);
                   }
                 }
               });
@@ -476,93 +521,120 @@ function calculateOrderTotal() {
     url: '../lib/get-cake.php',
     data: {size: $cake_size, type: $cake_type},
     success: function(response) {
-      object = JSON.parse(response);
-      if (object.status === "success") {
-        $base.html(parseInt(object.price));
-        $("#cake-size-review").html($cake_size);
-        $("#cake-type-review").html($cake_type);
-        // All good, let's get the filling price
-        $.ajax({
-          type: 'post',
-          url: '../lib/get-fillingdecor.php',
-          data: {type: "filling", id: fillingId},
-          success: function(response) {
-            object = JSON.parse(response);
-            fillingPrice = parseInt(object.price);
-            $("#filling-review").html(object.name);
-            $("#filling-html").html(object.price);
-            // Got the filling price, fetch the decoration price
-            $.ajax({
-              type: 'post',
-              url: '../lib/get-fillingdecor.php',
-              data: {type: "decor", id: decorationId},
-              success: function(response) {
+      try {
+        object = JSON.parse(response);
+        if (object.status === "success") {
+          $base.html(parseInt(object.price));
+          $("#cake-size-review").html($cake_size);
+          $("#cake-type-review").html($cake_type);
+          // All good, let's get the filling price
+          $.ajax({
+            type: 'post',
+            url: '../lib/get-fillingdecor.php',
+            data: {type: "filling", id: fillingId},
+            success: function(response) {
+              try {
                 object = JSON.parse(response);
-                decorationPrice = parseInt(object.price);
-                $("#decoration-review").html(object.name);
-                $("#decoration-html").html(object.price);
-                // All done, calculate delivery charge if necessary
-                if ($("select[name=delivery]").val() === "Deliver To Address") {
-                  var service = new google.maps.DistanceMatrixService();
-                  service.getDistanceMatrix({
-                    origins: [$origins],
-                    destinations: [$destination],
-                    travelMode: google.maps.TravelMode.DRIVING,
-                    unitSystem: google.maps.UnitSystem.IMPERIAL
-                  }, callback);
+                fillingPrice = parseInt(object.price);
+                $("#filling-review").html(object.name);
+                $("#filling-html").html(object.price);
+                // Got the filling price, fetch the decoration price
+                $.ajax({
+                  type: 'post',
+                  url: '../lib/get-fillingdecor.php',
+                  data: {type: "decor", id: decorationId},
+                  success: function(response) {
+                    try {
+                      object = JSON.parse(response);
+                      decorationPrice = parseInt(object.price);
+                      $("#decoration-review").html(object.name);
+                      $("#decoration-html").html(object.price);
+                      // All done, calculate delivery charge if necessary
+                      if ($("select[name=delivery]").val() === "Deliver To Address") {
+                        var service = new google.maps.DistanceMatrixService();
+                        service.getDistanceMatrix({
+                          origins: [$origins],
+                          destinations: [$destination],
+                          travelMode: google.maps.TravelMode.DRIVING,
+                          unitSystem: google.maps.UnitSystem.IMPERIAL
+                        }, callback);
 
-                  function callback(response, status) {
-                    var origins = response.originAddresses,
-                        destinations = response.destinationAddresses;
+                        function callback(response, status) {
+                          var origins = response.originAddresses,
+                              destinations = response.destinationAddresses;
 
-                    for (var i = 0; i < origins.length; i++) {
-                      var results = response.rows[i].elements;
-                      for (var j = 0; j < results.length; j++) {
-                        var element = results[j],
-                            distance = element.distance.value;
+                          for (var i = 0; i < origins.length; i++) {
+                            var results = response.rows[i].elements;
+                            for (var j = 0; j < results.length; j++) {
+                              var element = results[j],
+                                  distance = element.distance.value;
+                            }
+                          }
+
+                          var miles = distance*0.000621371;
+                          if (miles <= 5) {
+                            delivery_charge = 0;
+                          } else if (miles >= 50) {
+                            delivery_charge = "Collection only";
+                          } else {
+                            miles = Math.round(miles) - 5;
+                            delivery_charge = recursiveDelivery(miles, 0, 0);
+                          }
+
+                          if (delivery_charge == "Collection only") {
+                            $("select[name=delivery] option[value=Collection]").attr("selected", "true");
+                            $("#delivery-charge-html").html("");
+                            $("#delivery-review").html("Collection");
+                            $("#datetime-label").html("Date/Time For Collection");
+                            $("#delivery-charge").hide();
+                            $('<div class="modal fade" style="overflow-y:auto;"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h4 class="modal-title">You live too far away!</h4>'+
+                              '</div><div class="modal-body"><p>You chose to have your order delivered to you, however you live over 50 miles away, which is outside of our delivery radius.</p>' +
+                              '<p>Because of this, you can only collect your order from our collection point.</p>' +
+                              '</div><div class="modal-footer"><button type="button" class="btn btn-default pull-right" data-dismiss="modal">Okay</button></div></div></div></div>').modal({
+                              backdrop: 'static',
+                              keyboard: 'false'
+                            });
+                          } else {
+                            $("#delivery-charge-html").html("&pound;" + delivery_charge);
+                            $("#delivery-charge").show();
+                            $total.html(parseInt($base.html()) + delivery_charge + decorationPrice + fillingPrice);
+                          }
+                        }
+                      } else {
+                        $total.html(parseInt($base.html()) + decorationPrice + fillingPrice);
                       }
-                    }
-
-                    var miles = distance*0.000621371;
-                    if (miles <= 5) {
-                      delivery_charge = 0;
-                    } else if (miles >= 50) {
-                      delivery_charge = "Collection only";
-                    } else {
-                      miles = Math.round(miles) - 5;
-                      delivery_charge = recursiveDelivery(miles, 0, 0);
-                    }
-
-                    if (delivery_charge == "Collection only") {
-                      $("select[name=delivery] option[value=Collection]").attr("selected", "true");
-                      $("#delivery-charge-html").html("");
-                      $("#delivery-review").html("Collection");
-                      $("#datetime-label").html("Date/Time For Collection");
-                      $("#delivery-charge").hide();
-                      $('<div class="modal fade" style="overflow-y:auto;"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h4 class="modal-title">You live too far away!</h4>'+
-                        '</div><div class="modal-body"><p>You chose to have your order delivered to you, however you live over 50 miles away, which is outside of our delivery radius.</p>' +
-                        '<p>Because of this, you can only collect your order from our collection point.</p>' +
-                        '</div><div class="modal-footer"><button type="button" class="btn btn-default pull-right" data-dismiss="modal">Okay</button></div></div></div></div>').modal({
-                        backdrop: 'static',
-                        keyboard: 'false'
-                      });
-                    } else {
-                      $("#delivery-charge-html").html("&pound;" + delivery_charge);
-                      $("#delivery-charge").show();
-                      $total.html(parseInt($base.html()) + delivery_charge + decorationPrice + fillingPrice);
+                      $("#deliveryPanel").collapse("hide");
+                      $("#review").collapse("show");
+                      $("#delivery-heading").animate({backgroundColor: "#dff0d8"});
+                      $("#review-heading").animate({backgroundColor: "#d9edf7"});
+                    } catch(error) {
+                      $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+                        "<b>Error: " + error.message + "</b>");
+                      $("#error_modal").modal("show");
+                      setTimeout(function() {
+                        $("#error_modal").modal("hide");
+                      }, 1500);
                     }
                   }
-                } else {
-                  $total.html(parseInt($base.html()) + decorationPrice + fillingPrice);
-                }
-                $("#deliveryPanel").collapse("hide");
-                $("#review").collapse("show");
-                $("#delivery-heading").animate({backgroundColor: "#dff0d8"});
-                $("#review-heading").animate({backgroundColor: "#d9edf7"});
+                });
+              } catch(error) {
+                $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+                  "<b>Error: " + error.message + "</b>");
+                $("#error_modal").modal("show");
+                setTimeout(function() {
+                  $("#error_modal").modal("hide");
+                }, 1500);
               }
-            });
-          }
-        });
+            }
+          });
+        }
+      } catch(error) {
+        $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+          "<b>Error: " + error.message + "</b>");
+        $("#error_modal").modal("show");
+        setTimeout(function() {
+          $("#error_modal").modal("hide");
+        }, 1500);
       }
     }
   });

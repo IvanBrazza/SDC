@@ -3,9 +3,18 @@
 
   if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
   {
-    echo "Invalid token.";
+    $response = array(
+      "status" => "error",
+      "error"  => "Invalid token (try refreshing the page)",
+      "code"   => "001"
+    );
+
+    echo json_encode($response);
     die();
   }
+
+  // Unset token
+  unset($_SESSION['token']);
 
   $names = explode(" ", $_POST['customer_name']);
   $first_name = $names[0];
@@ -33,11 +42,23 @@
 
   if ($row)
   {
-    echo "../all-orders/?id=" . $row['customer_id'];
-    // Unset token
-    unset($_SESSION['token']);
+    $response = array(
+      'status' => 'success',
+      'redirect' => "../all-orders/?id=" . $row['customer_id']
+    );
   }
   else
   {
-    echo "Customer " . $_POST['customer_name'] . " doesn't exist!";
+    // Generate new token
+    $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
+
+    $response = array(
+      'status' => 'error',
+      'error'  => "Customer <b>" . $_POST['customer_name'] . "</b> doesn't exist!",
+      'code'   => '002',
+      'token'  => $_SESSION['token']
+    );
   }
+
+  echo json_encode($response);
+  die();

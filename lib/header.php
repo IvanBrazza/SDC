@@ -88,3 +88,17 @@
     </div>
   </nav>
   <div class="container">
+  <div class="modal fade" role="dialog" aria-hidden="true" id="success_modal" data-backdrop="false" data-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body alert alert-success" style="display:block;margin-bottom:0;text-align:center;"></div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" role="dialog" aria-hidden="true" id="error_modal" data-backdrop="false" data-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body alert alert-danger" style="display:block;margin-bottom:0;text-align:center;"></div>
+      </div>
+    </div>
+  </div>
