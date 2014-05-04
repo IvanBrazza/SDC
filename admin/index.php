@@ -92,6 +92,10 @@
   $db->runQuery($query, null);
   $galleries = $db->fetchAll();
 
+  // Get latest backup times
+  $latestDbBackup    = file_get_contents("../backups/db/latest.txt");
+  $latestFilesBackup = file_get_contents("../backups/files/latest.txt");
+
   // Generate token
   $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 ?>
@@ -521,11 +525,13 @@
           <h1>Backup</h3>
         </div>
         <h3 id="backup-website-files">Backup website files</h3>
-        <p>Here you can download a backup of the website files. This will be a .zip file containing the all site pages (and relevant css/js/images) as well as the PayPal SDK.</p>
-        <a href="https://bitbucket.org/ivanbrazza/sdc/get/bootstrap.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Website Files</a>
+        <p>Here you can download a backup of the website files. This will be a .zip file containing the all site pages (and relevant css/js/images) as well as the PayPal SDK. <strong>Site file backups occur weekly.</strong></p>
+        <a href="../backups/files/files-dump-latest.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Website Files</a>
+        <small>Latest backup: <?php echo $latestDbBackup; ?></small>
         <h3 id="backup-database">Backup database</h3>
-        <p>Here you can download a backup of the database. This contains details about orders, users, and other details that are permanantly stored.</p>
-        <a href="javascript:" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Database</a>
+        <p>Here you can download a backup of the database. This contains details about orders, users, and other details that are permanantly stored. <strong>Database backups occur daily.</strong></p>
+        <a href="../backups/db/db-dump-latest.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Database</a>
+        <small>Latest backup: <?php echo $latestFilesBackup; ?></small>
       </div>
     </div>
   </div>
