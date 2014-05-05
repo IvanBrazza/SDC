@@ -121,7 +121,7 @@
           <label for="email" class="col-sm-4 control-label">Email</label>
           <div class="col-sm-8">
             <div class="input-group">
-              <input type="text" class="form-control" name="email" id="email" onchange="validate.email()">
+              <input type="email" class="form-control" name="email" id="email" onchange="validate.email()">
               <span class="input-group-addon">@</span>
             </div>
             <div id="email-error" class="validate-error"></div>

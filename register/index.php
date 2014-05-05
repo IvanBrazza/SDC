@@ -54,7 +54,7 @@
         <div class="col-sm-1"></div>
         <div class="col-sm-7">
           <div class="input-group">
-            <input type="text" class="form-control" name="email" id="email" onchange="validate.email()" placeholder="Enter a valid email">
+            <input type="email" class="form-control" name="email" id="email" onchange="validate.email()" placeholder="Enter a valid email">
             <span class="input-group-addon">@</span>
           </div>
           <div id="email-error" class="validate-error"></div>

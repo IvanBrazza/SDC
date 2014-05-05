@@ -121,7 +121,7 @@
         <label for="email" class="col-sm-3 control-label">E-Mail Address</label>
         <div class="col-sm-2"></div>
         <div class="col-sm-7 input-group">
-          <input type="text" class="form-control" name="email" id="email" value="<?php echo htmlentities($_SESSION['user']['email'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.email()"> 
+          <input type="email" class="form-control" name="email" id="email" value="<?php echo htmlentities($_SESSION['user']['email'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.email()"> 
           <span class="input-group-addon">@</span>
         </div>
       </div>

@@ -129,7 +129,7 @@
                   <label for="email" class="col-sm-4 control-label">Email</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control" name="email" id="email" onchange="validate.email()">
+                    <input type="email" class="form-control" name="email" id="email" onchange="validate.email()">
                     <div id="email-error" class="validate-error"></div>
                   </div>
                 </div>

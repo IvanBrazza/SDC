@@ -26,7 +26,7 @@
         <label for="email" class="col-sm-2 control-label">EMail</label>
         <div class="col-sm-3"></div>
         <div class="col-md-7 input-group">
-          <input type="text" name="email" class="form-control" id="email" onchange="validate.email()">
+          <input type="email" name="email" class="form-control" id="email" onchange="validate.email()">
           <span class="input-group-addon">@</span>
         </div>
       </div>
