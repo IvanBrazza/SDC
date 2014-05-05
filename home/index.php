@@ -78,22 +78,22 @@
       <div class="item active">
         <div id="slide1-wm" class="wm-slide">
           <ul id="slide1-wm-tiles" class="wm-slide-tiles">
-            <li><img src="../img/gallery/celebration/01.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/08.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/04.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/06.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/16.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/13.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/07.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/09.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/10.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/12.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/05.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/14.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/02.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/15.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/03.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/17.jpg" width="200px"></li>
+            <li><img data-src="../img/gallery/celebration/01.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/08.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/04.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/06.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/16.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/13.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/07.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/09.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/10.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/12.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/05.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/14.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/02.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/15.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/03.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/17.jpg" width="200px" class="lazy"></li>
           </ul>
         </div>
         <div class="container">
@@ -107,22 +107,22 @@
       <div class="item">
         <div id="slide2-wm" class="wm-slide">
           <ul id="slide2-wm-tiles" class="wm-slide-tiles">
-            <li><img src="../img/gallery/cupcake/01.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/08.jpg" width="200px"></li>
-            <li><img src="../img/gallery/cupcake/04.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/16.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/13.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/07.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/09.jpg" width="200px"></li>
-            <li><img src="../img/gallery/cupcake/06.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/10.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/12.jpg" width="200px"></li>
-            <li><img src="../img/gallery/cupcake/05.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/14.jpg" width="200px"></li>
-            <li><img src="../img/gallery/cupcake/02.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/15.jpg" width="200px"></li>
-            <li><img src="../img/gallery/cupcake/03.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/17.jpg" width="200px"></li>
+            <li><img data-src="../img/gallery/cupcake/01.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/cupcake/04.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/16.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/13.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/07.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/09.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/cupcake/06.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/10.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/12.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/cupcake/05.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/14.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/cupcake/02.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/08.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/15.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/cupcake/03.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/17.jpg" width="200px" class="lazy"></li>
           </ul>
         </div>
         <div class="container">
@@ -136,23 +136,23 @@
       <div class="item">
         <div id="slide3-wm" class="wm-slide">
           <ul id="slide3-wm-tiles" class="wm-slide-tiles">
-            <li><img src="../img/getstarted.png" width="200px"></li>
-            <li><img src="../img/gallery/other/01.jpg" width="200px"></li>
-            <li><img src="../img/gallery/other/08.jpg" width="200px"></li>
-            <li><img src="../img/gallery/other/04.jpg" width="200px"></li>
-            <li><img src="../img/gallery/other/06.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/16.jpg" width="200px"></li>
-            <li><img src="../img/gallery/other/13.jpg" width="200px"></li>
-            <li><img src="../img/gallery/other/07.jpg" width="200px"></li>
-            <li><img src="../img/gallery/other/09.jpg" width="200px"></li>
-            <li><img src="../img/gallery/other/10.jpg" width="200px"></li>
-            <li><img src="../img/gallery/other/12.jpg" width="200px"></li>
-            <li><img src="../img/gallery/other/05.jpg" width="200px"></li>
-            <li><img src="../img/gallery/other/14.jpg" width="200px"></li>
-            <li><img src="../img/gallery/other/02.jpg" width="200px"></li>
-            <li><img src="../img/gallery/other/15.jpg" width="200px"></li>
-            <li><img src="../img/gallery/other/03.jpg" width="200px"></li>
-            <li><img src="../img/gallery/celebration/17.jpg" width="200px"></li>
+            <li><img data-src="../img/getstarted.png" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/other/01.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/other/08.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/other/04.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/other/06.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/16.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/other/13.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/other/07.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/other/09.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/other/10.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/other/12.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/other/05.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/other/14.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/other/02.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/other/15.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/other/03.jpg" width="200px" class="lazy"></li>
+            <li><img data-src="../img/gallery/celebration/17.jpg" width="200px" class="lazy"></li>
           </ul>
         </div>
         <div class="container">
@@ -243,6 +243,7 @@
   <script src="../js/table-pagination.js"></script>
   <script src="../js/jquery/jquery.wookmark.min.js"></script>
   <script src="../js/jquery/imagesloaded.min.js"></script>
+  <script src="../js/jquery/jquery.unveil.min.js"></script>
   <script src="../js/home.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/browser.js"></script>
