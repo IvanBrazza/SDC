@@ -121,7 +121,7 @@
                   <label for="phone" class="col-sm-4 control-label">Phone Number</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-7">
-                    <input type="text" class="form-control" name="phone" id="phone" onchange="validate.phone()">
+                    <input type="tel" class="form-control" name="phone" id="phone" onchange="validate.phone()">
                     <div id="phone_error" class="validate-error"></div>
                   </div>
                 </div>

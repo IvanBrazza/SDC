@@ -156,7 +156,7 @@
         <label for="phone" class="col-sm-3 control-label">Phone number</label>
         <div class="col-sm-2"></div>
         <div class="col-sm-7 input-group">
-          <input type="text" class="form-control" name="phone" id="phone" value="<?php echo $_SESSION['user']['phone'] ?>" onchange="validate.phone()">
+          <input type="tel" class="form-control" name="phone" id="phone" value="<?php echo $_SESSION['user']['phone'] ?>" onchange="validate.phone()">
           <span class="input-group-addon"><span class="glyphicon glyphicon-earphone"></span></span>
         </div>
       </div>
