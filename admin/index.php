@@ -92,9 +92,23 @@
   $db->runQuery($query, null);
   $galleries = $db->fetchAll();
 
-  // Get latest backup times
-  $latestDbBackup    = file_get_contents("../backups/db/latest.txt");
-  $latestFilesBackup = file_get_contents("../backups/files/latest.txt");
+  // Check if S3 backups are available
+  $handle = curl_init("https://s3.amazonaws.com/SDC-backups/db/latest.txt");
+  curl_setopt($handle,  CURLOPT_RETURNTRANSFER, TRUE);
+  $response = curl_exec($handle);
+  $httpCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+  if ($httpCode == 200) // If S3 backups are available
+  {
+    // Get latest backup times
+    $latestDbBackup    = file_get_contents("https://s3.amazonaws.com/SDC-backups/db/latest.txt");
+    $latestFilesBackup = file_get_contents("https://s3.amazonaws.com/SDC-backups/files/latest.txt");
+  }
+  else // Otherwise use local backups
+  {
+    // Get latest backup times
+    $latestDbBackup    = file_get_contents("http://backups.ivanbrazza.biz/db/latest.txt");
+    $latestFilesBackup = file_get_contents("http://backups.ivanbrazza.biz/files/latest.txt");
+  }
 
   // Generate token
   $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
@@ -526,12 +540,20 @@
         </div>
         <h3 id="backup-website-files">Backup website files</h3>
         <p>Here you can download a backup of the website files. This will be a .zip file containing the all site pages (and relevant css/js/images) as well as the PayPal SDK. <strong>Site file backups occur weekly.</strong></p>
-        <a href="../backups/files/files-dump-latest.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Website Files</a>
-        <small>Latest backup: <?php echo $latestDbBackup; ?></small>
+        <?php if ($httpCode == 200) : ?>
+          <a href="https://s3.amazonaws.com/SDC-backups/files/files-dump-latest.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Website Files</a>
+        <?php else : ?>
+          <a href="http://backups.ivanbrazza.biz/files/files-dump-latest.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Website Files</a>
+        <?php endif; ?>
+        <small>Latest backup: <?php echo $latestFilesBackup; ?></small>
         <h3 id="backup-database">Backup database</h3>
         <p>Here you can download a backup of the database. This contains details about orders, users, and other details that are permanantly stored. <strong>Database backups occur daily.</strong></p>
-        <a href="../backups/db/db-dump-latest.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Database</a>
-        <small>Latest backup: <?php echo $latestFilesBackup; ?></small>
+        <?php if ($httpCode == 200) : ?>
+          <a href="https://s3.amazonaws.com/SDC-backups/db/db-dump-latest.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Database</a>
+        <?php else : ?>
+          <a href="http://backups.ivanbrazza.biz/db/db-dump-latest.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Database</a>
+        <?php endif; ?>
+        <small>Latest backup: <?php echo $latestDbBackup; ?></small>
       </div>
     </div>
   </div>

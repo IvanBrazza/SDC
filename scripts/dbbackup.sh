@@ -8,7 +8,7 @@
 # Set some vars
 TIMESTAMP="$(date -u +%Y%m%d-%H%M%S)"
 LATEST="$(date -u +%c)"
-BACKUP_DIR="../backups"
+BACKUP_DIR="../../sdc_backups"
 DB_BACKUP_DIR="$BACKUP_DIR/db"
 DB_BACKUP_NAME="db-dump-$TIMESTAMP"
 
@@ -28,8 +28,12 @@ mysqldump -u ivanrsfr -pinspiron1520 ivanrsfr_sdc > $DB_BACKUP_NAME.sql; # Dump 
 zip temp.zip $DB_BACKUP_NAME.sql; # Zip the .sql dump
 rm $DB_BACKUP_NAME.sql; # Remove the temp .sql
 mv temp.zip $DB_BACKUP_DIR/$DB_BACKUP_NAME.zip # Move zip to correct location
-if [ -L "$DB_BACKUP_DIR/db-dump-latest.zip" ]; then # If symbolic link doesn't exist
+if [ -L "$DB_BACKUP_DIR/db-dump-latest.zip" ]; then # If symbolic link exists
   rm $DB_BACKUP_DIR/db-dump-latest.zip # Delete old symbolic link
 fi
 ln -s $DB_BACKUP_NAME.zip $DB_BACKUP_DIR/db-dump-latest.zip # Create new symbolic link
-echo $LATEST > $DB_BACKUP_DIR/latest.txt
+echo $LATEST > $DB_BACKUP_DIR/latest.txt # Update latest backup time
+type -P aws &>/dev/null && AWS="true" || AWS="false" # Check if AWS CLI is present
+if [ "$AWS" = "true" ]; then
+  aws s3 sync $DB_BACKUP_DIR/ s3://SDC-backups/db/ --delete # Sync to S3
+fi
