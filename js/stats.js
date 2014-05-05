@@ -45,19 +45,19 @@ $(document).ready(function() {
     // Calculate the dimensions of the charts and get the data
     calculateWidth();
     getData();
-    
-    // Check for changes in the stats every 10 seconds
-    window.setInterval(function() {
-      getData();
-    }, 10000);
 
     // If the user isn't on mobile, redraw the charts when the window is resized.
     // Constant canvas animations don't work as smoothly as they should on mobile devices.
+    // Also update chart data every 10 seconds, this isn't practical on mobile.
     if (!/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
       $(window).resize(function() {
         calculateWidth();
         drawCharts();
       });
+      // Check for changes in the stats every 10 seconds
+      window.setInterval(function() {
+        getData();
+      }, 10000);
     }
   } else {
     // Display the unsupported browser dialog
