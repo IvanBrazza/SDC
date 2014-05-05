@@ -342,7 +342,7 @@
       <form id="customer_search" class="form-inline col-md-6" role="form">
         <input type="hidden" id="token" name="token" value="<?php echo $_SESSION['token']; ?>" />
         <div class="input-group">
-          <input type="text" id="customer_name" name="customer_name" class="form-control" placeholder="Enter customer name">
+          <input type="search" id="customer_name" name="customer_name" class="form-control" placeholder="Enter customer name">
           <span class="input-group-btn">
             <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>   Search all customers</button>
           </span>

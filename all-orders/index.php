@@ -489,7 +489,7 @@
         <form action="../all-orders" method="GET" id="order_search" class="form-inline" role="form">
           <input type="hidden" id="token" name="token" value="<?php echo $_SESSION['token']; ?>" />
           <div class="input-group">
-            <input type="text" id="order_number" name="order" class="form-control" placeholder="Enter order number" />
+            <input type="search" id="order_number" name="order" class="form-control" placeholder="Enter order number" />
             <span class="input-group-btn">
               <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>   Search all orders</button>
             </span>
