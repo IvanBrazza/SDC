@@ -85,7 +85,7 @@ a {
 /* End General */
 
 /* Navbar Collapse Breakpoint */
-@media (max-width: 1200px) {
+@media (max-width: 1023px) {
   .navbar-header {
     float:            none;
     }
