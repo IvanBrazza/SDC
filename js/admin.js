@@ -4,20 +4,10 @@ $(document).ready(function() {
     offset: 100
   });
   $(".scrollspy").on('activate.bs.scrollspy', function () {
-    var current = $(this).find(".active a").html();
-    if (current == "Customer List") {
-      $(this).find(".nested-scrollspy").hide();
-    } else if (current == "Stats") {
-      $(this).find(".nested-scrollspy").hide();
-      $("#stats-scrollspy").show();
-    } else if (current == "Edit Products") {
-      $(this).find(".nested-scrollspy").hide();
-      $("#edit-scrollspy").show();
-    } else if (current == "Galleries") {
-      $(this).find(".nested-scrollspy").hide();
-    } else if (current == "Backup") {
-      $(this).find(".nested-scrollspy").hide();
-      $("#backup-scrollspy").show();
+    var $active  = $(this).find("li.active .nested-scrollspy");
+    $(this).find(".nested-scrollspy").slideUp();
+    if ($active.index() > 0) {
+      $active.stop().slideDown();
     }
   });
 

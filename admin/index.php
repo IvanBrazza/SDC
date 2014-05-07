@@ -279,7 +279,7 @@
         </li>
         <li>
           <a href="#stats">Stats</a>
-          <div class="nested-scrollspy" id="stats-scrollspy">
+          <div class="nested-scrollspy">
             <ul class="nav">
               <li>
                 <a href="#stats-general">General stats</a>
@@ -301,7 +301,7 @@
         </li>
         <li>
           <a href="#edit">Edit Products</a>
-          <div class="nested-scrollspy" id="edit-scrollspy">
+          <div class="nested-scrollspy">
             <ul class="nav">
               <li>
                 <a href="#edit-fillings">Edit fillings</a>
@@ -320,7 +320,7 @@
         </li>
         <li>
           <a href="#backup">Backup</a>
-          <div class="nested-scrollspy" id="backup-scrollspy">
+          <div class="nested-scrollspy">
             <ul class="nav">
               <li>
                 <a href="#backup-website-files">Backup website files</a>
