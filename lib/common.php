@@ -11,6 +11,9 @@
     die();
   }
 
+  // Set vars for site URL
+  $siteUrl  = "ivanbrazza.biz";
+
   // Make sure the timezone is GMT for the date() function
   date_default_timezone_set("GMT");
 

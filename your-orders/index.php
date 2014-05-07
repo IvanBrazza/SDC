@@ -120,7 +120,7 @@
   <?php if (!empty($_GET['order'])) : ?>
     <div class="row">
       <div class="col-md-12">
-        <h1>Order <?php echo $row['order_number']; ?><?php if ($row['completed'] === "1") : ?> (completed)<?php else: ?> <a href="../edit-order/?order=<?php echo $row['order_number']; ?>" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span>   Edit Order</a><?php endif; ?></h1>
+        <h1>Order <?php echo $row['order_number']; ?><?php if ($row['completed'] === "1") : ?> (completed)<?php else: ?> <a href="//www.<?php echo $siteUrl; ?>/edit-order/?order=<?php echo $row['order_number']; ?>" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span>   Edit Order</a><?php endif; ?></h1>
         <?php if (!empty($row['image'])) : ?>
           <div class="modal fade" id="image-modal" role="modal" aria-hidden="true" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-lg">
@@ -198,7 +198,7 @@
             <td>
               <?php echo htmlentities($row['delivery_type'], ENT_QUOTES, 'UTF-8'); ?>
               <?php if ($row['delivery_type'] === "Collection") : ?>
-                <a href="../get-directions/"><button class="btn btn-info btn-xs"><span class="glyphicon glyphicon-road"></span>   Get Directions to collection point</button></a>
+                <a href="//www.<?php echo $siteUrl; ?>/get-directions/"><button class="btn btn-info btn-xs"><span class="glyphicon glyphicon-road"></span>   Get Directions to collection point</button></a>
               <?php endif; ?>
             </td>
           </tr>
@@ -251,17 +251,17 @@
             <caption>Outstanding Orders</caption>
             <thead>
               <tr>
-                <th>Order Number <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_number"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../your-orders/?sort=ASC&col=order_number"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
-                <th>Order Placed <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_placed"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../your-orders/?sort=ASC&col=order_placed"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
-                <th>Required Date <span class="arrow"><a href="../your-orders/?sort=DESC&col=datetime"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../your-orders/?sort=ASC&col=datetime"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
-                <th>Status <span class="arrow"><a href="../your-orders/?sort=DESC&col=status"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../your-orders/?sort=ASC&col=status"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+                <th>Order Number <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=order_number"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=order_number"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+                <th>Order Placed <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=order_placed"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=order_placed"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+                <th>Required Date <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=datetime"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=datetime"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+                <th>Status <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=status"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=status"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
               </tr>
             </thead>
             <tbody>
               <?php foreach($rows as $row): ?>
                 <?php if ($row['completed'] == 0) : ?>
                   <tr>
-                    <td><a href="../your-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
+                    <td><a href="//www.<?php echo $siteUrl; ?>/your-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
                     <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                     <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                     <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -279,17 +279,17 @@
           <caption>Completed Orders</caption>
           <thead>
             <tr>
-              <th>Order Number <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_number"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../your-orders/?sort=ASC&col=order_number"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
-              <th>Order Placed <span class="arrow"><a href="../your-orders/?sort=DESC&col=order_placed"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../your-orders/?sort=ASC&col=order_placed"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
-              <th>Required Date <span class="arrow"><a href="../your-orders/?sort=DESC&col=datetime"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../your-orders/?sort=ASC&col=datetime"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
-              <th>Status <span class="arrow"><a href="../your-orders/?sort=DESC&col=status"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="../your-orders/?sort=ASC&col=status"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+              <th>Order Number <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=order_number"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=order_number"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+              <th>Order Placed <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=order_placed"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=order_placed"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+              <th>Required Date <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=datetime"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=datetime"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+              <th>Status <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=status"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=status"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
             </tr>
           </thead>
           <tbody>
             <?php foreach($rows as $row): ?>
               <?php if ($row['completed'] == 1) : ?>
                 <tr>
-                  <td><a href="../your-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
+                  <td><a href="//www.<?php echo $siteUrl; ?>/your-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
                   <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                   <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                   <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>

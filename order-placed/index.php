@@ -224,7 +224,7 @@
             <td>
               <?php echo htmlentities($row['delivery_type'], ENT_QUOTES, 'UTF-8'); ?>
               <?php if ($row['delivery_type'] === "Collection") : ?>
-                <a href="../get-directions/">Get Directions</a>
+                <a href="//www.<?php echo $siteUrl; ?>/get-directions/">Get Directions</a>
               <?php endif; ?>
             </td>
           </tr>
@@ -234,7 +234,7 @@
           </tr>
         </table>
         <p>A copy of your order has been emailed to you. Any further updates to your order will be sent to you by email</p>
-        <a href="../print/?order=<?php echo $_GET['order']; ?>" target="_blank" class="btn btn-info"><span class="glyphicon glyphicon-print"></span>   Print your order</a>
+        <a href="//www.<?php echo $siteUrl; ?>/print/?order=<?php echo $_GET['order']; ?>" target="_blank" class="btn btn-info"><span class="glyphicon glyphicon-print"></span>   Print your order</a>
       </div>
       <div class="col-md-6"></div>
     </div>

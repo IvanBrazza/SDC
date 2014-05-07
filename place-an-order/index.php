@@ -58,7 +58,7 @@
   // Don't let the users place an order until their details are entered
   if (empty($row['address']) or empty($row['postcode']) or empty($row['phone']) or empty($row['first_name']) or empty($row['last_name']))
   {
-    $display_message = 'Please <a href="../edit-account">update your details</a> before placing an order.';
+    $display_message = 'Please <a href="//www.<?php echo $siteUrl; ?>/edit-account">update your details</a> before placing an order.';
     $details_correct = false;
   }
   else
@@ -463,7 +463,7 @@
                 <button type="button" id="reviewPrevious" class="btn btn-primary pull-left">
                   <span class="glyphicon glyphicon-arrow-left"></span>   Go back
                 </button>
-                <input type="image" class="pull-right" src="../img/paywithpp.gif" <?php if ($details_correct === false) : ?>disabled<?php endif; ?>>
+                <input type="image" class="pull-right" src="//www.<?php echo $siteUrl; ?>/img/paywithpp.gif" <?php if ($details_correct === false) : ?>disabled<?php endif; ?>>
               </div>
             </div>
           </div>

@@ -7,5 +7,5 @@
   <p>Something went wrong on our end. The owners have been notified and are looking into it.
      In the meantime, you can try again and if the problem still occurs, wait 24 hours and the
      issue will more than likely be resolved. In the unlikely event that it isn't, please send
-     an email to <a href="mailto:webmaster@ivanbrazza.biz">webmaster@ivanbrazza.biz</a>. Thank you.</p>
+     an email to <a href="mailto:webmaster@<?php echo $siteUrl; ?>">webmaster@<?php echo $siteUrl; ?></a>. Thank you.</p>
 <?php include("../lib/footer.php"); ?>

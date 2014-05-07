@@ -71,7 +71,7 @@
   <title>Order <?php echo $_GET['order']; ?></title>
 </head>
 <body>
-  <img src="../img/header-logo.png">
+  <img src="//www.<?php echo $siteUrl; ?>/img/header-logo.png">
   <h1>Order <?php echo $_GET['order']; ?></h1>
   <table>
     <tr>

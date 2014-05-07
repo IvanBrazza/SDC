@@ -4,11 +4,11 @@
   <meta name="google-site-verification" content="j7xff2YmYmFCUc5IuJslQ0hvOKaiaHKFqaQXYM-g_VE" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Oops! | Star Dream Cakes</title>
-  <link rel="icon" href="../favicon.ico">
+  <link rel="icon" href="//www.ivanbrazza.biz/favicon.ico">
   <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,400' rel='stylesheet' type='text/css'>
-  <link href="../css/bootstrap.css" rel="stylesheet">
-  <link href="../css/jquery-ui.css" rel="stylesheet">
-  <link href="../css/main.css" rel="stylesheet">
+  <link href="//www.ivanbrazza.biz/css/bootstrap.css" rel="stylesheet">
+  <link href="//www.ivanbrazza.biz/css/jquery-ui.css" rel="stylesheet">
+  <link href="//www.ivanbrazza.biz/css/main.css" rel="stylesheet">
 </head>
 <body>
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -20,14 +20,14 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="../home"><img src="../img/header-nav-logo.png"></a>
+        <a class="navbar-brand" href="//www.ivanbrazza.biz/home"><img src="//www.ivanbrazza.biz/img/header-nav-logo.png"></a>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><a href="../home">Home</a></li>
-          <li><a href="../about-us">About Us</a></li>
-          <li><a href="../testimonials">Testimonials</a></li>
-          <li><a href="../gallery">Gallery</a></li>
+          <li><a href="//www.ivanbrazza.biz/home">Home</a></li>
+          <li><a href="//www.ivanbrazza.biz/about-us">About Us</a></li>
+          <li><a href="//www.ivanbrazza.biz/testimonials">Testimonials</a></li>
+          <li><a href="//www.ivanbrazza.biz/gallery">Gallery</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li><a href="#"></a></li>
@@ -36,8 +36,8 @@
               Welcome to Star Dream Cakes!
             </a>
             <ul class="dropdown-menu">
-              <li><a href="../login">Login</a></li>
-              <li><a href="../register">Register</a></li>
+              <li><a href="//www.ivanbrazza.biz/login">Login</a></li>
+              <li><a href="//www.ivanbrazza.biz/register">Register</a></li>
             </ul>
           </li>
         </ul>
@@ -59,19 +59,6 @@
       </div>
     </div>
   </div>
-  <div class="modal fade" id="loading-spinner-dialog">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body">
-          <div class="ajax-load"></div>
-        </div>
-      </div>
-    </div>
-  </div>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-  <script src="../js/bootstrap.js"></script>
-  <script src="../js/jquery/jquery-ui.js"></script>
-  <script src="../js/table-pagination.js"></script>
-  <script src="../js/main.js"></script>
-  <script src="../js/browser.js"></script>
+  <script src="//www.ivanbrazza.biz/js/bootstrap.js"></script>
 </body>

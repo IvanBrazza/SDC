@@ -106,8 +106,8 @@
   else // Otherwise use local backups
   {
     // Get latest backup times
-    $latestDbBackup    = file_get_contents("http://backups.ivanbrazza.biz/db/latest.txt");
-    $latestFilesBackup = file_get_contents("http://backups.ivanbrazza.biz/files/latest.txt");
+    $latestDbBackup    = file_get_contents("http://backups." . $siteUrl . "/db/latest.txt");
+    $latestFilesBackup = file_get_contents("http://backups." . $siteUrl . "/files/latest.txt");
   }
 
   // Generate token
@@ -184,7 +184,7 @@
                       <tr class="fade in">
                         <td>
                           <span class="preview">
-                            <img src="../img/spinner.gif" data-src="https://s3.amazonaws.com/SDC-images/<?php echo $gallery['gallery_id']."/".$row['images']; ?>" width="100px" class="lazy">
+                            <img src="//www.<?php echo $siteUrl; ?>/img/spinner.gif" data-src="https://s3.amazonaws.com/SDC-images/<?php echo $gallery['gallery_id']."/".$row['images']; ?>" width="100px" class="lazy">
                           </span>
                         </td>
                         <td>
@@ -243,7 +243,7 @@
             <tr class="template-download fade">
               <td>
                 <span class="preview">
-                  <img src="../img/spinner.gif" data-src="https://s3.amazonaws.com/SDC-images/<?php echo $gallery['gallery_id']; ?>/{%=file.name%}" width="100px" class="new_lazy">
+                  <img src="//www.<?php echo $siteUrl; ?>/img/spinner.gif" data-src="https://s3.amazonaws.com/SDC-images/<?php echo $gallery['gallery_id']; ?>/{%=file.name%}" width="100px" class="new_lazy">
                 </span>
               </td>
               <td>
@@ -372,7 +372,7 @@
           <tbody>
             <?php foreach($customers as $customer): ?>
               <tr>
-                <td><a href="../all-orders/?id=<?php echo $customer['customer_id']; ?>"></a><?php echo htmlentities($customer['username'], ENT_QUOTES, 'UTF-8'); ?></td> 
+                <td><a href="//www.<?php echo $siteUrl; ?>/all-orders/?id=<?php echo $customer['customer_id']; ?>"></a><?php echo htmlentities($customer['username'], ENT_QUOTES, 'UTF-8'); ?></td> 
                 <td><?php echo htmlentities($customer['email'], ENT_QUOTES, 'UTF-8'); ?></td> 
                 <td><?php echo htmlentities($customer['first_name'], ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php echo htmlentities($customer['last_name'], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -543,7 +543,7 @@
         <?php if ($httpCode == 200) : ?>
           <a href="https://s3.amazonaws.com/SDC-backups/files/files-dump-latest.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Website Files</a>
         <?php else : ?>
-          <a href="http://backups.ivanbrazza.biz/files/files-dump-latest.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Website Files</a>
+          <a href="http://backups.<?php echo $siteUrl; ?>/files/files-dump-latest.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Website Files</a>
         <?php endif; ?>
         <small>Latest backup: <?php echo $latestFilesBackup; ?></small>
         <h3 id="backup-database">Backup database</h3>
@@ -551,7 +551,7 @@
         <?php if ($httpCode == 200) : ?>
           <a href="https://s3.amazonaws.com/SDC-backups/db/db-dump-latest.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Database</a>
         <?php else : ?>
-          <a href="http://backups.ivanbrazza.biz/db/db-dump-latest.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Database</a>
+          <a href="http://backups.<?php echo $siteUrl; ?>/db/db-dump-latest.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Database</a>
         <?php endif; ?>
         <small>Latest backup: <?php echo $latestDbBackup; ?></small>
       </div>
