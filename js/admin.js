@@ -69,8 +69,12 @@ $(document).ready(function() {
         $filling_price = $row.find("td:eq(2)").html().replace(/[^\d]/g, "");
     $row.find("td:eq(1)").html("<input name='filling_name' class='form-control' value='" + $filling_name + "' data-original='" + $filling_name + "'><span class='validate-error name-error'></span>");
     $row.find("td:eq(2)").html("<span style='display:inline-block;'>&pound;</span><input name='filling_price' class='form-control' value='" + $filling_price + "' data-original='" + $filling_price + "' style='width:90%;margin-left:9px;display:inline-block;'><span class='validate-error price-error'></span>");
-    $row.find("td:eq(3)").html('<button class="btn btn-success btn-sm submit-filling-edit"><span class="glyphicon glyphicon-ok"></span>   Edit</button>');
-    $row.find("td:eq(4)").html('<button class="btn btn-danger btn-sm remove-filling-edit"><span class="glyphicon glyphicon-remove"></span>   Cancel</button>');
+    $row.find("td:eq(3) button").switchClass("btn-primary", "btn-success").switchClass("edit-filling", "submit-filling-edit")
+        .animate({width: "58px"}, {duration: 300, queue: false}).append("   Edit")
+        .find("span").switchClass("glyphicon-pencil", "glyphicon-ok");
+    $row.find("td:eq(4) button").switchClass("delete-filling", "remove-filling-edit")
+        .animate({width: "75px"}, {duration: 300, queue: false}).append("   Cancel")
+        .find("span").switchClass("glyphicon-trash", "glyphicon-remove");
   });
 
   $("body").on('click', '.submit-filling-edit', function() {
@@ -142,8 +146,12 @@ $(document).ready(function() {
         $filling_price = $row.find("td:eq(2) input").data("original");
     $row.find("td:eq(1)").html($filling_name);
     $row.find("td:eq(2)").html("&pound;" + $filling_price);
-    $row.find("td:eq(3)").html('<button class="btn btn-primary btn-sm edit-filling"><span class="glyphicon glyphicon-pencil"></span></button>');
-    $row.find("td:eq(4)").html('<button class="btn btn-danger btn-sm delete-filling"><span class="glyphicon glyphicon-trash"></span></button>');
+    $row.find("td:eq(3) button").switchClass("btn-success", "btn-primary").switchClass("submit-filling-edit", "edit-filling")
+        .animate({width: "34px"}, {duration: 300, queue: false}).empty()
+        .append('<span class="glyphicon glyphicon-pencil"></span>');
+    $row.find("td:eq(4) button").switchClass("remove-filling-edit", "delete-filling")
+        .animate({width: "34px"}, {duration: 300, queue: false}).empty()
+        .append('<span class="glyphicon glyphicon-trash"></span>');
   });
 
   $("body").on('click', '.delete-filling', function() {
@@ -161,7 +169,11 @@ $(document).ready(function() {
           object = JSON.parse(response);
           $token = object.token;
           if (object.status == "success") {
-            $row.remove();
+            $row.find("td").wrapInner('<div style="display: block;" />')
+            .parent().find("td > div")
+            .slideUp("fast", function() {
+              $(this).parent().parent().remove();
+            });;
             $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully deleted filling");
             $("#success_modal").modal("show");
             setTimeout(function() {
@@ -247,16 +259,25 @@ $(document).ready(function() {
   $("#add-filling").click(function() {
     var $row        = $(this).closest("tr"),
         $filling_id = $("#fillings tbody tr:last").data("fillingid") + 1;
-    $("#fillings tbody").append("<tr data-fillingid='" + $filling_id + "'>" +
-                                "<td>" + $filling_id + "</td>" +
-                                "<td><input name='filling_name' class='form-control new-input' placeholder='Filling name'><span class='validate-error name-error'></span></td>" +
-                                "<td><span style='display:inline-block;'>&pound;</span><input name='filling_price' class='form-control new-input' style='display:inline-block;width:90%;margin-left:9px;' placeholder='Filling price'><span class='validate-error price-error'></span></td>" +
-                                "<td><button class='btn btn-success btn-sm add-new-filling'><span class='glyphicon glyphicon-ok'></span>   Add</button></td>" +
-                                "<td><button class='btn btn-danger btn-sm remove-new-filling'><span class='glyphicon glyphicon-remove'></span>   Cancel</button></td>" +
-                                "</tr>");
+    $("<tr data-fillingid='" + $filling_id + "'>" +
+      "<td>" + $filling_id + "</td>" +
+      "<td><input name='filling_name' class='form-control new-input' placeholder='Filling name'><span class='validate-error name-error'></span></td>" +
+      "<td><span style='display:inline-block;'>&pound;</span><input name='filling_price' class='form-control new-input' style='display:inline-block;width:90%;margin-left:9px;' placeholder='Filling price'><span class='validate-error price-error'></span></td>" +
+      "<td><button class='btn btn-success btn-sm add-new-filling'><span class='glyphicon glyphicon-ok'></span>   Add</button></td>" +
+      "<td><button class='btn btn-danger btn-sm remove-new-filling'><span class='glyphicon glyphicon-remove'></span>   Cancel</button></td>" +
+      "</tr>")
+    .appendTo($("#fillings tbody"))
+    .find("td").wrapInner('<div style="display: none;" />')
+    .parent().find("td > div")
+    .slideDown("fast");
 
     $(".remove-new-filling").click(function() {
-      $(this).closest("tr").remove();
+      $(this).closest("tr")
+      .find("td").wrapInner('<div style="display: block;" />')
+      .parent().find("td > div")
+      .slideUp("fast", function() {
+        $(this).parent().parent().remove();
+      });
     });
   });
 
@@ -267,8 +288,12 @@ $(document).ready(function() {
         $decor_price = $row.find("td:eq(2)").html().replace(/[^\d]/g, "");
     $row.find("td:eq(1)").html("<input name='decor_name' class='form-control' value='" + $decor_name + "' data-original='" + $decor_name + "'><span class='validate-error name-error'></span>");
     $row.find("td:eq(2)").html("<span style='display:inline-block;'>&pound;</span><input name='decor_price' class='form-control' value='" + $decor_price + "' data-original='" + $decor_price + "' style='width:90%;margin-left:9px;display:inline-block;'><span class='validate-error price-error'></span>");
-    $row.find("td:eq(3)").html('<button class="btn btn-success btn-sm submit-decor-edit"><span class="glyphicon glyphicon-ok"></span>   Edit</button>');
-    $row.find("td:eq(4)").html('<button class="btn btn-danger btn-sm remove-decor-edit"><span class="glyphicon glyphicon-remove"></span>   Cancel</button>');
+    $row.find("td:eq(3) button").switchClass("btn-primary", "btn-success").switchClass("edit-decor", "submit-decor-edit")
+        .animate({width: "58px"}, {duration: 300, queue: false}).append("   Edit")
+        .find("span").switchClass("glyphicon-pencil", "glyphicon-ok");
+    $row.find("td:eq(4) button").switchClass("delete-decor", "remove-decor-edit")
+        .animate({width: "75px"}, {duration: 300, queue: false}).append("   Cancel")
+        .find("span").switchClass("glyphicon-trash", "glyphicon-remove");
   });
 
   $("body").on('click', '.submit-decor-edit', function() {
@@ -340,8 +365,12 @@ $(document).ready(function() {
         $decor_price = $row.find("td:eq(2) input").data("original");
     $row.find("td:eq(1)").html($decor_name);
     $row.find("td:eq(2)").html("&pound;" + $decor_price);
-    $row.find("td:eq(3)").html('<button class="btn btn-primary btn-sm edit-decor"><span class="glyphicon glyphicon-pencil"></span></button>');
-    $row.find("td:eq(4)").html('<button class="btn btn-danger btn-sm delete-decor"><span class="glyphicon glyphicon-trash"></span></button>');
+    $row.find("td:eq(3) button").switchClass("btn-success", "btn-primary").switchClass("submit-decor-edit", "edit-decor")
+        .animate({width: "34px"}, {duration: 300, queue: false}).empty()
+        .append('<span class="glyphicon glyphicon-pencil"></span>');
+    $row.find("td:eq(4) button").switchClass("remove-decor-edit", "delete-decor")
+        .animate({width: "34px"}, {duration: 300, queue: false}).empty()
+        .append('<span class="glyphicon glyphicon-trash"></span>');
   });
 
   $("body").on('click', '.delete-decor', function() {
@@ -358,7 +387,11 @@ $(document).ready(function() {
         try {
           object = JSON.parse(response);
           if (object.status == "success") {
-            $row.remove();
+            $row.find("td").wrapInner('<div style="display: block;" />')
+            .parent().find("td > div")
+            .slideUp("fast", function() {
+              $(this).parent().parent().remove();
+            });;
             $token = object.token;
             $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully deleted decoration");
             $("#success_modal").modal("show");
@@ -384,15 +417,25 @@ $(document).ready(function() {
   $("#add-decor").click(function() {
     var $row      = $(this).closest("tr"),
         $decor_id = $("#decorations tbody tr:last").data("decorid") + 1;
-    $("#decorations tbody").append("<tr data-decorid='" + $decor_id + "'>" +
-                                "<td>" + $decor_id + "</td>" +
-                                "<td><input name='decor_name' class='form-control new-input' placeholder='Decoration name'><span class='validate-error name-error'></span></td>" +
-                                "<td><span style='display:inline-block;'>&pound;</span><input name='decor_price' class='form-control new-input' style='display:inline-block;width:90%;margin-left:9px;' placeholder='Decoration price'><span class='validate-error price-error'></span></td>" +
-                                "<td><button class='btn btn-success btn-sm add-new-decor'><span class='glyphicon glyphicon-ok'></span>   Add</button></td>" +
-                                "<td><button class='btn btn-danger btn-sm remove-new-decor'><span class='glyphicon glyphicon-remove'></span>   Cancel</button></td>" +
-                                "</tr>");
+    $("<tr data-decorid='" + $decor_id + "'>" +
+      "<td>" + $decor_id + "</td>" +
+      "<td><input name='decor_name' class='form-control new-input' placeholder='Decoration name'><span class='validate-error name-error'></span></td>" +
+      "<td><span style='display:inline-block;'>&pound;</span><input name='decor_price' class='form-control new-input' style='display:inline-block;width:90%;margin-left:9px;' placeholder='Decoration price'><span class='validate-error price-error'></span></td>" +
+      "<td><button class='btn btn-success btn-sm add-new-decor'><span class='glyphicon glyphicon-ok'></span>   Add</button></td>" +
+      "<td><button class='btn btn-danger btn-sm remove-new-decor'><span class='glyphicon glyphicon-remove'></span>   Cancel</button></td>" +
+      "</tr>")
+    .appendTo($("#decorations tbody"))
+    .find("td").wrapInner('<div style="display: none;" />')
+    .parent().find("td > div")
+    .slideDown("fast");
+
     $(".remove-new-decor").click(function() {
-      $(this).closest("tr").remove();
+      $(this).closest("tr")
+      .find("td").wrapInner('<div style="display: block;" />')
+      .parent().find("td > div")
+      .slideUp("fast", function() {
+        $(this).parent().parent().remove();
+      });
     });
   });
 
