@@ -56,6 +56,9 @@
     <script src="//www.<?php echo $siteUrl; ?>/js/stats.js"></script>
     <script src="//www.<?php echo $siteUrl; ?>/js/admin.js"></script>
   <?php endif; ?>
+  <?php if (strpos($_SERVER['REQUEST_URI'], "edit-account") !== false) : ?>
+    <script src="//www.<?php echo $siteUrl; ?>/js/edit-account.js"></script>
+  <?php endif; ?>
   <script src="//www.<?php echo $siteUrl; ?>/js/main.js"></script>
   <script src="//www.<?php echo $siteUrl; ?>/js/browser.js"></script>
 </body>

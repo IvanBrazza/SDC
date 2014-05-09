@@ -297,3 +297,23 @@ span.arrow>a {
   margin:             0 auto;
   }
 /* End Orders */
+
+/* Edit Account */
+.account-glyphicon {
+  font-size:          64px;
+  }
+
+.account-header {
+  text-align:         center;
+  }
+
+@media (max-width: 992px) {
+  .account-well {
+    margin:             0 15px;
+    }
+}
+
+.account-heading {
+  margin:             0 0 20px 0;
+  }
+/* End Edit Account */

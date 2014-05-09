@@ -78,6 +78,170 @@
   </div>
 </div>
 <div class="row">
+  <div class="col-md-3 account-header">
+    <span class="glyphicon glyphicon-user account-glyphicon"></span>
+    <p>You</p>
+  </div>
+  <div class="col-md-6 well account-well">
+    <h3 class="account-heading">Your personal details</h3>
+    <p>Your first and last name are used to personalise your experience on the site, and for your orders. Usernames cannot be changed.</p>
+    <hr class="fancy-line hidden-xs">
+    <form id="edit-account-you-form" class="form" role="form">
+      <div class="form-group">
+        <label class="control-label">Username</label>
+        <div class="row">
+          <div class="col-md-7">
+            <input type="text" class="form-control" value="<?php echo htmlentities($_SESSION['user']['username'], ENT_QUOTES, 'UTF-8'); ?>" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="first_name" class="control-label">First Name</label>
+        <div class="row">
+          <div class="col-md-7">
+            <input type="text" class="form-control" name="first_name" id="first_name" value="<?php echo htmlentities($_SESSION['user']['first_name'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#first_name', '#first_name_error', 'Please enter your first name')"> 
+            <div id="first_name_error" class="validate-error"></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="last_name" class="control-label">Last Name</label>
+        <div class="row">
+          <div class="col-md-7">
+            <input type="text" class="form-control" name="last_name" id="last_name" value="<?php echo htmlentities($_SESSION['user']['last_name'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#last_name', '#last_name_error', 'Please enter your last name')"> 
+            <div id="last_name_error" class="validate-error"></div>
+          </div>
+        </div>
+      </div>
+      <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
+      <input type="hidden" value="personal" name="type">
+      <button type="submit" class="btn btn-primary">Update Personal Details</button>
+    </form>
+  </div>
+  <div class="col-md-3"></div>
+</div>
+<div class="row">
+  <div class="col-md-3 account-header">
+    <span class="glyphicon glyphicon-envelope account-glyphicon"></span>
+    <p>Your Email</p>
+  </div>
+  <div class="col-md-6 well account-well">
+    <h3 class="account-heading">Change your email address</h3>
+    <p>
+      Your current email address is <b><?php echo htmlentities($_SESSION['user']['email'], ENT_QUOTES, 'UTF-8'); ?></b>.
+      We use your email address to send you updates about your order, therefore it is important that it is correct.
+      You will need to reverify your email if you change it.
+    </p>
+    <hr class="fancy-line hidden-xs">
+    <form id="edit-account-email-form" class="form" role="form">
+      <div class="form-group">
+        <label for="email" class="control-label">E-Mail Address</label>
+        <div class="row">
+          <div class="col-md-6">
+            <input type="email" class="form-control" name="email" id="email" placeholder="Enter new email address" onchange="validate.email()"> 
+            <div id="email-error" class="validate-error"></div>
+          </div>
+          <div class="col-md-7"></div>
+        </div>
+      </div>
+      <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
+      <input type="hidden" value="email" name="type">
+      <button type="submit" class="btn btn-primary">Update Email Address</button>
+    </form>
+  </div>
+  <div class="col-md-3"></div>
+</div>
+<div class="row">
+  <div class="col-md-3 account-header">
+    <span class="glyphicon glyphicon-cog account-glyphicon"></span>
+    <p>Your Password</p>
+  </div>
+  <div class="col-md-6 well account-well">
+    <h3 class="account-heading">Change your password</h3>
+    <p>Passwords must be minimum 5 characters.</p>
+    <hr class="fancy-line hidden-xs">
+    <form id="edit-account-password-form" class="form" role="form">
+      <div class="form-group">
+        <label for="password" class="control-label">Password</label>
+        <div class="row">
+          <div class="col-md-7">
+            <input type="password" class="form-control" name="password" id="password" placeholder="Enter new password" onchange="validate.password()">
+            <div id="password-error" class="validate-error"></div>
+          </div>
+        </div>
+      </div>
+      <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
+      <input type="hidden" value="password" name="type">
+      <button type="submit" class="btn btn-primary">Update Password</button>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3 account-header">
+    <span class="glyphicon glyphicon-home account-glyphicon"></span>
+    <p>Your Address</p>
+  </div>
+  <div class="col-md-6 well account-well">
+    <h3 class="account-heading">Change your address</h3>
+    <p>
+      Your current address is <b id="current-address"><?php echo htmlentities($_SESSION['user']['address'], ENT_QUOTES, 'UTF-8') . ", " . htmlentities($_SESSION['user']['postcode'], ENT_QUOTES, 'UTF-8'); ?></b>.
+      We need a correct address in order for your order to be delivered to the right place.
+    </p>
+    <hr class="fancy-line hidden-xs">
+    <form id="edit-account-address-form" class="form" role="form">
+      <div class="form-group">
+        <label for="address" class="control-label">Address</label>
+        <div class="row">
+          <div class="col-md-7">
+            <input type="text" class="form-control" name="address" id="address" value="<?php echo htmlentities($_SESSION['user']['address'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#address', '#address_error', 'Please enter your address')">
+            <div id="address_error" class="validate-error"></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="postcode" class="control-label">Postcode</label>
+        <div class="row">
+          <div class="col-md-7">
+            <input type="text" class="form-control" name="postcode" id="postcode" value="<?php echo htmlentities($_SESSION['user']['postcode'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.postcode()">
+            <div id="postcode_error" class="validate-error"></div>
+          </div>
+        </div>
+      </div>
+      <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
+      <input type="hidden" value="address" name="type">
+      <button type="submit" class="btn btn-primary">Update Address</button>
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-3 account-header">
+    <span class="glyphicon glyphicon-earphone account-glyphicon"></span>
+    <p>Your Phone Number</p>
+  </div>
+  <div class="col-md-6 well account-well">
+    <h3 class="account-heading">Change your phone number</h3>
+    <p>
+      Your current phone number is <b id="current-phone"><?php echo htmlentities($_SESSION['user']['phone'], ENT_QUOTES, 'UTF-8'); ?></b>.
+      We need your phone number in case we need to contact you about your order.
+    </p>
+    <hr class="fancy-line hidden-xs">
+    <form id="edit-account-phone-form" class="form" role="form">
+      <div class="form-group">
+        <label for="phone" class="control-label">Phone number</label>
+        <div class="row">
+          <div class="col-sm-7">
+            <input type="tel" class="form-control" name="phone" id="phone" placeholder="Enter new phone number" onchange="validate.phone()">
+            <div id="phone_error" class="validate-error"></div>
+          </div>
+        </div>
+      </div>
+      <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
+      <input type="hidden" value="phone" name="type">
+      <button type="submit" class="btn btn-primary">Update Phone Number</button>
+    </form>
+  </div>
+</div>
+<div class="row">
   <div class="col-md-3"></div>
   <div class="col-md-6">
     <div class="alert alert-success" id="success_message" <?php if (!empty($_GET) and !empty($_GET['update'])) : ?>style="display:block;"<?php endif; ?>>
@@ -92,78 +256,6 @@
       <span class="glyphicon glyphicon-remove-circle"></span>
       <?php if (!empty($_GET) and !empty($_GET['e'])) {echo $display_message;} ?>
     </div>
-    <form action="index.php" method="POST" id="edit-account-form" class="form-horizontal" role="form">
-      <div class="form-group">
-        <label class="col-sm-3 control-label">Username</label>
-        <div class="col-sm-9">
-          <b class="form-control-static pull-right"><?php echo htmlentities($_SESSION['user']['username'], ENT_QUOTES, 'UTF-8'); ?></b>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="first_name" class="col-sm-3 control-label">First Name</label>
-        <div class="col-sm-2"></div>
-        <div class="col-sm-7 input-group">
-          <input type="text" class="form-control" name="first_name" id="first_name" value="<?php echo htmlentities($_SESSION['user']['first_name'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#first_name', '#first_name_error', 'Please enter your first name')"> 
-          <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-        </div>
-      </div>
-      <div id="first_name_error" class="validate-error"></div>
-      <div class="form-group">
-        <label for="last_name" class="col-sm-3 control-label">Last Name</label>
-        <div class="col-sm-2"></div>
-        <div class="col-sm-7 input-group">
-          <input type="text" class="form-control" name="last_name" id="last_name" value="<?php echo htmlentities($_SESSION['user']['last_name'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#last_name', '#last_name_error', 'Please enter your last name')"> 
-          <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-        </div>
-      </div>
-      <div id="last_name_error" class="validate-error"></div>
-      <div class="form-group">
-        <label for="email" class="col-sm-3 control-label">E-Mail Address</label>
-        <div class="col-sm-2"></div>
-        <div class="col-sm-7 input-group">
-          <input type="email" class="form-control" name="email" id="email" value="<?php echo htmlentities($_SESSION['user']['email'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.email()"> 
-          <span class="input-group-addon">@</span>
-        </div>
-      </div>
-      <div id="email-error" class="validate-error"></div>
-      <div class="form-group">
-        <label for="password" class="col-sm-3 control-label">Password</label>
-        <div class="col-sm-2"></div>
-        <div class="col-sm-7 input-group">
-          <input type="password" class="form-control" name="password" id="password" placeholder="Leave blank to keep the same password" /> 
-          <span class="input-group-addon">...</span>
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="address" class="col-sm-3 control-label">Address</label>
-        <div class="col-sm-2"></div>
-        <div class="col-sm-7 input-group">
-          <input type="text" class="form-control" name="address" id="address" value="<?php echo htmlentities($_SESSION['user']['address'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#address', '#address_error', 'Please enter your address')">
-          <span class="input-group-addon"><span class="glyphicon glyphicon-home"></span></span>
-        </div>
-      </div>
-      <div id="address_error" class="validate-error"></div>
-      <div class="form-group">
-        <label for="postcode" class="col-sm-3 control-label">Postcode</label>
-        <div class="col-sm-2"></div>
-        <div class="col-sm-7 input-group">
-          <input type="text" class="form-control" name="postcode" id="postcode" value="<?php echo htmlentities($_SESSION['user']['postcode'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.postcode()">
-          <span class="input-group-addon"><span class="glyphicon glyphicon-home"></span></span>
-        </div>
-      </div>
-      <div id="postcode_error" class="validate-error"></div>
-      <div class="form-group">
-        <label for="phone" class="col-sm-3 control-label">Phone number</label>
-        <div class="col-sm-2"></div>
-        <div class="col-sm-7 input-group">
-          <input type="tel" class="form-control" name="phone" id="phone" value="<?php echo $_SESSION['user']['phone'] ?>" onchange="validate.phone()">
-          <span class="input-group-addon"><span class="glyphicon glyphicon-earphone"></span></span>
-        </div>
-      </div>
-      <div id="phone_error" class="validate-error"></div>
-      <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
-      <button type="submit" class="btn btn-default">Update Account</button>
-    </form>
   </div>
   <div class="col-md-3"></div>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKeZpb8doUO3DbEqT3t-uRJYsbEPbD3AE&sensor=false"></script>
