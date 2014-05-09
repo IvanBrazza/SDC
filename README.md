@@ -7,6 +7,23 @@ The PayPal and Amazon AWS SDKs are required for this project, and can be downloa
 To download dependencies, use `php composer.phar update && php composer.phar install`.
 
 
+### AWS Keys
+
+The `lib/form/UploadHandlerS3.php` and `lib/edit-gallery.php` scripts require AWS keys in order to modify files in AWS S3 buckets. The keys to access such buckets are not stored in the document root, for security reasons. They should be stored in `awskeys.php` one level above the document root (i.e. `../awskeys.php`).
+
+The `awskeys.php` should contain the following class:
+
+    :::php
+    class AwsKeys {
+      public function getAwsKeys() {
+        return array (
+          'key'    => 'yourKey',
+          'secret' => 'yourSecret'
+        );
+      }
+    }
+
+
 ### Backup scripts
 
 There are two backup scripts in the `scripts/` directory: `dbbackup.sh` and `filebackup.sh` (the filenames should be self-explanatory).

@@ -1,11 +1,10 @@
 <?php
   require("common.php");
   include("../vendor/autoload.php");
+  require("../../awskeys.php");
   use Aws\S3\S3Client;
-  $s3 = S3Client::factory(array(
-    'key'    => 'AKIAJVGHIKM3L5CY6UBQ',
-    'secret' => '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'
-  ));
+  $awsKeys = new AwsKeys;
+  $s3 = S3Client::factory($awsKeys::getAwsKeys());
   $bucket = 'SDC-images';
 
   if (!empty($_POST))

@@ -1,5 +1,6 @@
 <?php
 require("../../vendor/autoload.php");
+require("../../../awskeys.php");
 use Aws\Common\Aws;
 use Aws\S3\Exception\S3Exception;
 // make sure the SDK is installed
@@ -45,11 +46,8 @@ class UploadHandler
     protected $image_objects = array();
 
     function __construct($options = null, $prefix = "", $initialize = true, $error_messages = null) {
-        $config = array (
-          'key'    => 'AKIAJVGHIKM3L5CY6UBQ',
-          'secret' => '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'
-        );
-        $this->s3 = Aws::factory($config)->get('s3')->registerStreamWrapper(); 
+        $awsKeys = new AwsKeys;
+        $this->s3 = Aws::factory($awsKeys::getAwsKeys())->get('s3')->registerStreamWrapper();
         //Initialize the s3 client and "registerStreamWrapper()" allows using PHP's native file methods such as file_put_contents()
         //http://docs.aws.amazon.com/aws-sdk-php/guide/latest/service-s3.html#amazon-s3-stream-wrapper
 
