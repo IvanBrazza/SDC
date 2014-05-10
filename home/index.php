@@ -220,10 +220,22 @@
         <img class="featurette-image img-responsive" src="//www.<?php echo $siteUrl; ?>/img/gallery/other/08.jpg" alt="Generic placeholder image">
       </div>
     </div>
-    <div class="row footer">
-      <div id="col-md-12">
-        <div class="copyright">
-          <div>&copy; Star Dream Cakes 2014</div>
+    <div class="footer">
+      <div class="row social-row">
+        <div class="col-md-4">
+          <a href="javascript:" class="social social-facebook">Facebook</a>
+          <a href="javascript:" class="social social-twitter">Twitter</a>
+        </div>
+        <div class="col-md-4">
+          <div class="copyright">
+            <div>&copy; Star Dream Cakes 2014</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="contact">
+            <p><span class="glyphicon glyphicon-phone-alt pull-left"></span>020 8800 8135</p>
+            <p><span class="glyphicon glyphicon-envelope pull-left"></span><a href="mailto:customerhelp@<?php echo $siteUrl; ?>">customerhelp@<?php echo $siteUrl; ?></a></p>
+          </div>
         </div>
       </div>
     </div>
