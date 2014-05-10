@@ -24,10 +24,10 @@
       FROM
         users
       WHERE
-        email = :email
+        customer_id = :customer_id
     ";
     $query_params = array(
-      ':email' => $_POST['email']
+      ':customer_id' => $_POST['id']
     );
     $db->runQuery($query, $query_params);
     $row = $db->fetch();
@@ -132,6 +132,7 @@
     else if ($_POST['type'] == "password")
     {
       // Update password
+      error_log($row['email']);
       $password   = hash('sha256', $_POST['password'] . $row['email']);
       for ( $i = 0; $i < 65536; $i++ )
       {
@@ -148,7 +149,7 @@
 
       $query_params = array(
         ':user_id'  => $_SESSION['user']['customer_id'],
-        ':password' => $_POST['password']
+        ':password' => $password
       );
 
       $db->runQuery($query, $query_params);

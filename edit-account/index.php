@@ -114,6 +114,7 @@
         </div>
       </div>
       <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
+      <input type="hidden" value="<?php echo $_SESSION['user']['customer_id']; ?>" name="id">
       <input type="hidden" value="personal" name="type">
       <button type="submit" class="btn btn-primary">Update Personal Details</button>
     </form>
@@ -145,6 +146,7 @@
         </div>
       </div>
       <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
+      <input type="hidden" value="<?php echo $_SESSION['user']['customer_id']; ?>" name="id">
       <input type="hidden" value="email" name="type">
       <button type="submit" class="btn btn-primary">Update Email Address</button>
     </form>
@@ -171,6 +173,7 @@
         </div>
       </div>
       <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
+      <input type="hidden" value="<?php echo $_SESSION['user']['customer_id']; ?>" name="id">
       <input type="hidden" value="password" name="type">
       <button type="submit" class="btn btn-primary">Update Password</button>
     </form>
@@ -208,6 +211,7 @@
         </div>
       </div>
       <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
+      <input type="hidden" value="<?php echo $_SESSION['user']['customer_id']; ?>" name="id">
       <input type="hidden" value="address" name="type">
       <button type="submit" class="btn btn-primary">Update Address</button>
     </form>
@@ -236,28 +240,11 @@
         </div>
       </div>
       <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
+      <input type="hidden" value="<?php echo $_SESSION['user']['customer_id']; ?>" name="id">
       <input type="hidden" value="phone" name="type">
       <button type="submit" class="btn btn-primary">Update Phone Number</button>
     </form>
   </div>
-</div>
-<div class="row">
-  <div class="col-md-3"></div>
-  <div class="col-md-6">
-    <div class="alert alert-success" id="success_message" <?php if (!empty($_GET) and !empty($_GET['update'])) : ?>style="display:block;"<?php endif; ?>>
-      <span class="glyphicon glyphicon-ok-circle"></span>
-      <?php if (!empty($_GET) and !empty($_GET['update'])) {echo $display_message;} ?>
-    </div>
-    <div class="alert alert-warning" <?php if (!empty($_GET) and !empty($_GET['first'])) : ?>style="display:block;"<?php endif; ?>>
-      <span class="glyphicon glyphicon-warning-sign"></span>
-      <?php if (!empty($_GET) and !empty($_GET['first'])) {echo $display_message;} ?>
-    </div>
-    <div class="alert alert-danger" id="error_message"<?php if (!empty($_GET) and !empty($_GET['e'])) : ?>style="display:block;"<?php endif; ?>>
-      <span class="glyphicon glyphicon-remove-circle"></span>
-      <?php if (!empty($_GET) and !empty($_GET['e'])) {echo $display_message;} ?>
-    </div>
-  </div>
-  <div class="col-md-3"></div>
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKeZpb8doUO3DbEqT3t-uRJYsbEPbD3AE&sensor=false"></script>
 </div>
 <?php include("../lib/footer.php"); ?>
