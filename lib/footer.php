@@ -62,7 +62,7 @@
   <?php endif; ?>
   <?php if (strpos($_SERVER['REQUEST_URI'], "admin") !== false) : ?>
     <script src="//www.<?php echo $siteUrl; ?>/js/jquery/jquery.fileupload.min.js"></script>
-    <script src="//www.<?php echo $siteUrl; ?>/js/chart.min.js"></script>
+    <script src="//code.highcharts.com/highcharts.js"></script>
     <script src="//www.<?php echo $siteUrl; ?>/js/modernizr.js"></script>
     <script src="//www.<?php echo $siteUrl; ?>/js/jquery/jquery.unveil.min.js"></script>
     <script src="//www.<?php echo $siteUrl; ?>/js/stats.js"></script>

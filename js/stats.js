@@ -9,35 +9,146 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(naviga
 } else {
   var animation = true;
 }
-var ordersData,
-    fillingsData,
-    decorationsData,
-    usersData,
-    object = {orders: "init"},
+var ordersChart,
+    cakesChart,
+    fillingsChart,
+    decorationsChart,
     ordersOptions = {
-      animation: animation,
-      scaleOverride: true,
-      scaleStepWidth: 1,
-      scaleStartValue: 0
+      chart: {
+        backgroundColor: null,
+        type: "line"
+      },
+      credits: {enabled: false},
+      legend: {enabled: false},
+      title: {text: "Orders by month"},
+      subtitle: {text: "How many orders were placed in each month?"},
+      xAxis: {categories: ""},
+      yAxis: {
+        title: {text: "Number of orders"},
+        min: 0,
+        plotLines: [{
+          width: 1,
+          color: "#21a2e6"
+        }]
+      },
+      tooltip: {
+        formatter: function() {
+          if (this.y == 0) {
+            return "There were <b>no orders</b> placed in <b>" + this.x + "</b>";
+          } else if (this.y == 1) {
+            return "There was just <b>" + this.y + " order</b> placed in <b>" + this.x + "</b>";
+          } else {
+            return "There were <b>" + this.y + " orders</b> placed in <b>" + this.x + "</b>";
+          }
+        }
+      },
+      series: [{
+        name: "Orders",
+        data: ""
+      }]
     },
     cakesOptions = {
-      animation: animation,
-      scaleOverride: true,
-      scaleStepWidth: 1,
-      scaleStartValue: 0
+      chart: {
+        backgroundColor: null,
+        type: "column"
+      },
+      credits: {enabled: false},
+      legend: {enabled: false},
+      title: {text: "Cake type popularity"},
+      subtitle: {text: "How popular are all the cake types?"},
+      xAxis: {categories: ""},
+      yAxis: {
+        title: {text: "Number of orders"},
+        min: 0,
+        plotLines: [{
+          width: 1,
+          color: "#21a2e6"
+        }]
+      },
+      tooltip: {
+        formatter: function() {
+          if (this.y == 0) {
+            return "The <b>" + this.x + "</b> cake type has <b>never been chosen</b>";
+          } else if (this.y == 1) {
+            return "The <b>" + this.x + "</b> cake type has only been chosen <b>once</b>";
+          } else {
+            return "The <b>" + this.x + "</b> cake type has been chosen <b>" + this.y + " times</b>";
+          }
+        }
+      },
+      series: [{
+        name: "Cake Types",
+        data: ""
+      }]
     },
     fillingsOptions = {
-      animation: animation,
-      scaleOverride: true,
-      scaleStepWidth: 1,
-      scaleStartValue: 0
+      chart: {
+        backgroundColor: null,
+        type: "column"
+      },
+      credits: {enabled: false},
+      legend: {enabled: false},
+      title: {text: "Filling Popularity"},
+      subtitle: {text: "What's your most popular filling?"},
+      xAxis: {categories: ""},
+      yAxis: {
+        title: {text: "Times filling was chosen"},
+        min: 0,
+        plotLines: [{
+          width: 1,
+          color: "#21a2e6"
+        }]
+      },
+      tooltip: {
+        formatter: function() {
+          if (this.y == 0) {
+            return "The <b>" + this.x + "</b> filling has <b>never been chosen</b>";
+          } else if (this.y == 1) {
+            return "<b>" + this.x + "</b> has only filled a cake <b>once</b>";
+          } else {
+            return "<b>" + this.x + "</b> has been a filling in <b>" + this.y + " orders</b>";
+          }
+        }
+      },
+      series: [{
+        name: "Fillings",
+        data: ""
+      }]
     },
     decorationsOptions = {
-      animation: animation,
-      scaleOverride: true,
-      scaleStepWidth: 1,
-      scaleStartValue: 0
-    } 
+      chart: {
+        backgroundColor: null,
+        type: "column"
+      },
+      credits: {enabled: false},
+      legend: {enabled: false},
+      title: {text: "Decoration popularity"},
+      subtitle: {text: "What's your most popular decoration?"},
+      xAxis: {categories: ""},
+      yAxis: {
+        title: {text: "Times decoration was chosen"},
+        min: 0,
+        plotLines: [{
+          width: 1,
+          color: "#21a2e6"
+        }]
+      },
+      tooltip: {
+        formatter: function() {
+          if (this.y == 0) {
+            return "The <b>" + this.x + "</b> decoration has <b>never been chosen</b>";
+          } else if (this.y == 1) {
+            return "The <b>" + this.x + "</b> decoration has only decorated <b>one</b> order";
+          } else {
+            return "<b>" + this.x + "</b> has decorated <b>" + this.y + " orders</b>";
+          }
+        }
+      },
+      series: [{
+        name: "Decorations",
+        data: ""
+      }]
+    };
 $(document).ready(function() {
   // Check if the browser supports canvas; if it does, start displaying the charts.
   // Otherwise show an error dialog asking to upgrade to a modern browser.
@@ -54,10 +165,6 @@ $(document).ready(function() {
         calculateWidth();
         drawCharts();
       });
-      // Check for changes in the stats every 10 seconds
-      window.setInterval(function() {
-        getData();
-      }, 10000);
     }
   } else {
     // Display the unsupported browser dialog
@@ -72,31 +179,29 @@ $(document).ready(function() {
 // A function which gets the data for the charts via AJAX, sets the appropriate vars,
 // and draws the charts. 
 function getData() {
+  if (ordersChart) ordersChart.showLoading();
+  if (cakesChart) cakesChart.showLoading();
+  if (fillingsChart) fillingsChart.showLoading();
+  if (decorationsChart) decorationsChart.showLoading();
   $.ajax({
     type: 'post',
     url: '../lib/stats.php',
     success: function(response) {
       // Parse the JSON data returned
       object = JSON.parse(response);
-
+      
       // Set the vars for the chart data
-      ordersData = object.orders;
-      ordersOptions.scaleSteps = Math.max.apply(Math, ordersData.datasets[0].data) + 1;
-      cakesData = object.cakes;
-      cakesOptions.scaleSteps = Math.max.apply(Math, cakesData.datasets[0].data) + 1;
-      fillingsData = object.fillings;
-      fillingsOptions.scaleSteps = Math.max.apply(Math, fillingsData.datasets[0].data) + 1;
-      decorationsData = object.decorations;
-      decorationsOptions.scaleSteps = Math.max.apply(Math, decorationsData.datasets[0].data) + 1;
+      ordersOptions.series[0].data        = object.orders.data;
+      ordersOptions.xAxis.categories      = object.orders.labels;
+      cakesOptions.series[0].data         = object.cakes.data;
+      cakesOptions.xAxis.categories       = object.cakes.labels;
+      fillingsOptions.series[0].data      = object.fillings.data;
+      fillingsOptions.xAxis.categories    = object.fillings.labels;
+      decorationsOptions.series[0].data   = object.decorations.data;
+      decorationsOptions.xAxis.categories = object.decorations.labels;
 
       // Draw the charts
       drawCharts();
-
-      // Disable further chart animations
-      ordersOptions.animation = false;
-      cakesOptions.animation = false;
-      fillingsOptions.animation = false;
-      decorationsOptions.animation = false;
     }
   });
 }
@@ -105,33 +210,29 @@ function getData() {
 // The height of the chart is the height of the window, minus 200px for niceties.
 // The width of the chart is the width of the div it's in, which should be 100%.
 function calculateWidth() {
-  var height           = window.innerHeight - 200,
-      ordersWidth      = $("#ordersChart").closest("div").width(),
-      cakesWidth       = $("#cakesChart").closest("div").width(),
-      fillingsWidth    = $("#fillingsChart").closest("div").width(),
-      decorationsWidth = $("#decorationsChart").closest("div").width();
+  var height = window.innerHeight - 200,
+      width  = $("#stats").width();
 
-  $("#ordersChart").attr("width", ordersWidth + "px")
-                   .attr("height", height + "px");
-
-  $("#cakesChart").attr("width", cakesWidth + "px")
-                  .attr("height", height + "px");
-
-  $("#fillingsChart").attr("width", fillingsWidth + "px")
-                     .attr("height", height + "px");
-
-$("#decorationsChart").attr("width", decorationsWidth + "px")
-                        .attr("height", height + "px");
+  $("#ordersChart, #cakesChart, #fillingsChart, #decorationsChart").width(width).height(height);
 }
 
-// A function to set the contexts of the charts, and draw them with the charts plugin
+// A function to draw the charts
 function drawCharts() {
-  var ordersCtx        = $("#ordersChart").get(0).getContext("2d"),
-      cakesCtx         = $("#cakesChart").get(0).getContext("2d"),
-      fillingsCtx      = $("#fillingsChart").get(0).getContext("2d"),
-      decorationsCtx   = $("#decorationsChart").get(0).getContext("2d"),
-      ordersChart      = new Chart(ordersCtx).Line(ordersData, ordersOptions),
-      cakesChart       = new Chart(cakesCtx).Bar(cakesData, cakesOptions),
-      fillingsChart    = new Chart(fillingsCtx).Bar(fillingsData, fillingsOptions),
-      decorationsChart = new Chart(decorationsCtx).Bar(decorationsData, decorationsOptions);
+  // Hide the "loading" overlay
+  if (ordersChart) ordersChart.hideLoading();
+  if (cakesChart) cakesChart.hideLoading();
+  if (fillingsChart) fillingsChart.hideLoading();
+  if (decorationsChart) decorationsChart.hideLoading();
+
+  // Draw the charts
+  $("#ordersChart").highcharts(ordersOptions);
+  $("#cakesChart").highcharts(cakesOptions);
+  $("#fillingsChart").highcharts(fillingsOptions);
+  $("#decorationsChart").highcharts(decorationsOptions);
+
+  // Set the vars
+  ordersChart      = $("#ordersChart").highcharts();
+  cakesChart       = $("#cakesChart").highcharts();
+  fillingsChart    = $("#fillingsChart").highcharts();
+  decorationsChart = $("#decorationsChart").highcharts();
 }

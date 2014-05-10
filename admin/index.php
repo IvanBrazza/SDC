@@ -402,20 +402,32 @@
         </tr>
       </table>
       <div id="stats-by-month">
-        <h3>Orders placed by month</h3>
-        <canvas id="ordersChart" height="350px" width="350px"></canvas>
+        <h3>
+          Orders placed by month
+          <button class="btn btn-primary btn-sm pull-right" onclick="calculateWidth();getData()"><span class="glyphicon glyphicon-refresh"></span>   Refresh data</button>
+        </h3>
+        <div id="ordersChart"></div>
       </div>
       <div id="stats-cake-types">
-        <h3>Popularity of cake types</h3>
-        <canvas id="cakesChart" height="350px" width="350px"></canvas>
+        <h3>
+          Popularity of cake types
+          <button class="btn btn-primary btn-sm pull-right" onclick="calculateWidth();getData()"><span class="glyphicon glyphicon-refresh"></span>   Refresh data</button>
+        </h3>
+        <div id="cakesChart"></div>
       </div>
       <div id="stats-fillings">
-        <h3>Popularity of fillings</h3>
-        <canvas id="fillingsChart" height="350px" width="350px"></canvas>
+        <h3>
+          Popularity of fillings
+          <button class="btn btn-primary btn-sm pull-right" onclick="calculateWidth();getData()"><span class="glyphicon glyphicon-refresh"></span>   Refresh data</button>
+        </h3>
+        <div id="fillingsChart"></div>
       </div>
       <div id="stats-decorations">
-        <h3>Popularity of decorations</h3>
-        <canvas id="decorationsChart" height="350px" width="350px"></canvas>
+        <h3>
+          Popularity of decorations
+          <button class="btn btn-primary btn-sm pull-right" onclick="calculateWidth();getData()"><span class="glyphicon glyphicon-refresh"></span>   Refresh data</button>
+        </h3>
+        <div id="decorationsChart"></div>
       </div>
     </div>
     <div id="edit">

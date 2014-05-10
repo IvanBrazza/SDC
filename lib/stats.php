@@ -12,47 +12,21 @@
   $fillColor = "#d0edeb";
   $strokeColor = "#21a2e6";
   $response = array(
-    'orders'      => array(
-      'labels' => array("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"),
-      'datasets' => array(
-        0 => array (
-          "fillColor" => $fillColor,
-          "strokeColor" => $strokeColor,
-          "pointColor" => $strokeColor,
-          "pointStrokeColor" => "#fff",
-          "data" => array(0,0,0,0,0,0,0,0,0,0,0,0)
-        )
-      )
+    'orders'   => array(
+      'labels' => array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'),
+      'data'   => array(0,0,0,0,0,0,0,0,0,0,0,0)
     ),
-    'cakes'       => array(
-      'labels' => array("6\"", "8\"", "10\"", "12\"", "14\"", "Sponge", "Marble", "Chocolate", "Fruit"),
-      'datasets' => array(
-        0 => array(
-          "fillColor" => $fillColor,
-          "strokeColor" => $strokeColor,
-          "data" => array(0,0,0,0,0,0,0,0,0)
-        )
-      )
+    'cakes'    => array(
+      'labels' => array('6"', '8"', '10"', '12"', '14"', 'Sponge', 'Marble', 'Chocolate', 'Fruit'),
+      'data'   => array(0,0,0,0,0,0,0,0,0)
     ),
-    'fillings'    => array(
+    'fillings' => array(
       'labels' => array(),
-      'datasets' => array(
-        0 => array(
-          "fillColor" => $fillColor,
-          "strokeColor" => $strokeColor,
-          "data" => array()
-        )
-      )
+      'data'   => array()
     ),
     'decorations' => array(
-      'labels' => array(),
-      'datasets' => array(
-        0 => array(
-          "fillColor" => $fillColor,
-          "strokeColor" => $strokeColor,
-          "data" => array()
-        )
-      )
+      'labels'    => array(),
+      'data'      => array()
     )
   );
 
@@ -128,14 +102,14 @@
   foreach ($fillings as $filling)
   {
     array_push($response['fillings']['labels'], $filling['filling_name']);
-    array_push($response['fillings']['datasets'][0]['data'], $filling['value']);
+    array_push($response['fillings']['data'], $filling['value']);
   }
 
   // Add each decoration name and value to their respective arrays in the response
   foreach ($decorations as $decoration)
   {
     array_push($response['decorations']['labels'], $decoration['decor_name']);
-    array_push($response['decorations']['datasets'][0]['data'], $decoration['value']);
+    array_push($response['decorations']['data'], $decoration['value']);
   }
 
   // For each cake ID, get the cake details from the database and add its popularity to the response
@@ -160,40 +134,40 @@
 
     if ($row['cake_size'] == "6\"")
     {
-      $response['cakes']['datasets'][0]['data'][0] += $cake['value'];
+      $response['cakes']['data'][0] += $cake['value'];
     }
     else if ($row['cake_size'] == "8\"")
     {
-      $response['cakes']['datasets'][0]['data'][1] += $cake['value'];
+      $response['cakes']['data'][1] += $cake['value'];
     }
     else if ($row['cake_size'] == "10\"")
     {
-      $response['cakes']['datasets'][0]['data'][2] += $cake['value'];
+      $response['cakes']['data'][2] += $cake['value'];
     }
     else if ($row['cake_size'] == "12\"")
     {
-      $response['cakes']['datasets'][0]['data'][3] += $cake['value'];
+      $response['cakes']['data'][3] += $cake['value'];
     }
     else if ($row['cake_size'] == "14\"")
     {
-      $response['cakes']['datasets'][0]['data'][4] += $cake['value'];
+      $response['cakes']['data'][4] += $cake['value'];
     }
 
     if ($row['cake_type'] == "Sponge")
     {
-      $response['cakes']['datasets'][0]['data'][5] += $cake['value'];
+      $response['cakes']['data'][5] += $cake['value'];
     }
     else if ($row['cake_type'] == "Marble")
     {
-      $response['cakes']['datasets'][0]['data'][6] += $cake['value'];
+      $response['cakes']['data'][6] += $cake['value'];
     }
     else if ($row['cake_type'] == "Chocolate")
     {
-      $response['cakes']['datasets'][0]['data'][7] += $cake['value'];
+      $response['cakes']['data'][7] += $cake['value'];
     }
     else if ($row['cake_type'] == "Fruit")
     {
-      $response['cakes']['datasets'][0]['data'][8] += $cake['value'];
+      $response['cakes']['data'][8] += $cake['value'];
     }
   }
 
@@ -202,7 +176,7 @@
   {
     if ($months[$i]) 
     {
-      $response['orders']['datasets'][0]['data'][$i] = $months[$i];
+      $response['orders']['data'][$i] = $months[$i];
     } 
   }
 
