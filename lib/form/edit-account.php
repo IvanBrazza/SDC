@@ -132,7 +132,6 @@
     else if ($_POST['type'] == "password")
     {
       // Update password
-      error_log($row['email']);
       $password   = hash('sha256', $_POST['password'] . $row['email']);
       for ( $i = 0; $i < 65536; $i++ )
       {
