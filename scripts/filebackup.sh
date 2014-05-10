@@ -8,7 +8,7 @@
 # Set some vars
 TIMESTAMP="$(date -u +%Y%m%d-%H%M%S)"
 LATEST="$(date -u +%c)"
-BACKUP_DIR="../../sdc_backups"
+BACKUP_DIR="/home/ivanrsfr/sdc_backups"
 FILES_BACKUP_DIR="$BACKUP_DIR/files"
 FILES_BACKUP_NAME="files-dump-$TIMESTAMP"
 
