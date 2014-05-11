@@ -30,7 +30,4 @@ if [ -L "$FILES_BACKUP_DIR/files-dump-latest.zip" ]; then # If symbolic link exi
 fi
 ln -s $FILES_BACKUP_NAME.zip $FILES_BACKUP_DIR/files-dump-latest.zip # Create new symbolic link
 echo $LATEST > $FILES_BACKUP_DIR/latest.txt # Update latest backup time
-type -P aws &>/dev/null && AWS="true" || AWS="false" # Check if AWS CLI is present
-if [ "$AWS" = "true" ]; then
-  aws s3 sync $FILES_BACKUP_DIR/ s3://SDC-backups/files/ --delete # Sync to S3
-fi
+/home/ivanrsfr/bin/aws s3 sync $FILES_BACKUP_DIR/ s3://SDC-backups/files/ --delete # Sync to S3
