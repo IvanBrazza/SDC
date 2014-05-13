@@ -134,9 +134,10 @@
         </div>
       </div>
       <div class="item">
+        <div class="get-started"></div>
         <div id="slide3-wm" class="wm-slide">
           <ul id="slide3-wm-tiles" class="wm-slide-tiles">
-            <li><img data-src="//www.<?php echo $siteUrl; ?>/img/getstarted.png" width="200px" class="lazy"></li>
+            <li><img data-src="//www.<?php echo $siteUrl; ?>/img/gallery/celebration/05.jpg" width="200px" class="lazy"></li>
             <li><img data-src="//www.<?php echo $siteUrl; ?>/img/gallery/other/01.jpg" width="200px" class="lazy"></li>
             <li><img data-src="//www.<?php echo $siteUrl; ?>/img/gallery/other/08.jpg" width="200px" class="lazy"></li>
             <li><img data-src="//www.<?php echo $siteUrl; ?>/img/gallery/other/04.jpg" width="200px" class="lazy"></li>

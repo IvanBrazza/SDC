@@ -46,9 +46,13 @@ $(document).ready(function() {
         break;
       case 3:
         if ($slide3.data("refresh") == "true") {
+          var lastIndex = $slide3.last().index();
           $slide3.trigger("refreshWookmark").each(function() {
             $(this).delay(d).fadeIn();
             d += 100;
+            if ($(this).index() == lastIndex) {
+              $(".get-started").delay(d + 1000).fadeIn("slow");
+            }
           });
           d = 0;
           $slide3.data("refresh", "false");
