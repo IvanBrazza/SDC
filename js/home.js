@@ -17,9 +17,28 @@ var wmOptions = {
     $slide3;
 $(document).ready(function() {
   howManyImages();
-  $slide1.data("refresh", "true");
-  $slide2.data("refresh", "true");
-  $slide3.data("refresh", "true");
+  $slide1.data("refresh", "true").find("img.lazy").unveil();
+  $slide2.data("refresh", "true").find("img.lazy").unveil();
+  $slide3.data("refresh", "true").find("img.lazy").unveil();
+
+  $slide1.imagesLoaded(function() {
+    wmOptions.container = $("#slide1-wm");
+    $slide1.wookmark(wmOptions).hide().each(function() {
+      $(this).delay(d).fadeIn();
+      d += 100;
+    });
+    d = 0;
+  });
+
+  $slide2.imagesLoaded(function() {
+    wmOptions.container = $("#slide2-wm");
+    $slide2.wookmark(wmOptions).hide();
+  });
+
+  $slide3.imagesLoaded(function() {
+    wmOptions.container = $("#slide3-wm");
+    $slide3.wookmark(wmOptions).hide();
+  });
 
   $("#myCarousel").on('slid.bs.carousel', function() {
     var curSlide = $(".carousel-inner").find(".active").index() + 1;
@@ -67,11 +86,22 @@ $(document).ready(function() {
       $slide2.hide();
       $slide3.hide();
       howManyImages();
-      $slide1.data("refresh", "true");
-      $slide2.data("refresh", "true");
-      $slide3.data("refresh", "true");
+      $slide1.data("refresh", "true").find("img.lazy").unveil();
+      $slide2.data("refresh", "true").find("img.lazy").unveil();
+      $slide3.data("refresh", "true").find("img.lazy").unveil();
+      $slide1.imagesLoaded(function() {
+        wmOptions.container = $("#slide1-wm");
+        $slide1.wookmark(wmOptions);
+      });
+      $slide2.imagesLoaded(function() {
+        wmOptions.container = $("#slide2-wm");
+        $slide2.wookmark(wmOptions);
+      });
+      $slide3.imagesLoaded(function() {
+        wmOptions.container = $("#slide3-wm");
+        $slide3.wookmark(wmOptions);
+      });
       curWidth = window.innerWidth;
-      $("#myCarousel").trigger('slid.bs.carousel');
     }
   });
 });
@@ -90,26 +120,4 @@ function howManyImages() {
     $slide2 = $("#slide2-wm-tiles li"),
     $slide3 = $("#slide3-wm-tiles li");
   }
-  $slide1.find("img.lazy").unveil();
-  $slide2.find("img.lazy").unveil();
-  $slide3.find("img.lazy").unveil();
-
-  $slide1.imagesLoaded(function() {
-    wmOptions.container = $("#slide1-wm");
-    $slide1.wookmark(wmOptions).hide().each(function() {
-      $(this).delay(d).fadeIn();
-      d += 100;
-    });
-    d = 0;
-  });
-
-  $slide2.imagesLoaded(function() {
-    wmOptions.container = $("#slide2-wm");
-    $slide2.wookmark(wmOptions).hide();
-  });
-
-  $slide3.imagesLoaded(function() {
-    wmOptions.container = $("#slide3-wm");
-    $slide3.wookmark(wmOptions).hide();
-  });
 }
