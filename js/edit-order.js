@@ -134,6 +134,7 @@ $(document).ready(function() {
             }
             $token = object.token;
             $("input[name=token]").val(object.token);
+            $(".calculating").fadeOut();
           }
         });
       });
