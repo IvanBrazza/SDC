@@ -408,128 +408,61 @@ var validate = {
   }
 }
 
-function calculateOrderTotal() {
-  var $total            = $("#total-html"),
-      $cake_size        = $("#cake_size").val(),
-      $cake_type        = $("#cake_type").val(),
-      fillingId         = $("#filling").val(),
-      fillingPrice      = 0,
-      decorationId      = $("#decoration").val(),
-      decorationPrice   = 0,
-      $base             = $("#base-price");
-
-  // Start by getting the base price
+function calculateOrderTotal(callback) {
+  callback = typeof callback !== 'undefined' ? callback : false;
+  $(".calculating").fadeIn();
+  $("#deliveryPanel").collapse("hide");
+  $("#review").collapse("show");
+  $("#delivery-heading").animate({backgroundColor: "#dff0d8"});
+  $("#review-heading").animate({backgroundColor: "#d9edf7"});
   $.ajax({
     type: 'post',
-    url: '../lib/get-cake.php',
-    data: {size: $cake_size, type: $cake_type},
+    url: '../lib/form/calculate-total.php',
+    data: {
+      token:     $("input[name=token]").val(),
+      cakeSize:  $("#cake_size").val(),
+      cakeType:  $("#cake_type").val(),
+      fillingId: $("#filling").val(),
+      decorId:   $("#decoration").val(),
+      delivery:  $("select[name=delivery]").val(),
+      address:   $address,
+      postcode:  $postcode
+    },
     success: function(response) {
       try {
         object = JSON.parse(response);
-        if (object.status === "success") {
-          $base.html(parseInt(object.price));
-          $("#cake-size-review").html($cake_size);
-          $("#cake-type-review").html($cake_type);
-          // All good, let's get the filling price
-          $.ajax({
-            type: 'post',
-            url: '../lib/get-fillingdecor.php',
-            data: {type: "filling", id: fillingId},
-            success: function(response) {
-              try {
-                object = JSON.parse(response);
-                fillingPrice = parseInt(object.price);
-                $("#filling-review").html(object.name);
-                $("#filling-html").html(object.price);
-                // Got the filling price, fetch the decoration price
-                $.ajax({
-                  type: 'post',
-                  url: '../lib/get-fillingdecor.php',
-                  data: {type: "decor", id: decorationId},
-                  success: function(response) {
-                    try {
-                      object = JSON.parse(response);
-                      decorationPrice = parseInt(object.price);
-                      $("#decoration-review").html(object.name);
-                      $("#decoration-html").html(object.price);
-                      // All done, calculate delivery charge if necessary
-                      if ($("select[name=delivery]").val() === "Deliver To Address") {
-                        var service = new google.maps.DistanceMatrixService();
-                        service.getDistanceMatrix({
-                          origins: [$origins],
-                          destinations: [$destination],
-                          travelMode: google.maps.TravelMode.DRIVING,
-                          unitSystem: google.maps.UnitSystem.IMPERIAL
-                        }, callback);
-
-                        function callback(response, status) {
-                          var origins = response.originAddresses,
-                              destinations = response.destinationAddresses;
-
-                          for (var i = 0; i < origins.length; i++) {
-                            var results = response.rows[i].elements;
-                            for (var j = 0; j < results.length; j++) {
-                              var element = results[j],
-                                  distance = element.distance.value;
-                            }
-                          }
-
-                          var miles = distance*0.000621371;
-                          if (miles <= 5) {
-                            delivery_charge = 0;
-                          } else if (miles >= 50) {
-                            delivery_charge = "Collection only";
-                          } else {
-                            miles = Math.round(miles) - 5;
-                            delivery_charge = recursiveDelivery(miles, 0, 0);
-                          }
-
-                          if (delivery_charge == "Collection only") {
-                            $("select[name=delivery] option[value=Collection]").attr("selected", "true");
-                            $("#delivery-charge-html").html("");
-                            $("#delivery-review").html("Collection");
-                            $("#datetime-label").html("Date/Time For Collection");
-                            $("#delivery-charge").hide();
-                            $('<div class="modal fade" style="overflow-y:auto;"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h4 class="modal-title">You live too far away!</h4>'+
-                              '</div><div class="modal-body"><p>You chose to have your order delivered to you, however you live over 50 miles away, which is outside of our delivery radius.</p>' +
-                              '<p>Because of this, you can only collect your order from our collection point.</p>' +
-                              '</div><div class="modal-footer"><button type="button" class="btn btn-default pull-right" data-dismiss="modal">Okay</button></div></div></div></div>').modal({
-                              backdrop: 'static',
-                              keyboard: 'false'
-                            });
-                          } else {
-                            $("#delivery-charge-html").html("&pound;" + delivery_charge);
-                            $("#delivery-charge").show();
-                            $total.html(parseInt($base.html()) + delivery_charge + decorationPrice + fillingPrice);
-                          }
-                        }
-                      } else {
-                        $total.html(parseInt($base.html()) + decorationPrice + fillingPrice);
-                      }
-                      $("#deliveryPanel").collapse("hide");
-                      $("#review").collapse("show");
-                      $("#delivery-heading").animate({backgroundColor: "#dff0d8"});
-                      $("#review-heading").animate({backgroundColor: "#d9edf7"});
-                    } catch(error) {
-                      $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
-                        "<b>Error: " + error.message + "</b>");
-                      $("#error_modal").modal("show");
-                      setTimeout(function() {
-                        $("#error_modal").modal("hide");
-                      }, 1500);
-                    }
-                  }
-                });
-              } catch(error) {
-                $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
-                  "<b>Error: " + error.message + "</b>");
-                $("#error_modal").modal("show");
-                setTimeout(function() {
-                  $("#error_modal").modal("hide");
-                }, 1500);
-              }
-            }
-          });
+        if (object.status == "success") {
+          $("input[name=token]").val(object.token)
+          $("#base-price").html(parseInt(object.basePrice));
+          $("#cake-size-review").html($("#cake_size").val());
+          $("#cake-type-review").html($("#cake_type").val());
+          $("#filling-review").html(object.fillingName);
+          $("#filling-html").html(object.fillingPrice);
+          $("#decoration-review").html(object.decorName);
+          $("#decoration-html").html(object.decorPrice);
+          if (object.deliveryCharge == "Collection only") {
+            $("select[name=delivery] option[value=Collection]").attr("selected", "true");
+            $("#delivery-charge-html").html("");
+            $("#delivery-review").html("Collection");
+            $("#datetime-label").html("Date/Time For Collection");
+            $("#delivery-charge").hide();
+            $('<div class="modal fade" style="overflow-y:auto;"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><h4 class="modal-title">You live too far away!</h4>'+
+              '</div><div class="modal-body"><p>You chose to have your order delivered to you, however you live over 50 miles away, which is outside of our delivery radius.</p>' +
+              '<p>Because of this, you can only collect your order from our collection point.</p>' +
+              '</div><div class="modal-footer"><button type="button" class="btn btn-default pull-right" data-dismiss="modal">Okay</button></div></div></div></div>').modal({
+              backdrop: 'static',
+              keyboard: 'false'
+            });
+          } else {
+            $("#delivery-charge-html").html("&pound;" + object.deliveryCharge);
+            $("#delivery-charge").show();
+          }
+          $("#total-html").html(object.total);
+          if (callback != false) {
+            callback();
+          } else {
+            $(".calculating").fadeOut();
+          }
         }
       } catch(error) {
         $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
@@ -541,15 +474,4 @@ function calculateOrderTotal() {
       }
     }
   });
-}
-
-function recursiveDelivery(miles, i, j) {
-  i += 5;
-  j += 3;
-
-  if (miles <= i) {
-    return j;
-  } else {
-    return recursiveDelivery(miles, i, j);
-  }
 }

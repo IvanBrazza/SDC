@@ -300,12 +300,15 @@
           </div>
           <div id="review" class="panel-collapse collapse">
             <div class="panel-body">
+              <div class="calculating">
+                <img src="../img/spinner.gif">
+                <p>Calculating Order Total...</p>
+              </div>
               <div class="col-md-4">
                 <script>
                   var $origins,
                       $destination;
                 </script>
-                <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKeZpb8doUO3DbEqT3t-uRJYsbEPbD3AE&sensor=false"></script>
                 <table class="table">
                   <caption>The Order</caption>
                   <tr>

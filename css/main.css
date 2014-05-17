@@ -338,6 +338,19 @@ span.arrow>a {
   max-height:         400px;
   margin:             0 auto;
   }
+
+.calculating {
+  height:             424px;
+  width:              100%;
+  position:           absolute;
+  background:         rgba(255, 255, 255, 0.8);
+  z-index:            1;
+  text-align:         center;
+  }
+
+.panel-body {
+  position:           relative;
+  }
 /* End Orders */
 
 /* Edit Account */

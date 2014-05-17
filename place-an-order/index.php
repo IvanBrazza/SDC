@@ -357,12 +357,15 @@
           </div>
           <div id="review" class="panel-collapse collapse">
             <div class="panel-body">
+              <div class="calculating">
+                <img src="../img/spinner.gif">
+                <p>Calculating Order Total...</p>
+              </div>
               <div class="col-md-4">
                 <script>
-                  var $origins = <?php echo json_encode(str_replace(" ", "+", $_SESSION['user']['address']) . "," . str_replace(" ", "+", $_SESSION['user']['postcode'])); ?>,
-                      $destination = "95+Hoe+Lane,EN35SW";
+                  var $address = "<?php echo $_SESSION['user']['address']; ?>",
+                      $postcode = "<?php echo $_SESSION['user']['postcode']; ?>";
                 </script>
-                <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCKeZpb8doUO3DbEqT3t-uRJYsbEPbD3AE&sensor=false"></script>
                 <table class="table">
                 <caption>Your Order</caption>
                 <tr>

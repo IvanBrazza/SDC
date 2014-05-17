@@ -114,8 +114,8 @@ $(document).ready(function() {
 
   $("#theCustomerNext").click(function() {
     if ($("select[name=existing_id]").val() !== "null") {
-      $origins = $("input[name=address]").val().replace(/\ /g, "+") + "," + $("input[name=postcode]").val().replace(/\ /g, "");
-      $destination = "95+Hoe+Lane,EN35SW";
+      $address = $("input[name=address]").val();
+      $postcode = $("input[name=postcode]").val();
       $("#theCustomer").collapse("hide");
       $("#theCake").collapse("show");
       $("#the-customer-heading").animate({backgroundColor: completeColour});
@@ -128,8 +128,8 @@ $(document).ready(function() {
           last_check = validate.input('#last_name', '#last_name_error', 'Please enter a last name'),
           addr_check = validate.input('#address', '#address_error', 'Please enter an address');
       if (phon_check && emai_check && post_check && firs_check && last_check && addr_check) { 
-        $origins = $("input[name=address]").val().replace(/\ /g, "+") + "," + $("input[name=postcode]").val().replace(/\ /g, "");
-        $destination = "95+Hoe+Lane,EN35SW";
+        $address = $("input[name=address]").val();
+        $postcode = $("input[name=postcode]").val();
         $("#theCustomer").collapse("hide");
         $("#theCake").collapse("show");
         $("#the-customer-heading").animate({backgroundColor: completeColour});

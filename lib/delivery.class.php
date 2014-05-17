@@ -53,7 +53,7 @@ class Delivery {
     }
     else if ($this->distance >= 50)
     {
-      $this->deliveryCharge = 0;
+      $this->deliveryCharge = "Collection Only";
     }
     else
     {

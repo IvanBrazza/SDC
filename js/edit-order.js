@@ -112,30 +112,31 @@ $(document).ready(function() {
     var $datetime_date = $("#datetime_date_hidden"),
         $datetime_time = $("#datetime_time_hidden");
     if ($datetime_date.val() != "" && $datetime_time.val() != "") {
-      $.ajax({
-        type: 'post',
-        url: '../lib/get-order.php',
-        data: {token: $token, order: QueryString.order},
-        success: function(response) {
-          var object         = JSON.parse(response),
-              old_total      = parseInt(object.base_price) +
-                               parseInt(object.filling_price) +
-                               parseInt(object.decor_price) +
-                               parseInt(object.delivery_charge),
-              old_difference = parseInt(object.difference),
-              new_total      = parseInt($("#total-html").html()),
-              new_difference = old_total - new_total,
-              end_difference = old_difference + new_difference;
-          if (end_difference == 0) {
-            $("#difference-html").html(0);
-          } else {
-            $("#difference-html").html(end_difference);
+      calculateOrderTotal(function() {
+        $.ajax({
+          type: 'post',
+          url: '../lib/get-order.php',
+          data: {token: $("input[name=token]").val(), order: QueryString.order},
+          success: function(response) {
+            var object         = JSON.parse(response),
+                old_total      = parseInt(object.base_price) +
+                                 parseInt(object.filling_price) +
+                                 parseInt(object.decor_price) +
+                                 parseInt(object.delivery_charge),
+                old_difference = parseInt(object.difference),
+                new_total      = parseInt($("#total-html").html()),
+                new_difference = old_total - new_total,
+                end_difference = old_difference + new_difference;
+            if (end_difference == 0) {
+              $("#difference-html").html(0);
+            } else {
+              $("#difference-html").html(end_difference);
+            }
+            $token = object.token;
+            $("input[name=token]").val(object.token);
           }
-          $token = object.token;
-          $("input[name=token]").val(object.token);
-        }
+        });
       });
-      calculateOrderTotal();
     } else {
       $("#delivery-heading").animate({backgroundColor: errorColour});
       if ($datetime_date.val() == "") {
