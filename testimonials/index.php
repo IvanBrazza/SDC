@@ -100,7 +100,7 @@
     <?php endfor; ?>
   </div>
   <br /><br />
-  <a href="#submit" name="submit" id="submit-testimonial">Submit A Testimonial</a>
+  <a href="#submit" id="submit-testimonial">Submit A Testimonial</a>
   <div class="error">
     <span class="error_message" id="error_message"></span>
   </div>
