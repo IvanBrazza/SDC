@@ -45,11 +45,11 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="//www.<?php echo $siteUrl; ?>/home"><img src="//www.<?php echo $siteUrl; ?>/img/header-nav-logo.png"></a>
+        <a class="navbar-brand" href="//www.<?php echo $siteUrl; ?>/"><img src="//www.<?php echo $siteUrl; ?>/img/header-nav-logo.png"></a>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li <?php if ($page === "home") : ?>class="active"<?php endif; ?>><a href="//www.<?php echo $siteUrl; ?>/home">Home</a></li>
+          <li <?php if ($page === "home") : ?>class="active"<?php endif; ?>><a href="//www.<?php echo $siteUrl; ?>/">Home</a></li>
           <li <?php if ($page === "about-us") : ?>class="active"<?php endif; ?>><a href="//www.<?php echo $siteUrl; ?>/about-us">About Us</a></li>
           <li <?php if ($page === "testimonials") : ?>class="active"<?php endif; ?>><a href="//www.<?php echo $siteUrl; ?>/testimonials">Testimonials</a></li>
           <li <?php if ($page === "gallery") : ?>class="active"<?php endif;?>><a href="//www.<?php echo $siteUrl; ?>/gallery">Gallery</a></li>
