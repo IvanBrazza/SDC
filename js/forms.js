@@ -67,7 +67,7 @@ $(document).ready(function() {
           try {
             object = JSON.parse(response);
             if (object.status == 'success') {
-              window.location.href = "../home/";
+              window.location.href = "../";
             } else if (object.status == 'redirect') {
               window.location.href = object.redirect;
             } else if (object.status == 'error') {
