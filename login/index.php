@@ -11,7 +11,7 @@
   // homepage
   if (!empty($_SESSION['user']))
   {
-    header("Location: ../home/");
+    header("Location: ../");
     die();
   }
 

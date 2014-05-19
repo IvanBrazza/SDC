@@ -78,7 +78,7 @@
                 <li class="divider"></li>
                 <li><a href="//www.<?php echo $siteUrl; ?>/lib/logout.php">Logout</a></li>
               <?php else : ?>
-                <li><a href="//www.<?php echo $siteUrl; ?>/login">Login</a></li>
+                <li><a href="//www.<?php echo $siteUrl; ?>/login?redirect=<?php echo $_SERVER['REQUEST_URI']; ?>">Login</a></li>
                 <li><a href="//www.<?php echo $siteUrl; ?>/register">Register</a></li>
               <?php endif; ?>
             </ul>
