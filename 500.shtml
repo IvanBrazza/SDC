@@ -19,11 +19,11 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="//www.ivanbrazza.biz/home"><img src="//www.ivanbrazza.biz/img/header-nav-logo.png"></a>
+        <a class="navbar-brand" href="//www.ivanbrazza.biz"><img src="//www.ivanbrazza.biz/img/header-nav-logo.png"></a>
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><a href="//www.ivanbrazza.biz/home">Home</a></li>
+          <li><a href="//www.ivanbrazza.biz">Home</a></li>
           <li><a href="//www.ivanbrazza.biz/about-us">About Us</a></li>
           <li><a href="//www.ivanbrazza.biz/testimonials">Testimonials</a></li>
           <li><a href="//www.ivanbrazza.biz/gallery">Gallery</a></li>
