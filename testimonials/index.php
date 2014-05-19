@@ -61,6 +61,18 @@
               </footer>
             </blockquote>
           </div>
+        <?php elseif ($rows[$i]['approved'] == 0 and $_SESSION['user']['customer_id'] == $rows[$i]['customer_id']) : ?>
+          <div class="col-md-6 testimonial-col unapproved">
+            <blockquote>
+              <p class="testimonial">
+                <?php echo htmlentities($rows[$i]['testimonial'], ENT_QUOTES, 'UTF-8'); ?>
+              </p>
+              <footer>
+                <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
+                <span id="unapproved"><i> (unapproved)</i></span>
+              </footer>
+            </blockquote>
+          </div>
         <?php endif; ?>
         <?php $i++; ?>
         <?php if ($rows[$i]) : ?>
@@ -94,6 +106,18 @@
                 </footer>
               </blockquote>
             </div>
+        <?php elseif ($rows[$i]['approved'] == 0 and $_SESSION['user']['customer_id'] == $rows[$i]['customer_id']) : ?>
+          <div class="col-md-6 testimonial-col unapproved">
+            <blockquote>
+              <p class="testimonial">
+                <?php echo htmlentities($rows[$i]['testimonial'], ENT_QUOTES, 'UTF-8'); ?>
+              </p>
+              <footer>
+                <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
+                <span id="unapproved"><i> (unapproved)</i></span>
+              </footer>
+            </blockquote>
+          </div>
           <?php endif; ?>
         <?php endif; ?>
       </div>
@@ -111,7 +135,7 @@
           <label for="name" class="col-sm-4 control-label">Name</label>
           <div class="col-sm-8">
             <div class="input-group">
-              <input type="text" class="form-control" name="name" id="name" onchange="validate.input('#name', '#name_error', 'Please enter your name')">
+              <input type="text" class="form-control" name="name" id="name" onchange="validate.input('#name', '#name_error', 'Please enter your name')" <?php if ($_SESSION['user']) {echo "value='" . $_SESSION['user']['first_name'] . "'";} ?>>
               <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
             </div>
             <div id="name_error" class="validate-error"></div>
@@ -121,7 +145,7 @@
           <label for="email" class="col-sm-4 control-label">Email</label>
           <div class="col-sm-8">
             <div class="input-group">
-              <input type="email" class="form-control" name="email" id="email" onchange="validate.email()">
+              <input type="email" class="form-control" name="email" id="email" onchange="validate.email()" <?php if ($_SESSION['user']) {echo "value='" . $_SESSION['user']['email'] . "'";} ?>>
               <span class="input-group-addon">@</span>
             </div>
             <div id="email-error" class="validate-error"></div>

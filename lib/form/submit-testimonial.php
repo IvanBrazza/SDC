@@ -22,19 +22,40 @@
       // Unset the token
       unset($_SESSION['token']);
 
-      $query = "
-        INSERT INTO testimonials (
-          name,
-          email,
-          location,
-          testimonial
-        ) VALUES (
-          :name,
-          :email,
-          :location,
-          :testimonial
-        )
-      ";
+      if ($_SESSION['user'])
+      {
+        $query = "
+          INSERT INTO testimonials (
+            name,
+            email,
+            location,
+            testimonial,
+            customer_id
+          ) VALUES (
+            :name,
+            :email,
+            :location,
+            :testimonial,
+            :customer_id
+          )
+        ";
+      }
+      else
+      {
+        $query = "
+          INSERT INTO testimonials (
+            name,
+            email,
+            location,
+            testimonial
+          ) VALUES (
+            :name,
+            :email,
+            :location,
+            :testimonial
+          )
+        ";
+      }
   
       $query_params = array(
         ':name'           => $_POST['name'],
@@ -42,6 +63,11 @@
         ':location'       => $_POST['location'],
         ':testimonial'    => $_POST['testimonial']
       );
+
+      if ($_SESSION['user'])
+      {
+        $query_params[':customer_id'] = $_SESSION['user']['customer_id'];
+      }
 
       $db->runQuery($query, $query_params);
 
