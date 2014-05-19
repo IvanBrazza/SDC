@@ -32,67 +32,67 @@
     <?php for ($i = 0; $i < count($rows); $i++) : ?>
       <div class="row">
         <?php if ($rows[$i]['approved'] == 1) : ?>
-          <div class="col-md-6 testimonial-col">
-            <p class="testimonial approved">
-              <?php echo htmlentities($rows[$i]['testimonial'], ENT_QUOTES, 'UTF-8'); ?>
-            </p>
-            <div class="downarrow approved"></div>
-            <span class="testimonial-name">
-              <small>- <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
-                <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
-                  <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><span class="glyphicon glyphicon-remove"></span>  Delete</button>
-                <?php endif; ?>
-              </small>
-            </span>
+          <div class="col-md-6 testimonial-col approved">
+            <blockquote>
+              <p class="testimonial">
+                <?php echo htmlentities($rows[$i]['testimonial'], ENT_QUOTES, 'UTF-8'); ?>
+              </p>
+              <footer>
+                <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
+                  <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
+                    <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><span class="glyphicon glyphicon-remove"></span></button>
+                  <?php endif; ?>
+              </footer>
+            </blockquote>
           </div>
         <?php elseif ($rows[$i]['approved'] == 0 and $_SESSION['user']['username'] === "admin") : ?>
-          <div class="col-md-6 testimonial-col">
-            <p class="testimonial unapproved">
-              <?php echo htmlentities($rows[$i]['testimonial'], ENT_QUOTES, 'UTF-8'); ?>
-            </p>
-            <div class="downarrow unapproved"></div>
-            <span class="testimonial-name">
-              <small>- <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
-                <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
-                  <span id="unapproved"><i> (unapproved)</i></span>
-                  <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-success btn-xs pull-right approve_testimonial"><span class="glyphicon glyphicon-ok"></span>  Approve</button>
-                  <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><span class="glyphicon glyphicon-remove"></span>  Delete</button>
-                <?php endif; ?>
-              </small>
-            </span>
+          <div class="col-md-6 testimonial-col unapproved">
+            <blockquote>
+              <p class="testimonial">
+                <?php echo htmlentities($rows[$i]['testimonial'], ENT_QUOTES, 'UTF-8'); ?>
+              </p>
+              <footer>
+                <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
+                  <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
+                    <span id="unapproved"><i> (unapproved)</i></span>
+                    <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-success btn-xs pull-right approve_testimonial"><span class="glyphicon glyphicon-ok"></span></button>
+                    <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><span class="glyphicon glyphicon-remove"></span></button>
+                  <?php endif; ?>
+              </footer>
+            </blockquote>
           </div>
         <?php endif; ?>
         <?php $i++; ?>
         <?php if ($rows[$i]) : ?>
           <?php if ($rows[$i]['approved'] == 1) : ?>
-            <div class="col-md-6 testimonial-col">
-              <p class="testimonial approved">
-                <?php echo htmlentities($rows[$i]['testimonial'], ENT_QUOTES, 'UTF-8'); ?>
-              </p>
-              <div class="downarrow approved"></div>
-              <span class="testimonial-name">
-                <small>- <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
-                  <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
-                    <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><span class="glyphicon glyphicon-remove"></span>  Delete</button>
-                  <?php endif; ?>
-                </small>
-              </span>
+            <div class="col-md-6 testimonial-col approved">
+              <blockquote>
+                <p class="testimonial">
+                  <?php echo htmlentities($rows[$i]['testimonial'], ENT_QUOTES, 'UTF-8'); ?>
+                </p>
+                <footer>
+                  <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
+                    <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
+                      <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><span class="glyphicon glyphicon-remove"></span></button>
+                    <?php endif; ?>
+                </footer>
+              </blockquote>
             </div>
           <?php elseif ($rows[$i]['approved'] == 0 and $_SESSION['user']['username'] === "admin") : ?>
-            <div class="col-md-6 testimonial-col">
-              <p class="testimonial unapproved">
-                <?php echo htmlentities($rows[$i]['testimonial'], ENT_QUOTES, 'UTF-8'); ?>
-              </p>
-              <div class="downarrow unapproved"></div>
-              <span class="testimonial-name">
-                <small>- <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
-                  <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
-                    <span id="unapproved"><i> (unapproved)</i></span>
-                    <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-success btn-xs pull-right approve_testimonial"><span class="glyphicon glyphicon-ok"></span>  Approve</button>
-                    <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><span class="glyphicon glyphicon-remove"></span>  Delete</button>
-                  <?php endif; ?>
-                </small>
-              </span>
+            <div class="col-md-6 testimonial-col unapproved">
+              <blockquote>
+                <p class="testimonial">
+                  <?php echo htmlentities($rows[$i]['testimonial'], ENT_QUOTES, 'UTF-8'); ?>
+                </p>
+                <footer>
+                  <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
+                    <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
+                      <span id="unapproved"><i> (unapproved)</i></span>
+                      <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-success btn-xs pull-right approve_testimonial"><span class="glyphicon glyphicon-ok"></span></button>
+                      <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><span class="glyphicon glyphicon-remove"></span></button>
+                    <?php endif; ?>
+                </footer>
+              </blockquote>
             </div>
           <?php endif; ?>
         <?php endif; ?>

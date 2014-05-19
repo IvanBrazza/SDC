@@ -38,19 +38,25 @@ $(document).ready(function() {
           if (response.substring(0, 7) === 'success') {
             $("#submit-testimonial-form").slideUp();
             $("#error_message").hide();
-            $("#testimonials").append("<div class='row' id='pending'>" + 
-                                      "<div class='col-md-6 testimonial-col'>" +
-                                      "<p class='testimonial unapproved'>" + $('textarea#testimonial').val()  + "</p>" + 
-                                      "<div class='downarrow unapproved'></div>" +
-                                      "<span class='testimonial-name'>" + 
-                                      "<small>- " + 
-                                      $('#name').val() +
-                                      "</small>" +
-                                      "</span>" + 
-                                      "</div>" +
-                                      "</div>");
+            if ($(".approved").length % 2 !== 0) {
+              $(".approved").last().parent().append("<div class='col-md-6 testimonial-col unapproved' id='pending'>" +
+                                                    "<blockquote>" +
+                                                    "<p class='testimonial'>" + $('textarea#testimonial').val()  + "</p>" +
+                                                    "<footer>" + $('#name').val() + "</footer>" +
+                                                    "</blockquote>" +
+                                                    "</div>");
+            } else {
+              $("#testimonials").append("<div class='row' id='pending'>" +
+                                        "<div class='col-md-6 testimonial-col unapproved'>" +
+                                        "<blockquote>" +
+                                        "<p class='testimonial'>" + $('textarea#testimonial').val()  + "</p>" +
+                                        "<footer>" + $('#name').val() + "</footer>" +
+                                        "</blockquote>" +
+                                        "</div>" +
+                                        "</div>");
+            }
             if ($("#location").val()) {
-              $("#pending small").append("<i>, " + $('#location').val()  + "</i>");
+              $("#pending footer").append("<i>, " + $('#location').val()  + "</i>");
               $("#location").val("");
             }
             $("#pending small").append("<span id='unapproved'><i> (unapproved)</i></span>");
@@ -115,6 +121,14 @@ $(document).ready(function() {
       }
     });
     e.preventDefault();
+  }).hover(function() {
+    $(this).animate({width: "64px"}, {duration: 300, queue: false}).append("   Delete")
+           .siblings(".approve_testimonial").animate({right: "74px"}, {duration: 300, queue: false});
+  }, function() {
+    $(this).animate({width: "24px"}, {duration: 300, queue: false, complete: function() {
+      $(this).empty().append('<span class="glyphicon glyphicon-remove"></span>');
+    }})
+           .siblings(".approve_testimonial").animate({right: "34px"}, {duration: 300, queue: false});
   });
 
   // When the admin clicks the button to approve a testimonial
@@ -133,8 +147,7 @@ $(document).ready(function() {
       success: function(response) {
         object = JSON.parse(response);
         if (object.response === 'success') {
-          $button.closest("div").find(".unapproved").removeClass("unapproved").addClass("approved");
-          $button.siblings("#unapproved").remove();
+          $button.closest("div.unapproved").switchClass("unapproved", "approved").find("#unapproved").remove();
           $button.remove();
           $(".delete_testimonial, .approve_testimonial").data("token", object.token);
         } else {
@@ -143,5 +156,11 @@ $(document).ready(function() {
       }
     });
     e.preventDefault();
+  }).hover(function() {
+    $(this).animate({width: "74px"}, {duration: 300, queue: false}).append("   Approve");
+  }, function() {
+    $(this).animate({width: "24px"}, {duration: 300, queue: false, complete: function() {
+      $(this).empty().append('<span class="glyphicon glyphicon-ok"></span>');
+    }});
   });
 });

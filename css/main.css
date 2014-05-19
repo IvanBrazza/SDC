@@ -163,19 +163,21 @@ table span.arrow {
 /* End Alerts And Messages */
 
 /* Testimonials */
-p.approved {
-  background-image:   linear-gradient(#E4F8FF, #CBF2FF);
+.testimonial > blockquote {
+  position:           relative;
+  }
+.testimonial-col.approved > blockquote {
+  border-left-color:  #CBF2FF;
   }
 
-p.unapproved {
-  background-image:   linear-gradient(#D6D6D6, #ADADAD);
+.testimonial-col.unapproved > blockquote{
+  border-left-color:  #AF4747;
   }
 
 .testimonial {
   position:           relative;
   margin-bottom:      0;
   padding:            10px 50px;
-  border-radius:      5px;
   min-height:         60px;
   }
 
@@ -195,38 +197,23 @@ p.unapproved {
 .testimonial:after {
   content:            "\201D";
   right:              10px;
-  bottom:             -0.5em;
+  bottom:             -0.7em;
   }
 
 .testimonial:before {
-  top:                0;
+  top:                -20px;
   left:               10px;
-  }
-
-div.approved {
-  border-top:         15px solid #CBF2FF;
-  }
-
-div.unapproved {
-  border-top:         15px solid #ADADAD;
-  }
-
-.downarrow {
-  width:              0;
-  height:             0;
-  border-left:        15px solid transparent;
-  border-right:       15px solid transparent;
-  margin:             0 0 0 25px;
-  }
-
-.testimonial-name, span.title {
-  color:              #21a2e6;
-  font-weight:        bold;
   }
 
 .delete_testimonial,
 .approve_testimonial {
-  margin-left:        10px;
+  position:           absolute;
+  top:                0;
+  right:              5px;
+  }
+
+.approve_testimonial {
+  right:              34px;
   }
 /* End Testimonials */
 
