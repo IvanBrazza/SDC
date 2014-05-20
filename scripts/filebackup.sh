@@ -8,6 +8,7 @@
 # Set some vars
 TIMESTAMP="$(date -u +%Y%m%d-%H%M%S)"
 LATEST="$(date -u +%c)"
+TO_BACKUP="/home/ivanrsfr/www"
 BACKUP_DIR="/home/ivanrsfr/sdc_backups"
 FILES_BACKUP_DIR="$BACKUP_DIR/files"
 FILES_BACKUP_NAME="files-dump-$TIMESTAMP"
@@ -24,7 +25,7 @@ fi
 
 # Start file backup
 echo "Backing up files...";
-zip -r $FILES_BACKUP_DIR/$FILES_BACKUP_NAME.zip ../ -x "../.git/*" "../vendor/*" "../cgi-bin/*" # Zip files
+zip -r $FILES_BACKUP_DIR/$FILES_BACKUP_NAME.zip $TO_BACKUP -x "$TO_BACKUP/.git/*" "$TO_BACKUP/vendor/*" "$TO_BACKUP/cgi-bin/*" # Zip files
 if [ -L "$FILES_BACKUP_DIR/files-dump-latest.zip" ]; then # If symbolic link exists
   rm $FILES_BACKUP_DIR/files-dump-latest.zip # Delete old symbolic link
 fi
