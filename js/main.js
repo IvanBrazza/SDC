@@ -65,23 +65,34 @@ $(document).ready(function() {
   $("table:not(#single_order, .uploaded-images)").tablePagination();
 
   // EU cookie stuffs
-  var cookieMessage = "We use cookies on this website in order to improve your experience. By continuing" +
-                      " to use this website you agree to our <a href='{{cookiePolicyLink}}'>cookie policy</a>.",
-      cookieAcceptButtonText = "Close this message";
-  if ($(window).width() < 768) {
-    $.cookieCuttr({
-      cookieAcceptButtonText: cookieAcceptButtonText,
-      cookieAnalytics: false,
-      cookieMessage: cookieMessage,
-      cookiePolicyLink: '/cookies/'
-    });
-  } else {
-    $.cookieCuttr({
-      cookieAcceptButtonText: cookieAcceptButtonText,
-      cookieAnalytics: false,
-      cookieMessage: cookieMessage,
-      cookiePolicyLink: '/cookies/',
-      cookieNotificationLocationBottom: true
+  // Split cookies into an object
+  var pairs = document.cookie.split("; "),
+      cookies = {};
+  for (var i = 0; i < pairs.length; i++){
+    var pair = pairs[i].split("=");
+    cookies[pair[0]] = unescape(pair[1]);
+  }
+
+  // If the cookie message hasn't been accepted
+  if (typeof cookies.cookie_accept == 'undefined') {
+    // Append the cookie message to the body
+    $("body").append("<div class='cookies'>We use cookies on this website in order to improve your experience. By continuing" +
+                     " to use this website you agree to our <a href='/cookies/'>cookie policy</a>. <button class='btn btn-success accept-cookies'>Accept Cookies</button></div>");
+    
+    // Slide up the cookie message after a second
+    setTimeout(function() {
+      $(".cookies").animate({bottom: "-10px"});
+    }, 1000);
+
+    // If the Accept Cookies button is clicked, add a new cookie saving this and hide the cookie message
+    $(".accept-cookies").click(function() {
+      var d = new Date();
+      d.setTime(d.getTime() + 31536000000);
+      var expires = "expires=" + d.toGMTString();
+      document.cookie = "cookie_accept=accepted;" + expires + "; path=/";
+      $(".cookies").animate({bottom: "-180px"}, function() {
+        $(this).remove();
+      });
     });
   }
 });

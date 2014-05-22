@@ -9,7 +9,6 @@
   <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,400' rel='stylesheet' type='text/css'>
   <link href="//www.<?php echo $siteUrl; ?>/css/bootstrap.css" rel="stylesheet">
   <link href="//www.<?php echo $siteUrl; ?>/css/jquery-ui.css" rel="stylesheet">
-  <link href="//www.<?php echo $siteUrl; ?>/css/cookie.css" rel="stylesheet">
   <link href="//www.<?php echo $siteUrl; ?>/css/nprogress.css" rel="stylesheet">
   <link href="//www.<?php echo $siteUrl; ?>/css/main.css" rel="stylesheet">
   <?php if (strpos($_SERVER['REQUEST_URI'], "gallery") !== false) : ?>

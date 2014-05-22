@@ -21,7 +21,6 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="//www.<?php echo $siteUrl; ?>/js/bootstrap.js"></script>
   <script src="//www.<?php echo $siteUrl; ?>/js/jquery/jquery-ui.js"></script>
-  <script src="//www.<?php echo $siteUrl; ?>/js/cookie.js"></script>
   <script src="//www.<?php echo $siteUrl; ?>/js/nprogress.js"></script>
   <script src="//www.<?php echo $siteUrl; ?>/js/table-pagination.js"></script>
   <?php if (strpos($_SERVER['REQUEST_URI'], "login") !== false or

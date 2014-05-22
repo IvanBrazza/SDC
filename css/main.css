@@ -359,3 +359,27 @@ span.arrow>a {
   margin:             0 0 20px 0;
   }
 /* End Edit Account */
+
+/* Cookies */
+.cookies {
+  position:           fixed;
+  right:              25px;
+  bottom:             -180px;
+  width:              250px;
+  color:              #ffffff;
+  padding:            10px 10px 15px;
+  border-radius:      5px;
+  background:         rgba(90, 188, 240, 0.9);
+  }
+
+.cookies a {
+  color:              #ffffff;
+  font-weight:        bold;
+  text-decoration:    underline;
+  }
+
+.cookies button {
+  width:              100%;
+  margin-top:         10px;
+  }
+/* End Cookies */

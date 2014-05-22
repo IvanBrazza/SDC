@@ -12,7 +12,6 @@
   <link rel="icon" href="//www.<?php echo $siteUrl; ?>/favicon.ico">
   <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,400' rel='stylesheet' type='text/css'>
   <link href="//www.<?php echo $siteUrl; ?>/css/bootstrap.css" rel="stylesheet">
-  <link href="//www.<?php echo $siteUrl; ?>/css/cookie.css" rel="stylesheet">
   <link href="//www.<?php echo $siteUrl; ?>/css/home.css" rel="stylesheet">
   <link href="//www.<?php echo $siteUrl; ?>/css/main.css" rel="stylesheet">
 </head>
@@ -252,7 +251,6 @@
   </div>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
   <script src="//www.<?php echo $siteUrl; ?>/js/bootstrap.js"></script>
-  <script src="//www.<?php echo $siteUrl; ?>/js/cookie.js"></script>
   <script src="//www.<?php echo $siteUrl; ?>/js/table-pagination.js"></script>
   <script src="//www.<?php echo $siteUrl; ?>/js/jquery/jquery.wookmark.min.js"></script>
   <script src="//www.<?php echo $siteUrl; ?>/js/jquery/imagesloaded.min.js"></script>
