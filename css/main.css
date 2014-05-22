@@ -370,6 +370,7 @@ span.arrow>a {
   padding:            10px 10px 15px;
   border-radius:      5px;
   background:         rgba(90, 188, 240, 0.9);
+  z-index:            99999999;
   }
 
 .cookies a {
