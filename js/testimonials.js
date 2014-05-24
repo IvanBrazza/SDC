@@ -122,10 +122,10 @@ $(document).ready(function() {
     });
     e.preventDefault();
   }).hover(function() {
-    $(this).animate({width: "64px"}, {duration: 300, queue: false}).append("   Delete")
+    $(this).stop().empty().animate({width: "64px"}, {duration: 300, queue: false}).append("<i class='fa fa-trash-o'></i>   Delete")
            .siblings(".approve_testimonial").animate({right: "74px"}, {duration: 300, queue: false});
   }, function() {
-    $(this).animate({width: "24px"}, {duration: 300, queue: false, complete: function() {
+    $(this).stop().animate({width: "24px"}, {duration: 300, queue: false, complete: function() {
       $(this).empty().append('<i class="fa fa-trash-o"></i>');
     }})
            .siblings(".approve_testimonial").animate({right: "34px"}, {duration: 300, queue: false});
@@ -157,9 +157,9 @@ $(document).ready(function() {
     });
     e.preventDefault();
   }).hover(function() {
-    $(this).animate({width: "74px"}, {duration: 300, queue: false}).append("   Approve");
+    $(this).stop().empty().animate({width: "74px"}, {duration: 300, queue: false}).append("<i class='fa fa-check'></i>   Approve");
   }, function() {
-    $(this).animate({width: "24px"}, {duration: 300, queue: false, complete: function() {
+    $(this).stop().animate({width: "24px"}, {duration: 300, queue: false, complete: function() {
       $(this).empty().append('<i class="fa fa-check"></i>');
     }});
   });
