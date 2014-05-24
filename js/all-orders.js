@@ -16,7 +16,7 @@ $(document).ready(function() {
         if (response.slice(0,13) === "../all-orders") {
           window.location.href = response;
         } else {
-          $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + response).show();
+          $("#error_message").html("<i class='fa fa-times-circle'></i>" + response).show();
         }
       }
     });

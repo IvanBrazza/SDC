@@ -126,7 +126,7 @@ $(document).ready(function() {
            .siblings(".approve_testimonial").animate({right: "74px"}, {duration: 300, queue: false});
   }, function() {
     $(this).animate({width: "24px"}, {duration: 300, queue: false, complete: function() {
-      $(this).empty().append('<span class="glyphicon glyphicon-remove"></span>');
+      $(this).empty().append('<i class="fa fa-trash-o"></i>');
     }})
            .siblings(".approve_testimonial").animate({right: "34px"}, {duration: 300, queue: false});
   });
@@ -160,7 +160,7 @@ $(document).ready(function() {
     $(this).animate({width: "74px"}, {duration: 300, queue: false}).append("   Approve");
   }, function() {
     $(this).animate({width: "24px"}, {duration: 300, queue: false, complete: function() {
-      $(this).empty().append('<span class="glyphicon glyphicon-ok"></span>');
+      $(this).empty().append('<i class="fa fa-check"></i>');
     }});
   });
 });

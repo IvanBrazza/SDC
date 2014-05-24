@@ -49,7 +49,7 @@
         <label for="username">Username</label>
         <div class="input-group">
           <input type="text" class="form-control" name="username" id="username" onchange="validate.username()" placeholder="Enter Username">
-          <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+          <span class="input-group-addon"><i class="fa fa-user"></i></span>
         </div>
       </div>
       <div id="username-error" class="validate-error"></div>

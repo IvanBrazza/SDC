@@ -183,6 +183,7 @@ function getData() {
   if (cakesChart) cakesChart.showLoading();
   if (fillingsChart) fillingsChart.showLoading();
   if (decorationsChart) decorationsChart.showLoading();
+  $(".fa-refresh").addClass("fa-spin");
   $.ajax({
     type: 'post',
     url: '../lib/stats.php',
@@ -223,6 +224,7 @@ function drawCharts() {
   if (cakesChart) cakesChart.hideLoading();
   if (fillingsChart) fillingsChart.hideLoading();
   if (decorationsChart) decorationsChart.hideLoading();
+  $(".fa-refresh").removeClass("fa-spin");
 
   // Draw the charts
   $("#ordersChart").highcharts(ordersOptions);

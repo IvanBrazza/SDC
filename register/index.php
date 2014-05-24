@@ -22,7 +22,7 @@
         <div class="col-sm-7">
           <div class="input-group">
             <input type="text" class="form-control" name="username" id="username" onchange="validate.username()" placeholder="Must be at least 3 characters">
-            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+            <span class="input-group-addon"><i class="fa fa-user"></i></span>
           </div>
           <div id="username-error" class="validate-error"></div>
         </div>
@@ -86,23 +86,23 @@
             <ul class="recaptcha_options">
               <li>
                 <a href="javascript:Recaptcha.reload()">
-                  <i class="glyphicon glyphicon-refresh"></i>
+                  <i class="fa fa-refresh"></i>
                   <span class="captcha_hide">Get another CAPTCHA</span>
                 </a>
               </li>
               <li class="recaptcha_only_if_image">
                 <a href="javascript:Recaptcha.switch_type('audio')">
-                  <i class="glyphicon glyphicon-volume-up"></i><span class="captcha_hide"> Get an audio CAPTCHA</span>
+                  <i class="fa fa-volume-up"></i><span class="captcha_hide"> Get an audio CAPTCHA</span>
                 </a>
               </li>
               <li class="recaptcha_only_if_audio">
                 <a href="javascript:Recaptcha.switch_type('image')">
-                  <i class="glyphicon glyphicon-picture"></i><span class="captcha_hide"> Get an image CAPTCHA</span>
+                  <i class="fa fa-picture-o"></i><span class="captcha_hide"> Get an image CAPTCHA</span>
                 </a>
               </li>
               <li>
                 <a href="javascript:Recaptcha.showhelp()">
-                  <i class="glyphicon glyphicon-question-sign"></i><span class="captcha_hide"> Help</span>
+                  <i class="fa fa-question"></i><span class="captcha_hide"> Help</span>
                 </a>
               </li>
             </ul>

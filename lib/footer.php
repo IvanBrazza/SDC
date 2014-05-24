@@ -1,8 +1,18 @@
     <div class="footer">
       <div class="row social-row">
         <div class="col-md-4">
-          <a href="javascript:" class="social social-facebook">Facebook</a>
-          <a href="javascript:" class="social social-twitter">Twitter</a>
+          <a href="javascript:" class="social-facebook">
+            <span class="fa-stack fa-lg fa-2x">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+            </span>
+          </a>
+          <a href="javascript:" class="social-twitter">
+            <span class="fa-stack fa-lg fa-2x">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+            </span>
+          </a>
         </div>
         <div class="col-md-4">
           <div class="copyright">
@@ -11,8 +21,16 @@
         </div>
         <div class="col-md-4">
           <div class="contact">
-            <p><span class="glyphicon glyphicon-phone-alt pull-left"></span>020 8800 8135</p>
-            <p><span class="glyphicon glyphicon-envelope pull-left"></span><a href="mailto:customerhelp@<?php echo $siteUrl; ?>">customerhelp@<?php echo $siteUrl; ?></a></p>
+            <p>
+              <i class="fa fa-phone-square pull-left"></i>
+              <span>020 8800 8135</span>
+            </p>
+            <p>
+              <i class="fa fa-envelope-square pull-left"></i>
+              <a href="mailto:customerhelp@<?php echo $siteUrl; ?>">
+                customerhelp@<?php echo $siteUrl; ?>
+              </a>
+            </p>
           </div>
         </div>
       </div>

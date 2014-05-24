@@ -31,14 +31,14 @@ $(document).ready(function() {
                 $("input[customer_name]").closest(".form-group").removeClass("has-success").addClass("has-error");
                 break;
             }
-            $("#search_error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.error).show();
+            $("#search_error_message").html("<i class='fa fa-times-circle'></i>" + object.error).show();
             if (object.code != "001") {
               $("input[name=token]").val(object.token);
               $token = object.token;
             }
           }
         } catch(error) {
-          $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+          $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   Oops! Something went wrong. Try again<br>" +
             "<b>Error: " + error.message + "</b>");
           $("#error_modal").modal("show");
           setTimeout(function() {
@@ -71,10 +71,10 @@ $(document).ready(function() {
     $row.find("td:eq(2)").html("<span style='display:inline-block;'>&pound;</span><input name='filling_price' class='form-control' value='" + $filling_price + "' data-original='" + $filling_price + "' style='width:90%;margin-left:9px;display:inline-block;'><span class='validate-error price-error'></span>");
     $row.find("td:eq(3) button").switchClass("btn-primary", "btn-success").switchClass("edit-filling", "submit-filling-edit")
         .animate({width: "58px"}, {duration: 300, queue: false}).append("   Edit")
-        .find("span").switchClass("glyphicon-pencil", "glyphicon-ok");
+        .find("span").switchClass("fa-pencil", "fa-check");
     $row.find("td:eq(4) button").switchClass("delete-filling", "remove-filling-edit")
         .animate({width: "75px"}, {duration: 300, queue: false}).append("   Cancel")
-        .find("span").switchClass("glyphicon-trash", "glyphicon-remove");
+        .find("span").switchClass("fa-trash-o", "fa-times");
   });
 
   $("body").on('click', '.submit-filling-edit', function() {
@@ -103,21 +103,21 @@ $(document).ready(function() {
             var object = JSON.parse(response);
             $token = object.token;
             if (object.status == "success") {
-              $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully edited filling");
+              $("#success_modal .alert").html("<i class='fa fa-check-circle'></i>   Successfully edited filling");
               $("#success_modal").modal("show");
               $row.find("td:eq(1)").html($filling_name);
               $row.find("td:eq(2)").html("&pound;" + $filling_price);
-              $row.find("td:eq(3)").html("<button class='btn btn-primary btn-sm edit-filling'><span class='glyphicon glyphicon-pencil'></span></button>");
-              $row.find("td:eq(4)").html("<button class='btn btn-danger btn-sm delete-filling'><span class='glyphicon glyphicon-trash'></span></button>");
+              $row.find("td:eq(3)").html("<button class='btn btn-primary btn-sm edit-filling'><i class='fa fa-pencil'></i></button>");
+              $row.find("td:eq(4)").html("<button class='btn btn-danger btn-sm delete-filling'><i class='fa fa-trash-o'></i></button>");
               setTimeout(function() {
                 $("#success_modal").modal("hide");
               }, 1500);
             } else {
-              $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+              $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   " + object.error);
               $("#error_modal").modal("show");
             }
           } catch(error) {
-            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+            $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   Oops! Something went wrong. Try again<br>" +
               "<b>Error: " + error.message + "</b>");
             $("#error_modal").modal("show");
             setTimeout(function() {
@@ -148,10 +148,10 @@ $(document).ready(function() {
     $row.find("td:eq(2)").html("&pound;" + $filling_price);
     $row.find("td:eq(3) button").switchClass("btn-success", "btn-primary").switchClass("submit-filling-edit", "edit-filling")
         .animate({width: "34px"}, {duration: 300, queue: false}).empty()
-        .append('<span class="glyphicon glyphicon-pencil"></span>');
+        .append('<i class="fa fa-pencil"></i>');
     $row.find("td:eq(4) button").switchClass("remove-filling-edit", "delete-filling")
         .animate({width: "34px"}, {duration: 300, queue: false}).empty()
-        .append('<span class="glyphicon glyphicon-trash"></span>');
+        .append('<i class="fa fa-trash-o"></i>');
   });
 
   $("body").on('click', '.delete-filling', function() {
@@ -174,17 +174,17 @@ $(document).ready(function() {
             .slideUp("fast", function() {
               $(this).parent().parent().remove();
             });;
-            $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully deleted filling");
+            $("#success_modal .alert").html("<i class='fa fa-check-circle'></i>   Successfully deleted filling");
             $("#success_modal").modal("show");
             setTimeout(function() {
               $("#success_modal").modal("hide");
             }, 1500);
           } else {
-            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+            $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   " + object.error);
             $("#error_modal").modal("show");
           }
         } catch(error) {
-          $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+          $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   Oops! Something went wrong. Try again<br>" +
             "<b>Error: " + error.message + "</b>");
           $("#error_modal").modal("show");
           setTimeout(function() {
@@ -219,21 +219,21 @@ $(document).ready(function() {
             var object = JSON.parse(response);
             $token = object.token;
             if (object.status == "success") {
-              $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully added filling");
+              $("#success_modal .alert").html("<i class='fa fa-check-circle'></i>   Successfully added filling");
               $("#success_modal").modal("show");
               $row.find("td:eq(1)").html($filling_name);
               $row.find("td:eq(2)").html("&pound;" + $filling_price);
-              $row.find("td:eq(3)").html("<button class='btn btn-primary btn-sm edit-filling'><span class='glyphicon glyphicon-pencil'></span></button>");
-              $row.find("td:eq(4)").html("<button class='btn btn-danger btn-sm delete-filling'><span class='glyphicon glyphicon-trash'></span></button>");
+              $row.find("td:eq(3)").html("<button class='btn btn-primary btn-sm edit-filling'><i class='fa fa-pencil'></i></button>");
+              $row.find("td:eq(4)").html("<button class='btn btn-danger btn-sm delete-filling'><i class='fa fa-trash-o'></i></button>");
               setTimeout(function() {
                 $("#success_modal").modal("hide");
               }, 1500);
             } else {
-              $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+              $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   " + object.error);
               $("#error_modal").modal("show");
             }
           } catch(error) {
-            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+            $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   Oops! Something went wrong. Try again<br>" +
               "<b>Error: " + error.message + "</b>");
             $("#error_modal").modal("show");
             setTimeout(function() {
@@ -261,10 +261,10 @@ $(document).ready(function() {
         $filling_id = $("#fillings tbody tr:last").data("fillingid") + 1;
     $("<tr data-fillingid='" + $filling_id + "'>" +
       "<td>" + $filling_id + "</td>" +
-      "<td><input name='filling_name' class='form-control new-input' placeholder='Filling name'><span class='validate-error name-error'></span></td>" +
-      "<td><span style='display:inline-block;'>&pound;</span><input name='filling_price' class='form-control new-input' style='display:inline-block;width:90%;margin-left:9px;' placeholder='Filling price'><span class='validate-error price-error'></span></td>" +
-      "<td><button class='btn btn-success btn-sm add-new-filling'><span class='glyphicon glyphicon-ok'></span>   Add</button></td>" +
-      "<td><button class='btn btn-danger btn-sm remove-new-filling'><span class='glyphicon glyphicon-remove'></span>   Cancel</button></td>" +
+      "<td><input name='filling_name' class='form-control new-input' placeholder='Filling name'><i class='validate-error name-error'></i></td>" +
+      "<td><i style='display:inline-block;'>&pound;</i><input name='filling_price' class='form-control new-input' style='display:inline-block;width:90%;margin-left:9px;' placeholder='Filling price'><i class='validate-error price-error'></i></td>" +
+      "<td><button class='btn btn-success btn-sm add-new-filling'><i class='fa fa-check'></i>   Add</button></td>" +
+      "<td><button class='btn btn-danger btn-sm remove-new-filling'><i class='fa fa-times'></i>   Cancel</button></td>" +
       "</tr>")
     .appendTo($("#fillings tbody"))
     .find("td").wrapInner('<div style="display: none;" />')
@@ -286,14 +286,14 @@ $(document).ready(function() {
         $decor_id    = $row.data("decorid"),
         $decor_name  = $row.find("td:eq(1)").html(),
         $decor_price = $row.find("td:eq(2)").html().replace(/[^\d]/g, "");
-    $row.find("td:eq(1)").html("<input name='decor_name' class='form-control' value='" + $decor_name + "' data-original='" + $decor_name + "'><span class='validate-error name-error'></span>");
-    $row.find("td:eq(2)").html("<span style='display:inline-block;'>&pound;</span><input name='decor_price' class='form-control' value='" + $decor_price + "' data-original='" + $decor_price + "' style='width:90%;margin-left:9px;display:inline-block;'><span class='validate-error price-error'></span>");
+    $row.find("td:eq(1)").html("<input name='decor_name' class='form-control' value='" + $decor_name + "' data-original='" + $decor_name + "'><i class='validate-error name-error'></i>");
+    $row.find("td:eq(2)").html("<i style='display:inline-block;'>&pound;</i><input name='decor_price' class='form-control' value='" + $decor_price + "' data-original='" + $decor_price + "' style='width:90%;margin-left:9px;display:inline-block;'><i class='validate-error price-error'></i>");
     $row.find("td:eq(3) button").switchClass("btn-primary", "btn-success").switchClass("edit-decor", "submit-decor-edit")
         .animate({width: "58px"}, {duration: 300, queue: false}).append("   Edit")
-        .find("span").switchClass("glyphicon-pencil", "glyphicon-ok");
+        .find("span").switchClass("fa-pencil", "fa-check");
     $row.find("td:eq(4) button").switchClass("delete-decor", "remove-decor-edit")
         .animate({width: "75px"}, {duration: 300, queue: false}).append("   Cancel")
-        .find("span").switchClass("glyphicon-trash", "glyphicon-remove");
+        .find("span").switchClass("fa-trash-o", "fa-times");
   });
 
   $("body").on('click', '.submit-decor-edit', function() {
@@ -322,21 +322,21 @@ $(document).ready(function() {
             var object = JSON.parse(response);
             $token = object.token;
             if (object.status == "success") {
-              $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully edited decoration");
+              $("#success_modal .alert").html("<i class='fa fa-check-circle'></i>   Successfully edited decoration");
               $("#success_modal").modal("show");
               $row.find("td:eq(1)").html($decor_name);
               $row.find("td:eq(2)").html("&pound;" + $decor_price);
-              $row.find("td:eq(3)").html("<button class='btn btn-primary btn-sm edit-decor'><span class='glyphicon glyphicon-pencil'></span></button>");
-              $row.find("td:eq(4)").html("<button class='btn btn-danger btn-sm delete-decor'><span class='glyphicon glyphicon-trash'></span></button>");
+              $row.find("td:eq(3)").html("<button class='btn btn-primary btn-sm edit-decor'><i class='fa fa-pencil'></i></button>");
+              $row.find("td:eq(4)").html("<button class='btn btn-danger btn-sm delete-decor'><i class='fa fa-trash-o'></i></button>");
               setTimeout(function() {
                 $("#success_modal").modal("hide");
               }, 1500);
             } else {
-              $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+              $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   " + object.error);
               $("#error_modal").modal("show");
             }
           } catch(error) {
-            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+            $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   Oops! Something went wrong. Try again<br>" +
               "<b>Error: " + error.message + "</b>");
             $("#error_modal").modal("show");
             setTimeout(function() {
@@ -367,10 +367,10 @@ $(document).ready(function() {
     $row.find("td:eq(2)").html("&pound;" + $decor_price);
     $row.find("td:eq(3) button").switchClass("btn-success", "btn-primary").switchClass("submit-decor-edit", "edit-decor")
         .animate({width: "34px"}, {duration: 300, queue: false}).empty()
-        .append('<span class="glyphicon glyphicon-pencil"></span>');
+        .append('<i class="fa fa-pencil"></i>');
     $row.find("td:eq(4) button").switchClass("remove-decor-edit", "delete-decor")
         .animate({width: "34px"}, {duration: 300, queue: false}).empty()
-        .append('<span class="glyphicon glyphicon-trash"></span>');
+        .append('<i class="fa fa-trash-o"></i>');
   });
 
   $("body").on('click', '.delete-decor', function() {
@@ -393,17 +393,17 @@ $(document).ready(function() {
               $(this).parent().parent().remove();
             });;
             $token = object.token;
-            $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully deleted decoration");
+            $("#success_modal .alert").html("<i class='fa fa-check-circle'></i>   Successfully deleted decoration");
             $("#success_modal").modal("show");
             setTimeout(function() {
               $("#success_modal").modal("hide");
             }, 1500);
           } else {
-            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+            $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   " + object.error);
             $("#error_modal").modal("show");
           }
         } catch(error) {
-          $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+          $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   Oops! Something went wrong. Try again<br>" +
             "<b>Error: " + error.message + "</b>");
           $("#error_modal").modal("show");
           setTimeout(function() {
@@ -421,8 +421,8 @@ $(document).ready(function() {
       "<td>" + $decor_id + "</td>" +
       "<td><input name='decor_name' class='form-control new-input' placeholder='Decoration name'><span class='validate-error name-error'></span></td>" +
       "<td><span style='display:inline-block;'>&pound;</span><input name='decor_price' class='form-control new-input' style='display:inline-block;width:90%;margin-left:9px;' placeholder='Decoration price'><span class='validate-error price-error'></span></td>" +
-      "<td><button class='btn btn-success btn-sm add-new-decor'><span class='glyphicon glyphicon-ok'></span>   Add</button></td>" +
-      "<td><button class='btn btn-danger btn-sm remove-new-decor'><span class='glyphicon glyphicon-remove'></span>   Cancel</button></td>" +
+      "<td><button class='btn btn-success btn-sm add-new-decor'><i class='fa fa-check'></i>   Add</button></td>" +
+      "<td><button class='btn btn-danger btn-sm remove-new-decor'><i class='fa fa-times'></i>   Cancel</button></td>" +
       "</tr>")
     .appendTo($("#decorations tbody"))
     .find("td").wrapInner('<div style="display: none;" />')
@@ -463,21 +463,21 @@ $(document).ready(function() {
             var object = JSON.parse(response);
             $token = object.token;
             if (object.status == "success") {
-              $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully added decoration");
+              $("#success_modal .alert").html("<i class='fa fa-check-circle'></i>   Successfully added decoration");
               $("#success_modal").modal("show");
               $row.find("td:eq(1)").html($decor_name);
               $row.find("td:eq(2)").html("&pound;" + $decor_price);
-              $row.find("td:eq(3)").html("<button class='btn btn-primary btn-sm edit-decor'><span class='glyphicon glyphicon-pencil'></span></button>");
-              $row.find("td:eq(4)").html("<button class='btn btn-danger btn-sm delete-decor'><span class='glyphicon glyphicon-trash'></span></button>");
+              $row.find("td:eq(3)").html("<button class='btn btn-primary btn-sm edit-decor'><i class='fa fa-pencil'></i></button>");
+              $row.find("td:eq(4)").html("<button class='btn btn-danger btn-sm delete-decor'><i class='fa fa-trash-o'></i></button>");
               setTimeout(function() {
                 $("#success_modal").modal("hide");
               }, 1500);
             } else {
-              $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+              $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   " + object.error);
               $("#error_modal").modal("show");
             }
           } catch(error) {
-            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+            $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   Oops! Something went wrong. Try again<br>" +
               "<b>Error: " + error.message + "</b>");
             $("#error_modal").modal("show");
             setTimeout(function() {
@@ -506,8 +506,8 @@ $(document).ready(function() {
     $("#gallery tbody").append("<tr data-galleryid='" + $gallery_id + "'>" +
                                "<td>" + $gallery_id + "</td>" +
                                "<td><input name='gallery_name' class='form-control new-input' placeholder='Gallery name'><span class='validate-error name-error'></span></td>" +
-                               "<td><button class='btn btn-success btn-sm add-new-gallery'><span class='glyphicon glyphicon-ok'></span>   Add</button></td>" +
-                               "<td><button class='btn btn-danger btn-sm remove-new-gallery'><span class='glyphicon glyphicon-remove'></span>   Cancel</button></td>" +
+                               "<td><button class='btn btn-success btn-sm add-new-gallery'><i class='fa fa-check'></i>   Add</button></td>" +
+                               "<td><button class='btn btn-danger btn-sm remove-new-gallery'><i class='fa fa-times'></i>   Cancel</button></td>" +
                                "</tr>");
     $(".remove-new-gallery").click(function() {
       $(this).closest("tr").remove();
@@ -533,20 +533,20 @@ $(document).ready(function() {
             var object = JSON.parse(response);
             $token = object.token;
             if (object.status == "success") {
-              $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully added gallery");
+              $("#success_modal .alert").html("<i class='fa fa-check-circle'></i>   Successfully added gallery");
               $("#success_modal").modal("show");
               $row.find("td:eq(1)").html($gallery_name);
-              $row.find("td:eq(2)").html("<button class='btn btn-primary btn-sm edit-gallery'><span class='glyphicon glyphicon-pencil'></span></button>");
-              $row.find("td:eq(3)").html("<button class='btn btn-danger btn-sm delete-gallery'><span class='glyphicon glyphicon-trash'></span></button>");
+              $row.find("td:eq(2)").html("<button class='btn btn-primary btn-sm edit-gallery'><i class='fa fa-pencil'></i></button>");
+              $row.find("td:eq(3)").html("<button class='btn btn-danger btn-sm delete-gallery'><i class='fa fa-trash-o'></i></button>");
               setTimeout(function() {
                 $("#success_modal").modal("hide");
               }, 1500);
             } else {
-              $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+              $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   " + object.error);
               $("#error_modal").modal("show");
             }
           } catch(error) {
-            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+            $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   Oops! Something went wrong. Try again<br>" +
               "<b>Error: " + error.message + "</b>");
             $("#error_modal").modal("show");
             setTimeout(function() {
@@ -580,17 +580,17 @@ $(document).ready(function() {
           if (object.status == "success") {
             $row.remove();
             $token = object.token;
-            $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Successfully deleted gallery");
+            $("#success_modal .alert").html("<i class='fa fa-check-circle'></i>   Successfully deleted gallery");
             $("#success_modal").modal("show");
             setTimeout(function() {
               $("#success_modal").modal("hide");
             }, 1500);
           } else {
-            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+            $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   " + object.error);
             $("#error_modal").modal("show");
           }
         } catch(error) {
-          $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+          $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   Oops! Something went wrong. Try again<br>" +
             "<b>Error: " + error.message + "</b>");
           $("#error_modal").modal("show");
           setTimeout(function() {
@@ -630,11 +630,11 @@ $(document).ready(function() {
           if (object.status == "success") {
             $row.fadeOut().remove();
           } else {
-            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+            $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   " + object.error);
             $("#error_modal").modal("show");
           }
         } catch(error) {
-          $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+          $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   Oops! Something went wrong. Try again<br>" +
             "<b>Error: " + error.message + "</b>");
           $("#error_modal").modal("show");
           setTimeout(function() {
@@ -679,7 +679,7 @@ $(document).ready(function() {
               }, 500);
             }
           } catch(error) {
-            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+            $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   Oops! Something went wrong. Try again<br>" +
               "<b>Error: " + error.message + "</b>");
             $("#error_modal").modal("show");
             setTimeout(function() {

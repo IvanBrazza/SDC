@@ -168,7 +168,7 @@
             <div class="row fileupload-buttonbar">
               <div class="col-lg-7">
                 <span class="btn btn-success fileinput-button">
-                  <i class="glyphicon glyphicon-plus"></i>
+                  <i class="fa fa-upload"></i>
                   <span>Add Image...</span>
                   <input type="file" name="files[]" accept="image/*" multiple>
                 </span>
@@ -194,7 +194,7 @@
                         </td>
                         <td>
                           <a class="btn btn-danger pull-right delete-image" data-image="<?php echo $row['images']; ?>" data-gallery="<?php echo $gallery['gallery_id']; ?>">
-                            <i class="glyphicon glyphicon-trash"></i>
+                            <i class="fa fa-trash-o"></i>
                             <span>Delete</span>
                           </a>
                         </td>
@@ -221,15 +221,9 @@
                 <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
               </td>
               <td>
-                {% if (!i && !o.options.autoUpload) { %}
-                  <button class="btn btn-primary start" disabled>
-                    <i class="glyphicon glyphicon-upload"></i>
-                    <span>Start</span>
-                  </button>
-                {% } %}
                 {% if (!i) { %}
                   <button class="btn btn-warning cancel pull-right">
-                    <i class="glyphicon glyphicon-ban-circle"></i>
+                    <i class="fa fa-ban"></i>
                     <span>Cancel</span>
                   </button>
                 {% } %}
@@ -256,7 +250,7 @@
               </td>
               <td>
                 <a class="btn btn-danger delete-image pull-right" data-image="{%=file.name%}" data-gallery="<?php echo $gallery['gallery_id']; ?>">
-                    <i class="glyphicon glyphicon-trash"></i>
+                    <i class="fa fa-trash-o"></i>
                     <span>Delete</span>
                 </a>
               </td>
@@ -344,7 +338,10 @@
         <div class="input-group">
           <input type="search" id="customer_name" name="customer_name" class="form-control" placeholder="Enter customer name">
           <span class="input-group-btn">
-            <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span>   Search all customers</button>
+            <button type="submit" class="btn btn-default">
+              <i class="fa fa-search"></i>
+              <span>Search all customers</span>
+            </button>
           </span>
         </div>
       </form>
@@ -404,28 +401,40 @@
       <div id="stats-by-month">
         <h3>
           Orders placed by month
-          <button class="btn btn-primary btn-sm pull-right" onclick="calculateWidth();getData()"><span class="glyphicon glyphicon-refresh"></span>   Refresh data</button>
+          <button class="btn btn-primary btn-sm pull-right" onclick="calculateWidth();getData()">
+            <i class="fa fa-refresh"></i>
+            <span>Refresh data</span>
+          </button>
         </h3>
         <div id="ordersChart"></div>
       </div>
       <div id="stats-cake-types">
         <h3>
           Popularity of cake types
-          <button class="btn btn-primary btn-sm pull-right" onclick="calculateWidth();getData()"><span class="glyphicon glyphicon-refresh"></span>   Refresh data</button>
+          <button class="btn btn-primary btn-sm pull-right" onclick="calculateWidth();getData()">
+            <i class="fa fa-refresh"></i>
+            <span>Refresh data</span>
+          </button>
         </h3>
         <div id="cakesChart"></div>
       </div>
       <div id="stats-fillings">
         <h3>
           Popularity of fillings
-          <button class="btn btn-primary btn-sm pull-right" onclick="calculateWidth();getData()"><span class="glyphicon glyphicon-refresh"></span>   Refresh data</button>
+          <button class="btn btn-primary btn-sm pull-right" onclick="calculateWidth();getData()">
+            <i class="fa fa-refresh"></i>
+            <span>Refresh data</span>
+          </button>
         </h3>
         <div id="fillingsChart"></div>
       </div>
       <div id="stats-decorations">
         <h3>
           Popularity of decorations
-          <button class="btn btn-primary btn-sm pull-right" onclick="calculateWidth();getData()"><span class="glyphicon glyphicon-refresh"></span>   Refresh data</button>
+          <button class="btn btn-primary btn-sm pull-right" onclick="calculateWidth();getData()">
+            <i class="fa fa-refresh"></i>
+            <span>Refresh data</span>
+          </button>
         </h3>
         <div id="decorationsChart"></div>
       </div>
@@ -436,7 +445,10 @@
       </div>
       <h3 id="edit-fillings">
         Edit fillings
-        <button class="btn btn-primary btn-sm pull-right" id="add-filling"><span class="glyphicon glyphicon-plus"></span>   Add Filling</button>
+        <button class="btn btn-primary btn-sm pull-right" id="add-filling">
+          <i class="fa fa-plus"></i>
+          <span>Add Filling</span>
+        </button>
       </h3>
       <div class="table-responsive">
         <table class="table table-striped" id="fillings">
@@ -455,8 +467,8 @@
                 <td><?php echo $filling['filling_id']; ?></td>
                 <td><?php echo $filling['filling_name']; ?></td>
                 <td>&pound;<?php echo $filling['filling_price']; ?></td>
-                <td><button class="btn btn-primary btn-sm edit-filling"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                <td><button class="btn btn-danger btn-sm delete-filling"><span class="glyphicon glyphicon-trash"></span></button></td>
+                <td><button class="btn btn-primary btn-sm edit-filling"><i class="fa fa-pencil"></i></button></td>
+                <td><button class="btn btn-danger btn-sm delete-filling"><i class="fa fa-trash-o"></i></button></td>
               </tr>
             <?php endforeach; ?>
           </tbody>
@@ -464,7 +476,10 @@
       </div>
       <h3 id="edit-decorations">
         Edit decorations
-        <button class="btn btn-primary btn-sm pull-right" id="add-decor"><span class="glyphicon glyphicon-plus"></span>   Add Decoration</button>
+        <button class="btn btn-primary btn-sm pull-right" id="add-decor">
+          <i class="fa fa-plus"></i>
+          <span>Add Decoration</span>
+        </button>
       </h3>
       <div class="table-responsive">
         <table class="table table-striped" id="decorations">
@@ -483,8 +498,8 @@
                 <td><?php echo $decoration['decor_id']; ?></td>
                 <td><?php echo $decoration['decor_name']; ?></td>
                 <td>&pound;<?php echo $decoration['decor_price']; ?></td>
-                <td><button class="btn btn-primary btn-sm edit-decor"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                <td><button class="btn btn-danger btn-sm delete-decor"><span class="glyphicon glyphicon-trash"></span></button></td>
+                <td><button class="btn btn-primary btn-sm edit-decor"><i class="fa fa-pencil"></i></button></td>
+                <td><button class="btn btn-danger btn-sm delete-decor"><i class="fa fa-trash-o"></i></button></td>
               </tr>
             <?php endforeach; ?>
           </tbody>
@@ -492,7 +507,10 @@
       </div>
       <h3 id="edit-cake-types">
         Edit cake types
-        <button class="btn btn-primary btn-sm pull-right" id="add-cake-type"><span class="glyphicon glyphicon-plus"></span>   Add Cake Type</button>
+        <button class="btn btn-primary btn-sm pull-right" id="add-cake-type">
+          <i class="fa fa-plus"></i>
+          <span>Add Cake Type</span>
+        </button>
       </h3>
       <div class="table-responsive">
         <table class="table table-striped">
@@ -511,8 +529,8 @@
                 <td><?php echo $cake['cake_id']; ?></td>
                 <td><?php echo $cake['cake_size'] . " " . $cake['cake_type']; ?></td>
                 <td>&pound;<?php echo $cake['cake_price']; ?></td>
-                <td><button class="btn btn-primary btn-sm edit-cake-type"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                <td><button class="btn btn-danger btn-sm delete-cake-type"><span class="glyphicon glyphicon-trash"></span></button></td>
+                <td><button class="btn btn-primary btn-sm edit-cake-type"><i class="fa fa-pencil"></i></button></td>
+                <td><button class="btn btn-danger btn-sm delete-cake-type"><i class="fa fa-trash-o"></i></button></td>
               </tr>
             <?php endforeach; ?>
           </tbody>
@@ -522,7 +540,10 @@
         <div class="page-header">
           <h1>
             Galleries
-            <button class="btn btn-primary btn-sm pull-right" id="add-gallery"><span class="glyphicon glyphicon-plus"></span>   Add Gallery</button>
+            <button class="btn btn-primary btn-sm pull-right" id="add-gallery">
+              <i class="fa fa-plus"></i>
+              <span>Add Gallery</span>
+            </button>
           </h1>
         </div>
         <div class="table-responsive">
@@ -539,8 +560,8 @@
               <tr data-galleryid="<?php echo $gallery['gallery_id']; ?>">
                 <td><?php echo $gallery['gallery_id']; ?></td>
                 <td><?php echo $gallery['gallery_name']; ?></td>
-                <td><button class="btn btn-primary btn-sm edit-gallery"><span class="glyphicon glyphicon-pencil"></span></button></td>
-                <td><button class="btn btn-danger btn-sm delete-gallery"><span class="glyphicon glyphicon-trash"></span></button></td>
+                <td><button class="btn btn-primary btn-sm edit-gallery"><i class="fa fa-pencil"></i></button></td>
+                <td><button class="btn btn-danger btn-sm delete-gallery"><i class="fa fa-trash-o"></i></button></td>
               </tr>
             <?php endforeach; ?>
           </table>
@@ -553,17 +574,29 @@
         <h3 id="backup-website-files">Backup website files</h3>
         <p>Here you can download a backup of the website files. This will be a .zip file containing the all site pages (and relevant css/js/images) as well as the PayPal SDK. <strong>Site file backups occur weekly.</strong></p>
         <?php if ($httpCode == 200) : ?>
-          <a href="https://s3.amazonaws.com/SDC-backups/files/files-dump-latest.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Website Files</a>
+          <a href="https://s3.amazonaws.com/SDC-backups/files/files-dump-latest.zip" class="btn btn-primary">
+            <i class="fa fa-file-archive-o"></i>
+            <span>Download Website Files</span>
+          </a>
         <?php else : ?>
-          <a href="http://backups.<?php echo $siteUrl; ?>/files/files-dump-latest.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Website Files</a>
+          <a href="http://backups.<?php echo $siteUrl; ?>/files/files-dump-latest.zip" class="btn btn-primary">
+            <i class="fa fa-file-archive-o"></i>
+            <span>Download Website Files</span>
+          </a>
         <?php endif; ?>
         <small>Latest backup: <?php echo $latestFilesBackup; ?></small>
         <h3 id="backup-database">Backup database</h3>
         <p>Here you can download a backup of the database. This contains details about orders, users, and other details that are permanantly stored. <strong>Database backups occur daily.</strong></p>
         <?php if ($httpCode == 200) : ?>
-          <a href="https://s3.amazonaws.com/SDC-backups/db/db-dump-latest.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Database</a>
+          <a href="https://s3.amazonaws.com/SDC-backups/db/db-dump-latest.zip" class="btn btn-primary">
+            <i class="fa fa-database"></i>
+            <span>Download Database</span>
+          </a>
         <?php else : ?>
-          <a href="http://backups.<?php echo $siteUrl; ?>/db/db-dump-latest.zip" class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span>   Download Database</a>
+          <a href="http://backups.<?php echo $siteUrl; ?>/db/db-dump-latest.zip" class="btn btn-primary">
+            <i class="fa fa-database"></i>
+            <span>Download Database</span>
+          </a>
         <?php endif; ?>
         <small>Latest backup: <?php echo $latestDbBackup; ?></small>
       </div>

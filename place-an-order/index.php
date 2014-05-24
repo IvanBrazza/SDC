@@ -76,7 +76,7 @@
   <div class="col-md-12">
     <div class="alert alert-danger" id="error_message" style="max-height: 34px;padding-top: 6px;text-align: center;<?php if (!$details_correct) : ?>display:block;<?php endif; ?>">
       <?php if (!$details_correct) : ?>
-        <span class='glyphicon glyphicon-warning-sign'></span>
+        <i class="fa fa-warning"></i>
         <strong>Warning!</strong>
         <?php echo $display_message; ?>
         <script>
@@ -174,7 +174,8 @@
               </div>
               <div class="col-md-2">
                 <button type="button" id="theCakeNext" class="btn btn-primary pull-right">
-                  Next   <span class="glyphicon glyphicon-arrow-right"></span>
+                  <span>Next</span>
+                  <i class="fa fa-arrow-down"></i>
                 </button>
               </div>
             </div>
@@ -190,7 +191,8 @@
             <div class="panel-body">
               <div class="col-md-2">
                 <button type="button" id="uploadAPhotoPrevious" class="btn btn-primary">
-                  <span class="glyphicon glyphicon-arrow-left"></span>   Previous
+                  <i class="fa fa-arrow-up"></i>
+                  <span>Previous</span>
                 </button>
               </div>
               <div class="col-md-8">
@@ -201,7 +203,8 @@
                   <div class="panel-body">
                     If you wish for your cake to have a picture printed onto edible paper,
                     you can upload it by clicking the <span class="btn btn-success" id="upload-fake">
-                    <i class="glyphicon glyphicon-plus"></i><span>Choose Image...</span></span> button below.<br>
+                    <i class="fa fa-upload"></i>
+                    <span>Choose Image...</span></span> button below.<br>
                     The picture you choose must match the following criteria:
                     <ul>
                       <li>The maximum filesize is <b>5MB</b></li>
@@ -216,7 +219,7 @@
                   <div class="row fileupload-buttonbar">
                     <div class="col-lg-7">
                       <span class="btn btn-success fileinput-button">
-                        <i class="glyphicon glyphicon-plus"></i>
+                        <i class="fa fa-upload"></i>
                         <span>Choose Image...</span>
                         <input type="file" name="files[]" accept="image/*" id="fileid">
                         <input type="hidden" name="upload_dir" value="gallery/<?php echo $_SESSION['user']['customer_id']; ?>">
@@ -247,15 +250,9 @@
                       <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
                     </td>
                     <td>
-                      {% if (!i && !o.options.autoUpload) { %}
-                        <button class="btn btn-primary start" disabled>
-                          <i class="glyphicon glyphicon-upload"></i>
-                          <span>Start</span>
-                        </button>
-                      {% } %}
                       {% if (!i) { %}
                         <button class="btn btn-warning cancel pull-right">
-                          <i class="glyphicon glyphicon-ban-circle"></i>
+                          <i class="fa fa-ban"></i>
                           <span>Cancel</span>
                         </button>
                       {% } %}
@@ -286,7 +283,7 @@
                     {% if (file.error) { %}
                       <td>
                         <button class="btn btn-warning cancel pull-right">
-                          <i class="glyphicon glyphicon-ban-circle"></i>
+                          <i class="fa fa-ban"></i>
                           <span>Cancel</span>
                         </button>
                       </td>
@@ -298,7 +295,8 @@
               </div>
               <div class="col-md-2">
                 <button type="button" id="uploadAPhotoNext" class="btn btn-primary pull-right">
-                  Next   <span class="glyphicon glyphicon-arrow-right"></span>
+                  <span>Next</span>
+                  <i class="fa fa-arrow-down"></i>
                 </button>
               </div>
             </div>
@@ -314,7 +312,8 @@
             <div class="panel-body">
               <div class="col-md-2">
                 <button type="button" id="deliveryPrevious" class="btn btn-primary">
-                  <span class="glyphicon glyphicon-arrow-left"></span>   Previous
+                  <i class="fa fa-arrow-up"></i>
+                  <span>Previous</span>
                 </button>
               </div>
               <div class="col-md-8">
@@ -343,7 +342,8 @@
               </div>
               <div class="col-md-2">
                 <button type="button" id="deliveryNext" class="btn btn-primary pull-right">
-                  Next   <span class="glyphicon glyphicon-arrow-right"></span>
+                  <span>Next</span>
+                  <i class="fa fa-arrow-down"></i>
                 </button>
               </div>
             </div>
@@ -464,7 +464,8 @@
               </div>
               <div class="col-md-4">
                 <button type="button" id="reviewPrevious" class="btn btn-primary pull-left">
-                  <span class="glyphicon glyphicon-arrow-left"></span>   Go back
+                  <i class="fa fa-arrow-up"></i>
+                  <span>Go back</span>
                 </button>
                 <input type="image" class="pull-right" src="//www.<?php echo $siteUrl; ?>/img/paywithpp.gif" <?php if ($details_correct === false) : ?>disabled<?php endif; ?>>
               </div>

@@ -40,7 +40,7 @@
               <footer>
                 <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
                   <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
-                    <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><span class="glyphicon glyphicon-remove"></span></button>
+                    <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><i class="fa fa-trash-o"></i></button>
                   <?php endif; ?>
               </footer>
             </blockquote>
@@ -55,8 +55,8 @@
                 <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
                   <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
                     <span id="unapproved"><i> (unapproved)</i></span>
-                    <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-success btn-xs pull-right approve_testimonial"><span class="glyphicon glyphicon-ok"></span></button>
-                    <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><span class="glyphicon glyphicon-remove"></span></button>
+                    <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-success btn-xs pull-right approve_testimonial"><i class="fa fa-check"></i></button>
+                    <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><i class="fa fa-trash-o"></i></button>
                   <?php endif; ?>
               </footer>
             </blockquote>
@@ -85,7 +85,7 @@
                 <footer>
                   <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
                     <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
-                      <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><span class="glyphicon glyphicon-remove"></span></button>
+                      <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><i class="fa fa-trash-o"></i></button>
                     <?php endif; ?>
                 </footer>
               </blockquote>
@@ -100,8 +100,8 @@
                   <?php echo htmlentities($rows[$i]['name'], ENT_QUOTES, 'UTF-8'); ?><i><?php if (!empty($rows[$i]['location'])) { echo ", "; echo htmlentities($rows[$i]['location'], ENT_QUOTES, 'UTF-8'); } ?></i>
                     <?php if ($_SESSION['user'] and $_SESSION['user']['username'] === "admin") : ?>
                       <span id="unapproved"><i> (unapproved)</i></span>
-                      <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-success btn-xs pull-right approve_testimonial"><span class="glyphicon glyphicon-ok"></span></button>
-                      <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><span class="glyphicon glyphicon-remove"></span></button>
+                      <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-success btn-xs pull-right approve_testimonial"><i class="fa fa-check"></i></button>
+                      <button data-id="<?php echo $rows[$i]['id']; ?>" data-token="<?php echo $_SESSION['token']; ?>" class="btn btn-danger btn-xs pull-right delete_testimonial"><i class="fa fa-trash-o"></i></button>
                     <?php endif; ?>
                 </footer>
               </blockquote>
@@ -136,7 +136,7 @@
           <div class="col-sm-8">
             <div class="input-group">
               <input type="text" class="form-control" name="name" id="name" onchange="validate.input('#name', '#name_error', 'Please enter your name')" <?php if ($_SESSION['user']) {echo "value='" . $_SESSION['user']['first_name'] . "'";} ?>>
-              <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+              <span class="input-group-addon"><i class="fa fa-user"></span></i>
             </div>
             <div id="name_error" class="validate-error"></div>
           </div>
@@ -156,7 +156,7 @@
           <div class="col-sm-8">
             <div class="input-group">
               <input type="text" class="form-control" name="location" id="location">
-              <span class="input-group-addon"><span class="glyphicon glyphicon-home"></span></span>
+              <span class="input-group-addon"><i class="fa fa-home"></span></i>
             </div>
           </div>
         </div>
@@ -191,23 +191,23 @@
             <ul class="recaptcha_options">
               <li>
                 <a href="javascript:Recaptcha.reload()">
-                  <i class="glyphicon glyphicon-refresh"></i>
+                  <i class="fa fa-refresh"></i>
                   <span class="captcha_hide">Get another CAPTCHA</span>
                 </a>
               </li>
               <li class="recaptcha_only_if_image">
                 <a href="javascript:Recaptcha.switch_type('audio')">
-                  <i class="glyphicon glyphicon-volume-up"></i><span class="captcha_hide"> Get an audio CAPTCHA</span>
+                  <i class="fa fa-volume-up"></i><span class="captcha_hide"> Get an audio CAPTCHA</span>
                 </a>
               </li>
               <li class="recaptcha_only_if_audio">
                 <a href="javascript:Recaptcha.switch_type('image')">
-                  <i class="glyphicon glyphicon-picture"></i><span class="captcha_hide"> Get an image CAPTCHA</span>
+                  <i class="fa fa-picture"></i><span class="captcha_hide"> Get an image CAPTCHA</span>
                 </a>
               </li>
               <li>
                 <a href="javascript:Recaptcha.showhelp()">
-                  <i class="glyphicon glyphicon-question-sign"></i><span class="captcha_hide"> Help</span>
+                  <i class="fa fa-question"></i><span class="captcha_hide"> Help</span>
                 </a>
               </li>
             </ul>

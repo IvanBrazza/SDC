@@ -79,7 +79,7 @@
 </div>
 <div class="row">
   <div class="col-md-3 account-header">
-    <span class="glyphicon glyphicon-user account-glyphicon"></span>
+    <i class="fa fa-user fa-5x"></i>
     <p>You</p>
   </div>
   <div class="col-md-6 well account-well">
@@ -123,7 +123,7 @@
 </div>
 <div class="row">
   <div class="col-md-3 account-header">
-    <span class="glyphicon glyphicon-envelope account-glyphicon"></span>
+    <i class="fa fa-envelope fa-5x"></i>
     <p>Your Email</p>
   </div>
   <div class="col-md-6 well account-well">
@@ -155,7 +155,7 @@
 </div>
 <div class="row">
   <div class="col-md-3 account-header">
-    <span class="glyphicon glyphicon-cog account-glyphicon"></span>
+    <i class="fa fa-cog fa-5x"></i>
     <p>Your Password</p>
   </div>
   <div class="col-md-6 well account-well">
@@ -181,7 +181,7 @@
 </div>
 <div class="row">
   <div class="col-md-3 account-header">
-    <span class="glyphicon glyphicon-home account-glyphicon"></span>
+    <i class="fa fa-home fa-5x"></i>
     <p>Your Address</p>
   </div>
   <div class="col-md-6 well account-well">
@@ -219,7 +219,7 @@
 </div>
 <div class="row">
   <div class="col-md-3 account-header">
-    <span class="glyphicon glyphicon-earphone account-glyphicon"></span>
+    <i class="fa fa-phone fa-5x"></i>
     <p>Your Phone Number</p>
   </div>
   <div class="col-md-6 well account-well">

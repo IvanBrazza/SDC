@@ -7,6 +7,7 @@
   <title><?php echo $title ?> | Star Dream Cakes</title>
   <link rel="icon" href="//www.<?php echo $siteUrl; ?>/favicon.ico">
   <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,400' rel='stylesheet' type='text/css'>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   <link href="//www.<?php echo $siteUrl; ?>/css/bootstrap.css" rel="stylesheet">
   <link href="//www.<?php echo $siteUrl; ?>/css/jquery-ui.css" rel="stylesheet">
   <link href="//www.<?php echo $siteUrl; ?>/css/nprogress.css" rel="stylesheet">
@@ -73,12 +74,32 @@
             </a>
             <ul class="dropdown-menu">
               <?php if (!empty($_SESSION['user'])) : ?>
-                <li><a href="//www.<?php echo $siteUrl; ?>/edit-account">Edit Account</a></li>
+                <li>
+                  <a href="//www.<?php echo $siteUrl; ?>/edit-account">
+                    <i class="fa fa-fw fa-edit"></i>
+                    <span>Edit Account</span>
+                  </a>
+                </li>
                 <li class="divider"></li>
-                <li><a href="//www.<?php echo $siteUrl; ?>/lib/logout.php">Logout</a></li>
+                <li>
+                  <a href="//www.<?php echo $siteUrl; ?>/lib/logout.php">
+                    <i class="fa fa-fw fa-sign-out"></i>
+                    <span>Logout</span>
+                  </a>
+                </li>
               <?php else : ?>
-                <li><a href="//www.<?php echo $siteUrl; ?>/login?redirect=<?php echo $_SERVER['REQUEST_URI']; ?>">Login</a></li>
-                <li><a href="//www.<?php echo $siteUrl; ?>/register">Register</a></li>
+                <li>
+                  <a href="//www.<?php echo $siteUrl; ?>/login?redirect=<?php echo $_SERVER['REQUEST_URI']; ?>">
+                    <i class="fa fa-fw fa-sign-in"></i>
+                    <span>Login</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="//www.<?php echo $siteUrl; ?>/register">
+                    <i class="fa fa-fw fa-users"></i>
+                    <span>Register</span>
+                  </a>
+                </li>
               <?php endif; ?>
             </ul>
           </li>

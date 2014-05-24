@@ -120,7 +120,7 @@
   <?php if (!empty($_GET['order'])) : ?>
     <div class="row">
       <div class="col-md-12">
-        <h1>Order <?php echo $row['order_number']; ?><?php if ($row['completed'] === "1") : ?> (completed)<?php else: ?> <a href="//www.<?php echo $siteUrl; ?>/edit-order/?order=<?php echo $row['order_number']; ?>" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-pencil"></span>   Edit Order</a><?php endif; ?></h1>
+        <h1>Order <?php echo $row['order_number']; ?><?php if ($row['completed'] === "1") : ?> (completed)<?php else: ?> <a href="//www.<?php echo $siteUrl; ?>/edit-order/?order=<?php echo $row['order_number']; ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>   Edit Order</a><?php endif; ?></h1>
         <?php if (!empty($row['image'])) : ?>
           <div class="modal fade" id="image-modal" role="modal" aria-hidden="true" aria-labelledby="myModalLabel">
             <div class="modal-dialog modal-lg">
@@ -198,7 +198,7 @@
             <td>
               <?php echo htmlentities($row['delivery_type'], ENT_QUOTES, 'UTF-8'); ?>
               <?php if ($row['delivery_type'] === "Collection") : ?>
-                <a href="//www.<?php echo $siteUrl; ?>/get-directions/"><button class="btn btn-info btn-xs"><span class="glyphicon glyphicon-road"></span>   Get Directions to collection point</button></a>
+                <a href="//www.<?php echo $siteUrl; ?>/get-directions/"><button class="btn btn-info btn-xs"><i class="fa fa-road"></i>   Get Directions to collection point</button></a>
               <?php endif; ?>
             </td>
           </tr>
@@ -211,13 +211,13 @@
       <div class="col-md-6">
         <?php if (!empty($_GET['edit']) and $_GET['edit'] == "success") : ?>
           <div class="alert alert-success" style="display:block;">
-            <span class="glyphicon glyphicon-ok"></span>
-            Order successfully updated.
+            <i class="fa fa-check"></i>
+            <span>Order successfully updated.</span>
           </div>
         <?php endif; ?>
         <?php if ($row['difference'] != 0) : ?>
           <div class="alert alert-info" style="display:block;">
-            <span class="glyphicon glyphicon-warning-sign"></span>
+            <i class="fa fa-warning"></i>
             There is a difference on this order of <strong>&pound;<?php echo $row['difference']; ?></strong>.
             <?php if ($row['difference'] > 0) : ?>
               This means that we owe you <b>&pound;<?php echo abs($row['difference']); ?></b>.
@@ -251,10 +251,10 @@
             <caption>Outstanding Orders</caption>
             <thead>
               <tr>
-                <th>Order Number <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=order_number"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=order_number"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
-                <th>Order Placed <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=order_placed"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=order_placed"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
-                <th>Required Date <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=datetime"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=datetime"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
-                <th>Status <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=status"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=status"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+                <th>Order Number <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=order_number"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=order_number"><i class="fa fa-caret-up"></i></a></span></th>
+                <th>Order Placed <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=order_placed"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=order_placed"><i class="fa fa-caret-up"></i></a></span></th>
+                <th>Required Date <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=datetime"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=datetime"><i class="fa fa-caret-up"></i></a></span></th>
+                <th>Status <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=status"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=status"><i class="fa fa-caret-up"></i></a></span></th>
               </tr>
             </thead>
             <tbody>
@@ -279,10 +279,10 @@
           <caption>Completed Orders</caption>
           <thead>
             <tr>
-              <th>Order Number <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=order_number"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=order_number"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
-              <th>Order Placed <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=order_placed"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=order_placed"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
-              <th>Required Date <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=datetime"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=datetime"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
-              <th>Status <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=status"><span class="glyphicon glyphicon-chevron-up"></span></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=status"><span class="glyphicon glyphicon-chevron-down"></span></a></span></th>
+              <th>Order Number <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=order_number"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=order_number"><i class="fa fa-caret-up"></i></a></span></th>
+              <th>Order Placed <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=order_placed"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=order_placed"><i class="fa fa-caret-up"></i></a></span></th>
+              <th>Required Date <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=datetime"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=datetime"><i class="fa fa-caret-up"></i></a></span></th>
+              <th>Status <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=DESC&col=status"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/your-orders/?sort=ASC&col=status"><i class="fa fa-caret-up"></i></a></span></th>
             </tr>
           </thead>
           <tbody>

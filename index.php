@@ -11,6 +11,7 @@
   <title><?php echo $title ?> | Star Dream Cakes</title>
   <link rel="icon" href="//www.<?php echo $siteUrl; ?>/favicon.ico">
   <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,400' rel='stylesheet' type='text/css'>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   <link href="//www.<?php echo $siteUrl; ?>/css/bootstrap.css" rel="stylesheet">
   <link href="//www.<?php echo $siteUrl; ?>/css/home.css" rel="stylesheet">
   <link href="//www.<?php echo $siteUrl; ?>/css/main.css" rel="stylesheet">
@@ -54,12 +55,32 @@
             </a>
             <ul class="dropdown-menu">
               <?php if (!empty($_SESSION['user'])) : ?>
-                <li><a href="//www.<?php echo $siteUrl; ?>/edit-account">Edit Account</a></li>
+                <li>
+                  <a href="//www.<?php echo $siteUrl; ?>/edit-account">
+                    <i class="fa fa-fw fa-edit"></i>
+                    <span>Edit Account</span>
+                  </a>
+                </li>
                 <li class="divider"></li>
-                <li><a href="//www.<?php echo $siteUrl; ?>/lib/logout.php">Logout</a></li>
+                <li>
+                  <a href="//www.<?php echo $siteUrl; ?>/lib/logout.php">
+                    <i class="fa fa-fw fa-sign-out"></i>
+                    <span>Logout</span>
+                  </a>
+                </li>
               <?php else : ?>
-                <li><a href="//www.<?php echo $siteUrl; ?>/login">Login</a></li>
-                <li><a href="//www.<?php echo $siteUrl; ?>/register">Register</a></li>
+                <li>
+                  <a href="//www.<?php echo $siteUrl; ?>/login?redirect=<?php echo $_SERVER['REQUEST_URI']; ?>">
+                    <i class="fa fa-fw fa-sign-in"></i>
+                    <span>Login</span>
+                  </a>
+                </li>
+                <li>
+                  <a href="//www.<?php echo $siteUrl; ?>/register">
+                    <i class="fa fa-fw fa-users"></i>
+                    <span>Register</span>
+                  </a>
+                </li>
               <?php endif; ?>
             </ul>
           </li>
@@ -223,8 +244,18 @@
     <div class="footer">
       <div class="row social-row">
         <div class="col-md-4">
-          <a href="javascript:" class="social social-facebook">Facebook</a>
-          <a href="javascript:" class="social social-twitter">Twitter</a>
+          <a href="javascript:" class="social-facebook">
+            <span class="fa-stack fa-lg fa-2x">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+            </span>
+          </a>
+          <a href="javascript:" class="social-twitter">
+            <span class="fa-stack fa-lg fa-2x">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+            </span>
+          </a>
         </div>
         <div class="col-md-4">
           <div class="copyright">
@@ -233,8 +264,16 @@
         </div>
         <div class="col-md-4">
           <div class="contact">
-            <p><span class="glyphicon glyphicon-phone-alt pull-left"></span>020 8800 8135</p>
-            <p><span class="glyphicon glyphicon-envelope pull-left"></span><a href="mailto:customerhelp@<?php echo $siteUrl; ?>">customerhelp@<?php echo $siteUrl; ?></a></p>
+            <p>
+              <i class="fa fa-phone-square pull-left"></i>
+              020 8800 8135
+            </p>
+            <p>
+              <i class="fa fa-envelope-square pull-left"></i>
+              <a href="mailto:customerhelp@<?php echo $siteUrl; ?>">
+                customerhelp@<?php echo $siteUrl; ?>
+              </a>
+            </p>
           </div>
         </div>
       </div>

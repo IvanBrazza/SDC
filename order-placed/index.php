@@ -234,7 +234,10 @@
           </tr>
         </table>
         <p>A copy of your order has been emailed to you. Any further updates to your order will be sent to you by email</p>
-        <a href="//www.<?php echo $siteUrl; ?>/print/?order=<?php echo $_GET['order']; ?>" target="_blank" class="btn btn-info"><span class="glyphicon glyphicon-print"></span>   Print your order</a>
+        <a href="//www.<?php echo $siteUrl; ?>/print/?order=<?php echo $_GET['order']; ?>" target="_blank" class="btn btn-info">
+          <i class="fa fa-print"></i>
+          <span>Print your order</span>
+        </a>
       </div>
       <div class="col-md-6"></div>
     </div>

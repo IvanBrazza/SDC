@@ -136,7 +136,7 @@
               </div>
               <div class="col-md-2">
                 <button type="button" id="theCustomerNext" class="btn btn-primary pull-right">
-                  Next   <span class="glyphicon glyphicon-arrow-right"></span>
+                  Next   <i class="fa fa-arrow-down"></i>
                 </button>
               </div>
             </div>
@@ -152,7 +152,7 @@
             <div class="panel-body">
               <div class="col-md-2">
                 <button type="button" id="theCakePrevious" class="btn btn-primary">
-                  <span class="glyphicon glyphicon-arrow-left"></span>   Previous
+                  <i class="fa fa-arrow-up"></i>   Previous
                 </button>
               </div>
               <div class="col-md-8">
@@ -240,7 +240,7 @@
               </div>
               <div class="col-md-2">
                 <button type="button" id="theCakeNext" class="btn btn-primary pull-right">
-                  Next   <span class="glyphicon glyphicon-arrow-right"></span>
+                  Next   <i class="fa fa-arrow-down"></i>
                 </button>
               </div>
             </div>
@@ -256,7 +256,7 @@
             <div class="panel-body">
               <div class="col-md-2">
                 <button type="button" id="deliveryPrevious" class="btn btn-primary">
-                  <span class="glyphicon glyphicon-arrow-left"></span>   Previous
+                  <i class="fa fa-arrow-up"></i>   Previous
                 </button>
               </div>
               <div class="col-md-8">
@@ -286,7 +286,7 @@
               </div>
               <div class="col-md-2">
                 <button type="button" id="deliveryNext" class="btn btn-primary pull-right">
-                  Next   <span class="glyphicon glyphicon-arrow-right"></span>
+                  Next   <i class="fa fa-arrow-down"></i>
                 </button>
               </div>
             </div>
@@ -410,10 +410,10 @@
                   </tr>
                 </table>
                 <button type="button" id="reviewPrevious" class="btn btn-primary pull-left">
-                  <span class="glyphicon glyphicon-arrow-left"></span>   Go back
+                  <i class="fa fa-arrow-up"></i>   Go back
                 </button>
                 <button type="submit" class="btn btn-success pull-right">
-                  <span class="glyphicon glyphicon-plus"></span>   Add Order
+                  <i class="fa fa-plus"></i>   Add Order
                 </button>
               </div>
             </div>

@@ -27,20 +27,20 @@ $(document).ready(function() {
                                            .removeClass("has-success")
                                            .addClass("has-error")
                                            .find(".input-group-addon")
-                                           .html("<span class='glyphicon glyphicon-remove'></span>");
+                                           .html("<i class='fa fa-times'></i>");
                   break;
                 case "004":
                   $("input[name=email]").closest(".input-group")
                                         .removeClass("has-success")
                                         .addClass("has-error")
                                         .find(".input-group-addon")
-                                        .html("<span class='glyphicon glyphicon-remove'></span>");
+                                        .html("<i class='fa fa-times'></i>");
               }
               if (object.code != "001") $("input[name=token]").val(object.token);
-              $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.error).show();
+              $("#error_message").html("<i class='fa fa-times-circle'></i>" + object.error).show();
             }
           } catch(error) {
-            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+            $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   Oops! Something went wrong. Try again<br>" +
               "<b>Error: " + error.message + "</b>");
             $("#error_modal").modal("show");
             setTimeout(function() {
@@ -77,21 +77,21 @@ $(document).ready(function() {
                                 .removeClass("has-success")
                                 .addClass("has-error")
                                 .find(".input-group-addon")
-                                .html("<span class='glyphicon glyphicon-remove'></span>");
+                                .html("<i class='fa fa-times'></i>");
                   break;
                 case "003":
                   $("#password").closest(".form-group")
                                 .removeClass("has-success")
                                 .addClass("has-error")
                                 .find(".input-group-addon")
-                                .html("<span class='glyphicon glyphicon-remove'></span>");
+                                .html("<i class='fa fa-times'></i>");
                   break;
               }
               if (object.code != "001") $("input[name=token]").val(object.token);
-              $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>" + object.error).show();
+              $("#error_message").html("<i class='fa fa-times-circle'></i>" + object.error).show();
             }
           } catch(error) {
-            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+            $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   Oops! Something went wrong. Try again<br>" +
               "<b>Error: " + error.message + "</b>");
             $("#error_modal").modal("show");
             setTimeout(function() {
@@ -121,9 +121,9 @@ $(document).ready(function() {
                          .removeClass("has-error")
                          .addClass("has-success")
                          .find(".input-group-addon")
-                         .html("<span class='glyphicon glyphicon-ok'></span>");
+                         .html("<i class='fa fa-check'></i>");
               $("#error_message").hide();
-              $("#success_message").html("<span class='glyphicon glyphicon-ok'></span>   Password reset. Please check your emails for a new password.").show();
+              $("#success_message").html("<i class='fa fa-check'></i>   Password reset. Please check your emails for a new password.").show();
             } else if (object.status == 'error') {
               switch (object.code) {
                 case "002":
@@ -131,14 +131,14 @@ $(document).ready(function() {
                              .removeClass("has-success")
                              .addClass("has-error")
                              .find(".input-group-addon")
-                             .html("<span class='glyphicon glyphicon-remove'></span>");
+                             .html("<i class='fa fa-times'></i>");
                   break;
               }
-              $("#error_message").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error).show();
+              $("#error_message").html("<i class='fa fa-times-circle'></i>   " + object.error).show();
               $("#token").val(object.token);
             }
           } catch(error) {
-            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+            $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   Oops! Something went wrong. Try again<br>" +
               "<b>Error: " + error.message + "</b>");
             $("#error_modal").modal("show");
             setTimeout(function() {
@@ -212,14 +212,14 @@ var validate = {
       $email.removeClass("has-success")
             .addClass("has-error")
             .find(".input-group-addon")
-            .html("<span class='glyphicon glyphicon-remove'></span>");
+            .html("<i class='fa fa-times'></i>");
       return false;
     } else if (regex.test(email)){
       $email_error.slideUp("fast");
       $email.removeClass("has-error")
             .addClass("has-success")
             .find(".input-group-addon")
-            .html("<span class='glyphicon glyphicon-ok'></span>");
+            .html("<i class='fa fa-check'></i>");
       return true;
     } else {
       $email_error.html("Please enter a valid email")
@@ -227,7 +227,7 @@ var validate = {
       $email.removeClass("has-success")
             .addClass("has-error")
             .find(".input-group-addon")
-            .html("<span class='glyphicon glyphicon-remove'></span>");
+            .html("<i class='fa fa-times'></i>");
       return false;
     }
   },
@@ -242,7 +242,7 @@ var validate = {
       $password.removeClass("has-success")
                .addClass("has-error")
                .find(".input-group-addon")
-               .html("<span class='glyphicon glyphicon-remove'></span>");
+               .html("<i class='fa fa-times'></i>");
       return false;
     } else if (password.length < 5) {
       $password_error.html("Password must be at least 5 characters")
@@ -250,14 +250,14 @@ var validate = {
       $password.removeClass("has-success")
                .addClass("has-error")
                .find(".input-group-addon")
-               .html("<span class='glyphicon glyphicon-remove'></span>");
+               .html("<i class='fa fa-times'></i>");
       return false;
     } else {
       $password_error.slideUp("fast");
       $password.removeClass("has-error")
                .addClass("has-success")
                .find(".input-group-addon")
-               .html("<span class='glyphicon glyphicon-ok'></span>");
+               .html("<i class='fa fa-check'></i>");
       return true;
     }
   },
@@ -273,14 +273,14 @@ var validate = {
       $password2.removeClass("has-success")
                 .addClass("has-error")
                 .find(".input-group-addon")
-                .html("<span class='glyphicon glyphicon-remove'></span>");
+                .html("<i class='fa fa-times'></i>");
       return false;
     } else if (password === password2) {
       $password2_error.slideUp("fast");
       $password2.removeClass("has-error")
                 .addClass("has-success")
                 .find(".input-group-addon")
-                .html("<span class='glyphicon glyphicon-ok'></span>");
+                .html("<i class='fa fa-check'></i>");
       return true;
     } else {
       $password2_error.html("Passwords do not match")
@@ -288,7 +288,7 @@ var validate = {
       $password2.removeClass("has-success")
                 .addClass("has-error")
                 .find(".input-group-addon")
-                .html("<span class='glyphicon glyphicon-remove'></span>");
+                .html("<i class='fa fa-times'></i>");
       return false;
     }
   },
@@ -303,7 +303,7 @@ var validate = {
       $username.removeClass("has-success")
                .addClass("has-error")
                .find(".input-group-addon")
-               .html("<span class='glyphicon glyphicon-remove'></span>");
+               .html("<i class='fa fa-times'></i>");
       return false;
     } else if (username.length < 3) {
       $username_error.html("Username must be at least 3 characters")
@@ -311,14 +311,14 @@ var validate = {
       $username.removeClass("has-success")
                .addClass("has-error")
                .find(".input-group-addon")
-               .html("<span class='glyphicon glyphicon-remove'></span>");
+               .html("<i class='fa fa-times'></i>");
       return false;
     } else {
       $username_error.slideUp("fast");
       $username.removeClass("has-error")
                .addClass("has-success")
                .find(".input-group-addon")
-               .html("<span class='glyphicon glyphicon-ok'></span>");
+               .html("<i class='fa fa-check'></i>");
       return true;
     }
   },
@@ -333,14 +333,14 @@ var validate = {
       input.removeClass("has-success")
            .addClass("has-error")
            .find(".input-group-addon")
-           .html("<span class='glyphicon glyphicon-remove'></span>");
+           .html("<i class='fa fa-times'></i>");
       return false;
     } else {
       $error.slideUp("fast");
       input.removeClass("has-error")
            .addClass("has-success")
            .find(".input-group-addon")
-           .html("<span class='glyphicon glyphicon-ok'></span>");
+           .html("<i class='fa fa-check'></i>");
       return true;
     }
   },
@@ -356,14 +356,14 @@ var validate = {
       $postcode.removeClass("has-success")
                .addClass("has-error")
                .find(".input-group-addon")
-               .html("<span class='glyphicon glyphicon-remove'></span>");
+               .html("<i class='fa fa-times'></i>");
       return false;
     } else if (regex.test(postcode)) {
       $postcode_error.slideUp("fast");
       $postcode.removeClass("has-error")
                .addClass("has-success")
                .find(".input-group-addon")
-               .html("<span class='glyphicon glyphicon-ok'></span>");
+               .html("<i class='fa fa-check'></i>");
       return true;
     } else {
       $postcode_error.html("Please enter a valid postcode")
@@ -371,7 +371,7 @@ var validate = {
       $postcode.removeClass("has-success")
                .addClass("has-error")
                .find(".input-group-addon")
-               .html("<span class='glyphicon glyphicon-remove'></span>");
+               .html("<i class='fa fa-times'></i>");
       return false;
     }
   },
@@ -387,14 +387,14 @@ var validate = {
       $phone.removeClass("has-success")
             .addClass("has-error")
             .find(".input-group-addon")
-            .html("<span class='glyphicon glyphicon-remove'></span>");
+            .html("<i class='fa fa-times'></i>");
       return false;
     } else if (regex.test(phone)) {
       $phone_error.slideUp("fast");
       $phone.removeClass("has-error")
             .addClass("has-success")
             .find(".input-group-addon")
-            .html("<span class='glyphicon glyphicon-ok'></span>");
+            .html("<i class='fa fa-check'></i>");
       return true;
     } else {
       $phone_error.html("Please enter a valid phone number")
@@ -402,7 +402,7 @@ var validate = {
       $phone.removeClass("has-success")
             .addClass("has-error")
             .find(".input-group-addon")
-            .html("<span class='glyphicon glyphicon-remove'></span>");
+            .html("<i class='fa fa-times'></i>");
       return false;
     }
   }
@@ -465,7 +465,7 @@ function calculateOrderTotal(callback) {
           }
         }
       } catch(error) {
-        $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+        $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   Oops! Something went wrong. Try again<br>" +
           "<b>Error: " + error.message + "</b>");
         $("#error_modal").modal("show");
         setTimeout(function() {

@@ -15,21 +15,21 @@ $(document).ready(function() {
             object = JSON.parse(response);
             if (object.status == "success") {
               $("input[name=token]").val(object.token);
-              $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Personal details updated");
+              $("#success_modal .alert").html("<i class='fa fa-check-circle-o'></i>   Personal details updated");
               $("#success_modal").modal("show");
               setTimeout(function() {
                 $("#success_modal").modal("hide");
               }, 1500);
             } else {
               $("input[name=token]").val(object.token);
-              $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+              $("#error_modal .alert").html("<i class='fa fa-times-circle-o'></i>   " + object.error);
               $("#error_modal").modal("show");
               setTimeout(function() {
                 $("#error_modal").modal("hide");
               }, 1500);
             }
           } catch(error) {
-            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+            $("#error_modal .alert").html("<i class='fa fa-times-circle-o'></i>   Oops! Something went wrong. Try again<br>" +
               "<b>Error: " + error.message + "</b>");
             $("#error_modal").modal("show");
             setTimeout(function() {
@@ -58,14 +58,14 @@ $(document).ready(function() {
               window.location.href = "../verify-email/?type=edit";
             } else {
               $("input[name=token]").val(object.token);
-              $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+              $("#error_modal .alert").html("<i class='fa fa-times-circle-o'></i>   " + object.error);
               $("#error_modal").modal("show");
               setTimeout(function() {
                 $("#error_modal").modal("hide");
               }, 1500);
             }
           } catch(error) {
-            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+            $("#error_modal .alert").html("<i class='fa fa-times-circle-o'></i>   Oops! Something went wrong. Try again<br>" +
               "<b>Error: " + error.message + "</b>");
             $("#error_modal").modal("show");
             setTimeout(function() {
@@ -92,21 +92,21 @@ $(document).ready(function() {
             object = JSON.parse(response);
             if (object.status == "success") {
               $("input[name=token]").val(object.token);
-              $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Password updated");
+              $("#success_modal .alert").html("<i class='fa fa-check-circle-o'></i>   Password updated");
               $("#success_modal").modal("show");
               setTimeout(function() {
                 $("#success_modal").modal("hide");
               }, 1500);
             } else {
               $("input[name=token]").val(object.token);
-              $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+              $("#error_modal .alert").html("<i class='fa fa-times-circle-o'></i>   " + object.error);
               $("#error_modal").modal("show");
               setTimeout(function() {
                 $("#error_modal").modal("hide");
               }, 1500);
             }
           } catch(error) {
-            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+            $("#error_modal .alert").html("<i class='fa fa-times-circle-o'></i>   Oops! Something went wrong. Try again<br>" +
               "<b>Error: " + error.message + "</b>");
             $("#error_modal").modal("show");
             setTimeout(function() {
@@ -153,21 +153,21 @@ $(document).ready(function() {
                 if (object.status == "success") {
                   $("input[name=token]").val(object.token);
                   $("#current-address").html($("input[name=address]").val() + ", " + $("input[name=postcode]").val());
-                  $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Address updated");
+                  $("#success_modal .alert").html("<i class='fa fa-check-circle-o'></i>   Address updated");
                   $("#success_modal").modal("show");
                   setTimeout(function() {
                     $("#success_modal").modal("hide");
                   }, 1500);
                 } else {
                   $("input[name=token]").val(object.token);
-                  $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+                  $("#error_modal .alert").html("<i class='fa fa-times-circle-o'></i>   " + object.error);
                   $("#error_modal").modal("show");
                   setTimeout(function() {
                     $("#error_modal").modal("hide");
                   }, 1500);
                 }
               } catch(error) {
-                $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+                $("#error_modal .alert").html("<i class='fa fa-times-circle-o'></i>   Oops! Something went wrong. Try again<br>" +
                   "<b>Error: " + error.message + "</b>");
                 $("#error_modal").modal("show");
                 setTimeout(function() {
@@ -197,21 +197,21 @@ $(document).ready(function() {
             if (object.status == "success") {
               $("input[name=token]").val(object.token);
               $("#current-phone").html($("input[name=phone]").val());
-              $("#success_modal .alert").html("<span class='glyphicon glyphicon-ok-circle'></span>   Phone Number updated");
+              $("#success_modal .alert").html("<i class='fa fa-check-circle-o'></i>   Phone Number updated");
               $("#success_modal").modal("show");
               setTimeout(function() {
                 $("#success_modal").modal("hide");
               }, 1500);
             } else {
               $("input[name=token]").val(object.token);
-              $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   " + object.error);
+              $("#error_modal .alert").html("<i class='fa fa-times-circle-o'></i>   " + object.error);
               $("#error_modal").modal("show");
               setTimeout(function() {
                 $("#error_modal").modal("hide");
               }, 1500);
             }
           } catch(error) {
-            $("#error_modal .alert").html("<span class='glyphicon glyphicon-remove-circle'></span>   Oops! Something went wrong. Try again<br>" +
+            $("#error_modal .alert").html("<i class='fa fa-times-circle-o'></i>   Oops! Something went wrong. Try again<br>" +
               "<b>Error: " + error.message + "</b>");
             $("#error_modal").modal("show");
             setTimeout(function() {
