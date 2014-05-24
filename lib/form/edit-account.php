@@ -32,6 +32,44 @@
     $db->runQuery($query, $query_params);
     $row = $db->fetch();
 
+    // Check password
+    switch ($_POST['type'])
+    {
+      case "personal":
+        $check_password = hash('sha256', $_POST['name_password'] . $row['email']);
+        break;
+      case "email":
+        $check_password = hash('sha256', $_POST['email_password'] . $row['email']);
+        break;
+      case "password":
+        $check_password = hash('sha256', $_POST['old_password'] . $row['email']);
+        break;
+      case "address":
+        $check_password = hash('sha256', $_POST['address_password'] . $row['email']);
+        break;
+      case "phone":
+        $check_password = hash('sha256', $_POST['phone_password'] . $row['email']);
+        break;
+    }
+    for ($i = 0; $i < 65536; $i++)
+    {
+      $check_password = hash('sha256', $check_password . $row['email']);
+    }
+    if ($check_password !== $row['password'])
+    {
+      // Generate new token
+      $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
+
+      $response = array(
+        'status' => 'error',
+        'error'  => 'Incorrect password',
+        'token'  => $_SESSION['token']
+      );
+
+      echo json_encode($response);
+      die();
+    }
+
     // What are we updating?
     if ($_POST['type'] == "personal")
     {

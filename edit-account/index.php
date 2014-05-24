@@ -113,6 +113,15 @@
           </div>
         </div>
       </div>
+      <div class="form-group">
+        <label for="password" class="control-label">Confirm Password</label>
+        <div class="row">
+          <div class="col-md-7">
+            <input type="password" class="form-control" name="name_password" placeholder="Confirm current password" onchange="validate.input('input[name=name_password]', '#name_password_error', 'Please enter your current password')"> 
+            <div id="name_password_error" class="validate-error"></div>
+          </div>
+        </div>
+      </div>
       <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
       <input type="hidden" value="<?php echo $_SESSION['user']['customer_id']; ?>" name="id">
       <input type="hidden" value="personal" name="type">
@@ -138,11 +147,19 @@
       <div class="form-group">
         <label for="email" class="control-label">E-Mail Address</label>
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-7">
             <input type="email" class="form-control" name="email" id="email" placeholder="Enter new email address" onchange="validate.email()"> 
             <div id="email-error" class="validate-error"></div>
           </div>
-          <div class="col-md-7"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="control-label">Confirm Password</label>
+        <div class="row">
+          <div class="col-md-7">
+            <input type="password" class="form-control" name="email_password" placeholder="Confirm current password" onchange="validate.input('input[name=email_password]', '#email_password_error', 'Please enter your current password')"> 
+            <div id="email_password_error" class="validate-error"></div>
+          </div>
         </div>
       </div>
       <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
@@ -164,7 +181,16 @@
     <hr class="fancy-line hidden-xs">
     <form id="edit-account-password-form" class="form" role="form">
       <div class="form-group">
-        <label for="password" class="control-label">Password</label>
+        <label for="password" class="control-label">Old Password</label>
+        <div class="row">
+          <div class="col-md-7">
+            <input type="password" class="form-control" name="old_password" placeholder="Enter old password" onchange="validate.input('input[name=old_password]', '#old_password_error', 'Please enter your current password')"> 
+            <div id="old_password_error" class="validate-error"></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="control-label">New Password</label>
         <div class="row">
           <div class="col-md-7">
             <input type="password" class="form-control" name="password" id="password" placeholder="Enter new password" onchange="validate.password()">
@@ -210,6 +236,15 @@
           </div>
         </div>
       </div>
+      <div class="form-group">
+        <label for="password" class="control-label">Confirm Password</label>
+        <div class="row">
+          <div class="col-md-7">
+            <input type="password" class="form-control" name="address_password" placeholder="Confirm current password" onchange="validate.input('input[name=address_password]', '#address_password_error', 'Please enter your current password')"> 
+            <div id="address_password_error" class="validate-error"></div>
+          </div>
+        </div>
+      </div>
       <input type="hidden" value="<?php echo $_SESSION['token']; ?>" name="token">
       <input type="hidden" value="<?php echo $_SESSION['user']['customer_id']; ?>" name="id">
       <input type="hidden" value="address" name="type">
@@ -236,6 +271,15 @@
           <div class="col-sm-7">
             <input type="tel" class="form-control" name="phone" id="phone" placeholder="Enter new phone number" onchange="validate.phone()">
             <div id="phone_error" class="validate-error"></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="control-label">Confirm Password</label>
+        <div class="row">
+          <div class="col-md-7">
+            <input type="password" class="form-control" name="phone_password" placeholder="Confirm current password" onchange="validate.input('input[name=phone_password]', '#phone_password_error', 'Please enter your current password')"> 
+            <div id="phone_password_error" class="validate-error"></div>
           </div>
         </div>
       </div>

@@ -3,8 +3,9 @@ $(document).ready(function() {
     e.preventDefault();
     // Validate inputs
     var firs_check = validate.input('input[name=first_name]', '#first_name_error', 'Please enter your first name'),
-        last_check = validate.input('input[name=last_name]', '#last_name_error', 'Please enter your last name');
-    if (firs_check && last_check) {
+        last_check = validate.input('input[name=last_name]', '#last_name_error', 'Please enter your last name'),
+        pass_check = validate.input('input[name=name_password]', '#name_password_error', 'Please enter your current password');
+    if (firs_check && last_check && pass_check) {
       // Submit the form
       $.ajax({
         type: 'post',
@@ -44,8 +45,9 @@ $(document).ready(function() {
   $("#edit-account-email-form").submit(function(e) {
     e.preventDefault();
     // Validate inputs
-    var emai_check = validate.email();
-    if (emai_check) {
+    var emai_check = validate.email(),
+        pass_check = validate.input('input[name=email_password]', '#email_password_error', 'Please enter your current password');
+    if (emai_check && pass_check) {
       // Submit the form
       $.ajax({
         type: 'post',
@@ -81,7 +83,8 @@ $(document).ready(function() {
     e.preventDefault();
     // Validate inputs
     var pass_check = validate.password();
-    if (pass_check) {
+        old_check  = validate.input('input[name=old_password]', '#old_password_error', 'Please enter your current password');
+    if (pass_check && old_check) {
       // Submit the form
       $.ajax({
         type: 'post',
@@ -122,9 +125,10 @@ $(document).ready(function() {
     e.preventDefault();
     // Validate inputs
     var post_check = validate.postcode(),
-        addr_check = validate.input('input[name=address]', '#address_error', 'Please enter your address')
+        addr_check = validate.input('input[name=address]', '#address_error', 'Please enter your address'),
+        pass_check = validate.input('input[name=address_password]', '#address_password_error', 'Please enter your current password'),
         form       = this;
-    if (post_check && addr_check) {
+    if (post_check && addr_check && pass_check) {
       var geocoder = new google.maps.Geocoder();;
       geocoder.geocode({
         'address': $("input[name=address]").val().replace(" ", ",") + "," + $("input[name=postcode]").val().replace(" ", ","),
@@ -184,8 +188,9 @@ $(document).ready(function() {
   $("#edit-account-phone-form").submit(function(e) {
     e.preventDefault();
     // Validate inputs
-    var phon_check = validate.phone();
-    if (phon_check) {
+    var phon_check = validate.phone(),
+        pass_check = validate.input('input[name=phone_password]', '#phone_password_error', 'Please enter your current password');
+    if (phon_check && pass_check) {
       // Submit the form
       $.ajax({
         type: 'post',
