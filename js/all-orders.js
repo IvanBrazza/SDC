@@ -1,6 +1,7 @@
 /**
   js/all-orders.js - code specific to the all-orders page
 **/
+var orderNumbers = false;
 $(document).ready(function() {
   // When the order search form is submitted
   $("#order_search").submit(function(e) {
@@ -25,7 +26,7 @@ $(document).ready(function() {
 
   // If not GET (i.e. displaying all orders and not
   // a specific order
-  if (window.location.search == "" || window.location.search.indexOf("sort") >= 0) {
+  if (orderNumbers) {
     // Enable autocomplete for the order search form
     // with all of the order numbers. If the user
     // clicks on one of these autocompletes, insert

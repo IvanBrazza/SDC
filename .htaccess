@@ -1,5 +1,15 @@
+RewriteEngine On
 RewriteCond %{HTTP_HOST} !^$
 RewriteCond %{HTTP_HOST} !^www\. [NC]
 RewriteCond %{HTTPS}s ^on(s)|
 RewriteRule ^ http%1://www.%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
 Options -Indexes
+RewriteRule ^all-orders/order/([m0-9]+)/?$ /all-orders/?order=$1 [L]
+RewriteRule ^all-orders/sort/([a-z_]+)/([A-Z]+)/?$ /all-orders/?sort=$2&col=$1 [L]
+RewriteRule ^customer/([0-9]+)/sort/([a-z_]+)/([A-Z]+)/?$ /all-orders/?id=$1&sort=$3&col=$2 [L]
+RewriteRule ^customer/([0-9]+)/?$ /all-orders/?id=$1 [L]
+RewriteRule ^your-orders/([m0-9]+)/?$ /your-orders/?order=$1 [L]
+RewriteRule ^your-orders/sort/([a-z_]+)/([A-Z]+)/?$ /your-orders/?sort=$2&col=$1 [L]
+RewriteRule ^edit-order/([m0-9]+)/?$ /edit-order/?order=$1 [L]
+RewriteRule ^get-directions/([0-9]+)/?$ /get-directions/?id=$1 [L]
+RewriteRule ^print/([m0-9]+)/?$ /print/?order=$1 [L]

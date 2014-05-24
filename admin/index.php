@@ -369,7 +369,7 @@
           <tbody>
             <?php foreach($customers as $customer): ?>
               <tr>
-                <td><a href="//www.<?php echo $siteUrl; ?>/all-orders/?id=<?php echo $customer['customer_id']; ?>"></a><?php echo htmlentities($customer['username'], ENT_QUOTES, 'UTF-8'); ?></td> 
+                <td><a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $customer['customer_id']; ?>"></a><?php echo htmlentities($customer['username'], ENT_QUOTES, 'UTF-8'); ?></td> 
                 <td><?php echo htmlentities($customer['email'], ENT_QUOTES, 'UTF-8'); ?></td> 
                 <td><?php echo htmlentities($customer['first_name'], ENT_QUOTES, 'UTF-8'); ?></td>
                 <td><?php echo htmlentities($customer['last_name'], ENT_QUOTES, 'UTF-8'); ?></td>

@@ -376,7 +376,7 @@
         <?php echo htmlentities($row['address'], ENT_QUOTES, 'UTF-8'); ?><br />
         <?php echo htmlentities($row['postcode'], ENT_QUOTES, 'UTF-8'); ?><br />
         <i>(<?php echo $delivery->getDistance(); ?> miles away)</i><br/>
-        <a href="//www.<?php echo $siteUrl; ?>/get-directions?id=<?php echo $row['customer_id']; ?>">
+        <a href="//www.<?php echo $siteUrl; ?>/get-directions/<?php echo $row['customer_id']; ?>">
           <button type="button" class="btn btn-info btn-xs">
             <i class="fa fa-road"></i>
             <span>Get directions to this address</span>
@@ -416,7 +416,7 @@
         <?php echo htmlentities($rows[0]['address'], ENT_QUOTES, 'UTF-8'); ?><br />
         <?php echo htmlentities($rows[0]['postcode'], ENT_QUOTES, 'UTF-8'); ?><br />
         <i>(<?php echo $delivery->getDistance(); ?> miles away)</i><br />
-        <a href="//www.<?php echo $siteUrl; ?>/get-directions?id=<?php echo $_GET['id']; ?>">
+        <a href="//www.<?php echo $siteUrl; ?>/get-directions/<?php echo $_GET['id']; ?>">
           <button type="button" class="btn btn-info btn-xs">
             <i class="fa fa-road"></i>
             <span>Get directions to this address</span>
@@ -438,17 +438,17 @@
             <caption>Outstanding Orders</caption>
             <thead>
               <tr>
-                <th>Order Number <span class="arrows"><a href="//www.<?php echo $siteUrl; ?>/all-orders/?id=<?php echo $_GET['id']; ?>&sort=DESC&col=order_number"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=ASC&col=order_number"><i class="fa fa-caret-up"></i></a></span></th>
-                <th>Order Placed <span class="arrows"><a href="//www.<?php echo $siteUrl; ?>/all-orders/?id=<?php echo $_GET['id']; ?>&sort=DESC&col=order_placed"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=ASC&col=order_placed"><i class="fa fa-caret-up"></i></a></span></th>
-                <th>Required Date <span class="arrows"><a href="//www.<?php echo $siteUrl; ?>/all-orders/?id=<?php echo $_GET['id']; ?>&sort=DESC&col=datetime"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=ASC&col=datetime"><i class="fa fa-caret-up"></i></a></span></th>
-                <th>Status <span class="arrows"><a href="//www.<?php echo $siteUrl; ?>/all-orders/?id=<?php echo $_GET['id']; ?>&sort=DESC&col=status"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=ASC&col=status"><i class="fa fa-caret-up"></i></a></span></th>
+                <th>Order Number <span class="arrows"><a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $_GET['id']; ?>/sort/order_number/DESC"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $_GET['id']; ?>/sort/order_number/ASC"><i class="fa fa-caret-up"></i></a></span></th>
+                <th>Order Placed <span class="arrows"><a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $_GET['id']; ?>/sort/order_placed/DESC"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $_GET['id']; ?>/sort/order_placed/ASC"><i class="fa fa-caret-up"></i></a></span></th>
+                <th>Required Date <span class="arrows"><a href="//www.<?php echo $siteUrl; ?>/custsomer/<?php echo $_GET['id']; ?>/sort/datetime/DESC"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $_GET['id']; ?>/sort/datetime/ASC"><i class="fa fa-caret-up"></i></a></span></th>
+                <th>Status <span class="arrows"><a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $_GET['id']; ?>/sort/status/DESC"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $_GET['id']; ?>/sort/status/ASC"><i class="fa fa-caret-up"></i></a></span></th>
               </tr>
             </thead>
             <tbody>
               <?php foreach($rows as $row): ?>
                 <?php if ($row['completed'] == 0) : ?>
                   <tr>
-                    <td><a href="//www.<?php echo $siteUrl; ?>/all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
+                    <td><a href="//www.<?php echo $siteUrl; ?>/all-orders/order/<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
                     <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                     <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                     <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -466,17 +466,17 @@
           <caption>Completed Orders</caption>
           <thead>
             <tr>
-              <th>Order Number <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=order_number"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=ASC&col=order_number"><i class="fa fa-caret-up"></i></a></span></th>
-              <th>Order Placed <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=order_placed"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=ASC&col=order_placed"><i class="fa fa-caret-up"></i></a></span></th>
-              <th>Required Date <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=datetime"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=ASC&col=datetime"><i class="fa fa-caret-up"></i></a></span></th>
-              <th>Status <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/?id=<?php echo $row['customer_id']; ?>&sort=DESC&col=status"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=ASC&col=status"><i class="fa fa-caret-up"></i></a></span></th>
+              <th>Order Number <span class="arrows"><a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $_GET['id']; ?>/sort/order_number/DESC"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $_GET['id']; ?>/sort/order_number/ASC"><i class="fa fa-caret-up"></i></a></span></th>
+              <th>Order Placed <span class="arrows"><a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $_GET['id']; ?>/sort/order_placed/DESC"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $_GET['id']; ?>/sort/order_placed/ASC"><i class="fa fa-caret-up"></i></a></span></th>
+              <th>Required Date <span class="arrows"><a href="//www.<?php echo $siteUrl; ?>/custsomer/<?php echo $_GET['id']; ?>/sort/datetime/DESC"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $_GET['id']; ?>/sort/datetime/ASC"><i class="fa fa-caret-up"></i></a></span></th>
+              <th>Status <span class="arrows"><a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $_GET['id']; ?>/sort/status/DESC"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $_GET['id']; ?>/sort/status/ASC"><i class="fa fa-caret-up"></i></a></span></th>
             </tr>
           </thead>
           <tbody>
             <?php foreach($rows as $row): ?>
               <?php if ($row['completed'] == 1) : ?>
                 <tr>
-                  <td><a href="//www.<?php echo $siteUrl; ?>/all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
+                  <td><a href="//www.<?php echo $siteUrl; ?>/all-orders/order/<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
                   <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                   <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                   <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -543,17 +543,17 @@
             <caption>Outstanding Orders</caption>
             <thead>
               <tr>
-                <th>Order Number <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=DESC&col=order_number"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=ASC&col=order_number"><i class="fa fa-caret-up"></i></a></span></th>
-                <th>Order Placed <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=DESC&col=order_placed"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=ASC&col=order_placed"><i class="fa fa-caret-up"></i></a></span></th>
-                <th>Required Date <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=DESC&col=datetime"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=ASC&col=datetime"><i class="fa fa-caret-up"></i></a></span></th>
-                <th>Status <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=DESC&col=status"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=ASC&col=status"><i class="fa fa-caret-up"></i></a></span></th>
+                <th>Order Number <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/sort/order_number/DESC"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/sort/order_number/ASC"><i class="fa fa-caret-up"></i></a></span></th>
+                <th>Order Placed <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/sort/order_placed/DESC"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/sort/order_placed/ASC"><i class="fa fa-caret-up"></i></a></span></th>
+                <th>Required Date <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/sort/datetime/DESC"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/sort/datetime/ASC"><i class="fa fa-caret-up"></i></a></span></th>
+                <th>Status <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/sort/status/DESC"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/sort/status/ASC"><i class="fa fa-caret-up"></i></a></span></th>
               </tr>
             </thead>
             <tbody>
               <?php foreach($rows as $row): ?>
                 <?php if ($row['completed'] == 0) : ?>
                   <tr>
-                    <td><a href="//www.<?php echo $siteUrl; ?>/all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
+                    <td><a href="//www.<?php echo $siteUrl; ?>/all-orders/order/<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
                     <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                     <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                     <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -571,17 +571,17 @@
           <caption>Completed Orders</caption>
           <thead>
             <tr>
-              <th>Order Number <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=DESC&col=order_number"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=ASC&col=order_number"><i class="fa fa-caret-up"></i></a></span></th>
-              <th>Order Placed <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=DESC&col=order_placed"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=ASC&col=order_placed"><i class="fa fa-caret-up"></i></a></span></th>
-              <th>Required Date <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=DESC&col=datetime"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=ASC&col=datetime"><i class="fa fa-caret-up"></i></a></span></th>
-              <th>Status <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=DESC&col=status"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/?sort=ASC&col=status"><i class="fa fa-caret-up"></i></a></span></th>
+              <th>Order Number <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/sort/order_number/DESC"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/sort/order_number/ASC"><i class="fa fa-caret-up"></i></a></span></th>
+              <th>Order Placed <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/sort/order_placed/DESC"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/sort/order_placed/ASC"><i class="fa fa-caret-up"></i></a></span></th>
+              <th>Required Date <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/sort/datetime/DESC"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/sort/datetime/ASC"><i class="fa fa-caret-up"></i></a></span></th>
+              <th>Status <span class="arrow"><a href="//www.<?php echo $siteUrl; ?>/all-orders/sort/status/DESC"><i class="fa fa-caret-down"></i></a> <a href="//www.<?php echo $siteUrl; ?>/all-orders/sort/status/ASC"><i class="fa fa-caret-up"></i></a></span></th>
             </tr>
           </thead>
           <tbody>
             <?php foreach($rows as $row): ?>
               <?php if ($row['completed'] == 1) : ?>
                 <tr>
-                  <td><a href="//www.<?php echo $siteUrl; ?>/all-orders/?order=<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
+                  <td><a href="//www.<?php echo $siteUrl; ?>/all-orders/order/<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
                   <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                   <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                   <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
