@@ -19,7 +19,7 @@
   // Get user details to make sure they have been entered
   $query = "
     SELECT
-      address, postcode, phone, first_name, last_name
+      address1, address2, county, city, postcode, phone, first_name, last_name
     FROM
       users
     WHERE
@@ -56,9 +56,9 @@
   $decorations = $db->fetchAll();
 
   // Don't let the users place an order until their details are entered
-  if (empty($row['address']) or empty($row['postcode']) or empty($row['phone']) or empty($row['first_name']) or empty($row['last_name']))
+  if (empty($row['address1']) or empty($row['address2']) or empty($row['county']) or empty($row['city']) or empty($row['postcode']) or empty($row['phone']) or empty($row['first_name']) or empty($row['last_name']))
   {
-    $display_message = 'Please <a href="//www.<?php echo $siteUrl; ?>/edit-account">update your details</a> before placing an order.';
+    $display_message = 'Please <a href="//www.'.$siteUrl.'/edit-account">update your details</a> before placing an order.';
     $details_correct = false;
   }
   else
