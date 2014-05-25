@@ -155,7 +155,7 @@
           <label for="location" class="col-sm-4 control-label">Location</label>
           <div class="col-sm-8">
             <div class="input-group">
-              <input type="text" class="form-control" name="location" id="location">
+              <input type="text" class="form-control" name="location" id="location" <?php if ($_SESSION['user']) {echo "value='" . $_SESSION['user']['county'] . "'";} ?>>
               <span class="input-group-addon"><i class="fa fa-home"></span></i>
             </div>
           </div>
