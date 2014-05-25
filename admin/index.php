@@ -20,9 +20,7 @@
       username,
       email,
       first_name,
-      last_name,
-      address,
-      postcode
+      last_name
     FROM
       users
   ";
