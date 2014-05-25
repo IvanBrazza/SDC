@@ -45,7 +45,7 @@
         b.filling_price, b.filling_name,
         c.decor_price, c.decor_name,
         d.cake_size, d.cake_type,
-        e.first_name, e.last_name, e.address, e.postcode, e.phone, e.email
+        e.first_name, e.last_name, e.address1, e.address2, e.county, e.city, e.postcode, e.phone, e.email
       FROM
         orders a,
         fillings b,
@@ -73,7 +73,7 @@
     $query = "
       SELECT
         a.order_number, a.order_placed, a.datetime, a.status, a.completed,
-        b.first_name, b.last_name, b.address, b.postcode, b.phone, b.email
+        b.first_name, b.last_name, b.address1, b.address2, b.county, b.city, b.postcode, b.phone, b.email
       FROM
         orders a,
         users b
@@ -370,23 +370,25 @@
         </table>
       </div>
       <div class="col-md-4">
-        <p>Placed by <?php echo htmlentities($row['first_name'], ENT_QUOTES, 'UTF-8'); echo " "; echo htmlentities($row['last_name'], ENT_QUOTES, 'UTF-8'); ?></p>
-        <br />
-        <span class="title">Address:</span><br />
-        <?php echo htmlentities($row['address'], ENT_QUOTES, 'UTF-8'); ?><br />
-        <?php echo htmlentities($row['postcode'], ENT_QUOTES, 'UTF-8'); ?><br />
-        <i>(<?php echo $delivery->getDistance(); ?> miles away)</i><br/>
+        <address>
+          <strong><?php echo htmlentities($row['first_name'], ENT_QUOTES, 'UTF-8'); echo " "; echo htmlentities($row['last_name'], ENT_QUOTES, 'UTF-8'); ?></strong><br>
+          <?php echo htmlentities($row['address1'], ENT_QUOTES, 'UTF-8'); ?><br>
+          <?php if ($row['address2']) : ?>
+            <?php echo htmlentities($row['address2'], ENT_QUOTES, 'UTF-8'); ?><br>
+          <?php endif; ?>
+          <?php echo htmlentities($row['county'], ENT_QUOTES, 'UTF-8') . ", " . htmlentities($row['city'], ENT_QUOTES, 'UTF-8'); ?><br>
+          <?php echo htmlentities($row['postcode'], ENT_QUOTES, 'UTF-8'); ?><br>
+          <i>(<?php echo $delivery->getDistance(); ?> miles away)</i><br>
+          <br>
+          <abbr title="Phone">P:</abbr> <?php echo $row['phone']; ?><br>
+          <abbr title="Email">@:</abbr> <a href="mailto:<?php echo htmlentities($row['email'], ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlentities($row['email'], ENT_QUOTES, 'UTF-8'); ?></a>
+        </address>
         <a href="//www.<?php echo $siteUrl; ?>/get-directions/<?php echo $row['customer_id']; ?>">
           <button type="button" class="btn btn-info btn-xs">
             <i class="fa fa-road"></i>
             <span>Get directions to this address</span>
           </button>
         </a>
-        <br />
-        <br />
-        <span class="title">Phone: </span>
-        <?php echo $row['phone']; ?><br />
-        <br /><br />
         <?php if ($row['difference'] != 0) : ?>
           <div class="alert alert-danger" style="display:block;">
             <i class="fa fa-warning"></i>
@@ -412,21 +414,25 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <span class="title">Address:</span><br />
-        <?php echo htmlentities($rows[0]['address'], ENT_QUOTES, 'UTF-8'); ?><br />
-        <?php echo htmlentities($rows[0]['postcode'], ENT_QUOTES, 'UTF-8'); ?><br />
-        <i>(<?php echo $delivery->getDistance(); ?> miles away)</i><br />
+        <address>
+          <strong><?php echo htmlentities($rows[0]['first_name'], ENT_QUOTES, 'UTF-8'); echo " "; echo htmlentities($rows[0]['last_name'], ENT_QUOTES, 'UTF-8'); ?></strong><br>
+          <?php echo htmlentities($rows[0]['address1'], ENT_QUOTES, 'UTF-8'); ?><br>
+          <?php if ($rows[0]['address2']) : ?>
+            <?php echo htmlentities($rows[0]['address2'], ENT_QUOTES, 'UTF-8'); ?><br>
+          <?php endif; ?>
+          <?php echo htmlentities($rows[0]['county'], ENT_QUOTES, 'UTF-8') . ", " . htmlentities($rows[0]['city'], ENT_QUOTES, 'UTF-8'); ?><br>
+          <?php echo htmlentities($rows[0]['postcode'], ENT_QUOTES, 'UTF-8'); ?><br>
+          <i>(<?php echo $delivery->getDistance(); ?> miles away)</i><br>
+          <br>
+          <abbr title="Phone">P:</abbr> <?php echo $rows[0]['phone']; ?><br>
+          <abbr title="Email">@:</abbr> <a href="mailto:<?php echo htmlentities($rows[0]['email'], ENT_QUOTES, 'UTF-8'); ?>"><?php echo htmlentities($rows[0]['email'], ENT_QUOTES, 'UTF-8'); ?></a>
+        </address>
         <a href="//www.<?php echo $siteUrl; ?>/get-directions/<?php echo $_GET['id']; ?>">
           <button type="button" class="btn btn-info btn-xs">
             <i class="fa fa-road"></i>
             <span>Get directions to this address</span>
           </button>
         </a>
-        <br />
-        <br />
-        <span class="title">Phone: </span>
-        <?php echo htmlentities($rows[0]['phone'], ENT_QUOTES, 'UTF-8'); ?><br />
-        <br><br>
       </div>
     </div>
     <div class="row">
