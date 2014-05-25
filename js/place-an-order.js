@@ -74,6 +74,12 @@ $(document).ready(function() {
       progressColour   = "#d9edf7",
       errorColour      = "#f2dede";
 
+  if (!$details_correct) {
+    $("#accordion").find("input, select, textarea").attr("disabled","true");
+    $("#theCake").collapse("hide");
+    $(".panel-heading").animate({backgroundColor: errorColour});
+  }
+
   $('#fileupload').fileupload({
     autoUpload: true,
     url: '../lib/form/fileuploads3.php',
