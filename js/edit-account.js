@@ -125,13 +125,18 @@ $(document).ready(function() {
     e.preventDefault();
     // Validate inputs
     var post_check = validate.postcode(),
-        addr_check = validate.input('input[name=address]', '#address_error', 'Please enter your address'),
+        add1_check = validate.input('input[name=address1]', '#address1_error', 'Please enter your address'),
+        coun_check = validate.input('select[name=county]', '#county_error', 'Please enter your county'),
+        city_check = validate.input('input[name=city]', '#city_error', 'Please enter your city'),
         pass_check = validate.input('input[name=address_password]', '#address_password_error', 'Please enter your current password'),
         form       = this;
-    if (post_check && addr_check && pass_check) {
+    if (post_check && add1_check && coun_check && city_check && pass_check) {
       var geocoder = new google.maps.Geocoder();;
       geocoder.geocode({
-        'address': $("input[name=address]").val().replace(" ", ",") + "," + $("input[name=postcode]").val().replace(" ", ","),
+        'address': $("input[name=address1]").val().replace(" ", ",") + "," +
+                   $("select[name=county]").val().replace(" ", ",") + "," +
+                   $("input[name=city]").val().replace(" ", ",") + "," +
+                   $("input[name=postcode]").val().replace(" ", ",")
       }, callback);
 
       function callback(response, status) {
@@ -156,7 +161,10 @@ $(document).ready(function() {
                 object = JSON.parse(response);
                 if (object.status == "success") {
                   $("input[name=token]").val(object.token);
-                  $("#current-address").html($("input[name=address]").val() + ", " + $("input[name=postcode]").val());
+                  $("#current-address").html($("input[name=address1]").val() + "<br>" +
+                                             $("input[name=address2]").val() + "<br>" +
+                                             $("input[name=county]").val() + ", " + $("input[name=city]").val() + "<br>" +
+                                             $("input[name=postcode]").val());
                   $("#success_modal .alert").html("<i class='fa fa-check-circle-o'></i>   Address updated");
                   $("#success_modal").modal("show");
                   setTimeout(function() {

@@ -74,6 +74,10 @@ a {
 .help {
   font-size:          0.8em;
   }
+
+#current-address {
+  font-weight:        bold;
+  }
 /* End General */
 
 /* Navbar Collapse Breakpoint */

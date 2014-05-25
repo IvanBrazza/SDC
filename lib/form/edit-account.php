@@ -205,21 +205,30 @@
         UPDATE 
           users
         SET
-          address  = :address,
-          postcode = :postcode
+          address1  = :address1,
+          address2  = :address2,
+          county    = :county,
+          city      = :city,
+          postcode  = :postcode
         WHERE
           customer_id = :user_id
       ";
 
       $query_params = array(
-        ':user_id'  => $_SESSION['user']['customer_id'],
-        ':address'  => $_POST['address'],
-        ':postcode' => $_POST['postcode']
+        ':user_id'   => $_SESSION['user']['customer_id'],
+        ':address1'  => $_POST['address1'],
+        ':address2'  => $_POST['address2'],
+        ':county'    => $_POST['county'],
+        ':city'      => $_POST['city'],
+        ':postcode'  => $_POST['postcode']
       );
 
       $db->runQuery($query, $query_params);
-      $_SESSION['user']['address']  = $_POST['address'];
-      $_SESSION['user']['postcode'] = $_POST['postcode'];
+      $_SESSION['user']['address1']  = $_POST['address'];
+      $_SESSION['user']['address2']  = $_POST['address'];
+      $_SESSION['user']['county']    = $_POST['address'];
+      $_SESSION['user']['city']      = $_POST['address'];
+      $_SESSION['user']['postcode']  = $_POST['postcode'];
 
       // Generate new token
       $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");

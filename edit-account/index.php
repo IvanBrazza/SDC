@@ -212,18 +212,67 @@
   </div>
   <div class="col-md-6 well account-well">
     <h3 class="account-heading">Change your address</h3>
-    <p>
-      Your current address is <b id="current-address"><?php echo htmlentities($_SESSION['user']['address'], ENT_QUOTES, 'UTF-8') . ", " . htmlentities($_SESSION['user']['postcode'], ENT_QUOTES, 'UTF-8'); ?></b>.
-      We need a correct address in order for your order to be delivered to the right place.
-    </p>
+    <p>Your current address is:</p>
+    <address id="current-address">
+      <?php echo htmlentities($_SESSION['user']['address1'], ENT_QUOTES, 'UTF-8'); ?><br>
+      <?php if ($_SESSION['user']['address2']) : ?>
+        <?php echo htmlentities($_SESSION['user']['address2'], ENT_QUOTES, 'UTF-8'); ?><br>
+      <?php endif; ?>
+      <?php echo htmlentities($_SESSION['user']['county'], ENT_QUOTES, 'UTF-8') . ", " . htmlentities($_SESSION['user']['city'], ENT_QUOTES, 'UTF-8'); ?><br>
+      <?php echo htmlentities($_SESSION['user']['postcode'], ENT_QUOTES, 'UTF-8'); ?><br>
+    </address>
+    <p>We need a correct address in order for your order to be delivered to the right place.</p>
     <hr class="fancy-line hidden-xs">
     <form id="edit-account-address-form" class="form" role="form">
       <div class="form-group">
-        <label for="address" class="control-label">Address</label>
+        <label for="address1" class="control-label">Address Line 1</label>
         <div class="row">
           <div class="col-md-7">
-            <input type="text" class="form-control" name="address" id="address" value="<?php echo htmlentities($_SESSION['user']['address'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#address', '#address_error', 'Please enter your address')">
-            <div id="address_error" class="validate-error"></div>
+            <input type="text" class="form-control" name="address1" id="address1" value="<?php echo htmlentities($_SESSION['user']['address1'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#address1', '#address1_error', 'Please enter your address')">
+            <div id="address1_error" class="validate-error"></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="address2" class="control-label">Address Line 2</label>
+        <div class="row">
+          <div class="col-md-7">
+            <input type="text" class="form-control" name="address2" id="address2" value="<?php echo htmlentities($_SESSION['user']['address2'], ENT_QUOTES, 'UTF-8'); ?>">
+            <div id="address2_error" class="validate-error"></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="county" class="control-label">County</label>
+        <div class="row">
+          <div class="col-md-7">
+            <select class="form-control" name="county" id="county" onchange="validate.input('select[name=county]', '#county_error', 'Please enter your county')">
+              <option value="null">--Select A County--</option>
+              <?php
+                $counties = array("Bedfordshire","Berkshire","Buckinghamshire","Cambridgeshire","Cheshire","Cornwall","Cumberland","Derbyshire","Devon","Dorset","Durham","Essex","Gloucestershire","Hampshire","Herefordshire","Hertfordshire","Huntingdonshire","Kent","Lancashire","Leicestershire","Lincolnshire","Middlesex","Norfolk","Northamptonshire","Northumberland","Nottinghamshire","Oxfordshire","Rutland","Shropshire","Somerset","Staffordshire","Suffolk","Surrey","Sussex","Warwickshire","Westmorland","Wiltshire","Worcestershire","Yorkshire");
+                foreach ($counties as $county)
+                {
+                  if ($county == $_SESSION['user']['county'])
+                  {
+                    echo "<option value='$county' selected>$county</option>";
+                  }
+                  else
+                  {
+                    echo "<option value='$county'>$county</option>";
+                  }
+                }
+              ?>
+            </select>
+            <div id="county_error" class="validate-error"></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="city" class="control-label">City</label>
+        <div class="row">
+          <div class="col-md-7">
+            <input type="text" class="form-control" name="city" id="city" value="<?php echo htmlentities($_SESSION['user']['city'], ENT_QUOTES, 'UTF-8'); ?>" onchange="validate.input('#city', '#city_error', 'Please enter your city')">
+            <div id="city_error" class="validate-error"></div>
           </div>
         </div>
       </div>
