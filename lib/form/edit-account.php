@@ -224,10 +224,10 @@
       );
 
       $db->runQuery($query, $query_params);
-      $_SESSION['user']['address1']  = $_POST['address'];
-      $_SESSION['user']['address2']  = $_POST['address'];
-      $_SESSION['user']['county']    = $_POST['address'];
-      $_SESSION['user']['city']      = $_POST['address'];
+      $_SESSION['user']['address1']  = $_POST['address1'];
+      $_SESSION['user']['address2']  = $_POST['address2'];
+      $_SESSION['user']['county']    = $_POST['county'];
+      $_SESSION['user']['city']      = $_POST['city'];
       $_SESSION['user']['postcode']  = $_POST['postcode'];
 
       // Generate new token

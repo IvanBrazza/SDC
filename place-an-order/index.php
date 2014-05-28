@@ -56,7 +56,7 @@
   $decorations = $db->fetchAll();
 
   // Don't let the users place an order until their details are entered
-  if (empty($row['address1']) or empty($row['address2']) or empty($row['county']) or empty($row['city']) or empty($row['postcode']) or empty($row['phone']) or empty($row['first_name']) or empty($row['last_name']))
+  if (empty($row['address1']) or empty($row['county']) or empty($row['city']) or empty($row['postcode']) or empty($row['phone']) or empty($row['first_name']) or empty($row['last_name']))
   {
     $display_message = 'Please <a href="//www.'.$siteUrl.'/edit-account">update your details</a> before placing an order.';
     $details_correct = false;

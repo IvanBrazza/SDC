@@ -131,7 +131,7 @@ $(document).ready(function() {
         pass_check = validate.input('input[name=address_password]', '#address_password_error', 'Please enter your current password'),
         form       = this;
     if (post_check && add1_check && coun_check && city_check && pass_check) {
-      var geocoder = new google.maps.Geocoder();;
+      var geocoder = new google.maps.Geocoder();
       geocoder.geocode({
         'address': $("input[name=address1]").val().replace(" ", ",") + "," +
                    $("select[name=county]").val().replace(" ", ",") + "," +
