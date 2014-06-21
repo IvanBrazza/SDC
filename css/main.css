@@ -80,6 +80,32 @@ a {
   }
 /* End General */
 
+/* Bootstrap Overrides */
+.btn {
+  border-radius:      1px
+  }
+
+.btn-primary {
+  background-color:   #21a2e6;
+  }
+
+.btn-primary:hover {
+  background-color:   #4389C5;
+  }
+
+.modal-content {
+  border-radius:      1px;
+  }
+
+.form-control {
+  border-radius:      1px;
+  }
+
+.input-group-addon {
+  border-radius:      1px;
+  }
+/* End Bootstrap Overrides */
+
 /* Navbar Collapse Breakpoint */
 @media (max-width: 1023px) {
   .navbar-header {
