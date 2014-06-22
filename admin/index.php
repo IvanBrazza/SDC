@@ -525,7 +525,7 @@
           <h1>Backup</h3>
         </div>
         <h3 id="backup-website-files">Backup website files</h3>
-        <p>Here you can download a backup of the website files. This will be a .zip file containing the all site pages (and relevant css/js/images) as well as the PayPal SDK. <strong>Site file backups occur weekly.</strong></p>
+        <p>Here you can download a backup of the website files. This will be a .zip file containing the all site pages (and relevant css/js/images). <strong>Site file backups occur weekly.</strong></p>
         <?php if ($httpCode == 200) : ?>
           <a href="https://s3.amazonaws.com/SDC-backups/files/files-dump-latest.zip" class="btn btn-primary">
             <i class="fa fa-file-archive-o"></i>
