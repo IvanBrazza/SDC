@@ -503,14 +503,24 @@ $(document).ready(function() {
   $("#add-gallery").click(function() {
     var $row        = $(this).closest("tr"),
         $gallery_id = $("#gallery tbody tr:last").data("galleryid") + 1;
-    $("#gallery tbody").append("<tr data-galleryid='" + $gallery_id + "'>" +
-                               "<td>" + $gallery_id + "</td>" +
-                               "<td><input name='gallery_name' class='form-control new-input' placeholder='Gallery name'><span class='validate-error name-error'></span></td>" +
-                               "<td><button class='btn btn-success btn-sm add-new-gallery'><i class='fa fa-check'></i>   Add</button></td>" +
-                               "<td><button class='btn btn-danger btn-sm remove-new-gallery'><i class='fa fa-times'></i>   Cancel</button></td>" +
-                               "</tr>");
+    $("<tr data-galleryid='" + $gallery_id + "'>" +
+      "<td>" + $gallery_id + "</td>" +
+      "<td><input name='gallery_name' class='form-control new-input' placeholder='Gallery name'><span class='validate-error name-error'></span></td>" +
+      "<td><button class='btn btn-success btn-sm add-new-gallery'><i class='fa fa-check'></i>   Add</button></td>" +
+      "<td><button class='btn btn-danger btn-sm remove-new-gallery'><i class='fa fa-times'></i>   Cancel</button></td>" +
+      "</tr>")
+    .appendTo($("#gallery tbody"))
+    .find("td").wrapInner('<div style="display: none;" />')
+    .parent().find("td > div")
+    .slideDown("fast");
+
     $(".remove-new-gallery").click(function() {
-      $(this).closest("tr").remove();
+      $(this).closest("tr")
+      .find("td").wrapInner('<div style="display: block;" />')
+      .parent().find("td > div")
+      .slideUp("fast", function() {
+        $(this).parent().parent().remove();
+      });
     });
   });
 
