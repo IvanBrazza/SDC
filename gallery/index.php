@@ -23,7 +23,7 @@
       <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
       <strong>Psst.</strong> Click an image to see it bigger
     </div>
-    <ul class="nav nav-tabs">
+    <ul class="nav nav-tabs nav-justified">
       <?php foreach ($galleries as $gallery) : ?>
         <?php
           $query = "
