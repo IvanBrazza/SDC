@@ -57,27 +57,23 @@
               <?php if (!empty($_SESSION['user'])) : ?>
                 <li>
                   <a href="//www.<?php echo $siteUrl; ?>/edit-account">
-                    <i class="fa fa-fw fa-edit"></i>
                     <span>Edit Account</span>
                   </a>
                 </li>
                 <li class="divider"></li>
                 <li>
                   <a href="//www.<?php echo $siteUrl; ?>/lib/logout.php">
-                    <i class="fa fa-fw fa-sign-out"></i>
                     <span>Logout</span>
                   </a>
                 </li>
               <?php else : ?>
                 <li>
                   <a href="//www.<?php echo $siteUrl; ?>/login?redirect=<?php echo $_SERVER['REQUEST_URI']; ?>">
-                    <i class="fa fa-fw fa-sign-in"></i>
                     <span>Login</span>
                   </a>
                 </li>
                 <li>
                   <a href="//www.<?php echo $siteUrl; ?>/register">
-                    <i class="fa fa-fw fa-users"></i>
                     <span>Register</span>
                   </a>
                 </li>
@@ -265,11 +261,9 @@
         <div class="col-md-4">
           <div class="contact">
             <p>
-              <i class="fa fa-phone-square pull-left"></i>
               020 8800 8135
             </p>
             <p>
-              <i class="fa fa-envelope-square pull-left"></i>
               <a href="mailto:customerhelp@<?php echo $siteUrl; ?>">
                 customerhelp@<?php echo $siteUrl; ?>
               </a>

@@ -22,11 +22,9 @@
         <div class="col-md-4">
           <div class="contact">
             <p>
-              <i class="fa fa-phone-square pull-left"></i>
               <span>020 8800 8135</span>
             </p>
             <p>
-              <i class="fa fa-envelope-square pull-left"></i>
               <a href="mailto:customerhelp@<?php echo $siteUrl; ?>">
                 customerhelp@<?php echo $siteUrl; ?>
               </a>
