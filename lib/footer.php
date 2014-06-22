@@ -82,6 +82,8 @@
     <script src="//code.highcharts.com/highcharts.js"></script>
     <script src="//www.<?php echo $siteUrl; ?>/js/modernizr.js"></script>
     <script src="//www.<?php echo $siteUrl; ?>/js/jquery/jquery.unveil.min.js"></script>
+    <script src="//www.<?php echo $siteUrl; ?>/js/jquery/jquery.wookmark.min.js"></script>
+    <script src="//www.<?php echo $siteUrl; ?>/js/jquery/imagesloaded.min.js"></script>
     <script src="//www.<?php echo $siteUrl; ?>/js/stats.js"></script>
     <script src="//www.<?php echo $siteUrl; ?>/js/admin.js"></script>
   <?php endif; ?>

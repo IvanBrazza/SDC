@@ -164,99 +164,54 @@
           <form class="fileupload" action="../lib/form/fileuploads3.php" method="POST" enctype="multipart/form-data" data-upload-template-id="template-upload-<?php echo $gallery['gallery_id']; ?>" data-download-template-id="template-download-<?php echo $gallery['gallery_id']; ?>">
             <input type="hidden" name="upload_dir" value="<?php echo $gallery['gallery_id']; ?>">
             <div class="row fileupload-buttonbar">
-              <div class="col-lg-7">
+              <div class="col-lg-12">
                 <span class="btn btn-success fileinput-button">
                   <i class="fa fa-upload"></i>
-                  <span>Add Image...</span>
+                  <span>Add Image(s)...</span>
                   <input type="file" name="files[]" accept="image/*" multiple>
                 </span>
+                The maximum filesize is <b>5MB</b>. Only image files (<b>.JPG, .JPEG, .PNG, .GIF)</b> may be uploaded.
                 <span class="fileupload-process"></span>
               </div>
             </div>
             <span id="uploadstatus"></span>
             <div class="well well-sm">
-              <table role="presentation" class="uploaded-images table">
-                <tbody class="files">
+              <div class="gallery_container" style="position:relative;">
+                <div class="load"></div>
+                <ul>
                   <?php if (!empty($rows)) : ?>
                     <?php foreach ($rows as $row) : ?>
-                      <tr class="fade in">
-                        <td>
-                          <span class="preview">
-                            <img src="//www.<?php echo $siteUrl; ?>/img/spinner.gif" data-src="https://s3.amazonaws.com/SDC-images/<?php echo $gallery['gallery_id']."/".$row['images']; ?>" width="100px" class="lazy">
-                          </span>
-                        </td>
-                        <td>
-                          <p class="name" id="filename">
-                            <span><?php echo $row['images']; ?></span>
-                          </p>
-                        </td>
-                        <td>
-                          <a class="btn btn-danger pull-right delete-image" data-image="<?php echo $row['images']; ?>" data-gallery="<?php echo $gallery['gallery_id']; ?>">
-                            <i class="fa fa-trash-o"></i>
-                            <span>Delete</span>
-                          </a>
-                        </td>
-                      </tr>
+                      <li class="thumbnail gallery-thumb">
+                        <img src="//www.<?php echo $siteUrl; ?>/img/spinner.gif" data-src="https://s3.amazonaws.com/SDC-images/<?php echo $gallery['gallery_id'] . "/" . $row['images']; ?>" width="180px" class="lazy">
+                        <a class="btn btn-danger pull-right delete-image" data-image="<?php echo $row['images']; ?>" data-gallery="<?php echo $gallery['gallery_id']; ?>">
+                          <i class="fa fa-trash-o"></i>
+                        </a>
+                      </li>
                     <?php endforeach; ?>
                   <?php endif; ?>
-                </tbody>
-              </table>
+                </ul>
+              </div>
             </div>
           </form>
           <!-- The template to display files available for upload -->
           <script id="template-upload-<?php echo $gallery['gallery_id']; ?>" type="text/x-tmpl">
           {% for (var i=0, file; file=o.files[i]; i++) { %}
-            <tr class="template-upload fade">
-              <td>
-                <span class="preview"></span>
-              </td>
-              <td>
-                <p class="name">{%=file.name%}</p>
-                <strong class="error text-danger"></strong>
-              </td>
-              <td>
-                <p class="size">Processing...</p>
-                <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
-              </td>
-              <td>
-                {% if (!i) { %}
-                  <button class="btn btn-warning cancel pull-right">
-                    <i class="fa fa-ban"></i>
-                    <span>Cancel</span>
-                  </button>
-                {% } %}
-              </td>
-            </tr>
+            <li class="thumbnail" style="width:190px;">
+              <img src="//www.<?php echo $siteUrl; ?>/img/spinner.gif" width="180px">
+            </li>
           {% } %}
           </script>
           <!-- The template to display files available for download -->
           <script id="template-download-<?php echo $gallery['gallery_id']; ?>" type="text/x-tmpl">
           {% for (var i=0, file; file=o.files[i]; i++) { %}
-            <tr class="template-download fade">
-              <td>
-                <span class="preview">
-                  <img src="//www.<?php echo $siteUrl; ?>/img/spinner.gif" data-src="https://s3.amazonaws.com/SDC-images/<?php echo $gallery['gallery_id']; ?>/{%=file.name%}" width="100px" class="new_lazy">
-                </span>
-              </td>
-              <td>
-                <p class="name" id="filename">
-                  <span>{%=file.name%}</span>
-                </p>
-                {% if (file.error) { %}
-                  <div><span class="label label-danger">Error</span> {%=file.error%}</div>
-                {% } %}
-              </td>
-              <td>
-                <a class="btn btn-danger delete-image pull-right" data-image="{%=file.name%}" data-gallery="<?php echo $gallery['gallery_id']; ?>">
-                    <i class="fa fa-trash-o"></i>
-                    <span>Delete</span>
-                </a>
-              </td>
-            </tr>
+            <li class="thumbnail gallery-thumb">
+              <img src="//www.<?php echo $siteUrl; ?>/img/spinner.gif" data-src="https://s3.amazonaws.com/SDC-images/<?php echo $gallery['gallery_id']; ?>/{%=file.name%}" width="180px" class="new_lazy">
+              <a class="btn btn-danger pull-right delete-image" data-image="<?php echo $row['images']; ?>" data-gallery="<?php echo $gallery['gallery_id']; ?>">
+                <i class="fa fa-trash-o"></i>
+              </a>
+            </li>
           {% } %}
           </script>
-        </div>
-        <div class="modal-footer">
         </div>
       </div>
     </div>

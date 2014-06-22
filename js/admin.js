@@ -601,19 +601,36 @@ $(document).ready(function() {
     });
   });
 
+  $(".gallery_container").each(function() {
+    var $li = $(this).find("li"),
+        $container = $(this);
+    $li.wookmark({
+      autoResize: true,
+      container: $container,
+      itemWidth: 200,
+      align: "center",
+      offset: 3,
+      verticalOffset: 10,
+      fillEmptySpace: false
+    });
+  });
+
   $("body").on('click', '.edit-gallery', function() {
     var $row        = $(this).closest("tr"),
         $gallery_id = $row.data("galleryid");
 
     $("#gallery_modal_" + $gallery_id).modal("show").on('shown.bs.modal', function(e) {
       $(this).find("img.lazy").unveil().trigger("unveil");
+      $(this).find("li").trigger("refreshWookmark");
     });
   });
   
   $("body").on('click', '.delete-image', function() {
     var $gallery_id = $(this).data("gallery"),
         $image_name = $(this).data("image"),
-        $row        = $(this).closest("tr");
+        $img        = $(this).siblings("img"),
+        $li         = $(this).closest("li")
+        $container  = $(this).closest(".gallery_container");
     $.ajax({
       type: 'post',
       url: '../lib/edit-gallery.php',
@@ -628,7 +645,18 @@ $(document).ready(function() {
           object = JSON.parse(response);
           $token = object.token;
           if (object.status == "success") {
-            $row.fadeOut().remove();
+            $img.fadeOut(function() {
+              $li.remove();
+              $container.find("li").wookmark({
+                autoResize: true,
+                container: $container,
+                itemWidth: 200,
+                align: "center",
+                offset: 3,
+                verticalOffset: 10,
+                fillEmptySpace: false
+              });
+            });
           } else {
             $("#error_modal .alert").html("<i class='fa fa-times-circle'></i>   " + object.error);
             $("#error_modal").modal("show");
@@ -655,11 +683,25 @@ $(document).ready(function() {
       previewMaxWidth: 150,
       previewMaxHeight: 150,
       previewMinWidth: 150,
-      sequentialUploads: true
+      sequentialUploads: true,
+      filesContainer: $(this).find(".gallery_container ul")
+    })
+    .bind('fileuploadadd', function (e, data) {
+      var $container = $(this).find(".gallery_container");
+      $container.find("li").wookmark({
+        autoResize: true,
+        container: $container,
+        itemWidth: 200,
+        align: "center",
+        offset: 3,
+        verticalOffset: 10,
+        fillEmptySpace: false
+      });
     })
     .bind('fileuploaddone', function (e, data) {
       var $gallery_id = $(this).find("input[name=upload_dir]").val(),
-          $image      = data.result.files[0].name;
+          $image      = data.result.files[0].name,
+          $container  = $(this).find(".gallery_container");
       $.ajax({
         type: 'post',
         url: '../lib/edit-gallery.php',
@@ -676,6 +718,17 @@ $(document).ready(function() {
               $token = object.token;
               setTimeout(function() {
                 $("img.new_lazy").unveil().trigger("unveil");
+                $("img.new_lazy").imagesLoaded(function() {
+                  $container.find("li").wookmark({
+                    autoResize: true,
+                    container: $container,
+                    itemWidth: 200,
+                    align: "center",
+                    offset: 3,
+                    verticalOffset: 10,
+                    fillEmptySpace: false
+                  });
+                });
               }, 500);
             }
           } catch(error) {
@@ -689,6 +742,13 @@ $(document).ready(function() {
         }
       });
     });
+  });
+
+  $("body").on('mouseenter', '.gallery-thumb', function() {
+    $(this).find(".delete-image").stop().fadeIn();
+  });
+  $("body").on('mouseleave', '.gallery-thumb', function() {
+    $(this).find(".delete-image").stop().fadeOut();
   });
 
   $(".edit-cake-type").click(function() {
