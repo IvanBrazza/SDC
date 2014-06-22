@@ -178,14 +178,13 @@
             custom_theme_widget: 'recaptcha_widget'
           };
         </script>
-        <div class="form-group">
-          <label class="col-sm-4 control-label">reCAPTCHA</label>
-          <div id="recaptcha_widget" style="display:none;margin-left:15px;" class="recaptcha_widget col-sm-8">
+        <div id="recaptcha_widget" class="form-group">
+          <label class="recaptcha_only_if_image col-sm-4 control-label" for="recaptcha_response_field">Enter the words in the image:</label>
+          <label class="recaptcha_only_if_audio col-sm-4 control-label" for="recaptcha_response_field">Enter the numbers you hear:</label>
+          <div class="recaptcha_widget col-sm-8">
             <div id="recaptcha_image"></div>
             <div class="recaptcha_only_if_incorrect_sol" style="color:red">Incorrect. Please try again.</div>
             <div class="recaptcha_input">
-              <label class="recaptcha_only_if_image" for="recaptcha_response_field">Enter the words above:</label>
-              <label class="recaptcha_only_if_audio" for="recaptcha_response_field">Enter the numbers you hear:</label>
               <input type="text" id="recaptcha_response_field" name="recaptcha_response_field">
             </div>
             <ul class="recaptcha_options">
@@ -202,7 +201,7 @@
               </li>
               <li class="recaptcha_only_if_audio">
                 <a href="javascript:Recaptcha.switch_type('image')">
-                  <i class="fa fa-picture"></i><span class="captcha_hide"> Get an image CAPTCHA</span>
+                  <i class="fa fa-picture-o"></i><span class="captcha_hide"> Get an image CAPTCHA</span>
                 </a>
               </li>
               <li>
