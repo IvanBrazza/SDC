@@ -26,7 +26,10 @@
       SELECT
         first_name,
         last_name,
-        address,
+        address1,
+        address2,
+        county,
+        city,
         postcode
       FROM
         users
@@ -42,13 +45,13 @@
 
     $row = $db->fetch();
     
-    $delivery->setAddress($row['address']);
+    $delivery->setAddress($row['address1'], $row['address2'], $row['city']);
     $delivery->setPostcode($row['postcode']);
     $delivery->calculateDistance();
   }
   else
   {
-    $delivery->setAddress($_SESSION['user']['address']);
+    $delivery->setAddress($_SESSION['user']['address1'], $_SESSION['user']['address2'], $_SESSION['user']['city']);
     $delivery->setPostcode($_SESSION['user']['postcode']);
     $delivery->calculateDistance();
   }
@@ -58,15 +61,21 @@
   <div class="col-md-12">
     <h1>Get Directions</h1>
     <p>Directions to:</p>
-    <?php if ($_GET) : ?>
-      <p><?php echo $row['first_name'] . " " . $row['last_name']; ?><br />
-      <?php echo $row['address']; ?><br />
-      <?php echo $row['postcode']; ?><br />
-    <?php else : ?>
-      <p>95 Hoe Lane<br />
-      EN3 5SW<br />
-    <?php endif; ?>
-    <i>(<?php echo $delivery->getDistance(); ?> miles away)</i></p>
+    <address>
+      <?php if ($_GET) : ?>
+        <strong><?php echo htmlentities($row['first_name'], ENT_QUOTES, 'UTF-8'); echo " "; echo htmlentities($row['last_name'], ENT_QUOTES, 'UTF-8'); ?></strong><br>
+        <?php echo htmlentities($row['address1'], ENT_QUOTES, 'UTF-8'); ?><br>
+        <?php if ($row['address2']) : ?>
+          <?php echo htmlentities($row['address2'], ENT_QUOTES, 'UTF-8'); ?><br>
+        <?php endif; ?>
+        <?php echo htmlentities($row['county'], ENT_QUOTES, 'UTF-8') . ", " . htmlentities($row['city'], ENT_QUOTES, 'UTF-8'); ?><br>
+        <?php echo htmlentities($row['postcode'], ENT_QUOTES, 'UTF-8'); ?><br>
+      <?php else : ?>
+        95 Hoe Lane<br>
+        EN3 5SW<br>
+      <?php endif; ?>
+      <i>(<?php echo $delivery->getDistance(); ?> miles away)</i>
+    </address>
   </div>
 </div>
 <div class="row" style="padding-bottom:50px">
@@ -84,9 +93,9 @@
   var map;
   <?php if ($_GET) : ?>
     var origin = "95+Hoe+Lane,EN35SW";
-    var destination = <?php echo json_encode(str_replace(" ", "+", $row['address']) . "," . str_replace(" ", "+", $row['postcode'])); ?>;
+    var destination = <?php echo json_encode(str_replace(" ", "+", $row['address1']) . "," . str_replace(" ", "+", $row['city']) . "," . str_replace(" ", "+", $row['postcode'])); ?>;
   <?php else : ?>
-    var origin = <?php echo json_encode(str_replace(" ", "+", $_SESSION['user']['address']) . "," . str_replace(" ", "+", $_SESSION['user']['postcode'])); ?>;
+    var origin = <?php echo json_encode(str_replace(" ", "+", $_SESSION['user']['address1']) . "," . str_replace(" ", "+", $_SESSION['user']['city']) . "," . str_replace(" ", "+", $_SESSION['user']['postcode'])); ?>;
     var destination = "95+Hoe+Lane,EN35SW";
   <?php endif; ?>
   var center = new google.maps.LatLng(51.666394, -0.048700);
