@@ -33,6 +33,8 @@
     }
   }
 
+  $today = new DateTime("now");
+
   // If a single order is to be displayed, get
   // the details about that order, else if a
   // user ID is in the GET, then get all the
@@ -558,10 +560,14 @@
             <tbody>
               <?php foreach($rows as $row): ?>
                 <?php if ($row['completed'] == 0) : ?>
-                  <tr>
+                  <?php
+                    $datetime = new DateTime($row['datetime']);
+                    $interval = $today->diff($datetime);
+                  ?>
+                  <tr <?php if ($datetime < $today) {echo "class='danger'";} ?>>
                     <td><a href="//www.<?php echo $siteUrl; ?>/all-orders/order/<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
                     <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
-                    <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
+                    <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3) . " (" . $interval->format("%R%a days") . ")"; ?></td>
                     <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
                   </tr>
                 <?php endif; ?>
