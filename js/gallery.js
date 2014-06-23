@@ -18,18 +18,9 @@ $(document).ready(function() {
         verticalOffset: 10,
         fillEmptySpace: true
       });
-      $load.hide();
       $li.hide();
       $placeholder.hide();
-      var d = 0;
-      $li.each(function() {
-        $(this).delay(d).fadeIn();
-        d += 100;
-      });
-      $placeholder.each(function() {
-        $(this).delay(d).fadeIn();
-        d += 100;
-      });
+      loadFirst();
     });
   });
 
@@ -59,3 +50,12 @@ $(document).ready(function() {
     }, 500);
   });
 });
+
+function loadFirst() {
+  var d = 0;
+  $(".tab-pane:first .load").hide();
+  $(".tab-pane:first li, .tab-pane:first .wookmark-placeholder").each(function() {
+      $(this).delay(d).fadeIn();
+      d += 100;
+  });
+}
