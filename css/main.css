@@ -111,6 +111,20 @@ a {
 .input-group-addon {
   border-radius:      1px;
   }
+
+.alert {
+  border-radius:      1px;
+  }
+
+.nav-tabs.nav-justified>li>a {
+  border-radius:      1px;
+  }
+
+@media (min-width: 768px) {
+  .nav-tabs.nav-justified>li>a {
+    border-radius:    1px 1px 0 0;
+    }
+  }
 /* End Bootstrap Overrides */
 
 /* Navbar Collapse Breakpoint */
