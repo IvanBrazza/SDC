@@ -630,8 +630,10 @@ $(document).ready(function() {
         $gallery_id = $row.data("galleryid");
 
     $("#gallery_modal_" + $gallery_id).modal("show").on('shown.bs.modal', function(e) {
-      $(this).find("img.lazy").unveil().trigger("unveil");
-      $(this).find("li").trigger("refreshWookmark");
+      $li = $(this).find("li");
+      $(this).find("img.lazy").unveil(1, function() {
+        $li.trigger("refreshWookmark");
+      }).trigger("unveil");
     });
   });
   
