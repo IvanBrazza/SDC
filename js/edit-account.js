@@ -140,12 +140,23 @@ $(document).ready(function() {
       }, callback);
 
       function callback(response, status) {
+        if (!response) {
+          $("#edit-account-address-form input, #edit-account-address-form select").closest("div.form-group").switchClass("has-success", "has-error");
+          var address_modal = $("#address-modal");
+          address_modal.find(".modal-body").html("It seems that the address you inputted isn't a real address. Please check the address you entered and try again.");
+          address_modal.modal({
+            backdrop: "static",
+            keyboard: false
+          });
+          return;
+        }
+
         var address = response[0].formatted_address,
             numCommas = address.match(/,/g).length;
         if (numCommas < 3){
-          $("input[name=address], input[name=postcode]").closest("div.form-group").switchClass("has-success", "has-error");
+          $("#edit-account-address-form input, #edit-account-address-form select").closest("div.form-group").switchClass("has-success", "has-error");
           var address_modal = $("#address-modal");
-          address_modal.find(".modal-body").html("It seems that the address you inputted - <b>" + $("input[name=address]").val() + ", " + $("input[name=postcode]").val() + "</b> - isn't a real address. Please check the address you entered and try again.");
+          address_modal.find(".modal-body").html("It seems that the address you inputted isn't a real address. Please check the address you entered and try again.");
           address_modal.modal({
             backdrop: "static",
             keyboard: false
