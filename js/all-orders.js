@@ -26,16 +26,25 @@ $(document).ready(function() {
 
   // If not GET (i.e. displaying all orders and not
   // a specific order
-  if (orderNumbers) {
-    // Enable autocomplete for the order search form
-    // with all of the order numbers. If the user
-    // clicks on one of these autocompletes, insert
-    // that value into the form and submit it
-    $("#order_number").autocomplete({
-      source: orderNumbers,
-      select: function(event, ui) {
-        $("#order_number").val(ui.item.value);
-        $("#order_search").submit();
+  if (window.location.pathname == "/all-orders/") {
+    $.ajax({
+      type: 'post',
+      url: '../lib/form/order-search.php',
+      data: {type: 'get-orders', token: $("input[name=token]").val()},
+      success: function(response) {
+        orderNumbers = JSON.parse(response);
+        // Enable autocomplete for the order search form
+        // with all of the order numbers. If the user
+        // clicks on one of these autocompletes, insert
+        // that value into the form and submit it
+        $("#order_number").autocomplete({
+          autoFocus: true,
+          source: orderNumbers,
+          select: function(event, ui) {
+            $("#order_number").val(ui.item.value);
+            $("#order_search").submit();
+          }
+        });
       }
     });
   }

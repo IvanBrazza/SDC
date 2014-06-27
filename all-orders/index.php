@@ -504,10 +504,10 @@
     </div>
     <div class="row">
       <div class="col-md-5">
-        <form action="../all-orders" method="GET" id="order_search" class="form-inline" role="form">
+        <form id="order_search" class="form-inline" role="form">
           <input type="hidden" id="token" name="token" value="<?php echo $_SESSION['token']; ?>" />
           <div class="input-group">
-            <input type="search" id="order_number" name="order" class="form-control" placeholder="Enter order number" />
+            <input type="search" id="order_number" name="order" class="form-control" placeholder="Enter order number">
             <span class="input-group-btn">
               <button type="submit" class="btn btn-default">
                 <i class="fa fa-search"></i>
@@ -516,16 +516,6 @@
             </span>
           </div>
         </form>
-        <script>
-          var orderNumbers = [
-            <?php
-              foreach ($rows as $row)
-              {
-                echo "\"" . $row['order_number'] . "\",";
-              }
-            ?>
-          ];
-        </script>
       </div>
       <div class="col-md-5">
         <div class="alert alert-danger" id="error_message" style="max-height: 34px;padding-top: 6px;"></div>
