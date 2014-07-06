@@ -111,13 +111,17 @@
   {
     $query = "
       SELECT
-        order_number,
-        order_placed,
-        datetime,
-        status,
-        completed
+        a.order_number,
+        a.order_placed,
+        a.datetime,
+        a.status,
+        a.completed,
+        b.customer_id
       FROM
-        orders
+        orders a,
+        users b
+      WHERE
+        a.customer_id = b.customer_id
     ";
 
     // If sort is in GET then sort the orders
@@ -134,7 +138,7 @@
     {
       $query .= "
         ORDER BY
-          orders.order_placed DESC
+          a.order_placed DESC
       ";
     }
   }
@@ -258,6 +262,11 @@
       <div class="col-md-6">
         <div class="alert alert-danger" id="error_message" style="margin-top:20px;"></div>
         <div class="alert alert-success" id="success_message" style="margin-top:20px;"></div>
+        <ol class="breadcrumb pull-right" style="background: none;">
+          <li><a href="//www.<?php echo $siteUrl; ?>/all-orders/">All Orders</a></li>
+          <li><a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $row['customer_id']; ?>/"><?php echo $row['first_name'] . " " . $row['last_name'];?></a></li>
+          <li class="active">Order <?php echo $row['order_number']; ?></li>
+        </ol>
       </div>
     </div>
     <div class="row">
@@ -410,8 +419,14 @@
   <!-- show all orders by a customer -->
   <?php elseif (!empty($_GET['id'])) : ?>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-8">
         <h1>Orders placed by <?php echo htmlentities($rows[0]['first_name'], ENT_QUOTES, 'UTF-8') . " " . htmlentities($rows[0]['last_name'], ENT_QUOTES, 'UTF-8'); ?></h1>
+      </div>
+      <div class="col-md-4">
+        <ol class="breadcrumb pull-right" style="background: none;">
+          <li><a href="//www.<?php echo $siteUrl; ?>/all-orders/">All Orders</a></li>
+          <li class="active"><?php echo $rows[0]['first_name'] . " " . $rows[0]['last_name'];?></li>
+        </ol>
       </div>
     </div>
     <div class="row">
@@ -456,7 +471,7 @@
               <?php foreach($rows as $row): ?>
                 <?php if ($row['completed'] == 0) : ?>
                   <tr>
-                    <td><a href="//www.<?php echo $siteUrl; ?>/all-orders/order/<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
+                    <td><a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $_GET['id']; ?>/<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
                     <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                     <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                     <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -484,7 +499,7 @@
             <?php foreach($rows as $row): ?>
               <?php if ($row['completed'] == 1) : ?>
                 <tr>
-                  <td><a href="//www.<?php echo $siteUrl; ?>/all-orders/order/<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
+                  <td><a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $_GET['id']; ?>/<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
                   <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                   <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                   <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -555,7 +570,7 @@
                     $interval = $today->diff($datetime);
                   ?>
                   <tr <?php if ($datetime < $today) {echo "class='danger'";} ?>>
-                    <td><a href="//www.<?php echo $siteUrl; ?>/all-orders/order/<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
+                    <td><a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $row['customer_id']; ?>/<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
                     <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                     <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3) . " (" . $interval->format("%R%a days") . ")"; ?></td>
                     <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -583,7 +598,7 @@
             <?php foreach($rows as $row): ?>
               <?php if ($row['completed'] == 1) : ?>
                 <tr>
-                  <td><a href="//www.<?php echo $siteUrl; ?>/all-orders/order/<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
+                  <td><a href="//www.<?php echo $siteUrl; ?>/customer/<?php echo $row['customer_id']; ?>/<?php echo $row['order_number']; ?>"></a><?php echo $row['order_number']; ?></td>
                   <td><?php echo substr(htmlentities($row['order_placed'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                   <td><?php echo substr(htmlentities($row['datetime'], ENT_QUOTES, 'UTF-8'), 0, -3); ?></td>
                   <td><?php echo htmlentities($row['status'], ENT_QUOTES, 'UTF-8'); ?></td>
