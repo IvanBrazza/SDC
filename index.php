@@ -115,7 +115,7 @@
         <div class="container">
           <div class="carousel-caption">
             <h1>Welcome to Star Dream Cakes.</h1>
-            <p>Something something we're awesome idk what to write.</p>
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit</p>
             <p><a class="btn btn-lg btn-primary" href="//www.<?php echo $siteUrl; ?>/register" role="button">Sign up today</a></p>
           </div>
         </div>
