@@ -5,12 +5,10 @@
     database if they cancelled it
   **/
   require("../lib/common.php");
-  if (!empty($_GET) and $_GET['failed'] == "true")
-  {
+  if (!empty($_GET) and $_GET['failed'] == "true") {
     $title = "Order cancelled";
   }
-  else
-  {
+  else {
     $title = "Thanks for your order!";
   }
   $page = "place-an-order";
@@ -18,8 +16,7 @@
   // If the order was successful, get the order details
   // and send an email confirmation. Otherwise, delete the
   // order from the database if it was not successful
-  if (!empty($_GET) and $_GET['failed'] == "false")
-  {
+  if (!empty($_GET) and $_GET['failed'] == "false") {
     include("../lib/email.class.php");
     $email = new Email;
 
@@ -62,8 +59,7 @@
 
     $row = $db->fetch();
 
-    if ($row['delivery_type'] == "Deliver To Address")
-    {
+    if ($row['delivery_type'] == "Deliver To Address") {
       $query = "
         SELECT
           delivery_charge
@@ -95,8 +91,7 @@
     $email->orderAdmin($row, $_SESSION['user']);
     $email->send();
   }
-  else if (!empty($_GET) and $_GET['failed'] == "true")
-  {
+  else if (!empty($_GET) and $_GET['failed'] == "true") {
     $query = "
       SELECT
         delivery_type
@@ -114,8 +109,7 @@
 
     $row = $db->fetch();
 
-    if ($row['delivery_type'] == "Deliver To Address")
-    {
+    if ($row['delivery_type'] == "Deliver To Address") {
       $query = "
         DELETE FROM
           delivery

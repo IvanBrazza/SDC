@@ -12,8 +12,7 @@
   // status update email to the customer. Else update
   // the base price based on the form data. Else update
   // the delivery charge based on the form data
-  if (!empty($_POST['status']))
-  {
+  if (!empty($_POST['status'])) {
     $query = "
       UPDATE
         orders
@@ -35,8 +34,7 @@
     $email->statusUpdate($_POST['order_number'], $_POST['status']);
     $email->send();
   }
-  else if (!empty($_POST['base_price']))
-  {
+  else if (!empty($_POST['base_price'])) {
     $query = "
       UPDATE
         orders
@@ -53,8 +51,7 @@
     
     $db->runQuery($query, $query_params);
   }
-  else if (!empty($_POST['delivery_charge']))
-  {
+  else if (!empty($_POST['delivery_charge'])) {
     $query = "
       UPDATE
         delivery

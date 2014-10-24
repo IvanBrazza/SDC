@@ -20,8 +20,7 @@
   // the distance, otherwise directions are to
   // be displayed for the customer to the collection
   // point
-  if ($_GET)
-  {
+  if ($_GET) {
     $query = "
       SELECT
         first_name,
@@ -46,8 +45,7 @@
     $delivery->setPostcode($row['postcode']);
     $delivery->calculateDistance();
   }
-  else
-  {
+  else {
     $delivery->setAddress($_SESSION['user']['address']);
     $delivery->setPostcode($_SESSION['user']['postcode']);
     $delivery->calculateDistance();

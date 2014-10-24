@@ -9,8 +9,7 @@
 
   // If the user is already logged in, redirect them to the
   // homepage
-  if (!empty($_SESSION['user']))
-  {
+  if (!empty($_SESSION['user'])) {
     header("Location: ../home/");
     die();
   }
@@ -20,14 +19,11 @@
 
   // Set the error text if the page has been redirected due
   // to an error
-  if(!empty($_GET['e']))
-  {
-    if ($_GET['e'] === 'pao')
-    {
+  if(!empty($_GET['e'])) {
+    if ($_GET['e'] === 'pao') {
       $display_message = "Please login/register to place an order";
     }
-    else if ($_GET['e'] === 'yo')
-    {
+    else if ($_GET['e'] === 'yo') {
       $display_message = "Please login/register to view your orders";
     }
   }

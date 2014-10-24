@@ -7,8 +7,7 @@
   $title = "Place An Order";
   $page = "place-an-order";
 
-  if(empty($_SESSION['user']))
-  {
+  if(empty($_SESSION['user'])) {
     header("Location: ../login/?e=pao&redirect=" . $_SERVER["REQUEST_URI"]);
     die();
   }
@@ -38,20 +37,16 @@
   $row = $db->fetch();
   
   // Don't let the users place an order until their details are entered
-  if (empty($row['address']) or empty($row['postcode']) or empty($row['phone']) or empty($row['first_name']) or empty($row['last_name']))
-  {
+  if (empty($row['address']) or empty($row['postcode']) or empty($row['phone']) or empty($row['first_name']) or empty($row['last_name'])) {
     $display_message = 'Please <a href="../edit-account">update your details</a> before placing an order.';
     $details_correct = false;
   }
-  else
-  {
+  else {
     $details_correct = true;
   }
 
-  if (!empty($_GET))
-  {
-    switch ($_GET['e'])
-    {
+  if (!empty($_GET)) {
+    switch ($_GET['e']) {
       case "1":
         $display_message = "Image must be smaller than 5 megabytes.";
         break;

@@ -7,8 +7,7 @@
   $page = "all-orders";
 
   // Only the admin user can access this page
-  if(empty($_SESSION['user']) or $_SESSION['user']['username'] !== "admin")
-  {
+  if(empty($_SESSION['user']) or $_SESSION['user']['username'] !== "admin") {
     header("Location: ../login/?redirect=" . $_SERVER['REQUEST_URI']);
     die();
   }
@@ -17,8 +16,7 @@
   forceHTTPS();
 
   // Display messages based on GET
-  if (!empty($_GET['completed']))
-  {
+  if (!empty($_GET['completed'])) {
     switch ($_GET['completed']){
       case "success":
         $display_message = "Order completed.";
@@ -28,8 +26,7 @@
         break;
     }
   }
-  else if (!empty($_GET['new-order']))
-  {
+  else if (!empty($_GET['new-order'])) {
     if ($_GET['new-order'] === "added")
     {
       $display_message = "Order added.";
@@ -40,8 +37,7 @@
   // the details about that order, else if a
   // user ID is in the GET, then get all the
   // orders by that user
-  if (!empty($_GET['order']))
-  {
+  if (!empty($_GET['order'])) {
     $query = "
       SELECT
         a.*,
@@ -71,8 +67,7 @@
       ':order_number' => $_GET['order']
     );
   }
-  else if (!empty($_GET['id']))
-  {
+  else if (!empty($_GET['id'])) {
     $query = "
       SELECT
         a.order_number, a.order_placed, a.datetime, a.status, a.completed,
@@ -93,23 +88,20 @@
     // If sort is in GET then sort the orders
     // by the GET details, otherwise sort by
     // most recent order at the top by default
-    if (!empty($_GET['sort']))
-    {
+    if (!empty($_GET['sort'])) {
       $query .= "
         ORDER BY
           a." . $_GET['col'] . " " . $_GET['sort']
       ;
     }
-    else
-    {
+    else {
       $query .= "
         ORDER BY
           a.order_placed ASC
       ";
     }
   }
-  else
-  {
+  else {
     $query = "
       SELECT
         order_number,
@@ -124,15 +116,13 @@
     // If sort is in GET then sort the orders
     // by the GET details, otherwise sort by
     // most recent order at the top by default
-    if (!empty($_GET['sort']))
-    {
+    if (!empty($_GET['sort'])) {
       $query .= "
         ORDER BY
           orders." . $_GET['col'] . " " . $_GET['sort']
       ;
     }
-    else
-    {
+    else {
       $query .= "
         ORDER BY
           orders.order_placed DESC
@@ -140,22 +130,18 @@
     }
   }
 
-  if (!empty($query_params))
-  {
+  if (!empty($query_params)) {
     $db->runQuery($query, $query_params);
   }
-  else
-  {
+  else {
     $db->runQuery($query, null);
   }
 
-  if (!empty($_GET['order']))
-  {
+  if (!empty($_GET['order'])) {
     $row = $db->fetch();
     // If the delivery type is deliver rather than
     // collection, then get the delivery details
-    if ($row['delivery_type'] == "Deliver To Address")
-    {
+    if ($row['delivery_type'] == "Deliver To Address") {
       $query = "
         SELECT
           delivery_charge
@@ -175,26 +161,22 @@
       $row['delivery_charge'] = $temp['delivery_charge'];
     }
   }
-  else
-  {
+  else {
     $rows = $db->fetchAll();
   }
 
   // If a single order is being displayed or all orders
   // by a customer, create a new Delivery object and
   // calculate the distance to be displayed
-  if (!empty($_GET['order']) or !empty($_GET['id']))
-  {
+  if (!empty($_GET['order']) or !empty($_GET['id'])) {
     include("../lib/delivery.class.php");
     $delivery = new Delivery;
 
-    if (!empty($_GET['id']))
-    {
+    if (!empty($_GET['id'])) {
       $delivery->setAddress($rows[0]['address']);
       $delivery->setPostcode($rows[0]['postcode']);
     }
-    else
-    {
+    else {
       $delivery->setAddress($row['address']);
       $delivery->setPostcode($row['postcode']);
     }
@@ -205,18 +187,14 @@
   $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 
   // Set the page title based on what is being displayed
-  if (!$_GET or !empty($_GET['completed']) or !empty($_GET['sort']))
-  {
+  if (!$_GET or !empty($_GET['completed']) or !empty($_GET['sort'])) {
     $title = "All Orders";
   }
-  else
-  {
-    if (!empty($_GET['id']))
-    {
+  else {
+    if (!empty($_GET['id'])) {
       $title = $rows[0]['first_name'] . "'s Orders | Star Dream Cakes";
     }
-    else
-    {
+    else {
       $title = $row['first_name'] . "'s Orders | Star Dream Cakes";
     }
   }

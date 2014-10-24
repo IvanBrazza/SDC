@@ -97,12 +97,10 @@
           ->setRedirectUrls($redirectUrls)
           ->setTransactions(array($transaction));
 
-  try
-  {
+  try {
     $payment->create($apiContext);
   }
-  catch (PayPal\Exception\PPConnectionException $ex)
-  {
+  catch (PayPal\Exception\PPConnectionException $ex) {
     echo "Exception: " . $ex->getMessage() . PHP_EOL;
     var_dump($ex->getData()); 
     exit(1);

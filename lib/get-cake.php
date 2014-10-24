@@ -5,8 +5,7 @@
   **/
   require("common.php");
   
-  if ($_POST)
-  {
+  if ($_POST) {
     $query = "
       SELECT
         cake_price

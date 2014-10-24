@@ -5,20 +5,16 @@
   $privatekey = "6LePfucSAAAAAHkrfHOrSYPPvJqf6rCiNnhWT77L";
   $resp = recaptcha_check_answer($privatekey, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
 
-  if (!empty($_POST))
-  {
-    if (!$resp->is_valid)
-    {
+  if (!empty($_POST)) {
+    if (!$resp->is_valid) {
       echo "reCAPTCHA incorrect.";
       die();
     }
-    else if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
-    {
+    else if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token'])) {
       echo "Invalid token.";
       die();
     }
-    else
-    {
+    else {
       // Unset the token
       unset($_SESSION['token']);
 

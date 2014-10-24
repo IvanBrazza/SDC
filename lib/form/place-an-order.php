@@ -2,10 +2,8 @@
   require("../common.php");
 
   // If the order form has been submitted
-  if (!empty($_POST))
-  {
-    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
-    {
+  if (!empty($_POST)) {
+    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token'])) {
       echo "Invalid token.";
       die();
     }
@@ -14,11 +12,9 @@
     unset($_SESSION['token']);
 
     // Check if an image was uploaded, if it was make sure it's valid
-    if ($_FILES['fileupload']['error'] == 0)
-    {
+    if ($_FILES['fileupload']['error'] == 0) {
       // Check file size
-      if ($_FILES['fileupload']['size'] > 5242880)
-      {
+      if ($_FILES['fileupload']['size'] > 5242880 {
         header("Location: ../../place-an-order/?e=1");
         die();
       }
@@ -26,37 +22,31 @@
       if ($_FILES['fileupload']['type'] == "image/gif" or 
           $_FILES['fileupload']['type'] == "image/jpeg" or
           $_FILES['fileupload']['type'] == "image/jpg" or
-          $_FILES['fileupload']['type'] == "image/png")
-      {
+          $_FILES['fileupload']['type'] == "image/png") {
         // All good, let's move the file
         $uploaddir = "/home/ivanrsfr/www/upload/" . $_SESSION['user']['customer_id'] . "/";
         $uploadfile = $uploaddir . basename($_FILES['fileupload']['name']);
-        if (!is_dir($uploaddir))
-        {
+        if (!is_dir($uploaddir)) {
           mkdir($uploaddir, 0777, true);
         }
-        if (!move_uploaded_file($_FILES['fileupload']['tmp_name'], $uploadfile))
-        {
+        if (!move_uploaded_file($_FILES['fileupload']['tmp_name'], $uploadfile)) {
           echo "Oops! Something went wrong. Try again.";
           die();
         }
       }
-      else
-      {
+      else {
         header("Location: ../../place-an-order/?e=2");
         die();
       }
     }
-    else if ($_FILES['fileupload']['error'] == 1 or $_FILES['fileupload']['error'] == 2)
-    {
+    else if ($_FILES['fileupload']['error'] == 1 or $_FILES['fileupload']['error'] == 2) {
       header("Location: ../../place-an-order/?e=1");
       die();
     }
     else if ($_FILES['fileupload']['error'] == 3 or
              $_FILES['fileupload']['error'] == 6 or
              $_FILES['fileupload']['error'] == 7 or
-             $_FILES['fileupload']['error'] == 8)
-    {
+             $_FILES['fileupload']['error'] == 8) {
       header("Location: ../../place-an-order/?e=3");
       die();
     }
@@ -86,8 +76,7 @@
     // Generate order number and make sure it is unique
     $order_number_unique  = false;
     
-    do
-    {
+    do {
       $order_number         = $_SESSION['user']['customer_id'] . rand(10000,99999);
       
       $query = "
@@ -107,8 +96,7 @@
 
       $row = $db->fetch();
 
-      if (!$row)
-      {
+      if (!$row) {
         $order_number_unique = true;
       }
     }
@@ -150,8 +138,7 @@
         status,
         datetime,";
 
-    if (!empty($_FILES))
-    {
+    if (!empty($_FILES)) {
       $query .= "
           image,
       ";
@@ -172,8 +159,7 @@
         :status,
         :datetime,";
 
-    if (!empty($_FILES))
-    {
+    if (!empty($_FILES)) {
       $query .= "
         :image,
       ";
@@ -202,8 +188,7 @@
       ':base_price'         => $base_price
      );
 
-    if (!empty($_FILES))
-    {
+    if (!empty($_FILES)) {
       $query_params[':image'] = str_replace("/var/www/ivanbrazza.biz/htdocs/", "../", $uploadfile);
     }
 
@@ -212,8 +197,7 @@
     // If the order is to be delivered then calculate the
     // delivery charge and insert the delivery details into
     // the "delivery" DB table.
-    if ($_POST['delivery'] === "Deliver To Address")
-    {
+    if ($_POST['delivery'] === "Deliver To Address") {
       include "../delivery.class.php";
       $delivery = new Delivery;
       $delivery->setAddress($_SESSION['user']['address']);

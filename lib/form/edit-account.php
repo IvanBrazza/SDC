@@ -1,10 +1,8 @@
 <?php
   require("../common.php");
 
-  if (!empty($_POST))
-  {
-    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
-    {
+  if (!empty($_POST)) {
+    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token'])) {
       echo "Invalid token.";
       die();
     }
@@ -13,8 +11,7 @@
     unset($_SESSION['token']);
 
     // Check if updated email is already in use
-    if ($_POST['email'] != $_SESSION['user']['email'])
-    {
+    if ($_POST['email'] != $_SESSION['user']['email']) {
       $query = "
         SELECT
           *
@@ -31,25 +28,21 @@
       $db->runQuery($query, $query_params);
 
       $row = $db->fetch();
-      if ($row)
-      {
+      if ($row) {
         echo "That email address is already in use.";
         die();
       }
     }
     
     // Update password
-    if (!empty($_POST['password']))
-    {
+    if (!empty($_POST['password'])) {
       $salt       = dechex(mt_rand(0, 2147483647)) . dechex(mt_rand(0, 2147483647));
       $password   = hash('sha256', $_POST['password'] . $salt);
-      for ( $i = 0; $i < 65536; $i++ )
-      {
+      for ( $i = 0; $i < 65536; $i++ ) {
         $password = hash('sha256', $password . $salt);
       }
     }
-    else
-    {
+    else {
       $password   = null;
       $salt       = null;
     }
@@ -66,15 +59,13 @@
         last_name   = :last_name
     ";
 
-    if ($password !== null)
-    {
+    if ($password !== null) {
       $query .= "
         , password  = :password
         , salt      = :salt
       ";
     }
-    if ($_POST['email'] != $_SESSION['user']['email'])
-    {
+    if ($_POST['email'] != $_SESSION['user']['email']) {
       $query .= "
         , email_verified      = :email_verified
         , email_verification  = :email_verification
@@ -96,14 +87,12 @@
       ':last_name'    => $_POST['last_name']
     );
 
-    if ($password !== null)
-    {
+    if ($password !== null) {
       $query_params[':password'] = $password;
       $query_params[':salt']     = $salt;
     }
 
-    if ($_POST['email'] != $_SESSION['user']['email'])
-    {
+    if ($_POST['email'] != $_SESSION['user']['email']) {
       $query_params[':email_verification'] = mt_rand(10000,99999) . mt_rand(10000,99999) . mt_rand(10000,99999) . mt_rand(10000,99999) . mt_rand(10000,99999);
       $query_params[':email_verified']     = "no";
     }
@@ -118,8 +107,7 @@
     $_SESSION['user']['first_name']   = $_POST['first_name'];
     $_SESSION['user']['last_name']    = $_POST['last_name'];
 
-    if (!empty($query_params[':email_verification']))
-    {
+    if (!empty($query_params[':email_verification'])) {
       include "../email.class.php";
       $email = new Email;
       $email->setFirstName($_POST['first_name']);
@@ -127,8 +115,7 @@
       $email->verification($query_params[':email_verification']);
       echo "email-verify";
     }
-    else
-    {
+    else {
       echo "success";
     }
 

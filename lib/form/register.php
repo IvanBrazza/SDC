@@ -7,21 +7,17 @@
   $resp = recaptcha_check_answer($privatekey, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
   $email = new Email;
 
-  if(!empty($_POST))
-  {
+  if(!empty($_POST)) {
     // Check reCAPTCHA
-    if (!$resp->is_valid)
-    {
+    if (!$resp->is_valid) {
       echo "reCAPTCHA incorrect.";
       die();
     }
-    else if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
-    {
+    else if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token'])) {
       echo "Invalid token.";
       die();
     }
-    else
-    {
+    else {
       // Clear the token
       unset($_SESSION['token']);
       // Check if username is taken
@@ -42,8 +38,7 @@
 
       $row = $db->fetch();
     
-      if ($row)
-      {
+      if ($row) {
         echo "Username already taken.";
         die();
       }
@@ -66,8 +61,7 @@
 
       $row = $db->fetch();
      
-      if ($row)
-      {
+      if ($row) {
         echo "Email already in use.";
         die();
       }
@@ -106,8 +100,7 @@
       
       // Hash the password another 65536 more times. This is to prevent
       // against brute force attacks.
-      for ($i = 0; $i < 65536; $i++)
-      {
+      for ($i = 0; $i < 65536; $i++) {
         $password = hash('sha256', $password . $salt);
       }
     

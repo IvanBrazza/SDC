@@ -9,8 +9,7 @@
   $page = "customer-list";
 
   // Only the admin user can access this page
-  if(empty($_SESSION['user']) or $_SESSION['user']['username'] !== "admin")
-  {
+  if(empty($_SESSION['user']) or $_SESSION['user']['username'] !== "admin") {
     header("Location: ../login");
     die();
   }

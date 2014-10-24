@@ -28,20 +28,16 @@ class DB {
   // if it fails, email the webmaster and redirect the
   // user to the oops page
   public function runQuery($query, $query_params) {
-    try
-    {
+    try {
       $this->result = $this->database->prepare($query);
-      if ($query_params != null)
-      {
+      if ($query_params != null) {
         $this->result->execute($query_params);
       }
-      else
-      {
+      else {
         $this->result->execute();
       }
     }
-    catch(PDOException $ex)
-    {
+    catch(PDOException $ex) {
       error_log("[" . date("Y-m-d H:i") . "] Error running query: $query\r\n", 3, "/home/ivanrsfr/error.log");
       error_log($ex->getMessage(), 3, "/home/ivanrsfr/error.log");
       $headers = "From: <webmaster@ivanbrazza.biz>" . "\r\n" .

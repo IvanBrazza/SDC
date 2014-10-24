@@ -6,12 +6,10 @@
   **/
   require("common.php");
 
-  if ($_POST)
-  {
+  if ($_POST) {
     // If filling details are needed, get them,
     // else if decoration details are needed, get those
-    if ($_POST['type'] == "filling")
-    {
+    if ($_POST['type'] == "filling") {
       $query = "
         SELECT
           filling_price, filling_name
@@ -25,8 +23,7 @@
         ':filling_id' => $_POST['id']
       );
     }
-    else if ($_POST['type'] == "decor")
-    {
+    else if ($_POST['type'] == "decor") {
       $query = "
         SELECT
           decor_price, decor_name
@@ -47,15 +44,13 @@
 
     // Set the response according to filling
     // or decoration
-    if ($_POST['type'] == "filling")
-    {
+    if ($_POST['type'] == "filling") {
       $response = array(
         "name"  => $row['filling_name'],
         "price" => $row['filling_price']
       );
     }
-    else if ($_POST['type'] == "decor")
-    {
+    else if ($_POST['type'] == "decor") {
       $response = array(
         "name"  => $row['decor_name'],
         "price" => $row['decor_price']

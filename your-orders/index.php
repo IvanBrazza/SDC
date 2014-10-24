@@ -5,18 +5,15 @@
   **/
   require("../lib/common.php");
   $page = "your-orders";
-  if ($_GET and empty($_GET['sort']))
-  {
+  if ($_GET and empty($_GET['sort'])) {
     $title = "Order " . $_GET['order'];
   }
-  else
-  {
+  else {
     $title = $_SESSION['user']['first_name'] . "'s Orders";
   }
   
   // Only logged in users can access this page
-  if(empty($_SESSION['user']))
-  {
+  if(empty($_SESSION['user'])) {
     header("Location: ../login/?e=yo&redirect=" . $_SERVER["REQUEST_URI"]);
     die();
   }
@@ -25,8 +22,7 @@
   forceHTTPS();
 
   // If the user clicked on an order
-  if (!empty($_GET['order']))
-  {
+  if (!empty($_GET['order'])) {
     // Get order details based on the order number
     $query = "
       SELECT
@@ -54,15 +50,13 @@
     // If the order being pulled doesn't belong to
     // the logged in user redirect them back to the
     // your-orders page
-    if ($row['customer_id'] !== $_SESSION['user']['customer_id'])
-    {
+    if ($row['customer_id'] !== $_SESSION['user']['customer_id']) {
       header("Location: ../your-orders");
       die();
     }
 
     // If the order was a delivery
-    if ($row['delivery_type'] === "Deliver To Address")
-    {
+    if ($row['delivery_type'] === "Deliver To Address") {
       // Get the delivery details for the order
       $query = "
         SELECT
@@ -83,8 +77,7 @@
       $row['delivery_charge'] = $deliveryrow['delivery_charge'];
     }
   }
-  else
-  {
+  else {
     // Get all outstanding orders
     $query = "
       SELECT
@@ -102,8 +95,7 @@
           orders." . $_GET['col'] . " " . $_GET['sort']
       ;
     }
-    else
-    {
+    else {
       $query .= "
         ORDER BY
           orders.order_placed DESC

@@ -9,8 +9,7 @@
   $page = "edit-account";
 
   // Only logged in users can access this page
-  if (empty($_SESSION['user']))
-  {
+  if (empty($_SESSION['user'])) {
     header("Location: ../login");
     die();
   }
@@ -22,22 +21,17 @@
   $_SESSION['token'] = rtrim(base64_encode(md5(microtime())),"=");
 
   // Display messages
-  if (!empty($_GET['update']))
-  {
-    if ($_GET['update'] === "success")
-    {
+  if (!empty($_GET['update'])) {
+    if ($_GET['update'] === "success") {
       $display_message = "Account updated.";
     }
   }
-  else if (!empty($_GET['e']))
-  {
-    if ($_GET['e'] === "email")
-    {
+  else if (!empty($_GET['e'])) {
+    if ($_GET['e'] === "email") {
       $display_message = "That email address is already in use.";
     }
   }
-  else if (!empty($_GET['first']))
-  {
+  else if (!empty($_GET['first'])) {
     $display_message = "Please update your account details.";
   }
 

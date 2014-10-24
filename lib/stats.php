@@ -19,8 +19,7 @@
   $rows = $db->fetchAll();
 
   // Calculate the popularity of each cake ID, filling and decoration
-  foreach ($rows as $row)
-  {
+  foreach ($rows as $row) {
     // +1 each cake ID
     $cakes[$row['cake_id']]['cake_id'] = $row['cake_id'];
     $cakes[$row['cake_id']]['value']++;
@@ -35,8 +34,7 @@
   }
   
   // Calculate orders placed per month
-  for ($i = 0; $i < 13; $i++)
-  {
+  for ($i = 0; $i < 13; $i++) {
     $query = "
       SELECT
         *
@@ -50,8 +48,7 @@
 
     $rows = $db->fetchAll();
     
-    foreach ($rows as $row)
-    {
+    foreach ($rows as $row) {
       $months[$i-1]++;
     }
   }
@@ -94,8 +91,7 @@
   // For each filling ID, get the filling details
   // from the database and add its popularity to
   // the response
-  foreach ($fillings as $filling)
-  {
+  foreach ($fillings as $filling) {
     $query = "
       SELECT
         *
@@ -113,16 +109,13 @@
 
     $row = $db->fetch();
 
-    if ($row['filling_name'] == "Butter Cream")
-    {
+    if ($row['filling_name'] == "Butter Cream") {
       $response['fillings']['value'][1] += $filling['value'];
     }
-    else if ($row['filling_name'] == "Chocoalte")
-    {
+    else if ($row['filling_name'] == "Chocoalte") {
       $response['fillings']['value'][2] += $filling['value'];
     }
-    else if ($row['filling_name'] == "Other")
-    {
+    else if ($row['filling_name'] == "Other") {
       $response['fillings']['value'][3] += $filling['value'];
     }
   }
@@ -130,8 +123,7 @@
   // For each decoration ID, get the decoration details
   // from the database and add its popularity to
   // the response
-  foreach ($decorations as $decoration)
-  {
+  foreach ($decorations as $decoration) {
     $query = "
       SELECT
         *
@@ -149,32 +141,25 @@
 
     $row = $db->fetch();
 
-    if ($row['decor_name'] == "Royal Icing")
-    {
+    if ($row['decor_name'] == "Royal Icing") {
       $response['decorations']['value'][1] += $decoration['value'];
     }
-    else if ($row['decor_name'] == "Regal Icing")
-    {
+    else if ($row['decor_name'] == "Regal Icing") {
       $response['decorations']['value'][2] += $decoration['value'];
     }
-    else if ($row['decor_name'] == "Butter Cream")
-    {
+    else if ($row['decor_name'] == "Butter Cream") {
       $response['decorations']['value'][3] += $decoration['value'];
     }
-    else if ($row['decor_name'] == "Chocolate")
-    {
+    else if ($row['decor_name'] == "Chocolate") {
       $response['decorations']['value'][4] += $decoration['value'];
     }
-    else if ($row['decor_name'] == "Coconut")
-    {
+    else if ($row['decor_name'] == "Coconut") {
       $response['decorations']['value'][5] += $decoration['value'];
     }
-    else if ($row['decor_name'] == "Other")
-    {
+    else if ($row['decor_name'] == "Other") {
       $response['decorations']['value'][6] += $decoration['value'];
     }
-    else if ($row['decor_name'] == "None")
-    {
+    else if ($row['decor_name'] == "None") {
       $response['decorations']['value'][0] += $decoration['value'];
     }
   }
@@ -182,8 +167,7 @@
   // For each cake ID, get the cake details
   // from the database and add its popularity to
   // the response
-  foreach ($cakes as $cake)
-  {
+  foreach ($cakes as $cake) {
     $query = "
       SELECT
         *
@@ -201,54 +185,42 @@
 
     $row = $db->fetch();
 
-    if ($row['cake_size'] == "6\"")
-    {
+    if ($row['cake_size'] == "6\"") {
       $response['cakes']['value'][0] += $cake['value'];
     }
-    else if ($row['cake_size'] == "8\"")
-    {
+    else if ($row['cake_size'] == "8\"") {
       $response['cakes']['value'][1] += $cake['value'];
     }
-    else if ($row['cake_size'] == "10\"")
-    {
+    else if ($row['cake_size'] == "10\"") {
       $response['cakes']['value'][2] += $cake['value'];
     }
-    else if ($row['cake_size'] == "12\"")
-    {
+    else if ($row['cake_size'] == "12\"") {
       $response['cakes']['value'][3] += $cake['value'];
     }
-    else if ($row['cake_size'] == "14\"")
-    {
+    else if ($row['cake_size'] == "14\"") {
       $response['cakes']['value'][4] += $cake['value'];
     }
 
-    if ($row['cake_type'] == "Sponge")
-    {
+    if ($row['cake_type'] == "Sponge") {
       $response['cakes']['value'][5] += $cake['value'];
     }
-    else if ($row['cake_type'] == "Marble")
-    {
+    else if ($row['cake_type'] == "Marble") {
       $response['cakes']['value'][6] += $cake['value'];
     }
-    else if ($row['cake_type'] == "Chocolate")
-    {
+    else if ($row['cake_type'] == "Chocolate") {
       $response['cakes']['value'][7] += $cake['value'];
     }
-    else if ($row['cake_type'] == "Fruit")
-    {
+    else if ($row['cake_type'] == "Fruit") {
       $response['cakes']['value'][8] += $cake['value'];
     }
   }
 
   // For each month, add its popularity to the response
-  for ($i = 0; $i < 12; $i++)
-  {
-    if ($months[$i]) 
-    {
+  for ($i = 0; $i < 12; $i++) {
+    if ($months[$i]) {
       $response['orders']['values'][$i]["Y"] = $months[$i];
     } 
-    else 
-    {
+    else {
       $response['orders']['values'][$i]["Y"] = 0;
     }
   }

@@ -7,8 +7,7 @@
   $title = "Stats";
 
   // Only the admin user can access this page
-  if (empty($_SESSION) or $_SESSION['user']['username'] != "admin")
-  {
+  if (empty($_SESSION) or $_SESSION['user']['username'] != "admin") {
     header("Location: ../home/");
     die();
   }
@@ -28,15 +27,12 @@
 
   $rows = $db->fetchAll();
 
-  foreach ($rows as $row)
-  {
+  foreach ($rows as $row) {
     // Calculate orders per customer & completed/outstanding
-    if ($row['completed'] === "0")
-    {
+    if ($row['completed'] === "0") {
       $outstanding_orders++;
     } 
-    else if ($row['completed'] === "1")
-    {
+    else if ($row['completed'] === "1") {
       $completed_orders++;
     }
     $orders++;

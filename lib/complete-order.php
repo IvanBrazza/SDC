@@ -4,8 +4,7 @@
   **/
   require("common.php");
 
-  if (!empty($_POST))
-  {
+  if (!empty($_POST)) {
     $query = "
       UPDATE
         orders
@@ -51,8 +50,7 @@
     header("Location: ../all-orders/?completed=success");
     die();
   }
-  else
-  {
+  else {
     die("Error completing order");
   }
 ?>

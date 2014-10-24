@@ -7,8 +7,7 @@
 
   forceHTTPS();
 
-  if ($_GET)
-  {
+  if ($_GET) {
     $query = "
       SELECT
         a.*,
@@ -41,8 +40,7 @@
     $db->runQuery($query, $query_params);
     $row = $db->fetch();
 
-    if ($row['delivery_type'] == "Deliver To Address")
-    {
+    if ($row['delivery_type'] == "Deliver To Address") {
       $query = "
         SELECT
           delivery_charge
@@ -62,8 +60,7 @@
       $row['delivery_charge'] = $temp['delivery_charge'];
     }
   }
-  else
-  {
+  else {
     header("Location: ../oops");
     die();
   }

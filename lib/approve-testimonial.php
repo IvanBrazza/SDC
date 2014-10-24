@@ -5,11 +5,9 @@
   **/
   require("common.php");
 
-  if ($_POST)
-  {
+  if ($_POST) {
     // If the token is invalid, die
-    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
-    {
+    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token'])) {
       echo "Invalid token.";
       die();
     }
@@ -39,11 +37,10 @@
       "response" => "success",
       "token" => $_SESSION['token']
     );
-    echo json_encode($response);;
+    echo json_encode($response);
     die();
   }
-  else
-  {
+  else {
     echo "Oops! Something went wrong. Try again.";
     die("Error deleting testimonal");
   }

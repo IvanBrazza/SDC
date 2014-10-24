@@ -2,10 +2,8 @@
   require("../common.php");
 
   // If the form was submitted
-  if ($_POST)
-  {
-    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
-    {
+  if ($_POST) {
+    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token'])) {
       echo "Invalid token.";
       die();
     }
@@ -15,8 +13,7 @@
 
     // If we're inserting an order for a customer that
     // isn't registered on the site
-    if ($_POST['existing_id'] === "null")
-    {
+    if ($_POST['existing_id'] === "null") {
       // Insert the customer into the users table
       $query = "
         INSERT INTO users(
@@ -64,8 +61,7 @@
 
       $row = $db->fetch();
     }
-    else
-    {
+    else {
       $query = "
         SELECT
           address,
@@ -110,8 +106,7 @@
     // Generate order number and make sure it is unique
     $order_number_unique  = false;
     
-    do
-    {
+    do {
       $order_number   = "m" . rand(10000,99999);
       
       $query = "
@@ -193,12 +188,10 @@
     
     // If new customer use the ID from the DB,
     // Else use the one from the form
-    if ($_POST['existing_id'] === "null")
-    {
+    if ($_POST['existing_id'] === "null") {
       $customer_id = $row['customer_id'];
     }
-    else
-    {
+    else {
       $customer_id = $_POST['existing_id'];
     }
     $order_placed     = date('Y-m-d H:i:s');
@@ -223,8 +216,7 @@
     $db->runQuery($query, $query_params);
 
     // If the order is for delivery
-    if ($_POST['delivery'] === "Deliver To Address")
-    {
+    if ($_POST['delivery'] === "Deliver To Address") {
       // Calculate the delivery charge
       include "../delivery.class.php";
       $delivery = new Delivery;

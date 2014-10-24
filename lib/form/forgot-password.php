@@ -8,10 +8,8 @@
   $email = new Email;
 
   // If the form has been submitted
-  if ($_POST)
-  {
-    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token']))
-    {
+  if ($_POST) {
+    if ($_POST['token'] != $_SESSION['token'] or empty($_POST['token'])) {
       $response = array(
         'status' => "Invalid token.",
         'token'  => $_SESSION['token']
@@ -43,9 +41,7 @@
     // If the email isn't in the DB, $row will be empty, therefore
     // redirect to an error.
     // ELSE, generate a new password and email it to the user.
-    if (!$row)
-    {
-      
+    if (!$row) {
       $response = array(
         'status' => 'Email doesn\'t exist.',
         'token'  => $_SESSION['token']
@@ -53,14 +49,12 @@
       echo json_encode($response);
       die();
     }
-    else
-    {
+    else {
       $salt = dechex(mt_rand(0, 2147483647)) . dechex(mt_rand(0, 2147483647)); // Generate a new salt
       $plainpassword = uniqid(); // Generate a new password using PHP's uniqid() function
       $password = hash('sha256', $plainpassword . $salt); // Hash the new password with the new salt
       // Hash the password another 65536 times
-      for ($i = 0; $i < 65536; $i++)
-      {
+      for ($i = 0; $i < 65536; $i++) {
         $password = hash('sha256', $password . $salt);
       }
 
